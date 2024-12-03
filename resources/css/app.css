@@ -6,7 +6,7 @@
     --accent-color: #243060;
     --white-color: #fff;
     --support-color: #F2F2F2;
-    --base-text-color: #121214;
+    --template-color: #121214;
     --comment-color: #555557;
     --button-color: #2F3A68;
 }
@@ -28,6 +28,7 @@
 .small-text{
     font-size: 14px;
 }
+/* ----------------------------------------------------------------------------- */
 #full-header {
     position: fixed;             
     top: 0;
@@ -37,7 +38,8 @@
     background-color: var(--accent-color);
     color: white;
     display: flex;                 
-    opacity: 0;                    
+    opacity: 0;   
+    z-index: 10;                 
     transform: translateY(-100%);  
     transition: transform 1s cubic-bezier(0.4, 0, 0.2, 1), opacity 1s cubic-bezier(0.4, 0, 0.2, 1);
 }
@@ -51,4 +53,113 @@ body {
     font-weight: 400;
     font-style: normal;
   }
-  
+  /* --------------------------------------------------------- */
+  .carousel-container {
+    position: relative;
+    overflow: hidden;
+}
+
+.carousel-wrapper {
+    display: flex;
+    transition: transform 0.7s ease-in-out; /* Плавный переход */
+}
+
+.carousel-item {
+    flex: 0 0 100%;  /* Каждый слайд занимает 100% ширины контейнера */
+}
+
+.carousel-prev, .carousel-next {
+    background-color: rgba(0, 0, 0, 0.5);
+    color: white;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: background-color 0.3s ease;
+}
+
+.carousel-prev:focus, .carousel-next:focus {
+    outline: none;
+}
+
+.carousel-prev:hover, .carousel-next:hover {
+    background-color: rgba(0, 0, 0, 0.7);  /* Потемнение кнопок при наведении */
+}
+
+.carousel-dots {
+    display: flex;
+    justify-content: center;
+    margin-top: 10px;
+}
+
+.dot {
+    width: 10px;
+    height: 10px;
+    background-color: #ccc; /* Цвет точек по умолчанию */
+    border-radius: 50%;
+    margin: 0 5px;
+    transition: background-color 0.3s ease, box-shadow 0.3s ease; /* Плавное изменение фона и обводки */
+}
+
+/* Стили для активной точки */
+.dot.bg-blue-500 {
+    background-color: white; /* Цвет активной точки */
+    box-shadow: 0 0 0 3px #fff; /* Белая обводка снаружи точки */
+}
+
+/* Стили для обычной точки */
+.dot.bg-gray-400 {
+    background-color: #ccc;
+}
+
+/* Эффект при наведении на точку */
+.dot:hover {
+    background-color: #777; /* Цвет при наведении */
+}
+/* ------------------------------------------------------------- */
+#slider-wrapper {
+    position: relative;
+    overflow: hidden; /* Чтобы скрыть лишние слайды при прокрутке */
+}
+
+#slider {
+    display: flex;
+    transition: transform 0.5s ease-in-out;
+}
+
+#slider .slide {
+    flex: 0 0 auto; /* Слайды будут занимать только необходимую ширину */
+    transition: transform 0.5s ease-in-out;
+}
+
+#slider .slide.show {
+    display: block;
+}
+
+
+  /* --------------------------------------------------------- */
+  .list-marker{
+    @apply relative pl-[5px] before:content-['-'] before:absolute before:left-[-10px] before:top-0
+  }
+  .button-service{
+    @apply w-[55px] h-[55px] bg-[var(--white-color)] rounded-full flex justify-center items-center text-[var(--accent-color)];
+    box-shadow: 0 5px 10px rgba(0, 0, 0, 0.5);
+  }
+  @media (max-width: 1400px){
+    .title-2{
+        font-size: 40px;
+    }
+    .base-text{
+        font-size: 18px;
+    }
+  }
+  @media (max-width: 1200px){
+    .title{
+        font-size: 40px;
+    }
+    .title-2{
+        font-size: 35px;
+    }
+    .base-text{
+        font-size: 14px;
+    }
+  }
