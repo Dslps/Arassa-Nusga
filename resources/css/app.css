@@ -7,14 +7,20 @@
     --white-color: #fff;
     --support-color: #F2F2F2;
     --template-color: #121214;
-    --comment-color: #555557;
+    --comment-color: #757575;
+    --price-color: #A3CD00;
     --button-color: #2F3A68;
 }
+html {
+    scroll-behavior: smooth;
+}
 .title{
-    font-size: 60px;
+    font-size: 55px;
+    font-weight: 600;
 }
 .title-2{
-    font-size: 48px;
+    font-size: 46px;
+    font-weight: 800;
 }
 .projet-size-text{
     font-size: 30px;
@@ -23,11 +29,13 @@
     font-size: 24px;
 }
 .base-text{
-    font-size: 20px;
+    font-size: 16px;
+    font-weight: 600;
 }
 .small-text{
     font-size: 14px;
 }
+
 /* ----------------------------------------------------------------------------- */
 #full-header {
     position: fixed;             
@@ -47,11 +55,22 @@
     opacity: 1;                     
     transform: translateY(0); 
 }
+#carousel-content-certificates {
+    display: flex;
+    transition: transform 0.7s ease; 
+}
+.nav-link{
+    @apply relative text-current
+    before:content-[''] before:absolute before:top-full before:left-0 before:mt-[5px]
+    before:h-[2px] before:bg-[var(--accent-color)]
+    before:w-0 before:transition-[width] before:duration-300 hover:before:w-full
+}
 body {
     font-family: "Onest", serif;
     font-optical-sizing: auto;
     font-weight: 400;
     font-style: normal;
+    color: var(--template-color);
   }
   /* --------------------------------------------------------- */
   .carousel-container {
@@ -61,11 +80,11 @@ body {
 
 .carousel-wrapper {
     display: flex;
-    transition: transform 0.7s ease-in-out; /* Плавный переход */
+    transition: transform 0.7s ease-in-out; 
 }
 
 .carousel-item {
-    flex: 0 0 100%;  /* Каждый слайд занимает 100% ширины контейнера */
+    flex: 0 0 100%;  
 }
 
 .carousel-prev, .carousel-next {
@@ -82,59 +101,75 @@ body {
 }
 
 .carousel-prev:hover, .carousel-next:hover {
-    background-color: rgba(0, 0, 0, 0.7);  /* Потемнение кнопок при наведении */
+    background-color: rgba(0, 0, 0, 0.7);  
 }
 
 .carousel-dots {
     display: flex;
     justify-content: center;
-    margin-top: 10px;
 }
 
 .dot {
     width: 10px;
     height: 10px;
-    background-color: #ccc; /* Цвет точек по умолчанию */
+    background-color: #ccc; 
     border-radius: 50%;
     margin: 0 5px;
-    transition: background-color 0.3s ease, box-shadow 0.3s ease; /* Плавное изменение фона и обводки */
+    transition: background-color 0.3s ease, box-shadow 0.3s ease; 
 }
 
-/* Стили для активной точки */
 .dot.bg-blue-500 {
-    background-color: white; /* Цвет активной точки */
-    box-shadow: 0 0 0 3px #fff; /* Белая обводка снаружи точки */
+    background-color: white; 
+    box-shadow: 0 0 0 3px #fff; 
 }
 
-/* Стили для обычной точки */
 .dot.bg-gray-400 {
     background-color: #ccc;
 }
 
-/* Эффект при наведении на точку */
 .dot:hover {
-    background-color: #777; /* Цвет при наведении */
+    background-color: #777; 
 }
-/* ------------------------------------------------------------- */
+/* --------------------------слайдеры----------------------------------- */
+/* сдайдер для шапки домашней страницы */
 #slider-wrapper {
     position: relative;
-    overflow: hidden; /* Чтобы скрыть лишние слайды при прокрутке */
+    overflow: hidden; 
 }
 
 #slider {
     display: flex;
     transition: transform 0.5s ease-in-out;
 }
-
 #slider .slide {
-    flex: 0 0 auto; /* Слайды будут занимать только необходимую ширину */
+    flex: 0 0 auto; 
     transition: transform 0.5s ease-in-out;
 }
-
+/* слайдер для проектов на главной странице */
 #slider .slide.show {
     display: block;
 }
-
+#carousel-container {
+    overflow: hidden; 
+  }
+  
+  #carousel-content {
+    display: flex;
+    transition: transform 0.5s ease-in-out; 
+  }
+  
+  #carousel-content > div {
+    flex-shrink: 0;
+  }
+/* слайдер для сертификатов */
+#carousel-content-certificates {
+    display: flex;
+    transition: transform 0.7s ease; 
+}
+/* ----------------------------------------- */
+.hidden {
+    display: none;
+}
 
   /* --------------------------------------------------------- */
   .list-marker{
@@ -142,14 +177,22 @@ body {
   }
   .button-service{
     @apply w-[55px] h-[55px] bg-[var(--white-color)] rounded-full flex justify-center items-center text-[var(--accent-color)];
-    box-shadow: 0 5px 10px rgba(0, 0, 0, 0.5);
   }
+  .hover-button{
+    @apply hover:bg-[#242d50] duration-300;
+  }
+  /* -------------------------------------------------------- */
+.slider-button{
+    @apply relative top-0 end-0 z-30 flex items-center justify-center w-[50px] h-[50px] rounded-full hover:shadow-[0_5px_10px_var(--accent-color)] px-4 cursor-pointer  focus:outline-none duration-300;
+}
+  
+/* ---------------------------------- */
   @media (max-width: 1400px){
+    .title{
+        font-size: 50px;
+    }
     .title-2{
         font-size: 40px;
-    }
-    .base-text{
-        font-size: 18px;
     }
   }
   @media (max-width: 1200px){
@@ -161,5 +204,30 @@ body {
     }
     .base-text{
         font-size: 14px;
+    }
+  }
+  @media (max-width: 1024px){
+    .title{
+        font-size: 35px;
+    }
+    .title-2{
+        font-size: 30px;
+    }
+    .base-text{
+        font-size: 14px;
+    }
+  }
+  @media (max-width: 640px){
+    .title{
+        font-size: 30px;
+    }
+    .title-2{
+        font-size: 22px;
+    }
+    .base-text{
+        font-size: 14px;
+    }
+    .small-text{
+        font-size: 10px;
     }
   }

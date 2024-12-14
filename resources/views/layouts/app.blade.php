@@ -12,8 +12,8 @@
 </head>
 
 <body>
-    <header class="w-full max-w-[2000px] mx-auto h-[140px] z-10">
-        <nav class="w-full flex h-[140px] small-text">
+    <header class="w-full max-w-[2000px] mx-auto lg:h-[15vh] h-[140px] z-10"  id="top">
+        <nav class="w-full flex h-full small-text">
             <div class="lg:w-[800px] bg-[var(--accent-color)] h-full flex items-center px-[50px] xl:px-[100px] w-full">
                 <div class="">
                     <!-- Кнопка для открытия хедера -->
@@ -22,33 +22,72 @@
                     </button>
                 </div>
 
-                <a href="">
-                    <img class="w-[160px] h-[40px] ml-[20px] xl:w-[170px] xl:h-[45px] xl:ml-[20px] 2xl:w-[200px] 2xl:h-[50px] 2xl:ml-[40px]"
+                <a href="{{route('home')}}">
+                    <img class="w-[160px] h-[40px] xl:w-[180px] xl:h-[50px] 2xl:w-[200px] 2xl:h-[50px] ml-[20px] xl:ml-[20px]  2xl:ml-[40px]"
                         src="{{ asset('img/logo.png') }}" alt="">
                 </a>
 
                 <div class="flex text-[var(--white-color)] gap-[5px] ml-auto">
-                    <p><a href="#">Rus</a></p>
+                    <p class=" font-semibold"><a href="#">Rus</a></p>
                     <span>/</span>
-                    <p><a href="#">Tm</a></p>
+                    <p class=" font-semibold"><a href="#">Tm</a></p>
                     <span>/</span>
-                    <p><a href="#">Eng</a></p>
+                    <p class=" font-semibold"><a href="#">Eng</a></p>
                 </div>
             </div>
             <div class="lg:flex items-center justify-between px-[50px] xl:px-[100px] w-[1120px] hidden">
                 <div class="flex gap-[5px]">
-                    <p><a href="">Главная</a></p>
-                    <span class=" font-black text-[var(--comment-color)]">//</span>
-                    <p><a href="">Услуги</a></p>
-                    <span class=" font-black text-[var(--comment-color)]">//</span>
-                    <p><a href="">О нас</a></p>
-                    <span class=" font-black text-[var(--comment-color)]">//</span>
-                    <p><a href="">Блог</a></p>
-                    <span class=" font-black text-[var(--comment-color)]">//</span>
-                    <p><a href="">Проекты</a></p>
+                    <p class="font-semibold relative inline-block">
+                        <a href="{{route('home')}}" class="nav-link {{ Request::routeIs('home') ? 'before:w-full' : '' }}">
+                            Главная
+                        </a>
+                    </p>
+                    
+                    
+                    
+                    <span class=" font-black text-[var(--accent-color)]">//</span>
+                    <div class="relative group">
+                        <!-- Основная кнопка -->
+                        <p class="font-semibold relative inline-block">
+                            <a href="{{route('bitrix24')}}" class="nav-link {{ Request::routeIs('bitrix24') ? 'before:w-full' : '' }}">
+                                Услуги
+                            </a>
+                        </p>
+                    
+                        <!-- Выпадающий список -->
+                        <div class="absolute z-[2] left-1/2 transform -translate-x-1/2 mt-2 w-[250px] bg-[var(--accent-color)] text-[var(--white-color)] rounded-md shadow-lg opacity-0 group-hover:opacity-100 invisible group-hover:visible transition-all duration-200 p-[15px]">
+                            <a href="{{asset('bitrix24')}}" class="block px-4 py-2 text-[var(--white-color)">Битрикс 24</a>
+                            <a href="{{asset('bitrix24')}}" class="block px-4 py-2 text-[var(--white-color)">Мобильные приложения</a>
+                            <a href="{{asset('bitrix24')}}" class="block px-4 py-2 text-[var(--white-color)">Разработка сайтов</a>
+                            <a href="{{asset('bitrix24')}}" class="block px-4 py-2 text-[var(--white-color)">Антивирусы</a>
+                        </div>
+                    </div>
+                    
+                    <span class=" font-black text-[var(--accent-color)]">//</span>
+                    <p class="font-semibold relative inline-block">
+                        <a href="{{route('about-us')}}" class="nav-link {{ Request::routeIs('about-us') ? 'before:w-full' : '' }}">
+                            О нас
+                        </a>
+                    </p>
+                    <span class=" font-black text-[var(--accent-color)]">//</span>
+                    <p class="font-semibold relative inline-block">
+                        <a href="{{route('blog')}}" class="nav-link {{ Request::routeIs('blog') ? 'before:w-full' : '' }}">
+                            Блог
+                        </a>
+                    </p>
+                    <span class=" font-black text-[var(--accent-color)]">//</span>
+                    <p class="font-semibold relative inline-block">
+                        <a href="{{route('project')}}" class="nav-link {{ Request::routeIs('project') ? 'before:w-full' : '' }}">
+                            Проекты
+                        </a>
+                    </p>
                 </div>
                 <div>
-                    <p>+993-(71)-55-66-84</p>
+                    <p class="font-semibold relative inline-block">
+                        <a href="{{route('contact')}}" class="nav-link {{ Request::routeIs('contact') ? 'before:w-full' : '' }}">
+                            +993-(71)-55-66-84
+                        </a>
+                    </p>
                 </div>
             </div>
         </nav>
@@ -80,7 +119,7 @@
         <div class="w-full max-w-[2000px] mx-auto bg-[var(--template-color)] lg:h-[500px] h-max mt-[250px]">
 
             <div class="relative text-[var(--white-color)]">
-                <div class="flex lg:flex-row flex-col justify-between lg:items-center lg:absolute left-[100px] right-[100px] 2xl:mt-[-150px] xl:mt-[-125px] mt-[-100px]  2xl:h-[300px] xl:h-[250px] h-max lg:p-0 p-10 bg-[var(--accent-color)]">
+                <div class="flex lg:flex-row flex-col justify-between lg:items-center lg:absolute left-[100px] right-[100px] 2xl:mt-[-150px] xl:mt-[-125px] mt-[-100px]  2xl:h-[300px] xl:h-[250px] h-max lg:p-0 p-5 bg-[var(--accent-color)]">
                     <div class="xl:ml-[90px] lg:ml-[50px] m-auto  flex items-center">
                         <div class="w-full lg:max-w-[400px]">
                             <p class="title-2 text-center lg:text-start">Начнем сотруднечество</p>
@@ -92,8 +131,8 @@
                             <p class="base-text">Напишите нам сообщение — и наш менеджер свяжется с вами в ближайшее время. Мы поможем воплотить ваши проекты в жизнь и сделать их максимально успешными!</p>
                         </div>
                     </div>
-                    <a href="">
-                        <div class="flex justify-center items-center h-[50px] lg:w-[200px] lg:h-[200px] xl:w-[250px] xl:h-[250px] 2xl:h-[300px] 2xl:w-[300px] bg-[var(--button-color)] text-[var(--white-color)]">
+                    <a class="" href="">
+                        <div class="hover-button flex justify-center items-center h-[50px] lg:w-[200px] lg:h-[200px] xl:w-[250px] xl:h-[250px] 2xl:h-[300px] 2xl:w-[300px] bg-[var(--button-color)] text-[var(--white-color)]">
                             <div class="flex items-center base-text">
                                 <p class="">Написать</p>
                                 <i class="ml-[10px] fa-solid fa-arrow-right-long"></i>
@@ -168,6 +207,11 @@
                 </div>
             </div>
         </div>
+        <a href="#top">
+            <div class="w-[50px] h-[50px] fixed bottom-[50px] right-[50px] flex justify-center items-center bg-[var(--accent-color)] rounded-full">
+                <i class="text-[var(--white-color)] fa-solid fa-arrow-up"></i>
+            </div>
+        </a>
     </footer>
 </body>
 
