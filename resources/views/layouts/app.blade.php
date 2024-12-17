@@ -7,12 +7,14 @@
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <title>Document</title>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/gsap.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/ScrollTrigger.min.js"></script>
 
     @vite(['resources/css/app.css', 'resources/js/app.js'])
 </head>
 
 <body>
-    <header class="w-full max-w-[2000px] mx-auto lg:h-[15vh] h-[140px] z-10"  id="top">
+    <header class="header w-full max-w-[2000px] mx-auto lg:h-[15vh] h-[140px] z-10">
         <nav class="w-full flex h-full small-text">
             <div class="lg:w-[800px] bg-[var(--accent-color)] h-full flex items-center px-[50px] xl:px-[100px] w-full">
                 <div class="">
@@ -23,7 +25,7 @@
                 </div>
 
                 <a href="{{route('home')}}">
-                    <img class="w-[160px] h-[40px] xl:w-[180px] xl:h-[50px] 2xl:w-[200px] 2xl:h-[50px] ml-[20px] xl:ml-[20px]  2xl:ml-[40px]"
+                    <img class="w-[120px] h-[30px] sm:w-[160px] sm:h-[40px] xl:w-[180px] xl:h-[50px] 2xl:w-[200px] 2xl:h-[50px] ml-[20px] xl:ml-[20px]  2xl:ml-[40px]"
                         src="{{ asset('img/logo.png') }}" alt="">
                 </a>
 
@@ -35,7 +37,7 @@
                     <p class=" font-semibold"><a href="#">Eng</a></p>
                 </div>
             </div>
-            <div class="lg:flex items-center justify-between px-[50px] xl:px-[100px] w-[1120px] hidden">
+            <div class="lg:flex bg-[var(--white-color)] items-center justify-between px-[50px] xl:px-[100px] w-[1120px] hidden">
                 <div class="flex gap-[5px]">
                     <p class="font-semibold relative inline-block">
                         <a href="{{route('home')}}" class="nav-link {{ Request::routeIs('home') ? 'before:w-full' : '' }}">
@@ -55,11 +57,11 @@
                         </p>
                     
                         <!-- Выпадающий список -->
-                        <div class="absolute z-[2] left-1/2 transform -translate-x-1/2 mt-2 w-[250px] bg-[var(--accent-color)] text-[var(--white-color)] rounded-md shadow-lg opacity-0 group-hover:opacity-100 invisible group-hover:visible transition-all duration-200 p-[15px]">
+                        <div class="absolute z-10 left-1/2 transform -translate-x-1/2 mt-2 w-[250px] bg-[var(--accent-color)] text-[var(--white-color)] rounded-md shadow-lg opacity-0 group-hover:opacity-100 invisible group-hover:visible transition-all duration-200 p-[15px]">
                             <a href="{{asset('bitrix24')}}" class="block px-4 py-2 text-[var(--white-color)">Битрикс 24</a>
-                            <a href="{{asset('bitrix24')}}" class="block px-4 py-2 text-[var(--white-color)">Мобильные приложения</a>
-                            <a href="{{asset('bitrix24')}}" class="block px-4 py-2 text-[var(--white-color)">Разработка сайтов</a>
-                            <a href="{{asset('bitrix24')}}" class="block px-4 py-2 text-[var(--white-color)">Антивирусы</a>
+                            <a href="{{asset('mobile')}}" class="block px-4 py-2 text-[var(--white-color)">Мобильные приложения</a>
+                            <a href="{{asset('web-development')}}" class="block px-4 py-2 text-[var(--white-color)">Разработка сайтов</a>
+                            <a href="{{asset('antiviruses')}}" class="block px-4 py-2 text-[var(--white-color)">Антивирусы</a>
                         </div>
                     </div>
                     
@@ -115,7 +117,7 @@
 
     @yield('content')
 
-    <footer>
+    <footer class="footer-nav">
         <div class="w-full max-w-[2000px] mx-auto bg-[var(--template-color)] lg:h-[500px] h-max mt-[250px]">
 
             <div class="relative text-[var(--white-color)]">
@@ -127,8 +129,8 @@
                     </div>
                     <div class="p-0 lg:p-5 m-auto">
                         <div class="flex items-center max-w-[680px] m-auto py-[10px] lg:py-0">
-                            <p class="title mr-[10px]">//</p>
-                            <p class="base-text">Напишите нам сообщение — и наш менеджер свяжется с вами в ближайшее время. Мы поможем воплотить ваши проекты в жизнь и сделать их максимально успешными!</p>
+                            <p class="title mr-[10px] hidden lg:blog">//</p>
+                            <p class="base-text text-center lg:text-start">Напишите нам сообщение — и наш менеджер свяжется с вами в ближайшее время. Мы поможем воплотить ваши проекты в жизнь и сделать их максимально успешными!</p>
                         </div>
                     </div>
                     <a class="" href="">
@@ -148,28 +150,28 @@
                 <div class="flex-1 p-5">
                     <p class="">Навигация</p>
                     <ul class="list-none pl-[10px] space-y-2.5 mt-5">
-                        <li class="list-marker"><a href="">Главная</a></li>
-                        <li class="list-marker"><a href="">О нас</a></li>
-                        <li class="list-marker"><a href="">Блог</a></li>
-                        <li class="list-marker"><a href="">Проекты</a></li>
+                        <li class="list-marker"><a class="bottom-link {{ Request::routeIs('home') ? 'before:w-full' : '' }}" href="">Главная</a></li>
+                        <li class="list-marker"><a class="bottom-link {{ Request::routeIs('about-us') ? 'before:w-full' : '' }}" href="">О нас</a></li>
+                        <li class="list-marker"><a class="bottom-link {{ Request::routeIs('blog') ? 'before:w-full' : '' }}" href="">Блог</a></li>
+                        <li class="list-marker"><a class="bottom-link {{ Request::routeIs('project') ? 'before:w-full' : '' }}" href="">Проекты</a></li>
                     </ul>
                 </div>
                 {{-- ------------------------ --}}
                 <div class="flex-1 p-5">
                     <p class="">Услуги</p>
                     <ul class="list-none pl-[10px] space-y-2.5 mt-5">
-                        <li class="list-marker"><a href="">Битрикс 24</a></li>
-                        <li class="list-marker"><a href="">Мобильные приложения</a></li>
-                        <li class="list-marker"><a href="">Веб-разработка</a></li>
-                        <li class="list-marker"><a href="">Антивирусы</a></li>
+                        <li class="list-marker"><a class="bottom-link {{ Request::routeIs('bitrix24') ? 'before:w-full' : '' }}" href="">Битрикс 24</a></li>
+                        <li class="list-marker"><a class="bottom-link {{ Request::routeIs('') ? 'before:w-full' : '' }}" href="">Мобильные приложения</a></li>
+                        <li class="list-marker"><a class="bottom-link {{ Request::routeIs('') ? 'before:w-full' : '' }}" href="">Веб-разработка</a></li>
+                        <li class="list-marker"><a class="bottom-link {{ Request::routeIs('') ? 'before:w-full' : '' }}" href="">Антивирусы</a></li>
                     </ul>
                 </div>
                 {{-- ------------------------ --}}
                 <div class="flex-1 p-5">
                     <p class="">Конфиндециальность</p>
                     <ul class="list-none pl-[10px] space-y-2.5 mt-5">
-                        <li class="list-marker"><a href="">Политика</a></li>
-                        <li class="list-marker"><a href="">Договор</a></li>
+                        <li class="list-marker"><a class="bottom-link {{ Request::routeIs('') ? 'before:w-full' : '' }}" href="">Политика</a></li>
+                        <li class="list-marker"><a class="bottom-link {{ Request::routeIs('') ? 'before:w-full' : '' }}" href="">Договор</a></li>
                     </ul>
                 </div>
                 {{-- ------------------------ --}}
@@ -177,41 +179,37 @@
                     <p class="">Контакты</p>
                     <ul class="list-none pl-[10px] space-y-2.5 mt-5">
                         <li>
-                            <a href="">
+                            <a class="bottom-link {{ Request::routeIs('') ? 'before:w-full' : '' }}" href="">
                                 <i class="mr-[10px] fa-regular fa-envelope"></i>
                                 info@arassanusga.com
                             </a>
                         </li>
                         <li>
-                            <a href="">
+                            <a class="bottom-link {{ Request::routeIs('') ? 'before:w-full' : '' }}" href="">
                                 <i class="mr-[10px] fa-solid fa-phone"></i>
                                 +99312754480
                             </a>
                             <span>/</span>
-                            <a href="">+99361648605</a>
+                            <a class="bottom-link {{ Request::routeIs('') ? 'before:w-full' : '' }}" href="">+99361648605</a>
                         </li>
                         <li>
-                            <a href="">
+                            <a class="bottom-link {{ Request::routeIs('') ? 'before:w-full' : '' }}" href="">
                                 <i class="mr-[10px] fa-solid fa-location-dot"></i>
                                 Бизнес-центр Arzuw, ул. Г. Кулиева (Объездная),Ашхабад, Туркменистан
                             </a>
                         </li>
                         <li>
                             <div class="flex gap-[10px]">
-                                <a href=""><i class="fa-brands fa-instagram"></i></a>
-                                <a href=""><i class="fa-brands fa-facebook-f"></i></a>
-                                <a href=""><i class="fa-brands fa-linkedin-in"></i></a>
+                                <a class="bottom-link {{ Request::routeIs('') ? 'before:w-full' : '' }}" href=""><i class="fa-brands fa-instagram"></i></a>
+                                <a class="bottom-link {{ Request::routeIs('') ? 'before:w-full' : '' }}" href=""><i class="fa-brands fa-facebook-f"></i></a>
+                                <a class="bottom-link {{ Request::routeIs('') ? 'before:w-full' : '' }}" href=""><i class="fa-brands fa-linkedin-in"></i></a>
                             </div>
                         </li>
                     </ul>
                 </div>
             </div>
         </div>
-        <a href="#top">
-            <div class="w-[50px] h-[50px] fixed bottom-[50px] right-[50px] flex justify-center items-center bg-[var(--accent-color)] rounded-full">
-                <i class="text-[var(--white-color)] fa-solid fa-arrow-up"></i>
-            </div>
-        </a>
+              
     </footer>
 </body>
 

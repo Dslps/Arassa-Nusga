@@ -5,15 +5,15 @@
     <div class="w-full px-0 lg:px-[60px] 2xl:px-[100px] m-auto mt-[80px] xl:mt-[80px] 2xl:mt-[80px] ">
         <div class="max-w-[2000px] m-auto">
             <div>
-                <p class="title-2 pl-[30px] mb-[60px]">Принципы нашей работы</p>
+                <p class="title-2 pl-0 lg:pl-[30px] lg:text-start text-center mb-[60px]">Принципы нашей работы</p>
             </div>
-            <div class="flex justify-center flex-wrap text-center sm:text-start gap-[30px]">
+            <div class="flex justify-center flex-wrap text-center lg:text-start gap-[30px]">
                 <div class="w-[400px] p-[30px] flex flex-col">
                     <div class="">
-                        <img class="w-[80px]" src="{{ asset('img/about-us/1.png') }}" alt="">
+                        <img class=" lg:m-0 m-auto lg:w-[80px] w-[50px]" src="{{ asset('img/about-us/1.png') }}" alt="">
                     </div>
                     <div>
-                        <p class="relative base-text mt-[20px] mb-[30px] after:content-[''] after:block after:w-[20px] after:h-[2px] after:bg-[var(--accent-color)] after:absolute after:left-0 after:top-full after:mt-[15px]">
+                        <p class="relative base-text mt-[20px] mb-[30px] after:content-[''] after:block after:w-[20px] after:h-[2px] after:bg-[var(--accent-color)] after:absolute lg:after:left-[10px] after:top-full after:mt-[15px]  after:left-1/2 after:translate-x-[-50%]">
                             Партнерские отношения
                         </p>
                            
@@ -24,10 +24,10 @@
                 </div>
                 <div class="w-[400px] p-[30px] flex flex-col">
                     <div class="">
-                        <img class="w-[80px]" src="{{ asset('img/about-us/2.png') }}" alt="">
+                        <img class=" lg:m-0 m-auto lg:w-[80px] w-[50px]" src="{{ asset('img/about-us/2.png') }}" alt="">
                     </div>
                     <div>
-                        <p class="relative base-text mt-[20px] mb-[30px] after:content-[''] after:block after:w-[20px] after:h-[2px] after:bg-[var(--accent-color)] after:absolute after:left-0 after:top-full after:mt-[15px]">
+                        <p class="relative base-text mt-[20px] mb-[30px] after:content-[''] after:block after:w-[20px] after:h-[2px] after:bg-[var(--accent-color)] after:absolute lg:after:left-[10px] after:top-full after:mt-[15px]  after:left-1/2 after:translate-x-[-50%]">
                             Индивидуальный подход
                         </p>
                            
@@ -38,10 +38,10 @@
                 </div>
                 <div class="w-[400px] p-[30px] flex flex-col">
                     <div class="">
-                        <img class="w-[80px]" src="{{ asset('img/about-us/3.png') }}" alt="">
+                        <img class=" lg:m-0 m-auto lg:w-[80px] w-[50px]" src="{{ asset('img/about-us/3.png') }}" alt="">
                     </div>
                     <div>
-                        <p class="relative base-text mt-[20px] mb-[30px] after:content-[''] after:block after:w-[20px] after:h-[2px] after:bg-[var(--accent-color)] after:absolute after:left-0 after:top-full after:mt-[15px]">
+                        <p class="relative base-text mt-[20px] mb-[30px] after:content-[''] after:block after:w-[20px] after:h-[2px] after:bg-[var(--accent-color)] after:absolute lg:after:left-[10px] after:top-full after:mt-[15px]  after:left-1/2 after:translate-x-[-50%]">
                             Командная работа
                         </p>
                            
@@ -52,10 +52,10 @@
                 </div>
                 <div class="w-[400px] p-[30px] flex flex-col">
                     <div class="">
-                        <img class="w-[80px]" src="{{ asset('img/about-us/4.png') }}" alt="">
+                        <img class=" lg:m-0 m-auto lg:w-[80px] w-[50px]" src="{{ asset('img/about-us/4.png') }}" alt="">
                     </div>
                     <div>
-                        <p class="relative base-text mt-[20px] mb-[30px] after:content-[''] after:block after:w-[20px] after:h-[2px] after:bg-[var(--accent-color)] after:absolute after:left-0 after:top-full after:mt-[15px]">
+                        <p class="relative base-text mt-[20px] mb-[30px] after:content-[''] after:block after:w-[20px] after:h-[2px] after:bg-[var(--accent-color)] after:absolute lg:after:left-[10px] after:top-full after:mt-[15px]  after:left-1/2 after:translate-x-[-50%]">
                             Гарантия качества
                         </p>
                            
@@ -77,7 +77,7 @@
 
         <div class="relarive lg:w-max w-full relative lg:ml-auto">
             <div
-                class=" w-full lg:w-[400px] h-max lg:h-[450px] bg-[var(--accent-color)] text-[var(--white-color)] p-10 relative lg:absolute 2xl:left-[-420px] lg:left-[-400px] z-10  2xl:bottom-[50px] lg:bottom-0">
+                class=" w-full lg:w-[400px] h-max lg:h-[450px] bg-[var(--accent-color)] text-[var(--white-color)] p-10 relative lg:absolute 2xl:left-[-420px] lg:left-[-400px] -z-10  2xl:bottom-[50px] lg:bottom-0">
                 <div class="w-full h-full flex flex-col">
                     <div class="mb-auto">
                         <p>Наши достижения</p>
@@ -124,9 +124,9 @@
     <div class="w-full mx-auto max-w-[2000px] m-auto flex mt-[115px] pb-[90px]">
         <div class="w-full lg:px-[100px] px-10">
             <div class="">
-                <p class="title-2">Наше руководство</p>
-                <div class="flex mt-[40px] items-center">
-                    <span class="mr-[10px] text-[36px] font-semibold text-[var(--accent-color)]">//</span>
+                <p class="title-2 lg:text-start text-center">Наше руководство</p>
+                <div class="flex mt-[10px] lg:mt-[40px] lg:justify-start justify-center items-center">
+                    <span class="mr-[10px] text-[36px] font-semibold text-[var(--accent-color)] lg:block hidden">//</span>
                     <p class="base-text">Персонал - гордость нашего бизнеса</p>
                 </div>
             </div>

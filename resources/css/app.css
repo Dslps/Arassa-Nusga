@@ -14,6 +14,13 @@
 html {
     scroll-behavior: smooth;
 }
+header {
+    position: fixed;
+    z-index: auto; 
+    will-change: transform; 
+    box-shadow: 0 5px 20px #121214;
+}
+
 .title{
     font-size: 55px;
     font-weight: 600;
@@ -27,14 +34,63 @@ html {
 }
 .number{
     font-size: 24px;
+    line-height: 22px;
 }
 .base-text{
-    font-size: 16px;
+    font-size: 18px;
     font-weight: 600;
 }
 .small-text{
     font-size: 14px;
 }
+/* элементы создающие эффект шторы */
+.overlay-wrapper {
+    position: relative;
+    background-color: var(--white-color);
+    overflow: hidden;
+}
+
+/* Общие стили для слоёв */
+.overlay1, .overlay2, .overlay3 {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: var(--accent-color); 
+    transform: translateX(0);
+    z-index: 10; 
+    opacity: 1;
+}
+.overlay2 {
+    opacity: 0.7; 
+    z-index: 9; 
+}
+.overlay3 {
+    opacity: 0.4; 
+    z-index: 8; 
+}
+.overlay1.active {
+    animation: slide-out 1.5s cubic-bezier(0.25, 1, 0.5, 1) forwards;
+    animation-delay: 0s;
+}
+.overlay2.active {
+    animation: slide-out 1.5s cubic-bezier(0.25, 1, 0.5, 1) forwards;
+    animation-delay: 0.3s;
+}
+.overlay3.active {
+    animation: slide-out 1.5s cubic-bezier(0.25, 1, 0.5, 1) forwards;
+    animation-delay: 0.6s;
+}
+@keyframes slide-out {
+    0% {
+        transform: translateX(0); 
+    }
+    100% {
+        transform: translateX(-100%); 
+    }
+}
+
 
 /* ----------------------------------------------------------------------------- */
 #full-header {
@@ -63,6 +119,12 @@ html {
     @apply relative text-current
     before:content-[''] before:absolute before:top-full before:left-0 before:mt-[5px]
     before:h-[2px] before:bg-[var(--accent-color)]
+    before:w-0 before:transition-[width] before:duration-300 hover:before:w-full
+}
+.bottom-link{
+    @apply relative text-current
+    before:content-[''] before:absolute before:top-full before:left-0 before:mt-[5px]
+    before:h-[2px] before:bg-[var(--white-color)]
     before:w-0 before:transition-[width] before:duration-300 hover:before:w-full
 }
 body {
@@ -171,6 +233,17 @@ body {
     display: none;
 }
 
+
+
+
+@keyframes shadowPulse {
+    0%, 100% {
+      box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    }
+    50% {
+      box-shadow: 0 10px 15px rgba(0, 0, 0, 0.2);
+    }
+  }
   /* --------------------------------------------------------- */
   .list-marker{
     @apply relative pl-[5px] before:content-['-'] before:absolute before:left-[-10px] before:top-0
@@ -194,6 +267,10 @@ body {
     .title-2{
         font-size: 40px;
     }
+    .number{
+        font-size: 22px;
+    }
+    
   }
   @media (max-width: 1200px){
     .title{
@@ -204,6 +281,9 @@ body {
     }
     .base-text{
         font-size: 14px;
+    }
+    .number{
+        font-size: 18px;
     }
   }
   @media (max-width: 1024px){
@@ -216,6 +296,9 @@ body {
     .base-text{
         font-size: 14px;
     }
+    .number{
+        font-size: 20px;
+    }
   }
   @media (max-width: 640px){
     .title{
@@ -226,6 +309,12 @@ body {
     }
     .base-text{
         font-size: 14px;
+    }
+    .small-text{
+        font-size: 10px;
+    }
+    .number{
+        font-size: 18px;
     }
     .small-text{
         font-size: 10px;

@@ -1,9 +1,9 @@
 @extends('layouts.app')
 @section('content')
 
-<div class="w-full max-w-[2000px] mx-auto">
-    <div class="w-full flex">
-        <div class="lg:w-[800px] h-[660px] bg-[var(--accent-color)]  flex flex-col lg:flex-row lg:items-center  px-10 xl:px-[100px] w-full">
+<div class="w-full max-w-[2000px] pt-[15vh] mx-auto">
+    <div class=" w-full flex">
+        <div class="animate-left lg:w-[800px] h-[660px] bg-[var(--accent-color)]  flex flex-col lg:flex-row lg:items-center  px-10 xl:px-[100px] w-full">
             <div class=" lg:hidden block text-[var(--white-color)] mb-10">
                 <p>Ашхабад</p>
                 <p>Бизнес-центр Arzuw, ул. Г. Кулиева (Объездная),Ашхабад, Туркменистан</p>
@@ -58,7 +58,7 @@
             </form>
             
         </div>
-        <div class="lg:flex w-[1120px] h-[560px] px-[50px] xl:px-[100px] justify-center items-center hidden">
+        <div class="animate-bottom lg:flex w-[1120px] h-[560px] px-[50px] xl:px-[100px] justify-center items-center hidden">
             <div>
                 <p>Ашхабад</p>
                 <p>Бизнес-центр Arzuw, ул. Г. Кулиева (Объездная),Ашхабад, Туркменистан</p>
