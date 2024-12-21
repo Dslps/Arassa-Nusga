@@ -1,19 +1,83 @@
+import 'flowbite';
+
 // ---------------------------------------------------------------------
-// Показ якорной кнопки при скроле
-document.addEventListener("DOMContentLoaded", function () {
-    const scrollButton = document.getElementById("scrollButton");
-    function toggleScrollButton() {
-        if (window.scrollY > 400) {
-            scrollButton.classList.remove("opacity-0", "invisible");
-            scrollButton.classList.add("opacity-80");
-        } else {
-            scrollButton.classList.add("opacity-0", "invisible");
-            scrollButton.classList.remove("opacity-80");
-        }
-    }
-    window.addEventListener("scroll", toggleScrollButton);
-    toggleScrollButton();
+// слайдер на главной странице хедер части
+$(document).ready(function () {
+    // Инициализация Slick
+    $('.carousel-wrapper').slick({
+        slidesToShow: 1,
+        slidesToScroll: 1,
+        arrows: false,
+        autoplay: true,
+        autoplaySpeed: 4000,
+        speed: 1000,
+        infinite: true,
+        // dots: true,
+    });
+    $('.carousel-prev').click(function () {
+        $('.carousel-wrapper').slick('slickPrev');
+    });
+    $('.carousel-next').click(function () {
+        $('.carousel-wrapper').slick('slickNext');
+    });
 });
+// ---------------------------------------------------------------------
+// слайдер на главной странице
+$(document).ready(function () {
+    // Инициализация Slick
+    $('.carousel-project').slick({
+        dots: false,          
+        infinite: true,      
+        speed: 1000,          
+        slidesToShow: 1,      
+        variableWidth: true, 
+        arrows: false,        
+        startMode: true,   
+    });
+    $('.prev').click(function () {
+        $('.carousel-project').slick('slickPrev');
+    });
+    $('.next').click(function () {
+        $('.carousel-project').slick('slickNext');
+    });
+});
+
+// ---------------------------------------------------------------------
+// слайдер на наших партнеров
+$(document).ready(function () {
+    $('.partners').slick({
+        dots: false,          
+        infinite: true,
+        speed: 500,     
+        slidesToShow: 6,      
+        slidesToScroll: 1,    
+        variableWidth: false, 
+        arrows: true,        
+        prevArrow: $('.partners-prev'), 
+        nextArrow: $('.partners-next'), 
+        responsive: [
+            {
+                breakpoint: 1200,
+                settings: {
+                    slidesToShow: 4
+                }
+            },
+            {
+                breakpoint: 768, 
+                settings: {
+                    slidesToShow: 2
+                }
+            },
+            {
+                breakpoint: 480, 
+                settings: {
+                    slidesToShow: 1
+                }
+            }
+        ]
+    });
+});
+
 // ---------------------------------------------------------------------
 // появление хедера в начале прогрузки страницы
 document.addEventListener("DOMContentLoaded", function () {
@@ -32,20 +96,20 @@ document.addEventListener("DOMContentLoaded", function () {
 });
 // ---------------------------------------------------------------------
 // появление слайдера на домашней странице
-document.addEventListener("DOMContentLoaded", function () {
-    gsap.registerPlugin(ScrollTrigger);
-    gsap.from(".carousel-item", {
-        x: "-100%",           
-        opacity: 0,           
-        duration: 1.5,        
-        ease: "power2.out",    
-        scrollTrigger: {
-            trigger: ".carousel-item", 
-            start: "top 80%",        
-            toggleActions: "play none none none",
-        }
-    });
-});
+// document.addEventListener("DOMContentLoaded", function () {
+//     gsap.registerPlugin(ScrollTrigger);
+//     gsap.from(".carousel-item", {
+//         x: "-100%",           
+//         opacity: 0,           
+//         duration: 1.5,        
+//         ease: "power2.out",    
+//         scrollTrigger: {
+//             trigger: ".carousel-item", 
+//             start: "top 80%",        
+//             toggleActions: "play none none none",
+//         }
+//     });
+// });
 
 // ---------------------------------------------------------------------
 // нижний блок управления слайдером на домашней странице
@@ -75,13 +139,14 @@ document.addEventListener("DOMContentLoaded", () => {
         });
     }, { threshold: 0.3 });
 
-    const blocks = document.querySelectorAll(".header, .carousel-item, .carousel-controller, .animate-block, .animate-image, .animate-text, .animate-left, animate-bottom, animate-block-partners");
+    // const blocks = document.querySelectorAll(".header, .carousel-item, .carousel-controller, .animate-block, .animate-image, .animate-text, .animate-left, animate-bottom, animate-block-partners");
+    const blocks = document.querySelectorAll(".header, .carousel-controller, .animate-block, .animate-image, .animate-text, .animate-left, animate-bottom, animate-block-partners");
     blocks.forEach((block) => {
         observer.observe(block);
     });
 });
 // ---------------------------------------------------------------------
-// Анимация появления блоков 
+// Анимация появления блоков списка услуг или оплаты
 document.addEventListener("DOMContentLoaded", function () {
     gsap.registerPlugin(ScrollTrigger);
     gsap.from(".animate-block", {
@@ -97,9 +162,8 @@ document.addEventListener("DOMContentLoaded", function () {
         }
     });
 });
-
 // ---------------------------------------------------------------------
-// скрипт для создания эффекта штор
+// эффект штор на главной странице
 document.addEventListener("DOMContentLoaded", () => {
     const observer = new IntersectionObserver((entries) => {
         entries.forEach((entry) => {
@@ -262,62 +326,7 @@ closeButton.addEventListener('click', () => {
     console.log('Header closed');
 });
 // ---------------------------------------------------------------------
-// Слайдер для блока с партнерами 
-document.addEventListener('DOMContentLoaded', function () {
-    const customPrevButton = document.getElementById('carousel-prev-certificates');
-    const customNextButton = document.getElementById('carousel-next-certificates');
-    const customCarouselContent = document.getElementById('carousel-content-certificates');
-    const customItems = Array.from(customCarouselContent.children);
-    
-    let customItemWidth = customItems[0].offsetWidth; 
-    let customGap = parseInt(getComputedStyle(customCarouselContent).gap) || 0;
-    let customVisibleItems = 1; 
-    let customCurrentIndex = 0;
-
-    function updateCustomCarouselPosition() {
-        const customContainerWidth = customCarouselContent.parentElement.offsetWidth;
-        customItemWidth = customItems[0].offsetWidth + customGap; 
-        customVisibleItems = Math.floor(customContainerWidth / customItemWidth); 
-
-        const customMaxIndex = customItems.length - customVisibleItems;
-        customCurrentIndex = Math.min(customCurrentIndex, customMaxIndex);
-
-        const customOffset = customCurrentIndex * customItemWidth; 
-        customCarouselContent.style.transform = `translateX(-${customOffset}px)`; 
-    }
-
-    function updateCustomButtons() {
-        customPrevButton.disabled = customCurrentIndex <= 0; 
-        customNextButton.disabled = customCurrentIndex >= customItems.length - customVisibleItems; 
-    }
-
-    customNextButton.addEventListener('click', function () {
-        const customMaxIndex = customItems.length - customVisibleItems; 
-        if (customCurrentIndex < customMaxIndex) {
-            customCurrentIndex++;
-            updateCustomCarouselPosition();
-            updateCustomButtons();
-        }
-    });
-
-    customPrevButton.addEventListener('click', function () {
-        if (customCurrentIndex > 0) {
-            customCurrentIndex--;
-            updateCustomCarouselPosition();
-            updateCustomButtons();
-        }
-    });
-
-    window.addEventListener('resize', function () {
-        updateCustomCarouselPosition();
-        updateCustomButtons();
-    });
-
-    updateCustomCarouselPosition();
-    updateCustomButtons();
-});
-// ---------------------------------------------------------------------
-// Кнопка показа доп проектов
+// Кнопка показа дополнительных проектов
     document.addEventListener('DOMContentLoaded', function() {
         const loadMoreButton = document.getElementById('loadMoreButton');
         const projectItems = document.querySelectorAll('.project-item');
@@ -346,32 +355,29 @@ document.addEventListener('DOMContentLoaded', function () {
 const items = document.querySelectorAll('.item');
 const loadMoreBtn = document.getElementById('loadMoreBtn');
 
-let visibleCount = 4; // Количество видимых элементов
-
-// Скрываем все элементы, кроме первых 4
+let visibleCount = 4; 
 function updateItemsDisplay() {
     items.forEach((item, index) => {
         if (index < visibleCount) {
-            item.style.display = 'flex'; // Показываем элемент
+            item.style.display = 'flex';
         } else {
-            item.style.display = 'none'; // Скрываем элемент
+            item.style.display = 'none'; 
         }
     });
 }
-
-// Обработчик клика по кнопке
 loadMoreBtn.addEventListener('click', () => {
-    visibleCount += 4; // Увеличиваем количество видимых элементов на 4
-    updateItemsDisplay(); // Обновляем отображение элементов
+    visibleCount += 4; 
+    updateItemsDisplay();
 
-    // Если все элементы показаны, скрываем кнопку
+ 
     if (visibleCount >= items.length) {
         loadMoreBtn.style.display = 'none';
     }
 });
-
-// Инициализируем отображение элементов
 updateItemsDisplay();
+
+// ------------------------
+
 
 
 

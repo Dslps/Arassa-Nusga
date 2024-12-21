@@ -7,61 +7,41 @@
             <div>
                 <p class="title-2 pl-0 lg:pl-[30px] lg:text-start text-center mb-[60px]">Принципы нашей работы</p>
             </div>
-            <div class="flex justify-center flex-wrap text-center lg:text-start gap-[30px]">
-                <div class="w-[400px] p-[30px] flex flex-col">
-                    <div class="">
-                        <img class=" lg:m-0 m-auto lg:w-[80px] w-[50px]" src="{{ asset('img/about-us/1.png') }}" alt="">
-                    </div>
-                    <div>
-                        <p class="relative base-text mt-[20px] mb-[30px] after:content-[''] after:block after:w-[20px] after:h-[2px] after:bg-[var(--accent-color)] after:absolute lg:after:left-[10px] after:top-full after:mt-[15px]  after:left-1/2 after:translate-x-[-50%]">
-                            Партнерские отношения
-                        </p>
-                           
-                        <div class="small-text font-semibold text-[var(--comment-color)]">
-                            Наша компания всегда нацелена на совместное развитие, поэтому у нас много партнеров по всему миру.
-                        </div>
+            <div class="grid lg:text-start text-center grid-cols-1 sm:grid-cols-2 lg:grid-cols-4">
+                <div class="flex flex-col p-4">
+                    <img class="lg:w-[80px] w-[50px] lg:mx-0 mx-auto" src="{{ asset('img/about-us/1.png') }}" alt="">
+                    <p class="relative base-text mt-[20px] mb-[30px] after:content-[''] after:block after:w-[20px] after:h-[2px] after:bg-[var(--accent-color)] after:absolute lg:after:left-[10px] after:top-full after:mt-[15px]  after:left-1/2 after:translate-x-[-50%]">
+                        Партнерские отношения
+                    </p>
+                    <div class="small-text font-semibold text-[var(--comment-color)]">
+                        Наша компания всегда нацелена на совместное развитие, поэтому у нас много партнеров по всему миру.
                     </div>
                 </div>
-                <div class="w-[400px] p-[30px] flex flex-col">
-                    <div class="">
-                        <img class=" lg:m-0 m-auto lg:w-[80px] w-[50px]" src="{{ asset('img/about-us/2.png') }}" alt="">
-                    </div>
-                    <div>
-                        <p class="relative base-text mt-[20px] mb-[30px] after:content-[''] after:block after:w-[20px] after:h-[2px] after:bg-[var(--accent-color)] after:absolute lg:after:left-[10px] after:top-full after:mt-[15px]  after:left-1/2 after:translate-x-[-50%]">
-                            Индивидуальный подход
-                        </p>
-                           
-                        <div class="small-text font-semibold text-[var(--comment-color)]">
-                            В своей работе мы всегда ориентируемся и учитываем индивидуальные особенности каждого клиента.
-                        </div>
+                <div class="flex flex-col p-4">
+                    <img class="lg:w-[80px] w-[50px] lg:mx-0 mx-auto" src="{{ asset('img/about-us/2.png') }}" alt="">
+                    <p class="relative base-text mt-[20px] mb-[30px] after:content-[''] after:block after:w-[20px] after:h-[2px] after:bg-[var(--accent-color)] after:absolute lg:after:left-[10px] after:top-full after:mt-[15px]  after:left-1/2 after:translate-x-[-50%]">
+                        Индивидуальный подход
+                    </p>
+                    <div class="small-text font-semibold text-[var(--comment-color)]">
+                        В своей работе мы всегда ориентируемся и учитываем индивидуальные особенности каждого клиента.
                     </div>
                 </div>
-                <div class="w-[400px] p-[30px] flex flex-col">
-                    <div class="">
-                        <img class=" lg:m-0 m-auto lg:w-[80px] w-[50px]" src="{{ asset('img/about-us/3.png') }}" alt="">
-                    </div>
-                    <div>
-                        <p class="relative base-text mt-[20px] mb-[30px] after:content-[''] after:block after:w-[20px] after:h-[2px] after:bg-[var(--accent-color)] after:absolute lg:after:left-[10px] after:top-full after:mt-[15px]  after:left-1/2 after:translate-x-[-50%]">
-                            Командная работа
-                        </p>
-                           
-                        <div class="small-text font-semibold text-[var(--comment-color)]">
-                            Наша команда объединяет знания многих сертифицированных профессионалов из разных отраслей.
-                        </div>
+                <div class="flex flex-col p-4">
+                    <img class="lg:w-[80px] w-[50px] lg:mx-0 mx-auto" src="{{ asset('img/about-us/3.png') }}" alt="">
+                    <p class="relative base-text mt-[20px] mb-[30px] after:content-[''] after:block after:w-[20px] after:h-[2px] after:bg-[var(--accent-color)] after:absolute lg:after:left-[10px] after:top-full after:mt-[15px]  after:left-1/2 after:translate-x-[-50%]">
+                        Командная работа
+                    </p>
+                    <div class="small-text font-semibold text-[var(--comment-color)]">
+                        Наша команда объединяет знания многих сертифицированных профессионалов из разных отраслей.
                     </div>
                 </div>
-                <div class="w-[400px] p-[30px] flex flex-col">
-                    <div class="">
-                        <img class=" lg:m-0 m-auto lg:w-[80px] w-[50px]" src="{{ asset('img/about-us/4.png') }}" alt="">
-                    </div>
-                    <div>
-                        <p class="relative base-text mt-[20px] mb-[30px] after:content-[''] after:block after:w-[20px] after:h-[2px] after:bg-[var(--accent-color)] after:absolute lg:after:left-[10px] after:top-full after:mt-[15px]  after:left-1/2 after:translate-x-[-50%]">
-                            Гарантия качества
-                        </p>
-                           
-                        <div class="small-text font-semibold text-[var(--comment-color)]">
-                            Благодаря солидному опыту и глубоким знаниям качество наших услуг всегда на высоте.
-                        </div>
+                <div class="flex flex-col p-4">
+                    <img class="lg:w-[80px] w-[50px] lg:mx-0 mx-auto" src="{{ asset('img/about-us/4.png') }}" alt="">
+                    <p class="relative base-text mt-[20px] mb-[30px] after:content-[''] after:block after:w-[20px] after:h-[2px] after:bg-[var(--accent-color)] after:absolute lg:after:left-[10px] after:top-full after:mt-[15px]  after:left-1/2 after:translate-x-[-50%]">
+                        Гарантия качества
+                    </p>
+                    <div class="small-text font-semibold text-[var(--comment-color)]">
+                        Благодаря солидному опыту и глубоким знаниям качество наших услуг всегда на высоте.
                     </div>
                 </div>
 
@@ -77,9 +57,9 @@
 
         <div class="relarive lg:w-max w-full relative lg:ml-auto">
             <div
-                class=" w-full lg:w-[400px] h-max lg:h-[450px] bg-[var(--accent-color)] text-[var(--white-color)] p-10 relative lg:absolute 2xl:left-[-420px] lg:left-[-400px] -z-10  2xl:bottom-[50px] lg:bottom-0">
+                class=" w-full lg:w-[400px] h-max lg:h-[450px] bg-[var(--accent-color)] text-[var(--white-color)] p-10 relative lg:absolute 2xl:left-[-420px] lg:left-[-400px] z-0  2xl:bottom-[50px] lg:bottom-0">
                 <div class="w-full h-full flex flex-col">
-                    <div class="mb-auto">
+                    <div class="mb-auto ">
                         <p>Наши достижения</p>
                     </div>
                     <div class="mt-auto flex flex-col gap-[15px]">

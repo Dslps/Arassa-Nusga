@@ -16,130 +16,156 @@
             </div>
 
             <div class="flex flex-col lg:flex-row mt-[50px] lg:mt-[60px] 2xl:mt-[100px]">
-                <div class="flex w-full lg:w-[400px] hover:-translate-y-1 transition-transform duration-300">
+                {{--  1 карточка --}}
+                <div class="animate-block flex flex-wrap w-full justify-start">
                     <div
-                        class="bg-[var(--accent-color)] w-full h-full sm:min-w-[400px] text-[var(--white-color)] p-[30px] flex flex-col">
-                        <p class="base-text">Также входит:</p>
-                        <div class="mt-[35px] space-y-[35px]">
-                            <p class="relative inline-block">
-                                Адаптивный дизайн: Обеспечение корректного отображения сайта на любых устройствах — от ПК и ноутбуков до мобильных телефонов.
-                                <span class="absolute left-0 w-full h-[2px] bg-[var(--white-color)] bottom-[-15px]"></span>
-                            </p>
-                            <p class="relative inline-block">
-                                Адаптивный дизайн: Обеспечение корректного отображения сайта на любых устройствах — от ПК и ноутбуков до мобильных телефонов.
-                                <span class="absolute left-0 w-full h-[2px] bg-[var(--white-color)] bottom-[-15px]"></span>
-                            </p>
-                            <p class="relative inline-block">
-                                Адаптивный дизайн: Обеспечение корректного отображения сайта на любых устройствах — от ПК и ноутбуков до мобильных телефонов.
-                            </p>
+                        class="bg-[var(--accent-color)] w-full sm:w-[50%] h-[250px] 2xl:w-[25%] text-[var(--white-color)] p-[30px] flex flex-col hover:-translate-y-1 transition-transform duration-300">
+                        <p class="base-text font-semibold">Облако</p>
+                        <ul class="small-text list-none pl-[10px] space-y-[5px] mt-5">
+                            <li class="list-marker">Цифровое рабочее пространство</li>
+                            <li class="list-marker">Управление задачами</li>
+                            <li class="list-marker">Обмен файлами и сообщениями</li>
+                            <li class="list-marker">Коммуникация</li>
+                            <li class="list-marker">Работа в группах</li>
+                        </ul>
+
+                    </div>
+                    <div
+                        class="animate-block p-[30px] w-full h-[250px] sm:w-[50%] 2xl:w-[25%] flex flex-col bg-white shadow hover:shadow-lg hover:-translate-y-1 transition-transform duration-300">
+                        <p class="base-text mb-[15px] text-[var(--comment-color)] font-semibold">Базовый</p>
+                        <ul class="ml-[10px] text-[var(--accent-color)] small-text font-semibold">
+                            <li class="list-marker">Для эффективной работы небольших компаний</li>
+                            <li class="list-marker">Системы управления бюджетированием</li>
+                            <li class="list-marker">Управление расчетами и платежами</li>
+                        </ul>
+                        <div class="flex items-end justify-between mt-auto">
+                            <div class="number text-[var(--comment-color)] font-semibold">02</div>
+                            <div>
+                                <div class="flex flex-col">
+                                    <div class="flex items-center">
+                                        <p class="smaii-text line-through font-semibold">230 тм</p>
+                                        <div
+                                            class="bg-[var(--price-color)] text-[var(--white-color)] flex justify-center items-center p-[3px] rounded-tl-[10px] rounded-tr-[5px] rounded-br-[10px] rounded-bl-[5px] ml-[4px]">
+                                            <p class="small-text">-20%</p>
+                                        </div>
+                                    </div>
+                                    <p class="number font-semibold">200 тм</p>
+                                </div>
+                            </div>
                         </div>
                     </div>
-                </div>
-                <!-- Блок 2 -->
-                <div class="flex flex-wrap h-max justify-start">
-                    <a class="w-full sm:w-[50%] lg:w-[50%] 2xl:w-[33%]" href="">
-                        <div
-                            class="p-[30px] h-[250px] flex flex-col bg-white group hover:shadow-lg hover:-translate-y-1 transition-transform duration-300 border-b border-r border-gray-200">
-                            <p class="base-text mb-[15px] text-[var(--comment-color)] font-semibold group-hover:text-[var(--accent-color)]">
-                                Лендинг
-                            </p>
-                            <ul
-                                class="ml-[10px] text-[var(--accent-color)] font-semibold group-hover:text-[var(--accent-color)]">
-                                <li class="">Целевая страница собирает контакты аудитории, усиливая рекламу и продвигая товар или услугу.</li>
-                            </ul>
-                            <div class="flex items-end justify-between mt-auto">
-                                <div class="number text-[var(--comment-color)] font-semibold">01</div>
-                                <div>
-                                    <div class="flex flex-col">
-                                        <div class="flex items-center">
-                                            <p class="smaii-text font-semibold">1 неделя</p>
-                                        </div>
-                                        <p class="number font-semibold">1000 тм</p>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </a>
-                    <a class="w-full sm:w-[50%] lg:w-[50%] 2xl:w-[33%]" href="">
-                        <div
-                            class="p-[30px] h-[250px] flex flex-col bg-white group hover:shadow-lg hover:-translate-y-1 transition-transform duration-300 border-b border-r border-gray-200">
-                            <p class="base-text mb-[15px] text-[var(--comment-color)] font-semibold group-hover:text-[var(--accent-color)]">
-                                Сайт-каталог
-                            </p>
-                            <ul
-                                class="ml-[10px] text-[var(--accent-color)] font-semibold group-hover:text-[var(--accent-color)]">
-                                <li class="">Сайт-каталог включает разделы новости, блог, галерея и др. карточки товаров/услуг, фото и видео.</li>
-                            </ul>
-                            <div class="flex items-end justify-between mt-auto">
-                                <div class="number text-[var(--comment-color)] font-semibold">02</div>
-                                <div>
-                                    <div class="flex flex-col">
-                                        <div class="flex items-center">
-                                            <p class="smaii-text font-semibold">3 неделя</p>
-                                        </div>
-                                        <p class="number font-semibold">12 000 тм</p>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </a>
-                    <a class="w-full sm:w-[50%] lg:w-[50%] 2xl:w-[33%]" href="">
-                        <div
-                            class="p-[30px] h-[250px] flex flex-col bg-white group hover:shadow-lg hover:-translate-y-1 transition-transform duration-300 border-b border-r border-gray-200">
-                            <p class="base-text mb-[15px] text-[var(--comment-color)] font-semibold group-hover:text-[var(--accent-color)]">
-                                Многостраничник
-                            </p>
-                            <ul
-                                class="ml-[10px] text-[var(--accent-color)] font-semibold group-hover:text-[var(--accent-color)]">
-                                <li class="">Многостраничники — это крупные сайты</li>
-                            </ul>
-                            <div class="flex items-end justify-between mt-auto">
-                                <div class="number text-[var(--comment-color)] font-semibold">03</div>
-                                <div>
-                                    <div class="flex flex-col">
-                                        <div class="flex items-center">
-                                            <p class="smaii-text font-semibold">2 неделя</p>
-                                        </div>
-                                        <p class="number font-semibold">10 000 тм</p>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </a>
-                    <a class="w-full sm:w-[50%] lg:w-[50%] 2xl:w-[33%]" href="">
-                        <div
-                            class="p-[30px] h-[250px] flex flex-col bg-white group hover:shadow-lg hover:-translate-y-1 transition-transform duration-300 border-b border-r border-gray-200">
-                            <p class="base-text mb-[15px] text-[var(--comment-color)] font-semibold group-hover:text-[var(--accent-color)]">
-                                Интернет-магазин
-                            </p>
-                            <ul
-                                class="ml-[10px] text-[var(--accent-color)] font-semibold group-hover:text-[var(--accent-color)]">
-                                <li class="">Интернет-магазины позволяют продавать товары онлайн, объединяя каталог и возможность покупки. </li>
-                            </ul>
-                            <div class="flex items-end justify-between mt-auto">
-                                <div class="number text-[var(--comment-color)] font-semibold">04</div>
-                                <div>
-                                    <div class="flex flex-col">
-                                        <div class="flex items-center">
-                                            <p class="smaii-text font-semibold">3 неделя</p>
-                                        </div>
-                                        <p class="number font-semibold">24 000 тм</p>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </a>
-                   
-                </div>
 
+                    {{-- 2 карточка --}}
+                    <div
+                        class="animate-block p-[30px] w-full h-[250px] sm:w-[50%] 2xl:w-[25%] flex flex-col bg-white shadow hover:shadow-lg hover:-translate-y-1 transition-transform duration-300">
+                        <p class="base-text mb-[15px] text-[var(--comment-color)] font-semibold">Базовый</p>
+                        <ul class="ml-[10px] text-[var(--accent-color)] small-text font-semibold">
+                            <li class="list-marker">Для эффективной работы небольших компаний</li>
+                            <li class="list-marker">Системы управления бюджетированием</li>
+                            <li class="list-marker">Управление расчетами и платежами</li>
+                        </ul>
+                        <div class="flex items-end justify-between mt-auto">
+                            <div class="number text-[var(--comment-color)] font-semibold">02</div>
+                            <div>
+                                <div class="flex flex-col">
+                                    <div class="flex items-center">
+                                        <p class="smaii-text line-through font-semibold">230 тм</p>
+                                        <div
+                                            class="bg-[var(--price-color)] text-[var(--white-color)] flex justify-center items-center p-[3px] rounded-tl-[10px] rounded-tr-[5px] rounded-br-[10px] rounded-bl-[5px] ml-[4px]">
+                                            <p class="small-text">-20%</p>
+                                        </div>
+                                    </div>
+                                    <p class="number font-semibold">200 тм</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    {{-- 3 карточка --}}
+                    <div
+                        class="animate-block p-[30px] w-full h-[250px] sm:w-[50%] 2xl:w-[25%] flex flex-col bg-white shadow hover:shadow-lg hover:-translate-y-1 transition-transform duration-300">
+                        <p class="base-text mb-[15px] text-[var(--comment-color)] font-semibold">Базовый</p>
+                        <ul class="ml-[10px] text-[var(--accent-color)] small-text font-semibold">
+                            <li class="list-marker">Для эффективной работы небольших компаний</li>
+                            <li class="list-marker">Системы управления бюджетированием</li>
+                            <li class="list-marker">Управление расчетами и платежами</li>
+                        </ul>
+                        <div class="flex items-end justify-between mt-auto">
+                            <div class="number text-[var(--comment-color)] font-semibold">02</div>
+                            <div>
+                                <div class="flex flex-col">
+                                    <div class="flex items-center">
+                                        <p class="smaii-text line-through font-semibold">230 тм</p>
+                                        <div
+                                            class="bg-[var(--price-color)] text-[var(--white-color)] flex justify-center items-center p-[3px] rounded-tl-[10px] rounded-tr-[5px] rounded-br-[10px] rounded-bl-[5px] ml-[4px]">
+                                            <p class="small-text">-20%</p>
+                                        </div>
+                                    </div>
+                                    <p class="number font-semibold">200 тм</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    {{-- 4 карточка --}}
+                    <div
+                        class="animate-block p-[30px] w-full h-[250px] sm:w-[50%] 2xl:w-[25%] flex flex-col bg-white shadow hover:shadow-lg hover:-translate-y-1 transition-transform duration-300">
+                        <p class="base-text mb-[15px] text-[var(--comment-color)] font-semibold">Базовый</p>
+                        <ul class="ml-[10px] text-[var(--accent-color)] small-text font-semibold">
+                            <li class="list-marker">Для эффективной работы небольших компаний</li>
+                            <li class="list-marker">Системы управления бюджетированием</li>
+                            <li class="list-marker">Управление расчетами и платежами</li>
+                        </ul>
+                        <div class="flex items-end justify-between mt-auto">
+                            <div class="number text-[var(--comment-color)] font-semibold">02</div>
+                            <div>
+                                <div class="flex flex-col">
+                                    <div class="flex items-center">
+                                        <p class="smaii-text line-through font-semibold">230 тм</p>
+                                        <div
+                                            class="bg-[var(--price-color)] text-[var(--white-color)] flex justify-center items-center p-[3px] rounded-tl-[10px] rounded-tr-[5px] rounded-br-[10px] rounded-bl-[5px] ml-[4px]">
+                                            <p class="small-text">-20%</p>
+                                        </div>
+                                    </div>
+                                    <p class="number font-semibold">200 тм</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    {{-- 5 карточка --}}
+                    <div
+                        class="animate-block p-[30px] w-full h-[250px] sm:w-[50%] 2xl:w-[25%] flex flex-col bg-white shadow hover:shadow-lg hover:-translate-y-1 transition-transform duration-300">
+                        <p class="base-text mb-[15px] text-[var(--comment-color)] font-semibold">Базовый</p>
+                        <ul class="ml-[10px] text-[var(--accent-color)] small-text font-semibold">
+                            <li class="list-marker">Для эффективной работы небольших компаний</li>
+                            <li class="list-marker">Системы управления бюджетированием</li>
+                            <li class="list-marker">Управление расчетами и платежами</li>
+                        </ul>
+                        <div class="flex items-end justify-between mt-auto">
+                            <div class="number text-[var(--comment-color)] font-semibold">02</div>
+                            <div>
+                                <div class="flex flex-col">
+                                    <div class="flex items-center">
+                                        <p class="smaii-text line-through font-semibold">230 тм</p>
+                                        <div
+                                            class="bg-[var(--price-color)] text-[var(--white-color)] flex justify-center items-center p-[3px] rounded-tl-[10px] rounded-tr-[5px] rounded-br-[10px] rounded-bl-[5px] ml-[4px]">
+                                            <p class="small-text">-20%</p>
+                                        </div>
+                                    </div>
+                                    <p class="number font-semibold">200 тм</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                </div>
             </div>
         </div>
     </div>
     {{-- -------------------------------------Этапы разработки--------------------------------------- --}}
-    <div class="w-full px-0 sm:px-5 lg:px-[60px] 2xl:px-[100px] m-auto mt-[80px] xl:mt-[80px] 2xl:mt-[130px] ">
+    <div class="w-full px-0 sm:px-[30px] lg:px-[60px] 2xl:px-[100px] m-auto mt-[80px] xl:mt-[80px] 2xl:mt-[130px] ">
         <div class="max-w-[2000px] m-auto">
-            <div class="flex justify-center sm:justify-start">
-                <span class="title-2 text-[var(--accent-color)] mr-[20px] hidden sm:block">//</span>
+            <div class="flex justify-center lg:justify-start">
+                <span class="title-2 text-[var(--accent-color)] mr-[20px] hidden lg:block">//</span>
                 <div class="max-w-[860px] ">
                     <p class="title-2 font-semibold">Этапы реализаций</p>
                 </div>
@@ -192,7 +218,7 @@
         </div>
     </div>
     {{-- -----------------------------Наши проекты--------------------------------- --}}
-    <div class="w-full max-w-[2000px] mx-auto px-5 lg:px-[60px] 2xl:px-[100px] mt-[50px] lg:mt-[90px]">
+    <div class="w-full max-w-[2000px] mx-auto px-[30px] lg:px-[60px] 2xl:px-[100px] mt-[50px] lg:mt-[90px]">
         <div class="flex flex-col ">
             <div class="w-full flex flex-col sm:flex-row">
                 <div class="flex items-center justify-center lg:justify-start">

@@ -3,13 +3,13 @@
     {{-- ---------------------------начальная часть страницы-------------------------------- --}}
     <x-service-component />
     {{-- ------------------------------------спискок предлагаемых услуг с ценой------------------------------------------- --}}
-    <div class="w-full px-0 sm:px-5 lg:px-[60px] 2xl:px-[100px] m-auto mt-[80px] xl:mt-[80px] 2xl:mt-[130px] ">
+    <div class="w-full px-0 lg:px-[60px] 2xl:px-[100px] m-auto mt-[80px] xl:mt-[80px] 2xl:mt-[130px] ">
         <div class="max-w-[2000px] m-auto">
             <div class="flex">
                 <span class="title-2 text-[var(--accent-color)] mr-[20px] lg:block hidden">//</span>
-                <div class="max-w-[860px] px-5 sm:px-0">
+                <div class="max-w-[860px]  sm:px-0">
                     <p class="title-2 font-semibold text-center lg:text-start">Наши услуги</p>
-                    <p class="base-text">The quiet forest was alive with the sounds of nature. Birds chirped melodiously, and
+                    <p class="base-text text-center lg:text-start lg:px-0 px-[30px]">The quiet forest was alive with the sounds of nature. Birds chirped melodiously, and
                         a gentle breeze rustled the leaves, carrying the earthy scent of pine and moss. Sunlight streamed
                         through the</p>
                 </div>
@@ -20,7 +20,7 @@
                 {{--  1 карточка --}}
                 <div class="animate-block flex flex-wrap w-full justify-start">
                     <div
-                        class="bg-[var(--accent-color)] w-full sm:w-[50%]  2xl:w-[25%] text-[var(--white-color)] p-[30px] flex flex-col hover:-translate-y-1 transition-transform duration-300">
+                        class="bg-[var(--accent-color)] w-full sm:w-[50%] h-[250px] 2xl:w-[25%] text-[var(--white-color)] p-[30px] flex flex-col hover:-translate-y-1 transition-transform duration-300">
                         <p class="base-text font-semibold">Облако</p>
                         <ul class="small-text list-none pl-[10px] space-y-[5px] mt-5">
                             <li class="list-marker">Цифровое рабочее пространство</li>
@@ -28,12 +28,11 @@
                             <li class="list-marker">Обмен файлами и сообщениями</li>
                             <li class="list-marker">Коммуникация</li>
                             <li class="list-marker">Работа в группах</li>
-                            <li class="list-marker">Поддержка принятия решений</li>
                         </ul>
 
                     </div>
                     <div
-                        class="animate-block p-[30px] w-full sm:w-[50%] 2xl:w-[25%] flex flex-col bg-white shadow hover:shadow-lg hover:-translate-y-1 transition-transform duration-300">
+                        class="animate-block p-[30px] w-full h-[250px] sm:w-[50%] 2xl:w-[25%] flex flex-col bg-white shadow hover:shadow-lg hover:-translate-y-1 transition-transform duration-300">
                         <p class="base-text mb-[15px] text-[var(--comment-color)] font-semibold">Базовый</p>
                         <ul class="ml-[10px] text-[var(--accent-color)] small-text font-semibold">
                             <li class="list-marker">Для эффективной работы небольших компаний</li>
@@ -59,7 +58,7 @@
 
                     {{-- 2 карточка --}}
                     <div
-                        class="animate-block p-[30px] w-full sm:w-[50%] 2xl:w-[25%] flex flex-col bg-white shadow hover:shadow-lg hover:-translate-y-1 transition-transform duration-300">
+                        class="animate-block p-[30px] w-full h-[250px] sm:w-[50%] 2xl:w-[25%] flex flex-col bg-white shadow hover:shadow-lg hover:-translate-y-1 transition-transform duration-300">
                         <p class="base-text mb-[15px] text-[var(--comment-color)] font-semibold">Базовый</p>
                         <ul class="ml-[10px] text-[var(--accent-color)] small-text font-semibold">
                             <li class="list-marker">Для эффективной работы небольших компаний</li>
@@ -85,7 +84,7 @@
 
                     {{-- 3 карточка --}}
                     <div
-                        class="animate-block p-[30px] w-full sm:w-[50%] 2xl:w-[25%] flex flex-col bg-white shadow hover:shadow-lg hover:-translate-y-1 transition-transform duration-300">
+                        class="animate-block p-[30px] w-full h-[250px] sm:w-[50%] 2xl:w-[25%] flex flex-col bg-white shadow hover:shadow-lg hover:-translate-y-1 transition-transform duration-300">
                         <p class="base-text mb-[15px] text-[var(--comment-color)] font-semibold">Базовый</p>
                         <ul class="ml-[10px] text-[var(--accent-color)] small-text font-semibold">
                             <li class="list-marker">Для эффективной работы небольших компаний</li>
@@ -110,7 +109,7 @@
                     </div>
                     {{-- 4 карточка --}}
                     <div
-                        class="animate-block p-[30px] w-full sm:w-[50%] 2xl:w-[25%] flex flex-col bg-white shadow hover:shadow-lg hover:-translate-y-1 transition-transform duration-300">
+                        class="animate-block p-[30px] w-full h-[250px] sm:w-[50%] 2xl:w-[25%] flex flex-col bg-white shadow hover:shadow-lg hover:-translate-y-1 transition-transform duration-300">
                         <p class="base-text mb-[15px] text-[var(--comment-color)] font-semibold">Базовый</p>
                         <ul class="ml-[10px] text-[var(--accent-color)] small-text font-semibold">
                             <li class="list-marker">Для эффективной работы небольших компаний</li>
@@ -135,7 +134,7 @@
                     </div>
                     {{-- 5 карточка --}}
                     <div
-                        class="animate-block p-[30px] w-full sm:w-[50%] 2xl:w-[25%] flex flex-col bg-white shadow hover:shadow-lg hover:-translate-y-1 transition-transform duration-300">
+                        class="animate-block p-[30px] w-full h-[250px] sm:w-[50%] 2xl:w-[25%] flex flex-col bg-white shadow hover:shadow-lg hover:-translate-y-1 transition-transform duration-300">
                         <p class="base-text mb-[15px] text-[var(--comment-color)] font-semibold">Базовый</p>
                         <ul class="ml-[10px] text-[var(--accent-color)] small-text font-semibold">
                             <li class="list-marker">Для эффективной работы небольших компаний</li>
@@ -164,13 +163,13 @@
         </div>
     </div>
     {{-- ------------------------------------------Битрикс коробка--------------------------------------------- --}}
-    <div class="w-full px-0 sm:px-5 lg:px-[60px] 2xl:px-[100px] m-auto mt-[80px] xl:mt-[80px] 2xl:mt-[130px] ">
+    <div class="w-full px-0 lg:px-[60px] 2xl:px-[100px] m-auto mt-[80px] xl:mt-[80px] 2xl:mt-[130px] ">
         <div class="max-w-[2000px] m-auto">
-
             <div class="flex flex-col lg:flex-row mt-[50px] lg:mt-[60px] 2xl:mt-[100px]">
                 {{--  1 карточка --}}
-                <div class="flex flex-wrap w-full justify-start">
-                    <div class="animate-block bg-[var(--accent-color)] w-full sm:w-[50%]  2xl:w-[25%] text-[var(--white-color)] p-[30px] flex flex-col hover:-translate-y-1 transition-transform duration-300">
+                <div class="animate-block flex flex-wrap w-full justify-start">
+                    <div
+                        class="bg-[var(--accent-color)] w-full sm:w-[50%] h-[250px] 2xl:w-[25%] text-[var(--white-color)] p-[30px] flex flex-col hover:-translate-y-1 transition-transform duration-300">
                         <p class="base-text font-semibold">Облако</p>
                         <ul class="small-text list-none pl-[10px] space-y-[5px] mt-5">
                             <li class="list-marker">Цифровое рабочее пространство</li>
@@ -178,11 +177,11 @@
                             <li class="list-marker">Обмен файлами и сообщениями</li>
                             <li class="list-marker">Коммуникация</li>
                             <li class="list-marker">Работа в группах</li>
-                            <li class="list-marker">Поддержка принятия решений</li>
                         </ul>
 
                     </div>
-                    <div class="animate-block p-[30px] w-full sm:w-[50%] 2xl:w-[25%] flex flex-col bg-white shadow hover:shadow-lg hover:-translate-y-1 transition-transform duration-300">
+                    <div
+                        class="animate-block p-[30px] w-full h-[250px] sm:w-[50%] 2xl:w-[25%] flex flex-col bg-white shadow hover:shadow-lg hover:-translate-y-1 transition-transform duration-300">
                         <p class="base-text mb-[15px] text-[var(--comment-color)] font-semibold">Базовый</p>
                         <ul class="ml-[10px] text-[var(--accent-color)] small-text font-semibold">
                             <li class="list-marker">Для эффективной работы небольших компаний</li>
@@ -208,7 +207,7 @@
 
                     {{-- 2 карточка --}}
                     <div
-                        class="animate-block p-[30px] w-full sm:w-[50%] 2xl:w-[25%] flex flex-col bg-white shadow hover:shadow-lg hover:-translate-y-1 transition-transform duration-300">
+                        class="animate-block p-[30px] w-full h-[250px] sm:w-[50%] 2xl:w-[25%] flex flex-col bg-white shadow hover:shadow-lg hover:-translate-y-1 transition-transform duration-300">
                         <p class="base-text mb-[15px] text-[var(--comment-color)] font-semibold">Базовый</p>
                         <ul class="ml-[10px] text-[var(--accent-color)] small-text font-semibold">
                             <li class="list-marker">Для эффективной работы небольших компаний</li>
@@ -234,7 +233,7 @@
 
                     {{-- 3 карточка --}}
                     <div
-                        class="animate-block p-[30px] w-full sm:w-[50%] 2xl:w-[25%] flex flex-col bg-white shadow hover:shadow-lg hover:-translate-y-1 transition-transform duration-300">
+                        class="animate-block p-[30px] w-full h-[250px] sm:w-[50%] 2xl:w-[25%] flex flex-col bg-white shadow hover:shadow-lg hover:-translate-y-1 transition-transform duration-300">
                         <p class="base-text mb-[15px] text-[var(--comment-color)] font-semibold">Базовый</p>
                         <ul class="ml-[10px] text-[var(--accent-color)] small-text font-semibold">
                             <li class="list-marker">Для эффективной работы небольших компаний</li>
@@ -259,7 +258,7 @@
                     </div>
                     {{-- 4 карточка --}}
                     <div
-                        class="animate-block p-[30px] w-full sm:w-[50%] 2xl:w-[25%] flex flex-col bg-white shadow hover:shadow-lg hover:-translate-y-1 transition-transform duration-300">
+                        class="animate-block p-[30px] w-full h-[250px] sm:w-[50%] 2xl:w-[25%] flex flex-col bg-white shadow hover:shadow-lg hover:-translate-y-1 transition-transform duration-300">
                         <p class="base-text mb-[15px] text-[var(--comment-color)] font-semibold">Базовый</p>
                         <ul class="ml-[10px] text-[var(--accent-color)] small-text font-semibold">
                             <li class="list-marker">Для эффективной работы небольших компаний</li>
@@ -284,7 +283,7 @@
                     </div>
                     {{-- 5 карточка --}}
                     <div
-                        class="animate-block p-[30px] w-full sm:w-[50%] 2xl:w-[25%] flex flex-col bg-white shadow hover:shadow-lg hover:-translate-y-1 transition-transform duration-300">
+                        class="animate-block p-[30px] w-full h-[250px] sm:w-[50%] 2xl:w-[25%] flex flex-col bg-white shadow hover:shadow-lg hover:-translate-y-1 transition-transform duration-300">
                         <p class="base-text mb-[15px] text-[var(--comment-color)] font-semibold">Базовый</p>
                         <ul class="ml-[10px] text-[var(--accent-color)] small-text font-semibold">
                             <li class="list-marker">Для эффективной работы небольших компаний</li>
@@ -313,11 +312,11 @@
         </div>
     </div>
     {{-- ----------------------------------------------------------Этапы реализаций------------------------------------------------------- --}}
-    <div class="w-full px-0 sm:px-5 lg:px-[60px] 2xl:px-[100px] m-auto mt-[80px] xl:mt-[80px] 2xl:mt-[130px] ">
+    <div class="w-full px-0 lg:px-[60px] 2xl:px-[100px] m-auto mt-[80px] xl:mt-[80px] 2xl:mt-[130px] ">
         <div class="max-w-[2000px] m-auto">
-            <div class="flex justify-center sm:justify-start">
-                <span class="title-2 text-[var(--accent-color)] mr-[20px] hidden sm:block">//</span>
-                <div class="max-w-[860px] ">
+            <div class="flex justify-center lg:justify-start">
+                <span class="title-2 text-[var(--accent-color)] mr-[20px] hidden lg:block">//</span>
+                <div class="max-w-[860px]">
                     <p class="title-2 font-semibold">Этапы реализаций</p>
                 </div>
             </div>

@@ -10,13 +10,13 @@
     <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/gsap.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/ScrollTrigger.min.js"></script>
 
-    @vite(['resources/css/app.css', 'resources/js/app.js'])
+    @vite(['resources/css/app.css', 'resources/js/jquery.min.js', 'resources/js/app.js', 'resources/css/slick.css', 'resources/js/slick.min.js'])
 </head>
 
 <body>
     <header class="header w-full max-w-[2000px] mx-auto lg:h-[15vh] h-[140px] z-10">
         <nav class="w-full flex h-full small-text">
-            <div class="lg:w-[800px] bg-[var(--accent-color)] h-full flex items-center px-[50px] xl:px-[100px] w-full">
+            <div class="lg:w-[800px] bg-[var(--accent-color)] h-full flex items-center px-[30px] lg:px-[60px] 2xl:px-[100px] w-full">
                 <div class="">
                     <!-- Кнопка для открытия хедера -->
                     <button id="toggle-header" class="text-white">
@@ -37,7 +37,7 @@
                     <p class=" font-semibold"><a href="#">Eng</a></p>
                 </div>
             </div>
-            <div class="lg:flex bg-[var(--white-color)] items-center justify-between px-[50px] xl:px-[100px] w-[1120px] hidden">
+            <div class="lg:flex bg-[var(--white-color)] items-center justify-between px-[30px] lg:px-[60px] 2xl:px-[100px] w-[1120px] hidden">
                 <div class="flex gap-[5px]">
                     <p class="font-semibold relative inline-block">
                         <a href="{{route('home')}}" class="nav-link {{ Request::routeIs('home') ? 'before:w-full' : '' }}">
@@ -121,7 +121,7 @@
         <div class="w-full max-w-[2000px] mx-auto bg-[var(--template-color)] lg:h-[500px] h-max mt-[250px]">
 
             <div class="relative text-[var(--white-color)]">
-                <div class="flex lg:flex-row flex-col justify-between lg:items-center lg:absolute left-[100px] right-[100px] 2xl:mt-[-150px] xl:mt-[-125px] mt-[-100px]  2xl:h-[300px] xl:h-[250px] h-max lg:p-0 p-5 bg-[var(--accent-color)]">
+                <div class="flex lg:flex-row flex-col justify-between lg:items-center lg:absolute 2xl:left-[100px] 2xl:right-[100px] lg:left-[60px] lg:right-[60px] 2xl:mt-[-150px] xl:mt-[-125px] mt-[-100px]  2xl:h-[300px] xl:h-[250px] h-max lg:p-0 p-[30px] bg-[var(--accent-color)]">
                     <div class="xl:ml-[90px] lg:ml-[50px] m-auto  flex items-center">
                         <div class="w-full lg:max-w-[400px]">
                             <p class="title-2 text-center lg:text-start">Начнем сотруднечество</p>
@@ -146,7 +146,7 @@
 
 
 
-            <div class="flex flex-wrap justify-center text-[var(--white-color)] px-5 lg:px-[100px] 2xl:pt-[180px] xl:pt-[160px] lg:pt-[140px] pt-[30px]">
+            <div class="flex flex-wrap justify-center text-[var(--white-color)] px-[30px] lg:px-[100px] 2xl:pt-[180px] xl:pt-[160px] lg:pt-[140px] pt-[30px]">
                 <div class="flex-1 p-5">
                     <p class="">Навигация</p>
                     <ul class="list-none pl-[10px] space-y-2.5 mt-5">

@@ -1,6 +1,8 @@
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
+@import "flowbite";
+
 
 :root{
     --accent-color: #243060;
@@ -8,8 +10,9 @@
     --support-color: #F2F2F2;
     --template-color: #121214;
     --comment-color: #757575;
+    --light-comment-color: #e6e6e6;
     --price-color: #A3CD00;
-    --button-color: #2F3A68;
+    --button-color: #2f3d7c;
 }
 html {
     scroll-behavior: smooth;
@@ -18,7 +21,6 @@ header {
     position: fixed;
     z-index: auto; 
     will-change: transform; 
-    box-shadow: 0 5px 20px #121214;
 }
 
 .title{
@@ -90,7 +92,34 @@ header {
         transform: translateX(-100%); 
     }
 }
+/* Основной контейнер для слайдов */
+.partners {
+    display: flex; /* Устанавливает флекс для Slick */
+    overflow: hidden; /* Убирает лишние части слайдов */
+    width: 100%; /* Растягивает контейнер на всю ширину */
+}
 
+/* Слайд */
+.carousel-item {
+    flex-shrink: 0; /* Запрещает слайду сжиматься */
+    width: 285px; /* Фиксированная ширина для всех слайдов */
+}
+
+/* Изображения */
+.carousel-item img {
+    max-width: 100%;
+    max-height: 100%;
+    object-fit: contain; /* Устанавливает масштабирование изображения */
+    display: block; /* Убирает лишние пробелы */
+}
+
+/* Slick-specific styles */
+.slick-track {
+    display: flex; /* Устанавливает флекс для трека */
+}
+.object-cover{
+    object-fit: cover !important;
+}
 
 /* ----------------------------------------------------------------------------- */
 #full-header {
@@ -115,18 +144,7 @@ header {
     display: flex;
     transition: transform 0.7s ease; 
 }
-.nav-link{
-    @apply relative text-current
-    before:content-[''] before:absolute before:top-full before:left-0 before:mt-[5px]
-    before:h-[2px] before:bg-[var(--accent-color)]
-    before:w-0 before:transition-[width] before:duration-300 hover:before:w-full
-}
-.bottom-link{
-    @apply relative text-current
-    before:content-[''] before:absolute before:top-full before:left-0 before:mt-[5px]
-    before:h-[2px] before:bg-[var(--white-color)]
-    before:w-0 before:transition-[width] before:duration-300 hover:before:w-full
-}
+
 body {
     font-family: "Onest", serif;
     font-optical-sizing: auto;
@@ -137,20 +155,13 @@ body {
   /* --------------------------------------------------------- */
   .carousel-container {
     position: relative;
-    overflow: hidden;
 }
-
-.carousel-wrapper {
-    display: flex;
-    transition: transform 0.7s ease-in-out; 
-}
-
 .carousel-item {
-    flex: 0 0 100%;  
+    flex: 0 0 100%;
+    height: 70vh !important;  
 }
 
 .carousel-prev, .carousel-next {
-    background-color: rgba(0, 0, 0, 0.5);
     color: white;
     display: flex;
     align-items: center;
@@ -165,77 +176,6 @@ body {
 .carousel-prev:hover, .carousel-next:hover {
     background-color: rgba(0, 0, 0, 0.7);  
 }
-
-.carousel-dots {
-    display: flex;
-    justify-content: center;
-}
-
-.dot {
-    width: 10px;
-    height: 10px;
-    background-color: #ccc; 
-    border-radius: 50%;
-    margin: 0 5px;
-    transition: background-color 0.3s ease, box-shadow 0.3s ease; 
-}
-
-.dot.bg-blue-500 {
-    background-color: white; 
-    box-shadow: 0 0 0 3px #fff; 
-}
-
-.dot.bg-gray-400 {
-    background-color: #ccc;
-}
-
-.dot:hover {
-    background-color: #777; 
-}
-/* --------------------------слайдеры----------------------------------- */
-/* сдайдер для шапки домашней страницы */
-#slider-wrapper {
-    position: relative;
-    overflow: hidden; 
-}
-
-#slider {
-    display: flex;
-    transition: transform 0.5s ease-in-out;
-}
-#slider .slide {
-    flex: 0 0 auto; 
-    transition: transform 0.5s ease-in-out;
-}
-/* слайдер для проектов на главной странице */
-#slider .slide.show {
-    display: block;
-}
-#carousel-container {
-    overflow: hidden; 
-  }
-  
-  #carousel-content {
-    display: flex;
-    transition: transform 0.5s ease-in-out; 
-  }
-  
-  #carousel-content > div {
-    flex-shrink: 0;
-  }
-/* слайдер для сертификатов */
-#carousel-content-certificates {
-    display: flex;
-    transition: transform 0.7s ease; 
-}
-/* ----------------------------------------- */
-.hidden {
-    display: none;
-}
-
-
-
-
 @keyframes shadowPulse {
     0%, 100% {
       box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
@@ -245,8 +185,21 @@ body {
     }
   }
   /* --------------------------------------------------------- */
+  .nav-link{
+    @apply relative text-current
+    before:content-[''] before:absolute before:top-full before:left-0 before:mt-[5px]
+    before:h-[2px] before:bg-[var(--accent-color)]
+    before:w-0 before:transition-[width] before:duration-300 hover:before:w-full
+}
+.bottom-link{
+    @apply relative text-current
+    before:content-[''] before:absolute before:top-full before:left-0 before:mt-[5px]
+    before:h-[2px] before:bg-[var(--white-color)]
+    before:w-0 before:transition-[width] before:duration-300 hover:before:w-full
+}
+  /* --------------------------------------------------------- */
   .list-marker{
-    @apply relative pl-[5px] before:content-['-'] before:absolute before:left-[-10px] before:top-0
+    @apply relative lg:pl-[5px] pl-[0px] before:content-['-'] before:absolute before:left-[-10px] before:top-0
   }
   .button-service{
     @apply w-[55px] h-[55px] bg-[var(--white-color)] rounded-full flex justify-center items-center text-[var(--accent-color)];

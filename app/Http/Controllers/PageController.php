@@ -5,34 +5,48 @@ use Illuminate\Http\Request;
 
 class PageController extends Controller
 {
-    public function index(Request $request)
+    public function about()
     {
-        // Получаем имя текущего маршрута
-        $page = $request->route()->getName(); 
+        return view('pages.page', [
+            'title' => 'О нас',
+            'content' => [
+                'list' => [
+                    'Lorem ipsum dolor sit amet consectetur adipisicing elit.',
+                    'Reprehenderit corrupti dignissimos fugiat laborum nemo!',
+                ],
+                'details' => 'Lorem ipsum dolor sit amet consectetur adipisicing elit. Alias veritatis, magnam explicabo dolore quidem a neque.',
+            ],
+            'image' => asset('img/home-page/corparate.png'),
+        ]);
+    }
 
-        // Массив с данными для разных страниц
-        $carouselData = [
-            'home' => [
-                'title' => 'Качество',
-                'description' => 'Мы не стремимся быть лучше всех...',
-                'image' => 'img/home-page/corparate.png',
-                'link' => '/service',
+    public function services()
+    {
+        return view('pages.page', [
+            'title' => 'Наши услуги',
+            'content' => [
+                'list' => [
+                    'Мы предоставляем уникальные услуги для бизнеса.',
+                    'Работаем по индивидуальным запросам клиентов.',
+                ],
+                'details' => 'Услуги включают консалтинг, разработку и поддержку.',
             ],
-            'about' => [
-                'title' => 'О нас',
-                'description' => 'Мы команда профессионалов...',
-                'image' => 'img/home-page/about.png',
-                'link' => '/about',
-            ],
-            'service' => [
-                'title' => 'Услуги',
-                'description' => 'Мы предлагаем широкий спектр услуг...',
-                'image' => 'img/home-page/service.png',
-                'link' => '/services',
-            ],
-        ];
+            'image' => asset('img/home-page/services.png'),
+        ]);
+    }
 
-        // Возвращаем представление с данными для текущей страницы
-        return view('welcome', ['carousel' => $carouselData[$page]]);
+    public function contact()
+    {
+        return view('pages.page', [
+            'title' => 'Контакты',
+            'content' => [
+                'list' => [
+                    'Телефон: +123456789',
+                    'Email: info@example.com',
+                ],
+                'details' => 'Свяжитесь с нами для получения подробной информации.',
+            ],
+            'image' => asset('img/home-page/contact.png'),
+        ]);
     }
 }
