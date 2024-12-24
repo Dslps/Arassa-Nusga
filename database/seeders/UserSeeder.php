@@ -1,10 +1,10 @@
 <?php
 
 namespace Database\Seeders;
-use App\Models\User;
 
-use Illuminate\Database\Console\Seeds\WithoutModelEvents;
 use Illuminate\Database\Seeder;
+use Illuminate\Support\Facades\Hash;
+use App\Models\User;
 
 class UserSeeder extends Seeder
 {
@@ -13,10 +13,11 @@ class UserSeeder extends Seeder
      */
     public function run(): void
     {
+        // Создание пользователя
         User::create([
-            'name' => 'danis',
-            'email' => 'den@email.com',
-            'password' => bcrypt('123456789'),
+            'name' => 'Admin', // Имя пользователя
+            'email' => 'admin@gmail.com', // Email пользователя
+            'password' => Hash::make('123456789'), // Хэшируем пароль
         ]);
     }
 }

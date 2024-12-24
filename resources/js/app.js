@@ -375,9 +375,7 @@ loadMoreBtn.addEventListener('click', () => {
     }
 });
 updateItemsDisplay();
-
 // ------------------------
-
 
 
 
