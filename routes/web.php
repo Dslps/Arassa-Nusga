@@ -36,15 +36,15 @@ Route::post('/logout', [AuthController::class, 'logout'])->name('logout');
 
 Route::get('/admin', [DashboardController::class, 'index'])->middleware('auth')->name('dashboard');
 
-Route::resource('home-dashes', HomeDashController::class)->names([
-    'index' => 'home-dash.index',
-    'create' => 'home-dash.create',
-    'store' => 'home-dash.store',
-    'show' => 'home-dash.show',
-    'edit' => 'home-dash.edit',
-    'update' => 'home-dash.update',
-    'destroy' => 'home-dash.destroy',
-]);
+
+Route::get('home-dashes', [HomeDashController::class, 'index'])->name('home-dash.index');
+Route::get('home-dashes/create', [HomeDashController::class, 'create'])->name('home-dash.create');
+Route::post('home-dashes', [HomeDashController::class, 'store'])->name('home-dash.store');
+Route::get('home-dashes/{id}', [HomeDashController::class, 'show'])->name('home-dash.show');
+Route::get('home-dashes/{id}/edit', [HomeDashController::class, 'edit'])->name('home-dash.edit');
+Route::put('home-dashes/{id}', [HomeDashController::class, 'update'])->name('home-dash.update');
+Route::delete('home-dashes/{id}', [HomeDashController::class, 'destroy'])->name('home-dash.destroy');
+
 
 
 
