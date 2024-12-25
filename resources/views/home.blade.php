@@ -3,72 +3,41 @@
     <div class="lg:pt-[15vh] pt-[140px]"></div>
         {{-- max-w-[2000px] --}}
         <div class="carousel-container overflow-hidden">
-            {{-- <div class=" w-full h-full relative"> --}}
             <div class="carousel-wrapper w-[100vw] h-[70vh]">
-                <!-- Первый слайд -->
+                @foreach ($slides as $slide)
                 <div class="carousel-item relative">
                     <div class="w-full h-full lg:w-[90%]">
-                        <div class="relative w-full h-full ">
-                            <img class="absolute top-0 left-0 w-full h-full object-cover object-center" src="{{ asset('img/home-page/corparate.png') }}" alt="">
+                        <div class="relative w-full h-full">
+                            <!-- Динамическое изображение -->
+                            <img class="absolute top-0 left-0 w-full h-full object-cover object-center" 
+                                 src="{{ asset('storage/' . $slide->image_path) }}" 
+                                 alt="{{ $slide->title }}">
                         </div>
-                        
-
+        
+                        <!-- Контент слайдера -->
                         <div
                             class="absolute flex items-center inset-0 left-0 lg:w-[800px] w-full lg:justify-start justify-center bg-gradient-to-r from-[#243060] to-transparent">
                             <div
-                                class="text-[var(--white-color)] w-[33,33%] lg:ml-[100px] m-0 flex justify-center flex-col lg:text-start text-center ">
-                                <p class="title">Качество</p>
-                                <div class="relative base-text pl-[15px] lg:ml-[10px] ml-0 max-w-[500px]">
-                                    Мы не стремимся быть лучше всех, мы стремимся быть лучше, чем вчера. Потому что качество
-                                    — это движение вперед, где каждая ступень ведет к совершенству.
+                                class="text-[var(--white-color)] w-[33,33%] lg:ml-[100px] m-0 flex justify-center flex-col lg:text-start text-center">
+                                <p class="title">{{ $slide->title }}</p>
+                                <div class="relative base-text pl-[15px] lg:ml-[10px] ml-0 max-w-[500px]" style="max-width: 400px; word-wrap: break-word; word-break: break-word; white-space: normal;">
+                                    {{ $slide->description }}
                                     <div
                                         class="absolute left-[-5px] top-0 h-full border-l-[5px] border-[var(--white-color)] rounded-l-[10px]">
                                     </div>
-                                </div>
+                                </div>                                
                                 <a href="">
                                     <div
                                         class="w-[230px] h-[40px] flex items-center border-t-2 border-b-2 justify-center lg:mt-[25px] lg:m-0 m-auto mt-[25px]">
-                                        <p>Заказать услугу <i class="lg:ml-[10px] ml-0 fa-solid fa-arrow-right-long"></i>
-                                        </p>
+                                        <p>Заказать услугу <i class="lg:ml-[10px] ml-0 fa-solid fa-arrow-right-long"></i></p>
                                     </div>
                                 </a>
                             </div>
                         </div>
                     </div>
                 </div>
-            
-                <div class="carousel-item relative">
-                    <div class="w-full h-full lg:w-[90%]">
-                        <div class="relative w-full h-full ">
-                            <img class="absolute top-0 left-0 w-full h-full object-cover object-center" src="{{ asset('img/home-page/corparate.png') }}" alt="">
-                        </div>
-                        
-
-                        <div
-                            class="absolute flex items-center inset-0 left-0 lg:w-[800px] w-full lg:justify-start justify-center bg-gradient-to-r from-[#243060] to-transparent">
-                            <div
-                                class="text-[var(--white-color)] w-[33,33%] lg:ml-[100px] m-0 flex justify-center flex-col lg:text-start text-center ">
-                                <p class="title">Качество</p>
-                                <div class="relative base-text pl-[15px] lg:ml-[10px] ml-0 max-w-[500px]">
-                                    Мы не стремимся быть лучше всех, мы стремимся быть лучше, чем вчера. Потому что качество
-                                    — это движение вперед, где каждая ступень ведет к совершенству.
-                                    <div
-                                        class="absolute left-[-5px] top-0 h-full border-l-[5px] border-[var(--white-color)] rounded-l-[10px]">
-                                    </div>
-                                </div>
-                                <a href="">
-                                    <div
-                                        class="w-[230px] h-[40px] flex items-center border-t-2 border-b-2 justify-center lg:mt-[25px] lg:m-0 m-auto mt-[25px]">
-                                        <p>Заказать услугу <i class="lg:ml-[10px] ml-0 fa-solid fa-arrow-right-long"></i>
-                                        </p>
-                                    </div>
-                                </a>
-                            </div>
-                        </div>
-                    </div>
-                </div>
+                @endforeach
             </div>
-
             <div class="w-full flex">
                 <div class="carousel-controller lg:justify-end px-[30px] lg:px-[60px] 2xl:px-[100px] lg:w-[800px] bg-[var(--accent-color)] flex items-center justify-between w-full lg:h-[15vh] h-[140px]">
                     <div class="items-center flex gap-[45px] lg:p-0 lg:w-auto w-full justify-between">
@@ -80,8 +49,10 @@
                         </button>
                     </div>
                 </div>
-            </div>         
+                <div class="px-[30px] lg:px-[60px] 2xl:px-[100px] w-[1120px]"></div>
+            </div> 
         </div>
+        
     {{-- ------------------------------------НАШИ УСЛУГИ------------------------------------------------------ --}}
     <div class="overlay-wrapper relative w-full px-0 lg:px-[60px] 2xl:px-[100px] m-auto pt-[80px] xl:pt-[80px] pb-[115px]">
         <div class="overlay1"></div>

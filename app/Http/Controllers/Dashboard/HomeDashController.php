@@ -13,14 +13,20 @@ class HomeDashController extends Controller
         $slides = HomeDash::all(); // Загружаем все записи
         return view('dashboard.home', compact('slides'));
     }
-    
+    public function home()
+{
+    $slides = HomeDash::all(); // Загружаем все записи
+
+    // Возвращаем вид для домашней страницы и передаем слайды
+    return view('home', compact('slides'));
+}
     
     public function store(Request $request)
     {
         // Валидация данных
         $validatedData = $request->validate([
-            'title' => 'required|string|max:255',
-            'description' => 'nullable|string',
+            'title' => 'required|string|max:20',
+            'description' => 'nullable|string|max:200',
             'image' => 'nullable|image|max:2048',
         ]);
     
