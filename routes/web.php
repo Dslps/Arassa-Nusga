@@ -44,6 +44,12 @@ Route::get('home-dashes/{id}', [HomeDashController::class, 'show'])->name('home-
 Route::get('home-dashes/{id}/edit', [HomeDashController::class, 'edit'])->name('home-dash.edit');
 Route::put('home-dashes/{id}', [HomeDashController::class, 'update'])->name('home-dash.update');
 Route::delete('home-dashes/{id}', [HomeDashController::class, 'destroy'])->name('home-dash.destroy');
+Route::post('/services', [HomeDashController::class, 'storeService'])->name('services.store');
+Route::put('/services/{id}', [HomeDashController::class, 'updateService'])->name('services.update');
+Route::delete('/services/{id}', [HomeDashController::class, 'destroyService'])->name('services.destroy');
+Route::get('/dashboard/about-us', [HomeDashController::class, 'aboutUsForm'])->name('dashboard.about-us.form');
+Route::post('/dashboard/about-us', [HomeDashController::class, 'storeAboutUsHome'])->name('dashboard.about-us.store');
+
 
 
 

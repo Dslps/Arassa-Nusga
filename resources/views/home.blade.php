@@ -54,7 +54,7 @@
         </div>
         
     {{-- ------------------------------------НАШИ УСЛУГИ------------------------------------------------------ --}}
-    <div class="overlay-wrapper relative w-full px-0 lg:px-[60px] 2xl:px-[100px] m-auto pt-[80px] xl:pt-[80px] pb-[115px]">
+    <div class="overlay-wrapper relative w-full px-0 lg:px-[60px] 2xl:px-[100px] m-auto pt-[80px] xl:pt-[80px] pb-[80px]">
         <div class="overlay1"></div>
         <div class="overlay2"></div>
         <div class="overlay3"></div>
@@ -65,188 +65,46 @@
             </div>
 
             <div class="flex flex-col lg:flex-row mt-[50px] lg:mt-[60px] 2xl:mt-[100px]">
-                <!-- Блок 2 -->
-                <div class="flex flex-wrap h-max justify-start">
-                    <a href="">
-                        <div
-                            class="animate-block bg-[var(--accent-color)] text-[var(--white-color)] p-[30px] w-full sm:w-[50%] lg:w-[50%] 2xl:w-[25%] flex flex-col group hover:shadow-lg hover:-translate-y-1 transition-transform duration-30">
-                            <p class="base-text">Бизнес консалтинг</p>
-                            <ul class="list-none pl-[10px] space-y-[5px] mt-5">
-                                <li class="list-marker">Стратегическое планирование</li>
-                                <li class="list-marker">Оптимизация бизнес-процессов</li>
-                                <li class="list-marker">Управление изменениями</li>
-                            </ul>
-                            <div class="flex items-center justify-between mt-auto">
-                                <div class="number">01</div>
-                                <a href="">
-                                    <div class="button-service">
-                                        <i class="fa-solid fa-arrow-right"></i>
+                <!-- Цикл для вывода данных -->
+                <div class="flex w-full flex-wrap h-max justify-start">
+                    @foreach ($services as $index => $service)
+                        <a href="">
+                            <div class="animate-block p-[30px] w-full sm:w-[50%] lg:w-[50%] 2xl:w-[25%] flex flex-col 
+                                {{ $loop->first ? 'bg-[var(--accent-color)] text-[var(--white-color)]' : 'bg-white border-b border-r border-gray-200' }}
+                                group hover:shadow-lg hover:-translate-y-1 transition-transform duration-300">
+                                
+                                <!-- Название -->
+                                <p class="base-text truncate {{ $loop->first ? '' : 'mb-[15px] text-[var(--comment-color)] font-semibold group-hover:text-[var(--accent-color)]' }}">
+                                    {{ $service->title }}
+                                </p>
+                
+                                <!-- Категории -->
+                                <ul class="{{ $loop->first ? 'list-none pl-[10px] space-y-[5px] mt-5' : 'lg:ml-[10px] ml-0 text-[var(--accent-color)] font-semibold group-hover:text-[var(--accent-color)]' }}">
+                                    @foreach ($service->categories as $category)
+                                        <li class="list-marker truncate">{{ $category }}</li>
+                                    @endforeach
+                                </ul>
+                
+                                <!-- Номер и кнопка -->
+                                <div class="flex items-center justify-between mt-auto">
+                                    <div class="number {{ $loop->first ? '' : 'text-[var(--comment-color)] font-semibold group-hover:text-[var(--accent-color)]' }}">
+                                        {{ str_pad($index + 1, 2, '0', STR_PAD_LEFT) }}
                                     </div>
-                                </a>
+                                    <a href="">
+                                        <div
+                                            class="button-service 
+                                                {{ $loop->first ? '' : 'group-hover:shadow-md group-hover:shadow-[var(--accent-color)] transition-shadow duration-300' }}">
+                                            <i class="fa-solid fa-arrow-right"></i>
+                                        </div>
+                                    </a>
+                                </div>
                             </div>
-                        </div>
-                    </a>
-                    <a href="">
-                        <div
-                            class="animate-block p-[30px] w-full sm:w-[50%] lg:w-[50%] 2xl:w-[25%]  flex flex-col bg-white group hover:shadow-lg hover:-translate-y-1 transition-transform duration-300 border-b border-r border-gray-200">
-                            <p
-                                class="base-text mb-[15px] text-[var(--comment-color)] font-semibold group-hover:text-[var(--accent-color)]">
-                                Автоматизация финансового учета
-                            </p>
-                            <ul
-                                class="lg:ml-[10px] ml-0 text-[var(--accent-color)] font-semibold group-hover:text-[var(--accent-color)]">
-                                <li class="list-marker">Внедрение ERP-систем</li>
-                                <li class="list-marker">Системы управления бюджетированием</li>
-                                <li class="list-marker">Управление расчетами и платежами</li>
-                            </ul>
-                            <div class="flex items-end justify-between mt-auto">
-                                <div
-                                    class="number text-[var(--comment-color)] font-semibold group-hover:text-[var(--accent-color)]">
-                                    02</div>
-                                <a href="">
-                                    <div
-                                        class="button-service group-hover:shadow-md group-hover:shadow-[var(--accent-color)] transition-shadow duration-300">
-                                        <i class="fa-solid fa-arrow-right"></i>
-                                    </div>
-                                </a>
-                            </div>
-                        </div>
-                    </a>
-                    <a href="">
-                        <div
-                            class="animate-block p-[30px] w-full sm:w-[50%] lg:w-[50%] 2xl:w-[25%]  flex flex-col bg-white group hover:shadow-lg hover:-translate-y-1 transition-transform duration-300 border-b border-r border-gray-200">
-                            <p
-                                class="base-text mb-[15px] text-[var(--comment-color)] font-semibold group-hover:text-[var(--accent-color)]">
-                                Автоматизация финансового учета
-                            </p>
-                            <ul
-                                class="lg:ml-[10px] ml-0 text-[var(--accent-color)] font-semibold group-hover:text-[var(--accent-color)]">
-                                <li class="list-marker">Внедрение ERP-систем</li>
-                                <li class="list-marker">Системы управления бюджетированием</li>
-                                <li class="list-marker">Управление расчетами и платежами</li>
-                            </ul>
-                            <div class="flex items-end justify-between mt-auto">
-                                <div
-                                    class="number text-[var(--comment-color)] font-semibold group-hover:text-[var(--accent-color)]">
-                                    03</div>
-                                <a href="">
-                                    <div
-                                        class="button-service group-hover:shadow-md group-hover:shadow-[var(--accent-color)] transition-shadow duration-300">
-                                        <i class="fa-solid fa-arrow-right"></i>
-                                    </div>
-                                </a>
-                            </div>
-                        </div>
-                    </a>
-                    <a href="">
-                        <div
-                            class="animate-block p-[30px] w-full sm:w-[50%] lg:w-[50%] 2xl:w-[25%]  flex flex-col bg-white group hover:shadow-lg hover:-translate-y-1 transition-transform duration-300 border-b border-r border-gray-200">
-                            <p
-                                class="base-text mb-[15px] text-[var(--comment-color)] font-semibold group-hover:text-[var(--accent-color)]">
-                                Автоматизация финансового учета
-                            </p>
-                            <ul
-                                class="lg:ml-[10px] ml-0 text-[var(--accent-color)] font-semibold group-hover:text-[var(--accent-color)]">
-                                <li class="list-marker">Внедрение ERP-систем</li>
-                                <li class="list-marker">Системы управления бюджетированием</li>
-                                <li class="list-marker">Управление расчетами и платежами</li>
-                            </ul>
-                            <div class="flex items-end justify-between mt-auto">
-                                <div
-                                    class="number text-[var(--comment-color)] font-semibold group-hover:text-[var(--accent-color)]">
-                                    04</div>
-                                <a href="">
-                                    <div
-                                        class="button-service group-hover:shadow-md group-hover:shadow-[var(--accent-color)] transition-shadow duration-300">
-                                        <i class="fa-solid fa-arrow-right"></i>
-                                    </div>
-                                </a>
-                            </div>
-                        </div>
-                    </a>
-                    <a href="">
-                        <div
-                            class="animate-block p-[30px] w-full sm:w-[50%] lg:w-[50%] 2xl:w-[25%]  flex flex-col bg-white group hover:shadow-lg hover:-translate-y-1 transition-transform duration-300 border-b border-r border-gray-200">
-                            <p
-                                class="base-text mb-[15px] text-[var(--comment-color)] font-semibold group-hover:text-[var(--accent-color)]">
-                                Автоматизация финансового учета
-                            </p>
-                            <ul
-                                class="lg:ml-[10px] ml-0 text-[var(--accent-color)] font-semibold group-hover:text-[var(--accent-color)]">
-                                <li class="list-marker">Внедрение ERP-систем</li>
-                                <li class="list-marker">Системы управления бюджетированием</li>
-                                <li class="list-marker">Управление расчетами и платежами</li>
-                            </ul>
-                            <div class="flex items-end justify-between mt-auto">
-                                <div
-                                    class="number text-[var(--comment-color)] font-semibold group-hover:text-[var(--accent-color)]">
-                                    05</div>
-                                <a href="">
-                                    <div
-                                        class="button-service group-hover:shadow-md group-hover:shadow-[var(--accent-color)] transition-shadow duration-300">
-                                        <i class="fa-solid fa-arrow-right"></i>
-                                    </div>
-                                </a>
-                            </div>
-                        </div>
-                    </a>
-                    <a href="">
-                        <div
-                            class="animate-block p-[30px] w-full sm:w-[50%] lg:w-[50%] 2xl:w-[25%]  flex flex-col bg-white group hover:shadow-lg hover:-translate-y-1 transition-transform duration-300 border-b border-r border-gray-200">
-                            <p
-                                class="base-text mb-[15px] text-[var(--comment-color)] font-semibold group-hover:text-[var(--accent-color)]">
-                                Автоматизация финансового учета
-                            </p>
-                            <ul
-                                class="lg:ml-[10px] ml-0 text-[var(--accent-color)] font-semibold group-hover:text-[var(--accent-color)]">
-                                <li class="list-marker">Внедрение ERP-систем</li>
-                                <li class="list-marker">Системы управления бюджетированием</li>
-                                <li class="list-marker">Управление расчетами и платежами</li>
-                            </ul>
-                            <div class="flex items-end justify-between mt-auto">
-                                <div
-                                    class="number text-[var(--comment-color)] font-semibold group-hover:text-[var(--accent-color)]">
-                                    06</div>
-                                <a href="">
-                                    <div
-                                        class="button-service group-hover:shadow-md group-hover:shadow-[var(--accent-color)] transition-shadow duration-300">
-                                        <i class="fa-solid fa-arrow-right"></i>
-                                    </div>
-                                </a>
-                            </div>
-                        </div>
-                    </a>
-                    <a href="">
-                        <div
-                            class="animate-block p-[30px] w-full sm:w-[50%] lg:w-[50%] 2xl:w-[25%]  flex flex-col bg-white group hover:shadow-lg hover:-translate-y-1 transition-transform duration-300 border-b border-r border-gray-200">
-                            <p
-                                class="base-text mb-[15px] text-[var(--comment-color)] font-semibold group-hover:text-[var(--accent-color)]">
-                                Автоматизация финансового учета
-                            </p>
-                            <ul
-                                class="lg:ml-[10px] ml-0 text-[var(--accent-color)] font-semibold group-hover:text-[var(--accent-color)]">
-                                <li class="list-marker">Внедрение ERP-систем</li>
-                                <li class="list-marker">Системы управления бюджетированием</li>
-                                <li class="list-marker">Управление расчетами и платежами</li>
-                            </ul>
-                            <div class="flex items-end justify-between mt-auto">
-                                <div
-                                    class="number text-[var(--comment-color)] font-semibold group-hover:text-[var(--accent-color)]">
-                                    07</div>
-                                <a href="">
-                                    <div
-                                        class="button-service group-hover:shadow-md group-hover:shadow-[var(--accent-color)] transition-shadow duration-300">
-                                        <i class="fa-solid fa-arrow-right"></i>
-                                    </div>
-                                </a>
-                            </div>
-                        </div>
-                    </a>
-
-
+                        </a>
+                    @endforeach
                 </div>
-
+                
             </div>
+            
 
 
         </div>

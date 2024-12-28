@@ -209,7 +209,7 @@ body {
   }
   /* -------------------------------------------------------- */
 .slider-button{
-    @apply relative top-0 end-0 z-30 flex items-center justify-center w-[50px] h-[50px] rounded-full hover:shadow-[0_5px_10px_var(--accent-color)] px-4 cursor-pointer  focus:outline-none duration-300;
+    @apply relative top-0 end-0 flex items-center justify-center w-[50px] h-[50px] rounded-full hover:shadow-[0_5px_10px_var(--accent-color)] px-4 cursor-pointer  focus:outline-none duration-300;
 }
   
 /* ---------------------------------- */
