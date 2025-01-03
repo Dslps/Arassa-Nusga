@@ -113,42 +113,30 @@
     <div class="w-full mx-auto max-w-[2000px] m-auto flex flex-col lg:flex-row bg-[var(--template-color)]">
         <!-- Блок с изображением -->
         <div class="image-container flex justify-center w-full 2xl:w-[800px] overflow-hidden">
-            <img src="{{ asset('img/home-page/building.png') }}" alt=""
+            <img src="{{ asset('storage/' . ($aboutUs->image_path ?? 'img/home-page/building.png')) }}" alt="Изображение"
                 class="animate-image w-full lg:w-auto h-auto object-cover">
         </div>
-
+    
         <!-- Блок с текстом -->
         <div
             class="text-container w-full lg:w-[1120px] py-16 px-[30px] lg:px-[60px] xl:px-[100px] text-[var(--white-color)]">
             <div class="max-w-[870px]">
-                <p class="title-2 max-w-[430px] mb-[40px] font-semibold animate-text">Работаем для вас с 2017 года</p>
-                <ul class="lg:ml-[10px] ml-0 base-text space-y-[15px]">
-                    <li class="list-marker animate-text">Консалтинговая компания «Arassa Nusga», основанная в 2017 году в
-                        составе Lotta
-                        Business Group, работает под девизом: «Качество. Инновации. Решения».</li>
-                    <li class="list-marker animate-text">Наша команда объединяет высококвалифицированных специалистов из
-                        различных
-                        отраслей. Мы предлагаем широкий спектр профессиональных консалтинговых услуг, направленных на
-                        повышение эффективности вашей деятельности, улучшение качества работы сотрудников, решение
-                        актуальных бизнес-задач и увеличение прибыли вашей компании.</li>
-                    <li class="list-marker animate-text">Мы всегда стремимся превзойти ожидания наших клиентов,
-                        предоставляя больше, чем
-                        от нас ожидают. Успех наших клиентов — это наша лучшая репутация.</li>
-                </ul>
-                <ul class="lg:ml-[10px] ml-0 mt-[30px] base-text space-y-[15px]">
-                    <li class="list-marker animate-text">Компания «Arassa Nusga» объединена общим стремлением к
-                        приобретению новых
-                        знаний и навыков в профессиональной сфере. Мы смело реализуем свои идеи, выходя за рамки привычного,
-                        и понимаем, что каждая идея может стать новой возможностью для всей компании. Именно поэтому мы
-                        открыты к изменениям и готовы пересматривать устоявшиеся подходы.</li>
-                    <li class="list-marker animate-text">Мы ценим сотрудников, которые стремятся к профессиональному и
-                        личностному
-                        росту, делятся знаниями с коллегами и работают в интересах компании. Для нас КОМАНДА — это не просто
-                        группа людей, а сила, объединенная общими целями и ценностями.</li>
+                <p class="title-2 max-w-[430px] mb-[40px] font-semibold animate-text">
+                    {{ $aboutUs->title }}
+                </p>
+                <ul class="lg:ml-[10px] ml-0 base-text space-y-[15px]" style="word-wrap: break-word; word-break: break-word; overflow-wrap: break-word;">
+                    @foreach(explode("\n", $aboutUs->description) as $line)
+                        @if(trim($line) !== '')
+                            <li class="list-marker animate-text">{{ $line }}</li>
+                        @endif
+                    @endforeach
                 </ul>
             </div>
         </div>
     </div>
+    
+    
+        
 
     {{-- ------------------------------НАШИ ПРОЕКТЫ-------------------------------------- --}}
     <div class="w-full max-w-[2000px] mx-auto px-[30px] lg:px-[60px] 2xl:px-[100px] mt-[50px] lg:mt-[90px]">

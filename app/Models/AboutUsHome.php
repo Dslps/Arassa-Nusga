@@ -6,13 +6,16 @@ use Illuminate\Database\Eloquent\Model;
 
 class AboutUsHome extends Model
 {
-    protected $table = 'about_us_homes';
+    protected $fillable = ['title', 'description', 'image_path'];
 
-    // Поля, которые можно массово заполнять
-    protected $fillable = [
-        'title',         // Название
-        'description',   // Описание
-        'image_path',    // Путь к изображению
-    ];
-
+    // Метод для получения данных
+    public static function getAboutUs()
+    {
+        return self::first() ?? new self([
+            'title' => 'Заголовок по умолчанию',
+            'description' => 'Описание по умолчанию',
+            'image_path' => 'img/home-page/building.png',
+        ]);
+    }
 }
+

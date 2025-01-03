@@ -238,27 +238,41 @@
 {{---------------------------------------------------- блок о нас --------------------------------------------------  --}}
 <div class="p-4 sm:ml-64">
     <div class="p-4 border-2 border-gray-200 border-dashed rounded-lg dark:border-gray-700">
-        <p class="text-lg font-semibold mb-4">О нас:</p>
-        <div class="gap-10">
-                <!-- Поле загрузки изображения -->
-                    <label for="image-prev" class="block text-gray-700 font-medium mb-2">Загрузить изображение</label>
-                    <input type="file" id="image-prev" name="image" accept="image/*" 
-                        class="border-2 border-dashed border-gray-300 p-4 w-full rounded focus:outline-none focus:border-blue-500 focus:ring-2 focus:ring-blue-500">
-                <!-- Поля ввода текста -->
-                    <div>
-                        <label for="title-name" class="block text-gray-700 font-medium mb-2">Название:</label>
-                        <input type="text" id="title-name" name="title-name" 
-                            class="border-2 border-dashed border-gray-300 p-4 w-full rounded focus:outline-none focus:border-blue-500 focus:ring-2 focus:ring-blue-500">
-                    </div>
-                    <div>
-                        <label for="about-us" class="block text-gray-700 font-medium mb-2">Описание:</label>
-                        <textarea id="about-us" name="about-us" cols="30" rows="10"
-                            class="border-2 border-dashed border-gray-300 p-4 w-full rounded focus:outline-none focus:border-blue-500 focus:ring-2 focus:ring-blue-500">
-                        </textarea>
-                    </div>
-        </div>
+        <form method="POST" action="{{ route('about-us.update', $aboutUs->id ?? '') }}" enctype="multipart/form-data">
+            @csrf
+            @if(isset($aboutUs))
+                @method('PUT')
+            @endif
+            
+            <p class="text-lg font-semibold mb-4">О нас:</p>
+
+            <!-- Поле загрузки изображения -->
+            <div class="mb-4">
+                <label for="image-prev" class="block text-gray-700 font-medium mb-2">Загрузить изображение</label>
+                <input type="file" id="image-prev" name="image" accept="image/*"
+                       class="border-2 border-dashed border-gray-300 p-4 w-full rounded focus:outline-none focus:border-blue-500 focus:ring-2 focus:ring-blue-500">
+                @if(isset($aboutUs) && $aboutUs->image_path)
+                    <img src="{{ asset('storage/' . $aboutUs->image_path) }}" alt="Загруженное изображение" class="mt-2 w-32">
+                @endif
+            </div>
+
+            <!-- Поля ввода текста -->
+            <div class="mb-4">
+                <label for="title-name" class="block text-gray-700 font-medium mb-2">Название:</label>
+                <input type="text" id="title-name" name="title" value="{{ $aboutUs->title ?? '' }}"
+                       class="border-2 border-dashed border-gray-300 p-4 w-full rounded focus:outline-none focus:border-blue-500 focus:ring-2 focus:ring-blue-500">
+            </div>
+            <div class="mb-4">
+                <label for="about-us" class="block text-gray-700 font-medium mb-2">Описание:</label>
+                <textarea id="about-us" name="description" cols="30" rows="10"
+                          class="border-2 border-dashed border-gray-300 p-4 w-full rounded focus:outline-none focus:border-blue-500 focus:ring-2 focus:ring-blue-500">{{ $aboutUs->description ?? '' }}</textarea>
+            </div>
+
+            <button type="submit" class="px-4 py-2 bg-blue-500 text-white rounded">Сохранить</button>
+        </form>
     </div>
 </div>
+
 
     {{-- Модульное окно на блок с редактирование слайдера --}}
     <script>

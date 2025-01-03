@@ -1,19 +1,19 @@
 <?php
 namespace App\Http\Controllers;
 
-use Illuminate\Http\Request;
 use App\Models\HomeDash;
 use App\Models\Service;
+use App\Models\AboutUsHome;
 
 class HomeController extends Controller
 {
     public function index()
     {
-        // Получаем данные из обеих моделей
         $slides = HomeDash::all();
         $services = Service::all();
+        $aboutUs = AboutUsHome::first(); // Получаем первую запись "О нас"
 
-        // Передаем все данные в представление "home"
-        return view('home', compact('slides', 'services'));
+        return view('home', compact('slides', 'services', 'aboutUs'));
     }
 }
+

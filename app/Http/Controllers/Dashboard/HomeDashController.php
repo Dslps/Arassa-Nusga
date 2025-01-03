@@ -14,8 +14,8 @@ class HomeDashController extends Controller
     {
         $slides = HomeDash::all();
         $services = Service::all();
-        $aboutUs = AboutUsHome::all(); // Получаем записи из таблицы "О нас"
-        
+        $aboutUs = AboutUsHome::getAboutUs(); // Получаем данные "О нас"
+
         return view('dashboard.home', compact('slides', 'services', 'aboutUs'));
     }
     
@@ -93,13 +93,13 @@ class HomeDashController extends Controller
     {
         $validatedData = $request->validate([
             'title' => 'required|string|max:255',
-            'categories' => 'nullable|array', // Указываем, что категории - это массив
+            'categories' => 'nullable|array', 
             'categories.*' => 'nullable|string|max:255',
         ]);
     
         $service = new Service();
         $service->title = $validatedData['title'];
-        $service->categories = $validatedData['categories'] ?? []; // Сохраняем массив напрямую
+        $service->categories = $validatedData['categories'] ?? []; 
         $service->save();
     
         return redirect()->route('home-dash.index')->with('success', 'Услуга успешно добавлена!');
@@ -135,7 +135,64 @@ public function updateService(Request $request, $id)
 
 
     // ----------------------------------------------------
-   
+    public function storeAboutUs(Request $request)
+    {
+        $validatedData = $request->validate([
+            'title' => 'required|string|max:255',
+            'description' => 'nullable|string',
+            'image' => 'nullable|image|max:5000',
+        ]);
+
+        $aboutUs = new AboutUsHome();
+        $aboutUs->title = $validatedData['title'];
+        $aboutUs->description = $validatedData['description'];
+
+        if ($request->hasFile('image')) {
+            $aboutUs->image_path = $request->file('image')->store('about_us', 'public');
+        }
+
+        $aboutUs->save();
+
+        return redirect()->route('home-dash.index')->with('success', 'Информация успешно добавлена!');
+    }
+
+    public function updateAboutUs(Request $request, $id)
+    {
+        $aboutUs = AboutUsHome::findOrFail($id);
+    
+        $validatedData = $request->validate([
+            'title' => 'required|string|max:255',
+            'description' => 'nullable|string',
+            'image' => 'nullable|image|max:5000',
+        ]);
+    
+        $aboutUs->title = $validatedData['title'];
+        $aboutUs->description = $validatedData['description']; // Текст сохраняется как есть.
+    
+        if ($request->hasFile('image')) {
+            if ($aboutUs->image_path && \Storage::exists('public/' . $aboutUs->image_path)) {
+                \Storage::delete('public/' . $aboutUs->image_path);
+            }
+            $aboutUs->image_path = $request->file('image')->store('about_us', 'public');
+        }
+    
+        $aboutUs->save();
+    
+        return redirect()->route('about-us.index')->with('success', 'Данные успешно обновлены!');
+    }
+
+    public function destroyAboutUs($id)
+    {
+        $aboutUs = AboutUsHome::findOrFail($id);
+
+        if ($aboutUs->image_path && \Storage::exists('public/' . $aboutUs->image_path)) {
+            \Storage::delete('public/' . $aboutUs->image_path);
+        }
+
+        $aboutUs->delete();
+
+        return redirect()->route('home-dash.index')->with('success', 'Информация успешно удалена!');
+    }
     
    }
 
