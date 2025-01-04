@@ -160,18 +160,23 @@
                             </td>
                             <td class="border border-gray-300 px-4 py-2 text-center">
                                 <button
-                                    onclick="ServiceModal.open(
-                                        'edit', 
-                                        {{ $service->id }}, 
-                                        '{{ $service->title_ru }}', 
-                                        '{{ $service->title_en }}', 
-                                        '{{ $service->title_tm }}',
-                                        {{ json_encode($service->categories ?? []) }}
-                                    )"
-                                    class="text-orange-500"
-                                >
-                                    <i class="text-[20px] fa-solid fa-pencil"></i>
-                                </button>
+                                onclick='ServiceModal.open(
+                                    "edit",
+                                    {{ $service->id }},
+                                    "{{ addslashes($service->title_ru) }}",
+                                    "{{ addslashes($service->title_en) }}",
+                                    "{{ addslashes($service->title_tm) }}",
+                                    {
+                                        ru: {!! json_encode($service->categories_ru ?? []) !!},
+                                        en: {!! json_encode($service->categories_en ?? []) !!},
+                                        tm: {!! json_encode($service->categories_tm ?? []) !!}
+                                    }
+                                )'
+                                class="text-orange-500"
+                            >
+                                <i class="text-[20px] fa-solid fa-pencil"></i>
+                            </button>
+                            
                             </td>
                             <td class="border border-gray-300 px-4 py-2 text-center">
                                 <form action="{{ route('services.destroy', $service->id) }}" method="POST"
@@ -502,23 +507,28 @@ imageInput.addEventListener('change', function() {
                     titleEnInput.value = titleEn;
                     titleTmInput.value = titleTm;
     
-                    // Если мы получили объект { ru: [...], en: [...], tm: [...] }
-                    // Заполняем соответствующие поля
-                    categories.ru.forEach((catValue, index) => {
-                        if (categoriesRuInputs[index]) {
-                            categoriesRuInputs[index].value = catValue;
-                        }
-                    });
-                    categories.en.forEach((catValue, index) => {
-                        if (categoriesEnInputs[index]) {
-                            categoriesEnInputs[index].value = catValue;
-                        }
-                    });
-                    categories.tm.forEach((catValue, index) => {
-                        if (categoriesTmInputs[index]) {
-                            categoriesTmInputs[index].value = catValue;
-                        }
-                    });
+                    // Заполняем категории
+                    if (categories.ru) {
+                        categories.ru.forEach((catValue, index) => {
+                            if (categoriesRuInputs[index]) {
+                                categoriesRuInputs[index].value = catValue;
+                            }
+                        });
+                    }
+                    if (categories.en) {
+                        categories.en.forEach((catValue, index) => {
+                            if (categoriesEnInputs[index]) {
+                                categoriesEnInputs[index].value = catValue;
+                            }
+                        });
+                    }
+                    if (categories.tm) {
+                        categories.tm.forEach((catValue, index) => {
+                            if (categoriesTmInputs[index]) {
+                                categoriesTmInputs[index].value = catValue;
+                            }
+                        });
+                    }
     
                 } else {
                     // Режим "add"
@@ -527,12 +537,12 @@ imageInput.addEventListener('change', function() {
                     methodInput.value = 'POST';
                     idInput.value = '';
     
-                    // Очищаем поля
+                    // Очищаем поля названий
                     titleRuInput.value = '';
                     titleEnInput.value = '';
                     titleTmInput.value = '';
     
-                    // Сбрасываем все категории
+                    // Сбрасываем категории
                     categoriesRuInputs.forEach(input => input.value = '');
                     categoriesEnInputs.forEach(input => input.value = '');
                     categoriesTmInputs.forEach(input => input.value = '');
@@ -599,6 +609,11 @@ imageInput.addEventListener('change', function() {
             }
         };
     
+        // Инициализируем счётчики символов при загрузке страницы
+        document.addEventListener('DOMContentLoaded', () => {
+            CharacterCounter.init();
+        });
     </script>
+    
     
 @endsection
