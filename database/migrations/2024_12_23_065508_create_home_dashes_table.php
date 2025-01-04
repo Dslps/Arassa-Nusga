@@ -10,15 +10,20 @@ return new class extends Migration
      * Run the migrations.
      */
     public function up(): void
-    {
-        Schema::create('home_dashes', function (Blueprint $table) {
-            $table->id(); // Первичный ключ
-            $table->string('title'); // Поле для заголовка
-            $table->text('description')->nullable(); // Поле для описания (может быть NULL)
-            $table->string('image_path')->nullable(); // Поле для пути к изображению (может быть NULL)
-            $table->timestamps(); // Поля created_at и updated_at
-        });
-    }
+{
+    Schema::create('home_dashes', function (Blueprint $table) {
+        $table->id();
+        $table->string('title_ru'); // Название (RU)
+        $table->string('title_en'); // Название (EN)
+        $table->string('title_tm'); // Название (TM)
+        $table->text('description_ru')->nullable(); // Описание (RU)
+        $table->text('description_en')->nullable(); // Описание (EN)
+        $table->text('description_tm')->nullable(); // Описание (TM)
+        $table->string('image_path')->nullable(); // Путь к изображению
+        $table->timestamps();
+    });
+}
+
 
     /**
      * Reverse the migrations.

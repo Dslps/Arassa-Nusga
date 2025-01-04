@@ -21,25 +21,29 @@ class HomeDashController extends Controller
     
 
     public function store(Request $request)
-    {
-        $validatedData = $request->validate([
-            'title' => 'required|string|max:20',
-            'description' => 'nullable|string|max:200',
-            'image' => 'nullable|image|max:5000',
-        ]);
+{
+    $validatedData = $request->validate([
+        'title_ru' => 'required|string|max:30',
+        'title_en' => 'nullable|string|max:30',
+        'title_tm' => 'nullable|string|max:30',
+        'description_ru' => 'nullable|string|max:200',
+        'description_en' => 'nullable|string|max:200',
+        'description_tm' => 'nullable|string|max:200',
+        'image' => 'nullable|image|max:5000',
+    ]);
 
-        $newForm = new HomeDash();
-        $newForm->title = $validatedData['title'];
-        $newForm->description = $validatedData['description'] ?? null;
+    $newSlide = new HomeDash();
+    $newSlide->fill($validatedData);
 
-        if ($request->hasFile('image')) {
-            $newForm->image_path = $request->file('image')->store('images', 'public');
-        }
-
-        $newForm->save();
-
-        return redirect()->route('home-dash.index')->with('success', 'Запись успешно добавлена!');
+    if ($request->hasFile('image')) {
+        $newSlide->image_path = $request->file('image')->store('images', 'public');
     }
+
+    $newSlide->save();
+
+    return redirect()->route('home-dash.index')->with('success', 'Запись успешно добавлена!');
+}
+
 
     public function showService($id)
     {
@@ -52,28 +56,32 @@ class HomeDashController extends Controller
 
     public function update(Request $request, $id)
     {
-        $form = HomeDash::findOrFail($id);
-
+        $slide = HomeDash::findOrFail($id);
+    
         $validated = $request->validate([
-            'title' => 'required|string|max:255',
-            'description' => 'nullable|string',
-            'image' => 'nullable|image|max:2048',
+            'title_ru' => 'required|string|max:30',
+            'title_en' => 'nullable|string|max:30',
+            'title_tm' => 'nullable|string|max:30',
+            'description_ru' => 'nullable|string|max:200',
+            'description_en' => 'nullable|string|max:200',
+            'description_tm' => 'nullable|string|max:200',
+            'image' => 'nullable|image|max:5000',
         ]);
-
-        $form->title = $validated['title'];
-        $form->description = $validated['description'];
-
+    
+        $slide->fill($validated);
+    
         if ($request->hasFile('image')) {
-            if ($form->image_path && \Storage::exists('public/' . $form->image_path)) {
-                \Storage::delete('public/' . $form->image_path);
+            if ($slide->image_path && \Storage::exists('public/' . $slide->image_path)) {
+                \Storage::delete('public/' . $slide->image_path);
             }
-            $form->image_path = $request->file('image')->store('images', 'public');
+            $slide->image_path = $request->file('image')->store('images', 'public');
         }
-
-        $form->save();
-
+    
+        $slide->save();
+    
         return redirect()->route('home-dash.index')->with('success', 'Запись успешно обновлена!');
     }
+    
 
     public function destroy($id)
     {
@@ -159,26 +167,26 @@ public function updateService(Request $request, $id)
     public function updateAboutUs(Request $request, $id)
     {
         $aboutUs = AboutUsHome::findOrFail($id);
-    
+
         $validatedData = $request->validate([
             'title' => 'required|string|max:255',
             'description' => 'nullable|string',
             'image' => 'nullable|image|max:5000',
         ]);
-    
+
         $aboutUs->title = $validatedData['title'];
-        $aboutUs->description = $validatedData['description']; // Текст сохраняется как есть.
-    
+        $aboutUs->description = $validatedData['description'];
+
         if ($request->hasFile('image')) {
             if ($aboutUs->image_path && \Storage::exists('public/' . $aboutUs->image_path)) {
                 \Storage::delete('public/' . $aboutUs->image_path);
             }
             $aboutUs->image_path = $request->file('image')->store('about_us', 'public');
         }
-    
+
         $aboutUs->save();
-    
-        return redirect()->route('about-us.index')->with('success', 'Данные успешно обновлены!');
+
+        return redirect()->route('home-dash.index')->with('success', 'Информация успешно обновлена!');
     }
 
     public function destroyAboutUs($id)
@@ -193,6 +201,5 @@ public function updateService(Request $request, $id)
 
         return redirect()->route('home-dash.index')->with('success', 'Информация успешно удалена!');
     }
-    
    }
 

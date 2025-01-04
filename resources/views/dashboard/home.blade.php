@@ -1,133 +1,140 @@
 @extends('layouts.dashboard')
 @section('content')
-    <div class="p-4 sm:ml-64">
-        <div class="p-4 border-2 border-gray-200 border-dashed rounded-lg dark:border-gray-700 mt-14">
-            <p class="base-text mb-10">Домашняя страница</p>
-            <p class="text-lg font-semibold mb-4">Слайдер:</p>
+<div class="p-4 sm:ml-64">
+    <div class="p-4 border-2 border-gray-200 border-dashed rounded-lg dark:border-gray-700 mt-14">
+        <p class="base-text mb-10">Домашняя страница</p>
+        <p class="text-lg font-semibold mb-4">Слайдер:</p>
 
-            <!-- Таблица -->
-            <table class="table-auto w-full border-collapse border border-gray-300">
-                <thead>
-                    <tr class="bg-gray-40">
-                        <th class="border border-gray-300 px-4 py-2">#</th>
-                        <th class="border border-gray-300 px-4 py-2">Изображение</th>
-                        <th class="border border-gray-300 px-4 py-2">Титульный текст</th>
-                        <th class="border border-gray-300 px-4 py-2">Описание</th>
-                        <th class="border border-gray-300 px-4 py-2">Редактировать</th>
-                        <th class="border border-gray-300 px-4 py-2">Удалить</th>
-                    </tr>
-                </thead>
-                <tbody id="tableBody">
-                    @foreach ($slides as $index => $slide)
-                        <tr>
-                            <td class="border border-gray-300 px-4 py-2 text-center">{{ $index + 1 }}</td>
-                            <td class="border border-gray-300 px-4 py-2">
-                                <img src="{{ asset('storage/' . $slide->image_path) }}" alt="Изображение"
-                                    class="w-16 h-16 object-cover mx-auto">
-                            </td>
-
-
-
-                            <td class="border border-gray-300 px-4 py-2">{{ $slide->title }}</td>
-                            <td class="border border-gray-300 px-4 py-2 max-w-[600px] overflow-x-auto whitespace-nowrap">
-                                {{ $slide->description }}
-                            </td>
-
-                            <td class="border border-gray-300 px-4 py-2 text-center">
-                                <button
-                                    onclick="openEditModal({{ $slide->id }}, '{{ $slide->title }}', '{{ $slide->description }}')"
-                                    class=" text-orange-500">
-                                    <i class="text-[20px] fa-solid fa-pencil"></i>
+        <!-- Таблица -->
+        <table class="table-auto w-full border-collapse border border-gray-300">
+            <thead>
+                <tr class="bg-gray-40">
+                    <th class="border border-gray-300 px-4 py-2">#</th>
+                    <th class="border border-gray-300 px-4 py-2">Изображение</th>
+                    <th class="border border-gray-300 px-4 py-2">Титульный текст</th>
+                    <th class="border border-gray-300 px-4 py-2">Описание</th>
+                    <th class="border border-gray-300 px-4 py-2">Редактировать</th>
+                    <th class="border border-gray-300 px-4 py-2">Удалить</th>
+                </tr>
+            </thead>
+            <tbody id="tableBody">
+                @foreach ($slides as $index => $slide)
+                    <tr>
+                        <td class="border border-gray-300 px-4 py-2 text-center">{{ $index + 1 }}</td>
+                        <td class="border border-gray-300 px-4 py-2">
+                            <img src="{{ asset('storage/' . $slide->image_path) }}" alt="Изображение"
+                                class="w-16 h-16 object-cover mx-auto">
+                        </td>
+                        <td class="border border-gray-300 px-4 py-2">{{ $slide->title_ru }}</td>
+                        <td class="border border-gray-300 px-4 py-2">{{ $slide->description_ru }}</td>
+                        <td class="border border-gray-300 px-4 py-2 text-center">
+                            <button
+                                onclick="openEditModal({{ $slide->id }}, '{{ $slide->title_ru }}', '{{ $slide->title_en }}', '{{ $slide->title_tm }}', '{{ $slide->description_ru }}', '{{ $slide->description_en }}', '{{ $slide->description_tm }}')"
+                                class="text-orange-500">
+                                <i class="text-[20px] fa-solid fa-pencil"></i>
+                            </button>
+                        </td>
+                        <td class="border border-gray-300 px-4 py-2 text-center">
+                            <form action="{{ route('home-dash.destroy', $slide->id) }}" method="POST"
+                                onsubmit="return confirm('Вы уверены, что хотите удалить эту запись?');">
+                                @csrf
+                                @method('DELETE')
+                                <button type="submit" class="text-red-600">
+                                    <i class="text-[20px] fa-solid fa-trash"></i>
                                 </button>
-                            </td>
-                            <td class="border border-gray-300 px-4 py-2 text-center">
-                                <form action="{{ route('home-dash.destroy', $slide->id) }}" method="POST"
-                                    onsubmit="return confirm('Вы уверены, что хотите удалить эту запись?');">
-                                    @csrf
-                                    @method('DELETE')
-                                    <button type="submit" class="text-red-600">
-                                        <i class="text-[20px] fa-solid fa-trash"></i>
-                                    </button>
-                                </form>
-                            </td>
-                        </tr>
-                    @endforeach
-                </tbody>
+                            </form>
+                        </td>
+                    </tr>
+                @endforeach
+            </tbody>
+        </table>
 
-            </table>
-
-            <!-- Кнопка для добавления -->
-            <div class="flex justify-center mt-4">
-                <button id="addRowButton" class="bg-blue-500 text-white px-6 py-2 rounded shadow hover:bg-blue-600">
-                    + Добавить слайдер
-                </button>
-            </div>
-            <div id="addModal" class="fixed inset-0 bg-black bg-opacity-50 flex justify-center items-center hidden">
-                <div class="bg-white p-8 rounded shadow-lg w-1/3">
-                    <h2 id="modalTitle" class="text-xl mb-4">Добавить запись</h2>
-                    <form id="modalForm" action="{{ route('home-dash.store') }}" method="POST"
-                        enctype="multipart/form-data">
-                        @csrf
-                        <input type="hidden" name="_method" id="formMethod" value="POST"> <!-- По умолчанию POST -->
-                        <input type="hidden" id="modalId" name="id">
-
-                        <!-- Поле Название -->
-                        <div class="mb-4">
-                            <label for="title" class="block mb-1">Название:</label>
-                            <input type="text" id="title" name="title" placeholder="Введите название"
-                                class="border p-2 w-full" maxlength="30" required>
-                            <small id="titleWarning" class="text-red-500 hidden">Превышено ограничение в 20
-                                символов!</small>
-                            <small id="titleCount" class="text-gray-500">Осталось символов: 20</small>
-                        </div>
-
-                        <!-- Поле Описание -->
-                        <div class="mb-4">
-                            <label for="description" class="block mb-1">Описание:</label>
-                            <textarea id="description" name="description" placeholder="Введите описание" class="border p-2 w-full" rows="3"></textarea>
-                            <small id="descriptionWarning" class="text-red-500 hidden">Превышено ограничение в 200
-                                символов!</small>
-                            <small id="descriptionCount" class="text-gray-500">Осталось символов: 200</small>
-                        </div>
-
-                        <!-- Поле Изображение -->
-                        <div class="mb-4">
-                            <label for="image" class="block mb-1">Изображение:</label>
-                            <input type="file" id="image" name="image" accept="image/*" class="border p-2 w-full">
-                            <small id="imageWarning" class="text-red-500 hidden">Размер файла не должен превышать 5
-                                MB!</small>
-                            <img id="imagePreview" class="w-20 h-20 object-cover mt-2 hidden"
-                                alt="Предварительный просмотр">
-                        </div>
-
-                        <!-- Поле Языков -->
-                        <div class="mb-4">
-                            <label for="language" class="block mb-1">Выбор языка:</label>
-                            <select id="language" name="language" class="border p-2 w-full">
-                                <option value="en">Английский</option>
-                                <option value="tm">Туркменский</option>
-                                <option value="ru">Русский</option>
-                            </select>
-                        </div>
-
-                        <div class="flex justify-end">
-                            <button type="button" onclick="closeModal()"
-                                class="bg-gray-500 text-white px-4 py-2 rounded mr-2">Отмена</button>
-                            <button type="submit" id="modalSubmitButton"
-                                class="bg-blue-500 text-white px-4 py-2 rounded">Сохранить</button>
-                        </div>
-                    </form>
-                </div>
-            </div>
-
-
+        <!-- Кнопка для добавления -->
+        <div class="flex justify-center mt-4">
+            <button id="addRowButton" class="bg-blue-500 text-white px-6 py-2 rounded shadow hover:bg-blue-600">
+                + Добавить слайдер
+            </button>
         </div>
+
+        <!-- Модальное окно -->
+        <div id="addModal" class="fixed inset-0 bg-black bg-opacity-50 flex justify-center items-center hidden">
+            <div class="bg-white p-8 rounded shadow-lg w-3/4 max-w-4xl">
+                <h2 id="modalTitle" class="text-xl mb-4">Добавить запись</h2>
+                <form id="modalForm" action="{{ route('home-dash.store') }}" method="POST" enctype="multipart/form-data">
+                    @csrf
+                    <input type="hidden" name="_method" id="formMethod" value="POST">
+                    <input type="hidden" id="modalId" name="id">
+        
+                    <!-- Поля Названия (горизонтально) -->
+                    <div class="flex gap-4 mb-4">
+                        <!-- RU -->
+                        <div class="w-1/3">
+                            <label for="title_ru" class="block mb-1 font-semibold">Название (RU):</label>
+                            <input type="text" id="title_ru" name="title_ru" placeholder="Введите название (RU)"
+                                   class="border p-2 w-full" maxlength="30" required>
+                        </div>
+                        <!-- EN -->
+                        <div class="w-1/3">
+                            <label for="title_en" class="block mb-1 font-semibold">Название (EN):</label>
+                            <input type="text" id="title_en" name="title_en" placeholder="Введите название (EN)"
+                                   class="border p-2 w-full" maxlength="30">
+                        </div>
+                        <!-- TM -->
+                        <div class="w-1/3">
+                            <label for="title_tm" class="block mb-1 font-semibold">Название (TM):</label>
+                            <input type="text" id="title_tm" name="title_tm" placeholder="Введите название (TM)"
+                                   class="border p-2 w-full" maxlength="30">
+                        </div>
+                    </div>
+        
+                    <!-- Поля Описание (горизонтально) -->
+                    <div class="flex gap-4 mb-4">
+                        <!-- RU -->
+                        <div class="w-1/3">
+                            <label for="description_ru" class="block mb-1 font-semibold">Описание (RU):</label>
+                            <textarea id="description_ru" name="description_ru" placeholder="Введите описание (RU)"
+                                      class="border p-2 w-full" rows="3"></textarea>
+                        </div>
+                        <!-- EN -->
+                        <div class="w-1/3">
+                            <label for="description_en" class="block mb-1 font-semibold">Описание (EN):</label>
+                            <textarea id="description_en" name="description_en" placeholder="Введите описание (EN)"
+                                      class="border p-2 w-full" rows="3"></textarea>
+                        </div>
+                        <!-- TM -->
+                        <div class="w-1/3">
+                            <label for="description_tm" class="block mb-1 font-semibold">Описание (TM):</label>
+                            <textarea id="description_tm" name="description_tm" placeholder="Введите описание (TM)"
+                                      class="border p-2 w-full" rows="3"></textarea>
+                        </div>
+                    </div>
+        
+                    <!-- Поле Изображение -->
+                    <div class="mb-4">
+                        <label for="image" class="block mb-1 font-semibold">Изображение:</label>
+                        <input type="file" id="image" name="image" accept="image/*" class="border p-2 w-full">
+                    </div>
+        
+                    <div class="flex justify-end">
+                        <button type="button" onclick="closeModal()" class="bg-gray-500 text-white px-4 py-2 rounded mr-2">
+                            Отмена
+                        </button>
+                        <button type="submit" id="modalSubmitButton" class="bg-blue-500 text-white px-4 py-2 rounded">
+                            Сохранить
+                        </button>
+                    </div>
+                </form>
+            </div>
+        </div>
+        
     </div>
+</div>
+
     {{-- ------------------------------------Таблица с услугами--------------------------------------------------- --}}
     <div class="p-4 sm:ml-64">
         <div class="p-4 border-2 border-gray-200 border-dashed rounded-lg dark:border-gray-700">
             <p class="text-lg font-semibold mb-4">Наши услуги:</p>
-
+    
             <!-- Таблица с услугами -->
             <table class="table-auto w-full border-collapse border border-gray-300">
                 <thead>
@@ -143,20 +150,32 @@
                     @foreach ($services as $index => $service)
                         <tr>
                             <td class="border border-gray-300 px-4 py-2 text-center">{{ $index + 1 }}</td>
-                            <td class="border border-gray-300 px-4 py-2">{{ $service->title }}</td>
+                            <td class="border border-gray-300 px-4 py-2">
+                                {{-- Предполагается, что в БД есть поля title_ru, title_en, title_tm --}}
+                                {{ $service->title_ru }}
+                            </td>
                             <td class="border border-gray-300 px-4 py-2 max-w-[600px] overflow-x-auto whitespace-nowrap">
+                                {{-- Если категории тоже мультиязычные, используйте $service->categories_ru и т.п. --}}
                                 {{ implode(', ', $service->categories ?? []) }}
                             </td>
                             <td class="border border-gray-300 px-4 py-2 text-center">
                                 <button
-                                    onclick="ServiceModal.open('edit', {{ $service->id }}, '{{ $service->title }}', {{ json_encode($service->categories) }})"
-                                    class="text-orange-500">
+                                    onclick="ServiceModal.open(
+                                        'edit', 
+                                        {{ $service->id }}, 
+                                        '{{ $service->title_ru }}', 
+                                        '{{ $service->title_en }}', 
+                                        '{{ $service->title_tm }}',
+                                        {{ json_encode($service->categories ?? []) }}
+                                    )"
+                                    class="text-orange-500"
+                                >
                                     <i class="text-[20px] fa-solid fa-pencil"></i>
                                 </button>
                             </td>
                             <td class="border border-gray-300 px-4 py-2 text-center">
                                 <form action="{{ route('services.destroy', $service->id) }}" method="POST"
-                                    onsubmit="return confirm('Вы уверены, что хотите удалить эту запись?');">
+                                      onsubmit="return confirm('Вы уверены, что хотите удалить эту запись?');">
                                     @csrf
                                     @method('DELETE')
                                     <button type="submit" class="text-red-600">
@@ -168,79 +187,125 @@
                     @endforeach
                 </tbody>
             </table>
-
+    
             <!-- Кнопка добавления записи -->
             <div class="flex justify-center mt-4">
                 <button onclick="ServiceModal.open('add')"
-                    class="bg-blue-500 text-white px-6 py-2 rounded shadow hover:bg-blue-600">
+                        class="bg-blue-500 text-white px-6 py-2 rounded shadow hover:bg-blue-600">
                     + Добавить запись
                 </button>
             </div>
-
+    
             <!-- Модальное окно -->
             <div id="serviceModal" class="fixed inset-0 bg-black bg-opacity-50 flex justify-center items-center hidden">
-                <div class="bg-white p-8 rounded shadow-lg w-1/3">
+                <!-- Увеличиваем ширину и делаем центрирование по аналогии со слайдером -->
+                <div class="bg-white p-8 rounded shadow-lg w-3/4 max-w-4xl">
                     <h2 id="serviceModalTitle" class="text-xl mb-4"></h2>
                     <form id="serviceModalForm" method="POST">
                         @csrf
                         <input type="hidden" name="_method" id="serviceFormMethod" value="POST">
                         <input type="hidden" id="serviceModalId" name="id">
-
-                        <div class="mb-4">
-                            <label for="serviceTitle" class="block mb-1">Название:</label>
-                            <input type="text" id="serviceTitle" name="title" placeholder="Введите название"
-                                class="border p-2 w-full" maxlength="40" required>
-                            <small id="serviceTitleCount" class="text-gray-500">Осталось символов: 40</small>
-                        </div>
-
-                        <div id="categoriesContainer">
-                            <div class="mb-4">
-                                <label class="block mb-1">Категория 1:</label>
-                                <input type="text" name="categories[]" placeholder="Введите данные для категории 1"
-                                    class="border p-2 w-full" maxlength="40">
-                                <small class="categoryCount text-gray-500">Осталось символов: 40</small>
+    
+                        <!-- Поля Названия (горизонтально) -->
+                        <div class="flex gap-4 mb-4">
+                            <!-- RU -->
+                            <div class="w-1/3">
+                                <label for="serviceTitleRu" class="block mb-1 font-semibold">Название (RU):</label>
+                                <input type="text" id="serviceTitleRu" name="title_ru" placeholder="Введите название (RU)"
+                                       class="border p-2 w-full" maxlength="40" required>
                             </div>
-                            <div class="mb-4">
-                                <label class="block mb-1">Категория 2:</label>
-                                <input type="text" name="categories[]" placeholder="Введите данные для категории 2"
-                                    class="border p-2 w-full" maxlength="40">
-                                <small class="categoryCount text-gray-500">Осталось символов: 40</small>
+                            <!-- EN -->
+                            <div class="w-1/3">
+                                <label for="serviceTitleEn" class="block mb-1 font-semibold">Название (EN):</label>
+                                <input type="text" id="serviceTitleEn" name="title_en" placeholder="Введите название (EN)"
+                                       class="border p-2 w-full" maxlength="40">
                             </div>
-                            <div class="mb-4">
-                                <label class="block mb-1">Категория 3:</label>
-                                <input type="text" name="categories[]" placeholder="Введите данные для категории 3"
-                                    class="border p-2 w-full" maxlength="40">
-                                <small class="categoryCount text-gray-500">Осталось символов: 40</small>
+                            <!-- TM -->
+                            <div class="w-1/3">
+                                <label for="serviceTitleTm" class="block mb-1 font-semibold">Название (TM):</label>
+                                <input type="text" id="serviceTitleTm" name="title_tm" placeholder="Введите название (TM)"
+                                       class="border p-2 w-full" maxlength="40">
                             </div>
                         </div>
-
-                        <div class="mb-4">
-                            <label for="language" class="block mb-1">Выбор языка:</label>
-                            <select id="language" name="language" class="border p-2 w-full">
-                                <option value="en">Английский</option>
-                                <option value="tm">Туркменский</option>
-                                <option value="ru">Русский</option>
-                            </select>
+    
+                        <div class="mb-4 flex gap-4">
+                            <div class="w-1/3">
+                                <label class="block mb-1 font-semibold">Категория 1 (RU):</label>
+                                <input type="text" name="categories_ru[]" placeholder="Введите категорию 1 (RU)"
+                                       class="border p-2 w-full" maxlength="40">
+                            </div>
+                            <div class="w-1/3">
+                                <label class="block mb-1 font-semibold">Категория 1 (EN):</label>
+                                <input type="text" name="categories_en[]" placeholder="Введите категорию 1 (EN)"
+                                       class="border p-2 w-full" maxlength="40">
+                            </div>
+                            <div class="w-1/3">
+                                <label class="block mb-1 font-semibold">Категория 1 (TM):</label>
+                                <input type="text" name="categories_tm[]" placeholder="Введите категорию 1 (TM)"
+                                       class="border p-2 w-full" maxlength="40">
+                            </div>
                         </div>
-
+    
+                        <div class="mb-4 flex gap-4">
+                            <div class="w-1/3">
+                                <label class="block mb-1 font-semibold">Категория 2 (RU):</label>
+                                <input type="text" name="categories_ru[]" placeholder="Введите категорию 2 (RU)"
+                                       class="border p-2 w-full" maxlength="40">
+                            </div>
+                            <div class="w-1/3">
+                                <label class="block mb-1 font-semibold">Категория 2 (EN):</label>
+                                <input type="text" name="categories_en[]" placeholder="Введите категорию 2 (EN)"
+                                       class="border p-2 w-full" maxlength="40">
+                            </div>
+                            <div class="w-1/3">
+                                <label class="block mb-1 font-semibold">Категория 2 (TM):</label>
+                                <input type="text" name="categories_tm[]" placeholder="Введите категорию 2 (TM)"
+                                       class="border p-2 w-full" maxlength="40">
+                            </div>
+                        </div>
+    
+                        <div class="mb-4 flex gap-4">
+                            <div class="w-1/3">
+                                <label class="block mb-1 font-semibold">Категория 3 (RU):</label>
+                                <input type="text" name="categories_ru[]" placeholder="Введите категорию 3 (RU)"
+                                       class="border p-2 w-full" maxlength="40">
+                            </div>
+                            <div class="w-1/3">
+                                <label class="block mb-1 font-semibold">Категория 3 (EN):</label>
+                                <input type="text" name="categories_en[]" placeholder="Введите категорию 3 (EN)"
+                                       class="border p-2 w-full" maxlength="40">
+                            </div>
+                            <div class="w-1/3">
+                                <label class="block mb-1 font-semibold">Категория 3 (TM):</label>
+                                <input type="text" name="categories_tm[]" placeholder="Введите категорию 3 (TM)"
+                                       class="border p-2 w-full" maxlength="40">
+                            </div>
+                        </div>
+    
+                        <!-- Кнопки -->
                         <div class="flex justify-end">
                             <button type="button" onclick="ServiceModal.close()"
-                                class="bg-gray-500 text-white px-4 py-2 rounded mr-2">Отмена</button>
+                                    class="bg-gray-500 text-white px-4 py-2 rounded mr-2">
+                                Отмена
+                            </button>
                             <button type="submit" id="serviceModalSubmitButton"
-                                class="bg-blue-500 text-white px-4 py-2 rounded">Сохранить</button>
+                                    class="bg-blue-500 text-white px-4 py-2 rounded">
+                                Сохранить
+                            </button>
                         </div>
                     </form>
                 </div>
             </div>
         </div>
     </div>
+    
 
 {{---------------------------------------------------- блок о нас --------------------------------------------------  --}}
 <div class="p-4 sm:ml-64">
     <div class="p-4 border-2 border-gray-200 border-dashed rounded-lg dark:border-gray-700">
-        <form method="POST" action="{{ route('about-us.update', $aboutUs->id ?? '') }}" enctype="multipart/form-data">
+        <form method="POST" action="{{ isset($aboutUs->id) ? route('about-us.update', $aboutUs->id) : route('about-us.store') }}" enctype="multipart/form-data">
             @csrf
-            @if(isset($aboutUs))
+            @if(isset($aboutUs->id))
                 @method('PUT')
             @endif
             
@@ -251,9 +316,10 @@
                 <label for="image-prev" class="block text-gray-700 font-medium mb-2">Загрузить изображение</label>
                 <input type="file" id="image-prev" name="image" accept="image/*"
                        class="border-2 border-dashed border-gray-300 p-4 w-full rounded focus:outline-none focus:border-blue-500 focus:ring-2 focus:ring-blue-500">
-                @if(isset($aboutUs) && $aboutUs->image_path)
-                    <img src="{{ asset('storage/' . $aboutUs->image_path) }}" alt="Загруженное изображение" class="mt-2 w-32">
-                @endif
+                       @if(isset($aboutUs->image_path))
+                       <img src="{{ asset('storage/' . $aboutUs->image_path) }}" alt="Загруженное изображение" class="mt-2 w-32">
+                   @endif
+                   
             </div>
 
             <!-- Поля ввода текста -->
@@ -274,113 +340,128 @@
 </div>
 
 
+
     {{-- Модульное окно на блок с редактирование слайдера --}}
     <script>
-        document.addEventListener('DOMContentLoaded', () => {
+       document.addEventListener('DOMContentLoaded', () => {
 
-            function openModal(isEdit = false, id = null, title = '', description = '', language = 'en', imageUrl =
-                '') {
-                const modalTitle = document.getElementById('modalTitle');
-                const modalForm = document.getElementById('modalForm');
-                const formMethod = document.getElementById('formMethod');
-                const titleInput = document.getElementById('title');
-                const descriptionInput = document.getElementById('description');
-                const languageSelect = document.getElementById('language');
-                const modalSubmitButton = document.getElementById('modalSubmitButton');
-                const imagePreview = document.getElementById('imagePreview');
-                const imageInput = document.getElementById('image');
+function openModal(isEdit = false, id = null, titleRu = '', titleEn = '', titleTm = '', 
+                   descriptionRu = '', descriptionEn = '', descriptionTm = '', imageUrl = '') {
+    const modalTitle = document.getElementById('modalTitle');
+    const modalForm = document.getElementById('modalForm');
+    const formMethod = document.getElementById('formMethod');
 
-                if (!isEdit) {
-                    const tableBody = document.getElementById('tableBody');
-                    const currentCount = tableBody.querySelectorAll('tr').length;
+    // Поля названий
+    const titleRuInput = document.getElementById('title_ru');
+    const titleEnInput = document.getElementById('title_en');
+    const titleTmInput = document.getElementById('title_tm');
 
-                    if (currentCount >= 5) {
-                        alert('Вы не можете добавить более 5 записей.');
-                        return;
-                    }
-                }
+    // Поля описаний
+    const descriptionRuInput = document.getElementById('description_ru');
+    const descriptionEnInput = document.getElementById('description_en');
+    const descriptionTmInput = document.getElementById('description_tm');
 
-                if (isEdit) {
-                    modalTitle.textContent = 'Редактировать запись';
-                    modalForm.action = `/home-dashes/${id}`;
-                    formMethod.value = 'PUT';
-                    titleInput.value = title;
-                    descriptionInput.value = description;
-                    languageSelect.value = language;
-                    modalSubmitButton.textContent = 'Обновить';
+    // Поле изображения
+    const imageInput = document.getElementById('image');
+    const imagePreview = document.getElementById('imagePreview'); // Добавьте это, если нужен предпросмотр изображения
 
-                    if (imageUrl) {
-                        imagePreview.src = imageUrl;
-                        imagePreview.classList.remove('hidden');
-                    } else {
-                        imagePreview.classList.add('hidden');
-                    }
-                } else {
-                    modalTitle.textContent = 'Добавить запись';
-                    modalForm.action = `{{ route('home-dash.store') }}`;
-                    formMethod.value = 'POST';
-                    titleInput.value = '';
-                    descriptionInput.value = '';
-                    languageSelect.value = 'en';
-                    modalSubmitButton.textContent = 'Сохранить';
+    // Кнопка отправки
+    const modalSubmitButton = document.getElementById('modalSubmitButton');
 
-                    imagePreview.classList.add('hidden');
-                }
+    if (isEdit) {
+        modalTitle.textContent = 'Редактировать запись';
+        modalForm.action = `/home-dashes/${id}`;
+        formMethod.value = 'PUT';
 
-                imageInput.value = '';
+        titleRuInput.value = titleRu;
+        titleEnInput.value = titleEn;
+        titleTmInput.value = titleTm;
 
-                document.getElementById('addModal').classList.remove('hidden');
+        descriptionRuInput.value = descriptionRu;
+        descriptionEnInput.value = descriptionEn;
+        descriptionTmInput.value = descriptionTm;
+
+        modalSubmitButton.textContent = 'Обновить';
+
+        if (imageUrl) {
+            // Если есть URL изображения, можно добавить предпросмотр
+            if (imagePreview) {
+                imagePreview.src = imageUrl;
+                imagePreview.classList.remove('hidden');
             }
+        } else if (imagePreview) {
+            imagePreview.classList.add('hidden');
+        }
+    } else {
+        modalTitle.textContent = 'Добавить запись';
+        modalForm.action = `{{ route('home-dash.store') }}`;
+        formMethod.value = 'POST';
 
-            function closeModal() {
+        titleRuInput.value = '';
+        titleEnInput.value = '';
+        titleTmInput.value = '';
 
-                document.getElementById('addModal').classList.add('hidden');
-            }
+        descriptionRuInput.value = '';
+        descriptionEnInput.value = '';
+        descriptionTmInput.value = '';
 
-            // События для кнопок открытия и закрытия модального окна
-            document.getElementById('addRowButton').addEventListener('click', () => openModal());
-            window.openEditModal = (id, title, description, language, imageUrl) =>
-                openModal(true, id, title, description, language, imageUrl);
-            window.closeModal = closeModal;
+        modalSubmitButton.textContent = 'Сохранить';
 
-            // Ограничение символов для полей
-            function setupCharacterLimit(inputId, warningId, countId, maxLength) {
-                const inputField = document.getElementById(inputId);
-                const warning = document.getElementById(warningId);
-                const count = document.getElementById(countId);
+        if (imagePreview) {
+            imagePreview.classList.add('hidden');
+        }
+    }
 
-                inputField.addEventListener('input', () => {
-                    const currentLength = inputField.value.length;
-                    if (currentLength > maxLength) {
-                        inputField.value = inputField.value.substring(0, maxLength);
-                        warning.classList.remove('hidden');
-                    } else {
-                        warning.classList.add('hidden');
-                    }
-                    const remaining = maxLength - inputField.value.length;
-                    count.textContent = `Осталось символов: ${remaining}`;
-                });
-            }
+    // Сброс изображения
+    imageInput.value = '';
 
-            setupCharacterLimit('title', 'titleWarning', 'titleCount', 20); // Настройка ограничения для названия
-            setupCharacterLimit('description', 'descriptionWarning', 'descriptionCount',
-            200); // Настройка ограничения для описания
+    // Показываем модальное окно
+    document.getElementById('addModal').classList.remove('hidden');
+}
 
-            // Проверка размера загружаемых изображений
-            const imageInput = document.getElementById('image');
-            const imageWarning = document.getElementById('imageWarning');
-            imageInput.addEventListener('change', function() {
-                const file = this.files[0];
-                const maxSize = 5 * 1024 * 1024; // 5 MB
-                if (file && file.size > maxSize) {
-                    imageWarning.classList.remove('hidden'); // Показываем предупреждение
-                    this.value = ''; // Очищаем поле
-                } else {
-                    imageWarning.classList.add('hidden'); // Скрываем предупреждение
-                }
-            });
-        });
+function closeModal() {
+    document.getElementById('addModal').classList.add('hidden');
+}
+
+// Привязка событий
+document.getElementById('addRowButton').addEventListener('click', () => openModal());
+window.openEditModal = (id, titleRu, titleEn, titleTm, descriptionRu, descriptionEn, descriptionTm, imageUrl) =>
+    openModal(true, id, titleRu, titleEn, titleTm, descriptionRu, descriptionEn, descriptionTm, imageUrl);
+window.closeModal = closeModal;
+
+// Ограничение символов для полей
+function setupCharacterLimit(inputId, maxLength) {
+    const inputField = document.getElementById(inputId);
+    inputField.addEventListener('input', () => {
+        if (inputField.value.length > maxLength) {
+            inputField.value = inputField.value.substring(0, maxLength);
+        }
+    });
+}
+
+// Настройка ограничений для всех текстовых полей
+setupCharacterLimit('title_ru', 30);
+setupCharacterLimit('title_en', 30);
+setupCharacterLimit('title_tm', 30);
+
+setupCharacterLimit('description_ru', 200);
+setupCharacterLimit('description_en', 200);
+setupCharacterLimit('description_tm', 200);
+
+// Проверка размера загружаемых изображений
+const imageInput = document.getElementById('image');
+imageInput.addEventListener('change', function() {
+    const file = this.files[0];
+    const maxSize = 5 * 1024 * 1024; // 5 MB
+    if (file && file.size > maxSize) {
+        alert('Размер файла не должен превышать 5 MB!');
+        this.value = ''; // Сбрасываем поле
+    }
+});
+});
+
     </script>
+    
 
 
 
@@ -388,114 +469,136 @@
     {{-- модульное окно для услуг --}}
     <script>
         const ServiceModal = {
-            open(mode, id = null, title = '', categories = []) {
+            open(mode, id = null, titleRu = '', titleEn = '', titleTm = '', categories = { ru: [], en: [], tm: [] }) {
                 console.log('Opening Service Modal');
+    
+                // Селекторы основных элементов
                 const modal = document.getElementById('serviceModal');
                 const modalTitle = document.getElementById('serviceModalTitle');
                 const form = document.getElementById('serviceModalForm');
-                const titleInput = document.getElementById('serviceTitle');
-                const categoriesInputs = document.querySelectorAll('input[name="categories[]"]');
                 const methodInput = document.getElementById('serviceFormMethod');
                 const idInput = document.getElementById('serviceModalId');
-
+    
+                // Названия на разных языках
+                const titleRuInput = document.getElementById('serviceTitleRu');
+                const titleEnInput = document.getElementById('serviceTitleEn');
+                const titleTmInput = document.getElementById('serviceTitleTm');
+    
+                // Категории
+                // Для каждой языковой группы у нас несколько полей (по 3 в вашем шаблоне).
+                const categoriesRuInputs = document.querySelectorAll('input[name="categories_ru[]"]');
+                const categoriesEnInputs = document.querySelectorAll('input[name="categories_en[]"]');
+                const categoriesTmInputs = document.querySelectorAll('input[name="categories_tm[]"]');
+    
+                // Логика открытия в режиме "edit"
                 if (mode === 'edit') {
                     modalTitle.textContent = 'Редактировать запись';
-                    form.action = `/services/${id}`;
+                    form.action = `/services/${id}`;  // Отправляем на /services/{id}
                     methodInput.value = 'PUT';
                     idInput.value = id;
-                    titleInput.value = title;
-
-                    categories.forEach((category, index) => {
-                        if (categoriesInputs[index]) {
-                            categoriesInputs[index].value = category;
+    
+                    // Заполняем поля названий
+                    titleRuInput.value = titleRu;
+                    titleEnInput.value = titleEn;
+                    titleTmInput.value = titleTm;
+    
+                    // Если мы получили объект { ru: [...], en: [...], tm: [...] }
+                    // Заполняем соответствующие поля
+                    categories.ru.forEach((catValue, index) => {
+                        if (categoriesRuInputs[index]) {
+                            categoriesRuInputs[index].value = catValue;
                         }
                     });
+                    categories.en.forEach((catValue, index) => {
+                        if (categoriesEnInputs[index]) {
+                            categoriesEnInputs[index].value = catValue;
+                        }
+                    });
+                    categories.tm.forEach((catValue, index) => {
+                        if (categoriesTmInputs[index]) {
+                            categoriesTmInputs[index].value = catValue;
+                        }
+                    });
+    
                 } else {
+                    // Режим "add"
                     modalTitle.textContent = 'Добавить запись';
-                    form.action = `/services`;
+                    form.action = `{{ route('services.store') }}`;  // Или просто /services
                     methodInput.value = 'POST';
                     idInput.value = '';
-                    titleInput.value = '';
-                    categoriesInputs.forEach(input => (input.value = ''));
+    
+                    // Очищаем поля
+                    titleRuInput.value = '';
+                    titleEnInput.value = '';
+                    titleTmInput.value = '';
+    
+                    // Сбрасываем все категории
+                    categoriesRuInputs.forEach(input => input.value = '');
+                    categoriesEnInputs.forEach(input => input.value = '');
+                    categoriesTmInputs.forEach(input => input.value = '');
                 }
-
+    
+                // Показываем модальное окно
                 modal.classList.remove('hidden');
             },
-
+    
             close() {
                 console.log('Closing Service Modal');
                 document.getElementById('serviceModal').classList.add('hidden');
             }
         };
-
+    
+    
+        // Если нужно добавить счётчик символов (CharacterCounter), адаптируем под новые поля
         const CharacterCounter = {
-            update(input, countElement, maxLength, language) {
+            update(input, countElement, maxLength, language = 'ru') {
+                // Переводы при желании
                 const messages = {
                     en: "Remaining characters:",
                     tm: "Galan nyşanlar:",
                     ru: "Осталось символов:",
                 };
                 const remaining = maxLength - input.value.length;
-                countElement.textContent = `${messages[language]} ${remaining}`;
+                countElement.textContent = `${messages[language] || messages.ru} ${remaining}`;
             },
-
-            setup(isEdit = false, id = null, title = '', categories = [], language = 'en') {
-                console.log('Setting up Service Modal with Character Count');
-                const modalTitle = document.getElementById('serviceModalTitle');
-                const modalForm = document.getElementById('serviceModalForm');
-                const formMethod = document.getElementById('serviceFormMethod');
-                const titleInput = document.getElementById('serviceTitle');
-                const titleCount = document.getElementById('serviceTitleCount');
-                const categoryInputs = document.querySelectorAll('input[name="categories[]"]');
-                const languageSelect = document.getElementById('language');
+    
+            // Пример инициализации для всех полей (если нужно)
+            init() {
                 const maxLength = 40;
-
-                languageSelect.value = language;
-
-                if (isEdit) {
-                    modalTitle.textContent = 'Редактировать запись';
-                    modalForm.action = `/services/${id}`;
-                    formMethod.value = 'PUT';
-                    titleInput.value = title;
-                    titleCount.textContent = `Осталось символов: ${maxLength - title.length}`;
-                    categories.forEach((category, index) => {
-                        if (categoryInputs[index]) {
-                            categoryInputs[index].value = category;
-                            const categoryCount = categoryInputs[index].nextElementSibling;
-                            this.update(categoryInputs[index], categoryCount, maxLength, language);
-                        }
-                    });
-                } else {
-                    modalTitle.textContent = 'Добавить запись';
-                    modalForm.action = `{{ route('services.store') }}`;
-                    formMethod.value = 'POST';
-                    titleInput.value = '';
-                    titleCount.textContent = `Осталось символов: ${maxLength}`;
-                    categoryInputs.forEach((input, index) => {
-                        input.value = '';
-                        const categoryCount = input.nextElementSibling;
-                        this.update(input, categoryCount, maxLength, language);
+    
+                // Названия
+                const titleRuInput = document.getElementById('serviceTitleRu');
+                const titleEnInput = document.getElementById('serviceTitleEn');
+                const titleTmInput = document.getElementById('serviceTitleTm');
+    
+                const titleCountRu = document.getElementById('serviceTitleCountRu');
+                const titleCountEn = document.getElementById('serviceTitleCountEn');
+                const titleCountTm = document.getElementById('serviceTitleCountTm');
+    
+                // Вешаем события (пример для русского)
+                if (titleRuInput && titleCountRu) {
+                    titleRuInput.addEventListener('input', () => {
+                        this.update(titleRuInput, titleCountRu, maxLength, 'ru');
                     });
                 }
-
-                titleInput.addEventListener('input', () => {
-                    this.update(titleInput, titleCount, maxLength, languageSelect.value);
-                });
-
-                categoryInputs.forEach(input => {
-                    const categoryCount = input.nextElementSibling;
-                    input.addEventListener('input', () => {
-                        this.update(input, categoryCount, maxLength, languageSelect.value);
+    
+                if (titleEnInput && titleCountEn) {
+                    titleEnInput.addEventListener('input', () => {
+                        this.update(titleEnInput, titleCountEn, maxLength, 'en');
                     });
-                });
-
-                document.getElementById('serviceModal').classList.remove('hidden');
-            },
-
-            close() {
-                console.log('Closing Service Modal');
-                document.getElementById('serviceModal').classList.add('hidden');
+                }
+    
+                if (titleTmInput && titleCountTm) {
+                    titleTmInput.addEventListener('input', () => {
+                        this.update(titleTmInput, titleCountTm, maxLength, 'tm');
+                    });
+                }
+    
+                // Аналогично для категорий, если нужен счётчик
+                // ...
             }
         };
+    
     </script>
+    
 @endsection

@@ -48,9 +48,12 @@ Route::post('/services', [HomeDashController::class, 'storeService'])->name('ser
 Route::put('/services/{id}', [HomeDashController::class, 'updateService'])->name('services.update');
 Route::delete('/services/{id}', [HomeDashController::class, 'destroyService'])->name('services.destroy');
 Route::get('/about-us', [HomeDashController::class, 'index'])->name('about-us'); // Для отображения данных
-Route::get('/dashboard/about-us', [HomeDashController::class, 'index'])->name('about-us.index'); // Для панели управления
 Route::post('/about-us', [HomeDashController::class, 'storeAboutUs'])->name('about-us.store');
 Route::put('/about-us/{id}', [HomeDashController::class, 'updateAboutUs'])->name('about-us.update');
+Route::delete('/about-us/{id}', [HomeDashController::class, 'destroyAboutUs'])->name('about-us.destroy');
+
+
+
 
 
 

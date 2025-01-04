@@ -11,7 +11,7 @@
                             <!-- Динамическое изображение -->
                             <img class="absolute top-0 left-0 w-full h-full object-cover object-center" 
                                  src="{{ asset('storage/' . $slide->image_path) }}" 
-                                 alt="{{ $slide->title }}">
+                                 alt="{{ $slide->{'title_' . app()->getLocale()} }}">
                         </div>
         
                         <!-- Контент слайдера -->
@@ -19,9 +19,9 @@
                             class="absolute flex items-center inset-0 left-0 lg:w-[800px] w-full lg:justify-start justify-center bg-gradient-to-r from-[#243060] to-transparent">
                             <div
                                 class="text-[var(--white-color)] w-[33,33%] lg:ml-[100px] m-0 flex justify-center flex-col lg:text-start text-center">
-                                <p class="title">{{ $slide->title }}</p>
+                                <p class="title">{{ $slide->{'title_' . app()->getLocale()} }}</p>
                                 <div class="relative base-text pl-[15px] lg:ml-[10px] ml-0 max-w-[500px]" style="max-width: 400px; word-wrap: break-word; word-break: break-word; white-space: normal;">
-                                    {{ $slide->description }}
+                                    {{ $slide->{'description_' . app()->getLocale()} }}
                                     <div
                                         class="absolute left-[-5px] top-0 h-full border-l-[5px] border-[var(--white-color)] rounded-l-[10px]">
                                     </div>
@@ -53,6 +53,7 @@
             </div> 
         </div>
         
+  
     {{-- ------------------------------------НАШИ УСЛУГИ------------------------------------------------------ --}}
     <div class="overlay-wrapper relative w-full px-0 lg:px-[60px] 2xl:px-[100px] m-auto pt-[80px] xl:pt-[80px] pb-[80px]">
         <div class="overlay1"></div>

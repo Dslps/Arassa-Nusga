@@ -1,5 +1,7 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="{{ app()->getLocale() }}">
+<!-- Остальная верстка -->
+
 
 <head>
     <meta charset="UTF-8">
