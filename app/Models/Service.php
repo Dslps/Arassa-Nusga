@@ -9,11 +9,33 @@ class Service extends Model
 {
     use HasFactory;
 
-    protected $fillable = ['title', 'list', 'categories'];
+    /**
+     * Поля, которые можно массово заполнять.
+     */
+    protected $fillable = [
+        // Названия
+        'title_ru',
+        'title_en',
+        'title_tm',
 
-    protected $casts = [
-        'categories' => 'array', 
+        // Если старое поле title ещё используете — добавьте его или удалите
+        // 'title',
+
+        // Поле list, если нужно
+        'list',
+
+        // Мультиязычные категории
+        'categories_ru',
+        'categories_en',
+        'categories_tm',
     ];
-    
-}
 
+    /**
+     * Преобразуем JSON-поля к массивам.
+     */
+    protected $casts = [
+        'categories_ru' => 'array',
+        'categories_en' => 'array',
+        'categories_tm' => 'array',
+    ];
+}

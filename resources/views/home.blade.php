@@ -55,6 +55,8 @@
         
   
     {{-- ------------------------------------НАШИ УСЛУГИ------------------------------------------------------ --}}
+    <div class="lg:pt-[15vh] pt-[140px]"></div>
+    {{-- max-w-[2000px] --}}
     <div class="overlay-wrapper relative w-full px-0 lg:px-[60px] 2xl:px-[100px] m-auto pt-[80px] xl:pt-[80px] pb-[80px]">
         <div class="overlay1"></div>
         <div class="overlay2"></div>
@@ -64,7 +66,18 @@
                 <span class="title-2 text-[var(--accent-color)] mr-[15px]">//</span>
                 <p class="title-2 font-semibold text-center lg:text-start">Наши услуги</p>
             </div>
-
+    
+            @php
+                // Получаем текущий язык приложения (например, 'ru', 'en', 'tm')
+                $currentLang = App::getLocale();
+                // Список поддерживаемых языков
+                $supportedLangs = ['ru', 'en', 'tm'];
+                // Устанавливаем язык по умолчанию, если текущий язык не поддерживается
+                if (!in_array($currentLang, $supportedLangs)) {
+                    $currentLang = 'ru';
+                }
+            @endphp
+    
             <div class="flex flex-col lg:flex-row mt-[50px] lg:mt-[60px] 2xl:mt-[100px]">
                 <!-- Цикл для вывода данных -->
                 <div class="flex w-full flex-wrap h-max justify-start">
@@ -76,16 +89,26 @@
                                 
                                 <!-- Название -->
                                 <p class="base-text truncate {{ $loop->first ? '' : 'mb-[15px] text-[var(--comment-color)] font-semibold group-hover:text-[var(--accent-color)]' }}">
-                                    {{ $service->title }}
+                                    {{-- Динамический вывод названия на текущем языке с запасными вариантами --}}
+                                    {{ $service->{'title_' . $currentLang} 
+                                        ?? ($currentLang !== 'ru' ? $service->title_ru : ($currentLang !== 'en' ? $service->title_en : $service->title_tm)) 
+                                        ?? 'Название отсутствует' }}
                                 </p>
-                
+    
                                 <!-- Категории -->
                                 <ul class="{{ $loop->first ? 'list-none pl-[10px] space-y-[5px] mt-5' : 'lg:ml-[10px] ml-0 text-[var(--accent-color)] font-semibold group-hover:text-[var(--accent-color)]' }}">
-                                    @foreach ($service->categories as $category)
+                                    {{-- Динамический вывод категорий на текущем языке с запасными вариантами --}}
+                                    @php
+                                        $categories = $service->{'categories_' . $currentLang} 
+                                            ?? ($currentLang !== 'ru' ? $service->categories_ru : ($currentLang !== 'en' ? $service->categories_en : $service->categories_tm))
+                                            ?? [];
+                                    @endphp
+    
+                                    @foreach ($categories as $category)
                                         <li class="list-marker truncate">{{ $category }}</li>
                                     @endforeach
                                 </ul>
-                
+    
                                 <!-- Номер и кнопка -->
                                 <div class="flex items-center justify-between mt-auto">
                                     <div class="number {{ $loop->first ? '' : 'text-[var(--comment-color)] font-semibold group-hover:text-[var(--accent-color)]' }}">
@@ -103,13 +126,10 @@
                         </a>
                     @endforeach
                 </div>
-                
             </div>
-            
-
-
         </div>
     </div>
+    
     {{-- -----------------------------------------------О НАС--------------------------------------------------------- --}}
     <div class="w-full mx-auto max-w-[2000px] m-auto flex flex-col lg:flex-row bg-[var(--template-color)]">
         <!-- Блок с изображением -->

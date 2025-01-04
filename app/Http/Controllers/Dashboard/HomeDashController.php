@@ -100,39 +100,78 @@ class HomeDashController extends Controller
     public function storeService(Request $request)
     {
         $validatedData = $request->validate([
-            'title' => 'required|string|max:255',
-            'categories' => 'nullable|array', 
-            'categories.*' => 'nullable|string|max:255',
+            // Мультиязычные названия
+            'title_ru' => 'required|string|max:255',
+            'title_en' => 'nullable|string|max:255',
+            'title_tm' => 'nullable|string|max:255',
+
+            // Мультиязычные категории
+            'categories_ru' => 'nullable|array',
+            'categories_ru.*' => 'nullable|string|max:255',
+
+            'categories_en' => 'nullable|array',
+            'categories_en.*' => 'nullable|string|max:255',
+
+            'categories_tm' => 'nullable|array',
+            'categories_tm.*' => 'nullable|string|max:255',
         ]);
-    
+
         $service = new Service();
-        $service->title = $validatedData['title'];
-        $service->categories = $validatedData['categories'] ?? []; 
+        $service->title_ru = $validatedData['title_ru'];
+        $service->title_en = $validatedData['title_en'] ?? null;
+        $service->title_tm = $validatedData['title_tm'] ?? null;
+        $service->list = $request->input('list'); // Если поле 'list' используется
+
+        $service->categories_ru = $validatedData['categories_ru'] ?? [];
+        $service->categories_en = $validatedData['categories_en'] ?? [];
+        $service->categories_tm = $validatedData['categories_tm'] ?? [];
+
         $service->save();
-    
+
         return redirect()->route('home-dash.index')->with('success', 'Услуга успешно добавлена!');
     }
+
     
 
 
 public function updateService(Request $request, $id)
-{
-    $service = Service::findOrFail($id);
+    {
+        $service = Service::findOrFail($id);
 
-    $validatedData = $request->validate([
-        'title' => 'required|string|max:40',
-        'categories' => 'nullable|array', // Указываем массив
-        'categories.*' => 'nullable|string|max:40', // Проверяем каждую категорию
-    ]);
+        $validatedData = $request->validate([
+            // Мультиязычные названия
+            'title_ru' => 'required|string|max:255',
+            'title_en' => 'nullable|string|max:255',
+            'title_tm' => 'nullable|string|max:255',
 
-    $service->title = $validatedData['title'];
-    $service->categories = $validatedData['categories'] ?? []; // Обновляем массив категорий
-    $service->save();
+            // Мультиязычные категории
+            'categories_ru' => 'nullable|array',
+            'categories_ru.*' => 'nullable|string|max:255',
 
-    return redirect()->route('home-dash.index')->with('success', 'Услуга успешно обновлена!');
-}
+            'categories_en' => 'nullable|array',
+            'categories_en.*' => 'nullable|string|max:255',
 
+            'categories_tm' => 'nullable|array',
+            'categories_tm.*' => 'nullable|string|max:255',
+        ]);
 
+        $service->title_ru = $validatedData['title_ru'];
+        $service->title_en = $validatedData['title_en'] ?? null;
+        $service->title_tm = $validatedData['title_tm'] ?? null;
+        $service->list = $request->input('list'); // Если поле 'list' используется
+
+        $service->categories_ru = $validatedData['categories_ru'] ?? [];
+        $service->categories_en = $validatedData['categories_en'] ?? [];
+        $service->categories_tm = $validatedData['categories_tm'] ?? [];
+
+        $service->save();
+
+        return redirect()->route('home-dash.index')->with('success', 'Услуга успешно обновлена!');
+    }
+
+    /**
+     * Удаление услуги.
+     */
     public function destroyService($id)
     {
         $service = Service::findOrFail($id);
@@ -140,6 +179,7 @@ public function updateService(Request $request, $id)
 
         return redirect()->route('home-dash.index')->with('success', 'Услуга успешно удалена!');
     }
+
 
 
     // ----------------------------------------------------

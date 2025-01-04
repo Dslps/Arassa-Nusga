@@ -13,7 +13,10 @@ class CreateServicesTable extends Migration
     {
         Schema::create('services', function (Blueprint $table) {
             $table->id();
-            $table->string('title', 255);
+            // Мультиязычные названия
+            $table->string('title_ru', 255);
+            $table->string('title_en', 255)->nullable();
+            $table->string('title_tm', 255)->nullable();
             $table->text('list')->nullable(); // Поле для списка услуг
             $table->timestamps(); // Включает created_at и updated_at
         });
