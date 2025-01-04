@@ -186,14 +186,28 @@ public function updateService(Request $request, $id)
     public function storeAboutUs(Request $request)
     {
         $validatedData = $request->validate([
-            'title' => 'required|string|max:255',
-            'description' => 'nullable|string',
-            'image' => 'nullable|image|max:5000',
+            // Валидация названий на разных языках
+            'title_ru' => 'required|string|max:255',
+            'title_en' => 'nullable|string|max:255',
+            'title_tm' => 'nullable|string|max:255',
+
+            // Валидация описаний на разных языках
+            'description_ru' => 'nullable|string',
+            'description_en' => 'nullable|string',
+            'description_tm' => 'nullable|string',
+
+            // Валидация изображения
+            'image' => 'nullable|image|max:5000', // Максимальный размер 5MB
         ]);
 
         $aboutUs = new AboutUsHome();
-        $aboutUs->title = $validatedData['title'];
-        $aboutUs->description = $validatedData['description'];
+        $aboutUs->title_ru = $validatedData['title_ru'];
+        $aboutUs->title_en = $validatedData['title_en'] ?? null;
+        $aboutUs->title_tm = $validatedData['title_tm'] ?? null;
+
+        $aboutUs->description_ru = $validatedData['description_ru'] ?? null;
+        $aboutUs->description_en = $validatedData['description_en'] ?? null;
+        $aboutUs->description_tm = $validatedData['description_tm'] ?? null;
 
         if ($request->hasFile('image')) {
             $aboutUs->image_path = $request->file('image')->store('about_us', 'public');
@@ -204,22 +218,40 @@ public function updateService(Request $request, $id)
         return redirect()->route('home-dash.index')->with('success', 'Информация успешно добавлена!');
     }
 
+    /**
+     * Обновление информации "О нас" на трёх языках.
+     */
     public function updateAboutUs(Request $request, $id)
     {
         $aboutUs = AboutUsHome::findOrFail($id);
 
         $validatedData = $request->validate([
-            'title' => 'required|string|max:255',
-            'description' => 'nullable|string',
-            'image' => 'nullable|image|max:5000',
+            // Валидация названий на разных языках
+            'title_ru' => 'required|string|max:255',
+            'title_en' => 'nullable|string|max:255',
+            'title_tm' => 'nullable|string|max:255',
+
+            // Валидация описаний на разных языках
+            'description_ru' => 'nullable|string',
+            'description_en' => 'nullable|string',
+            'description_tm' => 'nullable|string',
+
+            // Валидация изображения
+            'image' => 'nullable|image|max:5000', // Максимальный размер 5MB
         ]);
 
-        $aboutUs->title = $validatedData['title'];
-        $aboutUs->description = $validatedData['description'];
+        $aboutUs->title_ru = $validatedData['title_ru'];
+        $aboutUs->title_en = $validatedData['title_en'] ?? null;
+        $aboutUs->title_tm = $validatedData['title_tm'] ?? null;
+
+        $aboutUs->description_ru = $validatedData['description_ru'] ?? null;
+        $aboutUs->description_en = $validatedData['description_en'] ?? null;
+        $aboutUs->description_tm = $validatedData['description_tm'] ?? null;
 
         if ($request->hasFile('image')) {
-            if ($aboutUs->image_path && \Storage::exists('public/' . $aboutUs->image_path)) {
-                \Storage::delete('public/' . $aboutUs->image_path);
+            // Удаление старого изображения, если оно существует
+            if ($aboutUs->image_path && AboutUsHome::disk('public')->exists($aboutUs->image_path)) {
+                AboutUsHome::disk('public')->delete($aboutUs->image_path);
             }
             $aboutUs->image_path = $request->file('image')->store('about_us', 'public');
         }
@@ -229,12 +261,15 @@ public function updateService(Request $request, $id)
         return redirect()->route('home-dash.index')->with('success', 'Информация успешно обновлена!');
     }
 
+    /**
+     * Удаление информации "О нас".
+     */
     public function destroyAboutUs($id)
     {
         $aboutUs = AboutUsHome::findOrFail($id);
 
-        if ($aboutUs->image_path && \Storage::exists('public/' . $aboutUs->image_path)) {
-            \Storage::delete('public/' . $aboutUs->image_path);
+        if ($aboutUs->image_path && AboutUsHome::disk('public')->exists($aboutUs->image_path)) {
+            AboutUsHome::disk('public')->delete($aboutUs->image_path);
         }
 
         $aboutUs->delete();

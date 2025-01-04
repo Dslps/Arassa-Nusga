@@ -55,7 +55,7 @@
         
   
     {{-- ------------------------------------НАШИ УСЛУГИ------------------------------------------------------ --}}
-    <div class="lg:pt-[15vh] pt-[140px]"></div>
+
     {{-- max-w-[2000px] --}}
     <div class="overlay-wrapper relative w-full px-0 lg:px-[60px] 2xl:px-[100px] m-auto pt-[80px] xl:pt-[80px] pb-[80px]">
         <div class="overlay1"></div>
@@ -143,10 +143,13 @@
             class="text-container w-full lg:w-[1120px] py-16 px-[30px] lg:px-[60px] xl:px-[100px] text-[var(--white-color)]">
             <div class="max-w-[870px]">
                 <p class="title-2 max-w-[430px] mb-[40px] font-semibold animate-text">
-                    {{ $aboutUs->title }}
+                    {{-- Динамический вывод названия на текущем языке с запасными вариантами --}}
+                    {{ $aboutUs->{'title_' . $currentLang} 
+                        ?? ($currentLang !== 'ru' ? $aboutUs->title_ru : ($currentLang !== 'en' ? $aboutUs->title_en : $aboutUs->title_tm)) 
+                        ?? 'Название отсутствует' }}
                 </p>
                 <ul class="lg:ml-[10px] ml-0 base-text space-y-[15px]" style="word-wrap: break-word; word-break: break-word; overflow-wrap: break-word;">
-                    @foreach(explode("\n", $aboutUs->description) as $line)
+                    @foreach(explode("\n", $aboutUs->{'description_' . $currentLang} ?? '') as $line)
                         @if(trim($line) !== '')
                             <li class="list-marker animate-text">{{ $line }}</li>
                         @endif
@@ -155,6 +158,7 @@
             </div>
         </div>
     </div>
+    
     
     
         
