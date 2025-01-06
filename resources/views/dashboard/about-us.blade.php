@@ -19,11 +19,12 @@
                 <p class="text-sm mb-2">Текущие фото:</p>
                 <div class="flex flex-wrap gap-2 mb-4">
                     @foreach(explode(',', $aboutUs->photos) as $photo)
-                        <img 
-                            src="{{ asset($photo) }}" 
-                            alt="photo" 
-                            class="w-32 h-auto rounded border"
-                        >
+                    <img 
+                    src="{{ asset('storage/' . $photo) }}" 
+                    alt="photo" 
+                    class="w-32 h-auto rounded border"
+                  />
+                  
                     @endforeach
                 </div>
             @endif

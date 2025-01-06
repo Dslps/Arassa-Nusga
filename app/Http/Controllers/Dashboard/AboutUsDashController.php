@@ -10,7 +10,7 @@ class AboutUsDashController extends Controller
 {
     public function index()
     {
-        // Берём одну существующую запись, или создаём пустую, если нет записей
+        // Одна запись или пустая, если ещё ничего нет
         $aboutUs = AboutUs::first() ?? new AboutUs();
 
         return view('dashboard.about-us', compact('aboutUs'));
@@ -18,23 +18,28 @@ class AboutUsDashController extends Controller
 
     public function store(Request $request)
     {
-        // Точно так же: берём существующую запись, либо создаём новую, 
-        // если в таблице ничего нет
         $aboutUs = AboutUs::first() ?? new AboutUs();
 
-        // Если есть файлы, обрабатываем их
+        // Если у нас есть новые файлы — полностью перезаписываем
         if ($request->hasFile('photos')) {
             $photosPaths = [];
             foreach ($request->file('photos') as $file) {
+                // Сохраняем файл в storage/app/public/about_us_photos
                 $path = $file->store('about_us_photos', 'public');
                 $photosPaths[] = $path;
             }
-            // В этом примере сохраняем пути к фото в одной строке, разделённой запятыми.
-            // Если нужно иное поведение — меняем логику.
+
+            // Перезаписываем старые фото (без сохранения прежних)
             $aboutUs->photos = implode(',', $photosPaths);
+        } else {
+            // Если нужно, чтобы при отсутствии новых файлов старые оставались
+            // — ничего здесь не делаем.
+            
+            // Если же надо очищать поле при отсутствии новых файлов:
+            // $aboutUs->photos = null;
         }
 
-        // Поля, которые хотим обновлять (только если не пустые)
+        // Обновляем только непустые текстовые поля
         $fields = [
             'title_ru',
             'title_en',
@@ -47,11 +52,8 @@ class AboutUsDashController extends Controller
             'additional_tm',
         ];
 
-        // Перебираем эти поля и присваиваем их в модель 
-        // только если пришло непустое значение
         foreach ($fields as $field) {
             $value = $request->input($field);
-            // Проверяем, что поле заполнено (не null и не пустая строка)
             if (!is_null($value) && $value !== '') {
                 $aboutUs->$field = $value;
             }
@@ -61,6 +63,4 @@ class AboutUsDashController extends Controller
 
         return redirect()->back()->with('success', 'Данные успешно обновлены!');
     }
-
-
 }
