@@ -159,7 +159,7 @@
         </div>
     </div>
     {{-- --------------------НАШИ ПАРТНЕРЫ------------------ --}}
-    @include('support.partners')
+    @include('include.partners')
     {{-- ----------------------Сертификаты-------------------------- --}}
     <div class="w-full max-w-[2000px] mx-auto px-0 lg:px-[60px] 2xl:px-[100px] mt-[50px] lg:mt-[90px]">
         <div class="flex sm:flex-row flex-col justify-between px-10">
