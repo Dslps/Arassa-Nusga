@@ -3,11 +3,15 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+// Подключаем модель AboutUs
+use App\Models\AboutUs;
 
 class AboutUsController extends Controller
 {
-    public function index(){
-        return view('about-us');
+    public function index()
+    {
+        $aboutUs = AboutUs::first() ?? new AboutUs();
+
+        return view('about-us', compact('aboutUs'));
     }
-    
 }

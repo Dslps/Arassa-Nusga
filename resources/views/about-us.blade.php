@@ -1,6 +1,68 @@
 @extends('layouts.app')
 @section('content')
-    <x-start-content />
+    {{-- Шапка или где угодно, где нужно учесть перевод --}}
+<div class="w-full flex m-auto max-w-[2000px] lg:pt-[15vh] pt-[140px]">
+    <div
+        class="animate-left lg:w-[800px] lg:h-[660px] h-auto bg-[var(--accent-color)] flex items-center px-[30px] lg:py-[0px] py-[30px] lg:px-[60px] 2xl:px-[100px] w-full text-[var(--white-color)]">
+        <div class="flex flex-col">
+            <div>
+                {{-- Титульное название с учётом локали --}}
+                <p class="title-2">
+                    {{ $aboutUs->{'title_' . app()->getLocale()} ?? 'Заголовок не задан' }}
+                </p>
+
+                {{-- Описание с учётом локали --}}
+                <ul class="space-y-[15px] base-text mt-[30px]">
+                    <li class="list-marker">
+                        {{-- Если хотите многострочный текст, используйте nl2br --}}
+                        {!! nl2br(e($aboutUs->{'description_' . app()->getLocale()} ?? '')) !!}
+                    </li>
+                </ul>
+            </div>
+
+            {{-- Доп. информация (отображается на маленьких экранах) --}}
+            <div class="lg:hidden block mt-10">
+                <div class="flex items-start">
+                    <div class="space-y-5">
+                        <p>
+                            {!! nl2br(e($aboutUs->{'additional_' . app()->getLocale()} ?? '')) !!}
+                        </p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    {{-- Доп. информация (отображается на больших экранах) --}}
+    <div
+        class="animate-bottom lg:flex w-[1120px] px-[30px] lg:px-[60px] 2xl:px-[100px] justify-center items-center hidden">
+        <div>
+            <div class="flex items-start">
+                <span class="title leading-[70px] mr-[15px] text-[var(--accent-color)]">//</span>
+                <div class="space-y-5">
+                    <p>
+                        {!! nl2br(e($aboutUs->{'additional_' . app()->getLocale()} ?? '')) !!}
+                    </p>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+{{-- Блок с изображением --}}
+<div
+    class="animate-left z-[-10] lg:block hidden w-full max-w-[2000px] h-max lg:mt-[-100px] mx-auto overflow-hidden relative">
+    <div class="relative w-full h-[800px] overflow-hidden">
+        <div class="absolute flex justify-center z-[-10] w-full h-full">
+            {{-- Если у вас в БД есть фото (к примеру $aboutUs->photos), можно подставлять нужное изображение --}}
+            <img class="object-cover h-full min-w-[2000px]"
+                 src="{{ asset($aboutUs->photos ? explode(',', $aboutUs->photos)[0] : 'img/home-page/corparate.png') }}"
+                 alt="Корпоративное изображение">
+        </div>
+    </div>
+</div>
+
+
     {{-- -------------------------------Принципы работы ----------------------------------------- --}}
     <div class="w-full px-0 lg:px-[60px] 2xl:px-[100px] m-auto mt-[80px] xl:mt-[80px] 2xl:mt-[80px] ">
         <div class="max-w-[2000px] m-auto">
@@ -9,8 +71,10 @@
             </div>
             <div class="grid lg:text-start text-center grid-cols-1 sm:grid-cols-2 lg:grid-cols-4">
                 <div class="flex flex-col p-4">
-                    <img class="lg:w-[80px] w-[50px] lg:mx-0 mx-auto" src="{{ asset('img/about-us/1.png') }}" alt="">
-                    <p class="relative base-text mt-[20px] mb-[30px] after:content-[''] after:block after:w-[20px] after:h-[2px] after:bg-[var(--accent-color)] after:absolute lg:after:left-[10px] after:top-full after:mt-[15px]  after:left-1/2 after:translate-x-[-50%]">
+                    <img class="lg:w-[80px] w-[50px] lg:mx-0 mx-auto" src="{{ asset('img/about-us/1.png') }}"
+                        alt="">
+                    <p
+                        class="relative base-text mt-[20px] mb-[30px] after:content-[''] after:block after:w-[20px] after:h-[2px] after:bg-[var(--accent-color)] after:absolute lg:after:left-[10px] after:top-full after:mt-[15px]  after:left-1/2 after:translate-x-[-50%]">
                         Партнерские отношения
                     </p>
                     <div class="small-text font-semibold text-[var(--comment-color)]">
@@ -18,8 +82,10 @@
                     </div>
                 </div>
                 <div class="flex flex-col p-4">
-                    <img class="lg:w-[80px] w-[50px] lg:mx-0 mx-auto" src="{{ asset('img/about-us/2.png') }}" alt="">
-                    <p class="relative base-text mt-[20px] mb-[30px] after:content-[''] after:block after:w-[20px] after:h-[2px] after:bg-[var(--accent-color)] after:absolute lg:after:left-[10px] after:top-full after:mt-[15px]  after:left-1/2 after:translate-x-[-50%]">
+                    <img class="lg:w-[80px] w-[50px] lg:mx-0 mx-auto" src="{{ asset('img/about-us/2.png') }}"
+                        alt="">
+                    <p
+                        class="relative base-text mt-[20px] mb-[30px] after:content-[''] after:block after:w-[20px] after:h-[2px] after:bg-[var(--accent-color)] after:absolute lg:after:left-[10px] after:top-full after:mt-[15px]  after:left-1/2 after:translate-x-[-50%]">
                         Индивидуальный подход
                     </p>
                     <div class="small-text font-semibold text-[var(--comment-color)]">
@@ -27,8 +93,10 @@
                     </div>
                 </div>
                 <div class="flex flex-col p-4">
-                    <img class="lg:w-[80px] w-[50px] lg:mx-0 mx-auto" src="{{ asset('img/about-us/3.png') }}" alt="">
-                    <p class="relative base-text mt-[20px] mb-[30px] after:content-[''] after:block after:w-[20px] after:h-[2px] after:bg-[var(--accent-color)] after:absolute lg:after:left-[10px] after:top-full after:mt-[15px]  after:left-1/2 after:translate-x-[-50%]">
+                    <img class="lg:w-[80px] w-[50px] lg:mx-0 mx-auto" src="{{ asset('img/about-us/3.png') }}"
+                        alt="">
+                    <p
+                        class="relative base-text mt-[20px] mb-[30px] after:content-[''] after:block after:w-[20px] after:h-[2px] after:bg-[var(--accent-color)] after:absolute lg:after:left-[10px] after:top-full after:mt-[15px]  after:left-1/2 after:translate-x-[-50%]">
                         Командная работа
                     </p>
                     <div class="small-text font-semibold text-[var(--comment-color)]">
@@ -36,8 +104,10 @@
                     </div>
                 </div>
                 <div class="flex flex-col p-4">
-                    <img class="lg:w-[80px] w-[50px] lg:mx-0 mx-auto" src="{{ asset('img/about-us/4.png') }}" alt="">
-                    <p class="relative base-text mt-[20px] mb-[30px] after:content-[''] after:block after:w-[20px] after:h-[2px] after:bg-[var(--accent-color)] after:absolute lg:after:left-[10px] after:top-full after:mt-[15px]  after:left-1/2 after:translate-x-[-50%]">
+                    <img class="lg:w-[80px] w-[50px] lg:mx-0 mx-auto" src="{{ asset('img/about-us/4.png') }}"
+                        alt="">
+                    <p
+                        class="relative base-text mt-[20px] mb-[30px] after:content-[''] after:block after:w-[20px] after:h-[2px] after:bg-[var(--accent-color)] after:absolute lg:after:left-[10px] after:top-full after:mt-[15px]  after:left-1/2 after:translate-x-[-50%]">
                         Гарантия качества
                     </p>
                     <div class="small-text font-semibold text-[var(--comment-color)]">
@@ -185,29 +255,37 @@
         <div class=" flex mt-[75px] overflow-hidden" id="carousel-container">
             <div class="flex gap-[40px]" id="carousel-content-certificates">
                 <div>
-                    <img class="max-w-[400px] max-h-[460px]" src="{{asset('img/about-us/certificate1.png')}}" alt="">    
-                </div>              
+                    <img class="max-w-[400px] max-h-[460px]" src="{{ asset('img/about-us/certificate1.png') }}"
+                        alt="">
+                </div>
                 <div>
-                    <img class="max-w-[400px] max-h-[460px]"  src="{{asset('img/about-us/certificate2.png')}}" alt="">    
-                </div>              
+                    <img class="max-w-[400px] max-h-[460px]" src="{{ asset('img/about-us/certificate2.png') }}"
+                        alt="">
+                </div>
                 <div>
-                    <img class="max-w-[400px] max-h-[460px]"  src="{{asset('img/about-us/certificate3.png')}}" alt="">    
-                </div>              
+                    <img class="max-w-[400px] max-h-[460px]" src="{{ asset('img/about-us/certificate3.png') }}"
+                        alt="">
+                </div>
                 <div>
-                    <img class="max-w-[400px] max-h-[460px]"  src="{{asset('img/about-us/certificate4.png')}}" alt="">    
-                </div>              
+                    <img class="max-w-[400px] max-h-[460px]" src="{{ asset('img/about-us/certificate4.png') }}"
+                        alt="">
+                </div>
                 <div>
-                    <img class="max-w-[400px] max-h-[460px]" src="{{asset('img/about-us/certificate1.png')}}" alt="">    
-                </div>              
+                    <img class="max-w-[400px] max-h-[460px]" src="{{ asset('img/about-us/certificate1.png') }}"
+                        alt="">
+                </div>
                 <div>
-                    <img class="max-w-[400px] max-h-[460px]"  src="{{asset('img/about-us/certificate2.png')}}" alt="">    
-                </div>              
+                    <img class="max-w-[400px] max-h-[460px]" src="{{ asset('img/about-us/certificate2.png') }}"
+                        alt="">
+                </div>
                 <div>
-                    <img class="max-w-[400px] max-h-[460px]"  src="{{asset('img/about-us/certificate3.png')}}" alt="">    
-                </div>              
+                    <img class="max-w-[400px] max-h-[460px]" src="{{ asset('img/about-us/certificate3.png') }}"
+                        alt="">
+                </div>
                 <div>
-                    <img class="max-w-[400px] max-h-[460px]"  src="{{asset('img/about-us/certificate4.png')}}" alt="">    
-                </div>              
+                    <img class="max-w-[400px] max-h-[460px]" src="{{ asset('img/about-us/certificate4.png') }}"
+                        alt="">
+                </div>
             </div>
         </div>
     </div>

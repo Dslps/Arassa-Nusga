@@ -56,7 +56,8 @@ Route::delete('/about-us/{id}', [HomeDashController::class, 'destroyAboutUs'])->
 
 // о нас страница админ панели
 Route::get('about-us-dashes', [AboutUsDashController::class, 'index'])->name('about-us-dash');
-
+Route::get('/dashboard/aboutus', [AboutUsDashController::class, 'index'])->name('aboutus.index');
+Route::post('/dashboard/aboutus', [AboutUsDashController::class, 'store'])->name('aboutus.store');
 
 
 
