@@ -30,7 +30,7 @@ Route::get('/bitrix24', ([Bitrix24Controller::class, 'index']))->name('bitrix24'
 Route::get('/mobile', ([MobileController::class, 'index']))->name('mobile');
 Route::get('/web-development', ([WebDevelopmentController::class, 'index']))->name('web-development');
 Route::get('/antiviruses', ([AntivirusesController::class, 'index']))->name('antiviruses');
-
+// роуты логина
 Route::get('/login', [AuthController::class, 'showLoginForm'])->name('login');
 Route::post('/login', [AuthController::class, 'login']);
 Route::post('/logout', [AuthController::class, 'logout'])->name('logout');

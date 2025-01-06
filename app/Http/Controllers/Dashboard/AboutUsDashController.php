@@ -63,4 +63,6 @@ class AboutUsDashController extends Controller
 
         return redirect()->back()->with('success', 'Данные успешно обновлены!');
     }
+    // ---------------------------------------
+    
 }
