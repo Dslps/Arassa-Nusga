@@ -8,7 +8,6 @@
             <div class="min-w-0">
                 {{-- Титульное название --}}
                 <p class="title-2 break-words min-w-0">{{ $aboutUs->{'title_' . app()->getLocale()} ?? __('О нас') }}</p>
-                
                 {{-- Описание --}}
                 <ul class="space-y-[15px] base-text mt-[30px] break-words min-w-0">
                     @if($aboutUs->{'description_' . app()->getLocale()})
@@ -99,54 +98,35 @@
                 <p class="title-2 pl-0 lg:pl-4 lg:text-start text-center mb-[60px]">Принципы нашей работы</p>
             </div>
             <div class="grid lg:text-start text-center grid-cols-1 sm:grid-cols-2 lg:grid-cols-4">
+                @forelse ($principles as $principle)
                 <div class="flex flex-col p-4">
-                    <img class="lg:w-[80px] w-[50px] lg:mx-0 mx-auto" src="{{ asset('img/about-us/1.png') }}"
-                        alt="">
-                    <p
-                        class="relative base-text mt-[20px] mb-[30px] after:content-[''] after:block after:w-[20px] after:h-[2px] after:bg-[var(--accent-color)] after:absolute lg:after:left-[10px] after:top-full after:mt-[15px]  after:left-1/2 after:translate-x-[-50%]">
-                        Партнерские отношения
+                    <!-- Изображение -->
+                    @if($principle->photos)
+                    <img class="lg:w-[80px] w-[50px] lg:mx-0 mx-auto" src="{{ asset('storage/' . $principle->photos) }}" alt="{{ $principle->{'title_' . app()->getLocale()} }}">
+                    @else
+                    <img class="lg:w-[80px] w-[50px] lg:mx-0 mx-auto" src="{{ asset('img/default-placeholder.png') }}" alt="Placeholder">
+                    @endif
+    
+                    <!-- Заголовок -->
+                    <p class="relative base-text mt-[20px] mb-[30px] after:content-[''] after:block after:w-[20px] after:h-[2px] after:bg-[var(--accent-color)] after:absolute lg:after:left-[10px] after:top-full after:mt-[15px] after:left-1/2 after:translate-x-[-50%]">
+                        {{ $principle->{'title_' . app()->getLocale()} }}
                     </p>
+    
+                    <!-- Описание -->
                     <div class="small-text font-semibold text-[var(--comment-color)]">
-                        Наша компания всегда нацелена на совместное развитие, поэтому у нас много партнеров по всему миру.
+                        {{ $principle->{'description_' . app()->getLocale()} }}
                     </div>
                 </div>
-                <div class="flex flex-col p-4">
-                    <img class="lg:w-[80px] w-[50px] lg:mx-0 mx-auto" src="{{ asset('img/about-us/2.png') }}"
-                        alt="">
-                    <p
-                        class="relative base-text mt-[20px] mb-[30px] after:content-[''] after:block after:w-[20px] after:h-[2px] after:bg-[var(--accent-color)] after:absolute lg:after:left-[10px] after:top-full after:mt-[15px]  after:left-1/2 after:translate-x-[-50%]">
-                        Индивидуальный подход
-                    </p>
-                    <div class="small-text font-semibold text-[var(--comment-color)]">
-                        В своей работе мы всегда ориентируемся и учитываем индивидуальные особенности каждого клиента.
-                    </div>
+                @empty
+                <div class="col-span-4 text-center text-gray-500">
+                    <p>Принципы работы отсутствуют.</p>
                 </div>
-                <div class="flex flex-col p-4">
-                    <img class="lg:w-[80px] w-[50px] lg:mx-0 mx-auto" src="{{ asset('img/about-us/3.png') }}"
-                        alt="">
-                    <p
-                        class="relative base-text mt-[20px] mb-[30px] after:content-[''] after:block after:w-[20px] after:h-[2px] after:bg-[var(--accent-color)] after:absolute lg:after:left-[10px] after:top-full after:mt-[15px]  after:left-1/2 after:translate-x-[-50%]">
-                        Командная работа
-                    </p>
-                    <div class="small-text font-semibold text-[var(--comment-color)]">
-                        Наша команда объединяет знания многих сертифицированных профессионалов из разных отраслей.
-                    </div>
-                </div>
-                <div class="flex flex-col p-4">
-                    <img class="lg:w-[80px] w-[50px] lg:mx-0 mx-auto" src="{{ asset('img/about-us/4.png') }}"
-                        alt="">
-                    <p
-                        class="relative base-text mt-[20px] mb-[30px] after:content-[''] after:block after:w-[20px] after:h-[2px] after:bg-[var(--accent-color)] after:absolute lg:after:left-[10px] after:top-full after:mt-[15px]  after:left-1/2 after:translate-x-[-50%]">
-                        Гарантия качества
-                    </p>
-                    <div class="small-text font-semibold text-[var(--comment-color)]">
-                        Благодаря солидному опыту и глубоким знаниям качество наших услуг всегда на высоте.
-                    </div>
-                </div>
-
+                @endforelse
             </div>
         </div>
     </div>
+    
+    
     {{-- ------------------------------------------О нас-------------------------------------------- --}}
     <div class="w-full mx-auto max-w-[2000px] m-auto flex flex-col lg:flex-row mt-[115px]">
         <div class="lg:flex hidden justify-center w-full lg:w-[850px] overflow-hidden relative">
