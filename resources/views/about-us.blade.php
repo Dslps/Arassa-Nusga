@@ -102,9 +102,9 @@
                 <div class="flex flex-col p-4">
                     <!-- Изображение -->
                     @if($principle->photos)
-                    <img class="lg:w-[80px] w-[50px] lg:mx-0 mx-auto" src="{{ asset('storage/' . $principle->photos) }}" alt="{{ $principle->{'title_' . app()->getLocale()} }}">
+                    <img class="lg:w-[80px] w-[50px] lg:h-[80px] h-[50px] object-cover lg:mx-0 mx-auto" src="{{ asset('storage/' . $principle->photos) }}" alt="{{ $principle->{'title_' . app()->getLocale()} }}">
                     @else
-                    <img class="lg:w-[80px] w-[50px] lg:mx-0 mx-auto" src="{{ asset('img/default-placeholder.png') }}" alt="Placeholder">
+                    <img class="lg:w-[80px] w-[50px] lg:h-[80px] h-[50px] object-cover lg:mx-0 mx-auto" src="{{ asset('img/default-placeholder.png') }}" alt="Placeholder">
                     @endif
     
                     <!-- Заголовок -->
@@ -149,7 +149,7 @@
                     </div>
                 </div>
             </div>
-            <div class="w-full lg:max-w-[650px] mr-0 lg:mr-[100px] text-[var(--template-color)] p-10">
+            <div class="w-full lg:max-w-[800px] mr-0 lg:mr-[100px] text-[var(--template-color)] p-10">
 
                 <p class="title-2 max-w-[430px] mb-[40px] font-semibold">Работаем для вас с 2017 года</p>
                 <ul class="ml-[10px] base-text space-y-[15px]">

@@ -58,6 +58,7 @@ Route::delete('/about-us/{id}', [HomeDashController::class, 'destroyAboutUs'])->
 Route::get('about-us-dashes', [AboutUsDashController::class, 'index'])->name('about-us-dash');
 Route::get('/dashboard/aboutus', [AboutUsDashController::class, 'index'])->name('aboutus.index');
 Route::post('/dashboard/aboutus', [AboutUsDashController::class, 'store'])->name('aboutus.store');
+
 Route::post('/principles', [AboutUsDashController::class, 'principlesStore'])->name('dashboard.principles.store');
 Route::put('/principles/{id}', [AboutUsDashController::class, 'principlesUpdate'])->name('dashboard.principles.update');
 Route::delete('/principles/{id}', [AboutUsDashController::class, 'principlesDestroy'])->name('dashboard.principles.destroy');
