@@ -404,113 +404,327 @@
                 Сохранить
             </button>
         </form>
+
+        <div class="p-4">
+            <div class="p-4 border-2 border-gray-200 border-dashed rounded-lg dark:border-gray-700 mt-5">
+        
+                @if(session('success'))
+                    <div class="bg-green-100 text-green-800 p-2 mb-4 rounded">
+                        {{ session('success') }}
+                    </div>
+                @endif
+        
+                <!-- Форма -->
+                <form action="{{ route('dashboard.achievements.store_or_update') }}" method="POST" enctype="multipart/form-data">
+                    @csrf
+        
+                    <!-- Верхний текст (3 языка) -->
+                    <div class="mb-6">
+                        <h3 class="text-md font-semibold mb-3">Наши достижения:</h3>
+                        <div class="grid grid-cols-1 md:grid-cols-3 gap-4">
+                            <!-- Русский -->
+                            <div>
+                                <label for="top_text_ru" class="block text-gray-700 font-medium mb-1">
+                                    Верхний текст (RU):
+                                </label>
+                                <textarea id="top_text_ru" name="top_text_ru" rows="3"
+                                    class="border-2 border-dashed border-gray-300 p-2 w-full rounded">{{ old('top_text_ru', $achievement->top_text_ru) }}</textarea>
+                            </div>
+        
+                            <!-- Английский -->
+                            <div>
+                                <label for="top_text_en" class="block text-gray-700 font-medium mb-1">
+                                    Top Text (EN):
+                                </label>
+                                <textarea id="top_text_en" name="top_text_en" rows="3"
+                                    class="border-2 border-dashed border-gray-300 p-2 w-full rounded">{{ old('top_text_en', $achievement->top_text_en) }}</textarea>
+                            </div>
+        
+                            <!-- Туркменский -->
+                            <div>
+                                <label for="top_text_tm" class="block text-gray-700 font-medium mb-1">
+                                    Top Text (TM):
+                                </label>
+                                <textarea id="top_text_tm" name="top_text_tm" rows="3"
+                                    class="border-2 border-dashed border-gray-300 p-2 w-full rounded">{{ old('top_text_tm', $achievement->top_text_tm) }}</textarea>
+                            </div>
+                        </div>
+                    </div>
+        
+                    <!-- Титульный текст (3 языка) -->
+                    <div class="mb-6">
+                        <h3 class="text-md font-semibold mb-3">Титульный текст:</h3>
+                        <div class="grid grid-cols-1 md:grid-cols-3 gap-4">
+                            <!-- Русский -->
+                            <div>
+                                <label for="title_ru" class="block text-gray-700 font-medium mb-1">
+                                    Титульный текст (RU):
+                                </label>
+                                <input type="text" id="title_ru" name="title_ru"
+                                    value="{{ old('title_ru', $achievement->title_ru) }}"
+                                    class="border-2 border-dashed border-gray-300 p-2 w-full rounded" maxlength="255">
+                            </div>
+        
+                            <!-- Английский -->
+                            <div>
+                                <label for="title_en" class="block text-gray-700 font-medium mb-1">
+                                    Title (EN):
+                                </label>
+                                <input type="text" id="title_en" name="title_en"
+                                    value="{{ old('title_en', $achievement->title_en) }}"
+                                    class="border-2 border-dashed border-gray-300 p-2 w-full rounded" maxlength="255">
+                            </div>
+        
+                            <!-- Туркменский -->
+                            <div>
+                                <label for="title_tm" class="block text-gray-700 font-medium mb-1">
+                                    Title (TM):
+                                </label>
+                                <input type="text" id="title_tm" name="title_tm"
+                                    value="{{ old('title_tm', $achievement->title_tm) }}"
+                                    class="border-2 border-dashed border-gray-300 p-2 w-full rounded" maxlength="255">
+                            </div>
+                        </div>
+                    </div>
+        
+                    <!-- Описание (3 языка) -->
+                    <div class="mb-6">
+                        <h3 class="text-md font-semibold mb-3">Описание:</h3>
+                        <div class="grid grid-cols-1 md:grid-cols-3 gap-4">
+                            <!-- Русский -->
+                            <div>
+                                <label for="description_ru" class="block text-gray-700 font-medium mb-1">
+                                    Описание (RU):
+                                </label>
+                                <textarea id="description_ru" name="description_ru" rows="4"
+                                    class="border-2 border-dashed border-gray-300 p-2 w-full rounded">{{ old('description_ru', $achievement->description_ru) }}</textarea>
+                            </div>
+        
+                            <!-- Английский -->
+                            <div>
+                                <label for="description_en" class="block text-gray-700 font-medium mb-1">
+                                    Description (EN):
+                                </label>
+                                <textarea id="description_en" name="description_en" rows="4"
+                                    class="border-2 border-dashed border-gray-300 p-2 w-full rounded">{{ old('description_en', $achievement->description_en) }}</textarea>
+                            </div>
+        
+                            <!-- Туркменский -->
+                            <div>
+                                <label for="description_tm" class="block text-gray-700 font-medium mb-1">
+                                    Description (TM):
+                                </label>
+                                <textarea id="description_tm" name="description_tm" rows="4"
+                                    class="border-2 border-dashed border-gray-300 p-2 w-full rounded">{{ old('description_tm', $achievement->description_tm) }}</textarea>
+                            </div>
+                        </div>
+                    </div>
+        
+                    <button type="submit" class="px-4 py-2 bg-blue-500 text-white rounded hover:bg-blue-600">
+                        Сохранить
+                    </button>
+                </form>
+            </div>
+        </div>
+        
     </div>
 </div>
+{{-- -----------------------------------------------------Руководство------------------------------------------------------- --}}
+<div class="p-4 sm:ml-64">
+    <div class="p-4 border-2 border-gray-200 border-dashed rounded-lg dark:border-gray-700">
+        <p class="text-lg font-semibold mb-4">Сотрудники:</p>
 
-
-{{-- <div class="p-4">
-    <div class="p-4 border-2 border-gray-200 border-dashed rounded-lg dark:border-gray-700 mt-5">
-
-        <!-- Форма -->
-        <form enctype="multipart/form-data">
-            <!-- Верхний текст (3 языка) -->
-            <div class="mb-6">
-                <h3 class="text-md font-semibold mb-3">Наши достижения:</h3>
-                <div class="grid grid-cols-1 md:grid-cols-3 gap-4">
-                    <!-- Русский -->
-                    <div>
-                        <label for="top_text_ru" class="block text-gray-700 font-medium mb-1">
-                            Верхний текст (RU):
-                        </label>
-                        <textarea id="top_text_ru" name="top_text_ru" rows="3" class="border-2 border-dashed border-gray-300 p-2 w-full rounded"></textarea>
-                    </div>
-
-                    <!-- Английский -->
-                    <div>
-                        <label for="top_text_en" class="block text-gray-700 font-medium mb-1">
-                            Top Text (EN):
-                        </label>
-                        <textarea id="top_text_en" name="top_text_en" rows="3" class="border-2 border-dashed border-gray-300 p-2 w-full rounded"></textarea>
-                    </div>
-
-                    <!-- Туркменский -->
-                    <div>
-                        <label for="top_text_tm" class="block text-gray-700 font-medium mb-1">
-                            Top Text (TM):
-                        </label>
-                        <textarea id="top_text_tm" name="top_text_tm" rows="3" class="border-2 border-dashed border-gray-300 p-2 w-full rounded"></textarea>
-                    </div>
-                </div>
+        <!-- Сообщение об успехе -->
+        @if (session('success'))
+            <div class="bg-green-500 text-white p-4 rounded mb-4">
+                {{ session('success') }}
             </div>
+        @endif
 
-            <!-- Титульный текст (3 языка) -->
-            <div class="mb-6">
-                <h3 class="text-md font-semibold mb-3">Титульный текст:</h3>
-                <div class="grid grid-cols-1 md:grid-cols-3 gap-4">
-                    <!-- Русский -->
-                    <div>
-                        <label for="title_ru" class="block text-gray-700 font-medium mb-1">
-                            Титульный текст (RU):
-                        </label>
-                        <input type="text" id="title_ru" name="title_ru" class="border-2 border-dashed border-gray-300 p-2 w-full rounded" maxlength="255">
-                    </div>
-
-                    <!-- Английский -->
-                    <div>
-                        <label for="title_en" class="block text-gray-700 font-medium mb-1">
-                            Title (EN):
-                        </label>
-                        <input type="text" id="title_en" name="title_en" class="border-2 border-dashed border-gray-300 p-2 w-full rounded" maxlength="255">
-                    </div>
-
-                    <!-- Туркменский -->
-                    <div>
-                        <label for="title_tm" class="block text-gray-700 font-medium mb-1">
-                            Title (TM):
-                        </label>
-                        <input type="text" id="title_tm" name="title_tm" class="border-2 border-dashed border-gray-300 p-2 w-full rounded" maxlength="255">
-                    </div>
-                </div>
+        <!-- Сообщение об ошибках -->
+        @if ($errors->any())
+            <div class="bg-red-500 text-white p-4 rounded mb-4">
+                <ul>
+                    @foreach ($errors->all() as $error)
+                        <li>{{ $error }}</li>
+                    @endforeach
+                </ul>
             </div>
+        @endif
 
-            <!-- Описание (3 языка) -->
-            <div class="mb-6">
-                <h3 class="text-md font-semibold mb-3">Описание:</h3>
-                <div class="grid grid-cols-1 md:grid-cols-3 gap-4">
-                    <!-- Русский -->
-                    <div>
-                        <label for="description_ru" class="block text-gray-700 font-medium mb-1">
-                            Описание (RU):
-                        </label>
-                        <textarea id="description_ru" name="description_ru" rows="4" class="border-2 border-dashed border-gray-300 p-2 w-full rounded"></textarea>
-                    </div>
+        <!-- Таблица -->
+        <table class="table-auto w-full border-collapse border border-gray-300">
+            <thead>
+                <tr>
+                    <th class="border border-gray-300 px-4 py-2">#</th>
+                    <th class="border border-gray-300 px-4 py-2">Фото</th>
+                    <th class="border border-gray-300 px-4 py-2">Должность</th>
+                    <th class="border border-gray-300 px-4 py-2">ФИО</th>
+                    <th class="border border-gray-300 px-4 py-2">Редактировать</th>
+                    <th class="border border-gray-300 px-4 py-2">Удалить</th>
+                </tr>
+            </thead>
+            <tbody>
+                @foreach($employees as $employee)
+                <tr>
+                    <td class="text-center border border-gray-300 px-4 py-2">{{ $loop->iteration }}</td>
+                    <td class="border border-gray-300 px-4 py-2">
+                        @if($employee->photo)
+                            <div class="flex justify-center">
+                                <img src="{{ asset('storage/' . $employee->photo) }}" alt="Фото сотрудника" class="h-12">
+                            </div>
+                        @else
+                            Нет фото
+                        @endif
+                    </td>
+                    <td class="border border-gray-300 px-4 py-2">{{ $employee->position_ru }}</td>
+                    <td class="border border-gray-300 px-4 py-2">{{ $employee->name_ru }}</td>
+                    <td class="border border-gray-300 px-4 py-2">
+                        <div class="flex justify-center">
+                            <button class="text-orange-500 rounded" 
+                                onclick="openEmployeeEditModal({{ json_encode($employee) }})">
+                                <i class="text-[20px] fa-solid fa-pencil"></i>
+                            </button>
+                        </div>
+                    </td>
+                    <td class="border border-gray-300 px-4 py-2">
+                        <form class="flex justify-center" action="{{ route('dashboard.employees.destroy', $employee->id) }}" method="POST">
+                            @csrf
+                            @method('DELETE')
+                            <button type="submit" class="text-red-600"
+                                onclick="return confirm('Вы уверены?')">
+                                <i class="text-[20px] fa-solid fa-trash"></i>
+                            </button>
+                        </form>
+                    </td>
+                </tr>
+                @endforeach
+            </tbody>
+        </table>
 
-                    <!-- Английский -->
-                    <div>
-                        <label for="description_en" class="block text-gray-700 font-medium mb-1">
-                            Description (EN):
-                        </label>
-                        <textarea id="description_en" name="description_en" rows="4" class="border-2 border-dashed border-gray-300 p-2 w-full rounded"></textarea>
-                    </div>
+        <!-- Кнопка для добавления -->
+        <div class="flex justify-center mt-4">
+            <button id="addEmployeeButton" class="bg-blue-500 text-white px-6 py-2 rounded shadow hover:bg-blue-600"
+                onclick="openEmployeeAddModal()">
+                + Добавить
+            </button>
+        </div>
 
-                    <!-- Туркменский -->
-                    <div>
-                        <label for="description_tm" class="block text-gray-700 font-medium mb-1">
-                            Description (TM):
-                        </label>
-                        <textarea id="description_tm" name="description_tm" rows="4" class="border-2 border-dashed border-gray-300 p-2 w-full rounded"></textarea>
+        <!-- Модальное окно для добавления -->
+        <div id="employeeAddModal" class="fixed inset-0 bg-black bg-opacity-50 flex justify-center items-center hidden">
+            <div class="bg-white p-8 rounded shadow-lg w-3/4 max-w-4xl">
+                <h2 class="text-xl mb-4">Добавить сотрудника</h2>
+                <form action="{{ route('dashboard.employees.store') }}" method="POST" enctype="multipart/form-data">
+                    @csrf
+                    <div class="grid grid-cols-3 gap-4">
+                        <div>
+                            <label for="position_ru" class="block font-semibold">Должность (RU)</label>
+                            <input type="text" id="position_ru" name="position_ru" class="border p-2 w-full" required>
+                        </div>
+                        <div>
+                            <label for="position_en" class="block font-semibold">Position (EN)</label>
+                            <input type="text" id="position_en" name="position_en" class="border p-2 w-full">
+                        </div>
+                        <div>
+                            <label for="position_tm" class="block font-semibold">Position (TM)</label>
+                            <input type="text" id="position_tm" name="position_tm" class="border p-2 w-full">
+                        </div>
+                        <div>
+                            <label for="name_ru" class="block font-semibold">ФИО (RU)</label>
+                            <input type="text" id="name_ru" name="name_ru" class="border p-2 w-full" required>
+                        </div>
+                        <div>
+                            <label for="name_en" class="block font-semibold">Name (EN)</label>
+                            <input type="text" id="name_en" name="name_en" class="border p-2 w-full">
+                        </div>
+                        <div>
+                            <label for="name_tm" class="block font-semibold">Name (TM)</label>
+                            <input type="text" id="name_tm" name="name_tm" class="border p-2 w-full">
+                        </div>
+                        <div class="col-span-3">
+                            <label for="photo" class="block font-semibold">Фото</label>
+                            <input type="file" id="photo" name="photo" class="border p-2 w-full">
+                        </div>
                     </div>
-                </div>
+                    <div class="flex justify-end mt-4">
+                        <button type="button" onclick="closeEmployeeAddModal()"
+                            class="bg-gray-500 text-white px-4 py-2 rounded mr-2">Отмена</button>
+                        <button type="submit"
+                            class="bg-blue-500 text-white px-4 py-2 rounded">Сохранить</button>
+                    </div>
+                </form>
             </div>
+        </div>
 
-            <!-- Загрузить фотографии -->
+        <!-- Модальное окно для редактирования -->
+        <div id="employeeEditModal" class="fixed inset-0 bg-black bg-opacity-50 flex justify-center items-center hidden">
+            <div class="bg-white p-8 rounded shadow-lg w-3/4 max-w-4xl">
+                <h2 class="text-xl mb-4">Редактировать сотрудника</h2>
+                <form id="employeeEditForm" action="#" method="POST" enctype="multipart/form-data">
+                    @csrf
+                    @method('PUT')
+                    <input type="hidden" id="edit_employee_id" name="employee_id">
+                    <div class="grid grid-cols-3 gap-4">
+                        <div>
+                            <label for="edit_position_ru" class="block font-semibold">Должность (RU)</label>
+                            <input type="text" id="edit_position_ru" name="position_ru" class="border p-2 w-full" required>
+                        </div>
+                        <div>
+                            <label for="edit_position_en" class="block font-semibold">Position (EN)</label>
+                            <input type="text" id="edit_position_en" name="position_en" class="border p-2 w-full">
+                        </div>
+                        <div>
+                            <label for="edit_position_tm" class="block font-semibold">Position (TM)</label>
+                            <input type="text" id="edit_position_tm" name="position_tm" class="border p-2 w-full">
+                        </div>
+                        <div>
+                            <label for="edit_name_ru" class="block font-semibold">ФИО (RU)</label>
+                            <input type="text" id="edit_name_ru" name="name_ru" class="border p-2 w-full" required>
+                        </div>
+                        <div>
+                            <label for="edit_name_en" class="block font-semibold">Name (EN)</label>
+                            <input type="text" id="edit_name_en" name="name_en" class="border p-2 w-full">
+                        </div>
+                        <div>
+                            <label for="edit_name_tm" class="block font-semibold">Name (TM)</label>
+                            <input type="text" id="edit_name_tm" name="name_tm" class="border p-2 w-full">
+                        </div>
+                        <div class="col-span-3">
+                            <label for="edit_photo" class="block font-semibold">Фото</label>
+                            <input type="file" id="edit_photo" name="photo" class="border p-2 w-full">
+                        </div>
+                    </div>
+                    <div class="flex justify-end mt-4">
+                        <button type="button" onclick="closeEmployeeEditModal()"
+                            class="bg-gray-500 text-white px-4 py-2 rounded mr-2">Отмена</button>
+                        <button type="submit"
+                            class="bg-blue-500 text-white px-4 py-2 rounded">Сохранить</button>
+                    </div>
+                </form>
+            </div>
+        </div>
 
+    </div>
+</div>
+{{-- --------------------------------- --}}
+<div class="p-4 sm:ml-64">
+    <div class="p-4 border-2 border-gray-200 border-dashed rounded-lg dark:border-gray-700">
+        <p class="base-text mb-10">Сертификаты:</p>
+        <div class="mb-6">
+            <label for="photos" class="block text-gray-700 font-medium mb-2">
+                Загрузить фотографии
+            </label>
+
+            <input type="file" id="photos" name="photos[]" accept="image/*" multiple class="border-2 border-dashed border-gray-300 p-4 w-full rounded">
+
+            {{-- Контейнер для предпросмотра новых файлов --}}
+            <div id="preview-container" class="flex flex-wrap gap-2 mt-4"></div>
             <button type="submit" class="px-4 py-2 bg-blue-500 text-white rounded hover:bg-blue-600">
                 Сохранить
             </button>
-        </form>
+        </div>
     </div>
-</div> --}}
+</div>
 
 
 <script>
@@ -568,4 +782,38 @@
         }
     });
 </script>
+
+<script>
+    // Функции для управления модальными окнами добавления
+    function openEmployeeAddModal() {
+        document.getElementById('employeeAddModal').classList.remove('hidden');
+    }
+
+    function closeEmployeeAddModal() {
+        document.getElementById('employeeAddModal').classList.add('hidden');
+    }
+
+    // Функции для управления модальными окнами редактирования
+    function openEmployeeEditModal(employee) {
+        // Заполняем форму данными сотрудника
+        document.getElementById('edit_position_ru').value = employee.position_ru;
+        document.getElementById('edit_position_en').value = employee.position_en;
+        document.getElementById('edit_position_tm').value = employee.position_tm;
+        document.getElementById('edit_name_ru').value = employee.name_ru;
+        document.getElementById('edit_name_en').value = employee.name_en;
+        document.getElementById('edit_name_tm').value = employee.name_tm;
+
+        // Устанавливаем действие формы
+        let form = document.getElementById('employeeEditForm');
+        form.action = "{{ url('dashboard/employees') }}/" + employee.id;
+
+        // Показываем модальное окно
+        document.getElementById('employeeEditModal').classList.remove('hidden');
+    }
+
+    function closeEmployeeEditModal() {
+        document.getElementById('employeeEditModal').classList.add('hidden');
+    }
+</script>
+
 @endsection

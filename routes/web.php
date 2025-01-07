@@ -30,6 +30,7 @@ Route::get('/bitrix24', ([Bitrix24Controller::class, 'index']))->name('bitrix24'
 Route::get('/mobile', ([MobileController::class, 'index']))->name('mobile');
 Route::get('/web-development', ([WebDevelopmentController::class, 'index']))->name('web-development');
 Route::get('/antiviruses', ([AntivirusesController::class, 'index']))->name('antiviruses');
+
 // роуты логина
 Route::get('/login', [AuthController::class, 'showLoginForm'])->name('login');
 Route::post('/login', [AuthController::class, 'login']);
@@ -66,6 +67,15 @@ Route::delete('/principles/{id}', [AboutUsDashController::class, 'principlesDest
 Route::put('/dashboard/company-descriptions', [AboutUsDashController::class, 'companyDescriptionsUpdate'])->name('dashboard.company-descriptions.store');
 Route::put('/company-descriptions/{id}', [AboutUsDashController::class, 'companyDescriptionsUpdate'])->name('dashboard.company-descriptions.update');
 Route::delete('/company-descriptions/{id}', [AboutUsDashController::class, 'companyDescriptionsDestroy'])->name('dashboard.company-descriptions.destroy');
+
+Route::post('/dashboard/achievements', [AboutUsDashController::class, 'achievementsStore'])->name('dashboard.achievements.store');
+Route::post('/dashboard/achievements', [AboutUsDashController::class, 'achievementsStoreOrUpdate'])->name('dashboard.achievements.store_or_update');
+Route::get('/dashboard/achievements', [AboutUsDashController::class, 'index'])->name('dashboard.achievements.index');
+
+Route::post('/dashboard/employees', [AboutUsDashController::class, 'employeesStore'])->name('dashboard.employees.store');
+Route::put('/dashboard/employees/{id}', [AboutUsDashController::class, 'employeesUpdate'])->name('dashboard.employees.update');
+Route::delete('/dashboard/employees/{id}', [AboutUsDashController::class, 'employeesDestroy'])->name('dashboard.employees.destroy');
+
 
 
 

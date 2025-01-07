@@ -146,16 +146,40 @@
             <div
                 class=" w-full xl:w-[400px] h-max xl:h-[450px] bg-[var(--accent-color)] text-[var(--white-color)] p-10 relative xl:absolute xl:left-[-400px] left-0 3xl:bottom-[30px] bottom-0 z-0">
                 <div class="w-full h-full flex flex-col">
-                    <div class="mb-auto ">
-                        <p>Наши достижения</p>
+                    <div class="mb-auto">
+                        <!-- Верхний текст -->
+                        @if($achievements->isNotEmpty())
+                            @foreach($achievements as $achievement)
+                                <p>{{ $achievement->{'top_text_' . app()->getLocale()} }}</p>
+                            @endforeach
+                        @else
+                            <!-- Текст по умолчанию -->
+                            <p>Our achievements are milestones that inspire us to strive for more.</p>
+                        @endif
                     </div>
                     <div class="mt-auto flex flex-col gap-[15px]">
-                        <p class="text-[36px]">48 Success is not just about</p>
-                        <p class="small-text">Success is not just about achieving goals; it's about the journey and the
-                            lessons learned along the way. Every challenge you face is an opportunity to grow, and every
-                            step forward, no matter how small, brings you closer to your dreams.</p>
+                        @if($achievements->isNotEmpty())
+                            @foreach($achievements as $achievement)
+                                <!-- Титульный текст -->
+                                <p class="text-[36px]">
+                                    {{ $achievement->{'title_' . app()->getLocale()} }}
+                                </p>
+                                <!-- Описание -->
+                                <p class="small-text">
+                                    {{ $achievement->{'description_' . app()->getLocale()} }}
+                                </p>
+                            @endforeach
+                        @else
+                            <!-- Текст по умолчанию -->
+                            <p class="text-[36px]">Success is not just about</p>
+                            <p class="small-text">
+                                Success is not just about achieving goals; it's about the journey and the lessons learned along the way.
+                                Every challenge you face is an opportunity to grow, and every step forward, no matter how small, brings you closer to your dreams.
+                            </p>
+                        @endif
                     </div>
                 </div>
+                
             </div>
             <div class="w-full xl:max-w-[800px]  mr-0 lg:mr-[100px] text-[var(--template-color)] p-10">
                 @foreach ($companyDescriptions as $description)
@@ -189,37 +213,26 @@
     
         <!-- Грид-сетка для карточек -->
         <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-[50px] mt-[40px] justify-items-center">
-            {{-- Карточка --}}
-            <div class="flex flex-col items-center">
-                <img class="w-full h-auto object-cover max-w-full aspect-square" 
-                    src="{{ asset('img/about-us/petrosov-alexander.png') }}" alt="">
-                <div class="mt-[20px] text-center">
-                    <p class="base-text font-semibold text-[var(--comment-color)]">Директор</p>
-                    <p class="number font-semibold">Александр Петросов</p>
+            @forelse($employees as $employee)
+                <div class="flex flex-col items-center">
+                    @if($employee->photo)
+                        <img class="w-full h-auto object-cover max-w-full aspect-square" 
+                            src="{{ asset('storage/' . $employee->photo) }}" alt="{{ $employee->{'name_' . app()->getLocale()} }}">
+                    @else
+                        <img class="w-full h-auto object-cover max-w-full aspect-square" 
+                            src="{{ asset('img/default-avatar.png') }}" alt="Нет фото">
+                    @endif
+                    <div class="mt-[20px] text-center">
+                        <p class="base-text font-semibold text-[var(--comment-color)]">
+                            {{ $employee->{'position_' . app()->getLocale()} }}
+                        </p>
+                        <p class="number font-semibold">{{ $employee->{'name_' . app()->getLocale()} }}</p>
+                    </div>
                 </div>
-            </div>
-        
-            {{-- Карточка --}}
-            <div class="flex flex-col items-center">
-                <img class="w-full h-auto object-cover max-w-full aspect-square" 
-                    src="{{ asset('img/about-us/petrosova-gulshat.png') }}" alt="">
-                <div class="mt-[20px] text-center">
-                    <p class="base-text font-semibold text-[var(--comment-color)]">Заместитель директора</p>
-                    <p class="number font-semibold">Гульшат Петросова</p>
-                </div>
-            </div>
-        
-            {{-- Карточка --}}
-            <div class="flex flex-col items-center">
-                <img class="w-full h-auto object-cover max-w-full aspect-square" 
-                    src="{{ asset('img/about-us/ikonnikov-roman.png') }}" alt="">
-                <div class="mt-[20px] text-center">
-                    <p class="base-text font-semibold text-[var(--comment-color)]">Операционный Директор</p>
-                    <p class="number font-semibold">Роман Иконников</p>
-                </div>
-            </div>
+            @empty
+                <p class="text-center col-span-3">Сотрудники не найдены.</p>
+            @endforelse
         </div>
-        
     </div>
     
     {{-- --------------------НАШИ ПАРТНЕРЫ------------------ --}}
