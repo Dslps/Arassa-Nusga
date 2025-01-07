@@ -129,14 +129,22 @@
     
     {{-- ------------------------------------------О нас-------------------------------------------- --}}
     <div class="w-full mx-auto max-w-[2000px] m-auto flex flex-col lg:flex-row mt-[115px]">
-        <div class="lg:flex hidden justify-center w-full lg:w-[850px] overflow-hidden relative">
-            <img src="{{ asset('img/about-us/business-meeting-room.png') }}" alt=""
-                class="w-full lg:w-auto h-auto object-cover">
+        <div class="xl:flex hidden justify-center w-full lg:w-[850px] object-cover overflow-hidden relative">
+            @if (!empty($companyDescriptions->first()->photos)) 
+                <img src="{{ asset('storage/' . explode(',', $companyDescriptions->first()->photos)[0]) }}" 
+                     alt="Описание компаний" 
+                     class="w-full lg:w-auto h-auto object-cover">
+            @else
+                <img src="{{ asset('img/default-placeholder.png') }}" 
+                     alt="Заглушка" 
+                     class="w-full lg:w-auto h-auto object-cover">
+            @endif
         </div>
+        
 
         <div class="relarive lg:w-max w-full relative lg:ml-auto">
             <div
-                class=" w-full lg:w-[400px] h-max lg:h-[450px] bg-[var(--accent-color)] text-[var(--white-color)] p-10 relative lg:absolute 2xl:left-[-420px] lg:left-[-400px] z-0  2xl:bottom-[50px] lg:bottom-0">
+                class=" w-full xl:w-[400px] h-max xl:h-[450px] bg-[var(--accent-color)] text-[var(--white-color)] p-10 relative xl:absolute xl:left-[-400px] left-0 3xl:bottom-[30px] bottom-0 z-0">
                 <div class="w-full h-full flex flex-col">
                     <div class="mb-auto ">
                         <p>Наши достижения</p>
@@ -149,94 +157,71 @@
                     </div>
                 </div>
             </div>
-            <div class="w-full lg:max-w-[800px] mr-0 lg:mr-[100px] text-[var(--template-color)] p-10">
-
-                <p class="title-2 max-w-[430px] mb-[40px] font-semibold">Работаем для вас с 2017 года</p>
-                <ul class="ml-[10px] base-text space-y-[15px]">
-                    <li class="list-marker">Консалтинговая компания «Arassa Nusga», основанная в 2017 году в составе
-                        Lotta
-                        Business Group, работает под девизом: «Качество. Инновации. Решения».</li>
-                    <li class="list-marker">Наша команда объединяет высококвалифицированных специалистов из различных
-                        отраслей. Мы предлагаем широкий спектр профессиональных консалтинговых услуг, направленных на
-                        повышение эффективности вашей деятельности, улучшение качества работы сотрудников, решение
-                        актуальных бизнес-задач и увеличение прибыли вашей компании.</li>
-                    <li class="list-marker">Мы всегда стремимся превзойти ожидания наших клиентов, предоставляя больше,
-                        чем
-                        от нас ожидают. Успех наших клиентов — это наша лучшая репутация.</li>
-                </ul>
-                <ul class="ml-[10px] mt-[30px] base-text space-y-[15px]">
-                    <li class="list-marker">Компания «Arassa Nusga» объединена общим стремлением к приобретению новых
-                        знаний и навыков в профессиональной сфере. Мы смело реализуем свои идеи, выходя за рамки
-                        привычного,
-                        и понимаем, что каждая идея может стать новой возможностью для всей компании. Именно поэтому мы
-                        открыты к изменениям и готовы пересматривать устоявшиеся подходы.</li>
-                    <li class="list-marker">Мы ценим сотрудников, которые стремятся к профессиональному и личностному
-                        росту, делятся знаниями с коллегами и работают в интересах компании. Для нас КОМАНДА — это не
-                        просто
-                        группа людей, а сила, объединенная общими целями и ценностями.</li>
-                </ul>
-
+            <div class="w-full xl:max-w-[800px]  mr-0 lg:mr-[100px] text-[var(--template-color)] p-10">
+                @foreach ($companyDescriptions as $description)
+                    <!-- Динамическое отображение заголовка на основе текущего языка -->
+                    <p class="title-2 max-w-[430px] mb-[40px] font-semibold break-words">{{ $description->{'title_' . app()->getLocale()} }}</p>
+            
+                    <!-- Список на основе текущего языка -->
+                    <ul class="ml-[10px] base-text space-y-[15px]">
+                        @foreach (preg_split('/\r\n|\r|\n/', $description->{'description_' . app()->getLocale()}) as $item)
+                            @if (trim($item)) <!-- Игнорируем пустые строки -->
+                                <li class="list-marker break-words">{{ $item }}</li>
+                            @endif
+                        @endforeach
+                    </ul>
+                @endforeach
             </div>
+            
+            
+            
         </div>
     </div>
     {{-- ---------------------------------НАШЕ РУКОВОДСТВО---------------------------------------------- --}}
-    <div class="w-full mx-auto max-w-[2000px] m-auto flex mt-[115px] pb-[90px]">
-        <div class="w-full lg:px-[100px] px-10">
-            <div class="">
-                <p class="title-2 lg:text-start text-center">Наше руководство</p>
-                <div class="flex mt-[10px] lg:mt-[40px] lg:justify-start justify-center items-center">
-                    <span class="mr-[10px] text-[36px] font-semibold text-[var(--accent-color)] lg:block hidden">//</span>
-                    <p class="base-text">Персонал - гордость нашего бизнеса</p>
-                </div>
+    <div class="w-full mx-auto max-w-[2000px] mt-[115px] pb-[90px] px-5 lg:px-[100px]">
+        <div>
+            <p class="title-2 text-center lg:text-start">Наше руководство</p>
+            <div class="flex mt-[10px] lg:mt-[40px] lg:justify-start justify-center items-center">
+                <span class="mr-[10px] text-[36px] font-semibold text-[var(--accent-color)] hidden lg:block">//</span>
+                <p class="base-text">Персонал - гордость нашего бизнеса</p>
             </div>
-
-            <div class="flex flex-wrap lg:gap-[100px] gap-[50px] justify-center mt-[40px]">
-                {{-- 1 карточка --}}
-                <div class="flex-col flex">
-                    <img class="lg:w-[500px] lg:h-[500px] sm:w-[400px] sm:h-[400px] w-full h-auto"
-                        src="{{ asset('img/about-us/petrosov-alexander.png') }}" alt="">
-                    <div class="mt-[20px]">
-                        <p class="base-text font-semibold text-[var(--comment-color)]">Директор</p>
-                        <p class="number font-semibold">Александр Петросов</p>
-                        <ul class="mt-[15px] space-y-[5px]">
-                            <li>lorem</li>
-                            <li>lorem</li>
-                            <li>lorem</li>
-                        </ul>
-                    </div>
-                </div>
-                {{-- 2 карточка --}}
-                <div class="flex-col flex">
-                    <img class="lg:w-[500px] lg:h-[500px] sm:w-[400px] sm:h-[400px] w-full h-auto"
-                        src="{{ asset('img/about-us/petrosova-gulshat.png') }}" alt="">
-                    <div class="mt-[20px]">
-                        <p class="base-text font-semibold text-[var(--comment-color)]">Заместитель директора</p>
-                        <p class="number font-semibold">Гульшат Петросова</p>
-                        <ul class="mt-[15px] space-y-[5px]">
-                            <li>lorem</li>
-                            <li>lorem</li>
-                            <li>lorem</li>
-                        </ul>
-                    </div>
-                </div>
-                {{-- 3 карточка --}}
-                <div class="flex-col flex">
-                    <img class="lg:w-[500px] lg:h-[500px] sm:w-[400px] sm:h-[400px] w-full h-auto"
-                        src="{{ asset('img/about-us/ikonnikov-roman.png') }}" alt="">
-                    <div class="mt-[20px]">
-                        <p class="base-text font-semibold text-[var(--comment-color)]">Операционный Директор</p>
-                        <p class="number font-semibold">Роман Иконников</p>
-                        <ul class="mt-[15px] space-y-[5px]">
-                            <li>lorem</li>
-                            <li>lorem</li>
-                            <li>lorem</li>
-                        </ul>
-                    </div>
-                </div>
-            </div>
-
         </div>
+    
+        <!-- Грид-сетка для карточек -->
+        <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-[50px] mt-[40px] justify-items-center">
+            {{-- Карточка --}}
+            <div class="flex flex-col items-center">
+                <img class="w-full h-auto object-cover max-w-full aspect-square" 
+                    src="{{ asset('img/about-us/petrosov-alexander.png') }}" alt="">
+                <div class="mt-[20px] text-center">
+                    <p class="base-text font-semibold text-[var(--comment-color)]">Директор</p>
+                    <p class="number font-semibold">Александр Петросов</p>
+                </div>
+            </div>
+        
+            {{-- Карточка --}}
+            <div class="flex flex-col items-center">
+                <img class="w-full h-auto object-cover max-w-full aspect-square" 
+                    src="{{ asset('img/about-us/petrosova-gulshat.png') }}" alt="">
+                <div class="mt-[20px] text-center">
+                    <p class="base-text font-semibold text-[var(--comment-color)]">Заместитель директора</p>
+                    <p class="number font-semibold">Гульшат Петросова</p>
+                </div>
+            </div>
+        
+            {{-- Карточка --}}
+            <div class="flex flex-col items-center">
+                <img class="w-full h-auto object-cover max-w-full aspect-square" 
+                    src="{{ asset('img/about-us/ikonnikov-roman.png') }}" alt="">
+                <div class="mt-[20px] text-center">
+                    <p class="base-text font-semibold text-[var(--comment-color)]">Операционный Директор</p>
+                    <p class="number font-semibold">Роман Иконников</p>
+                </div>
+            </div>
+        </div>
+        
     </div>
+    
     {{-- --------------------НАШИ ПАРТНЕРЫ------------------ --}}
     @include('include.partners')
     {{-- ----------------------Сертификаты-------------------------- --}}

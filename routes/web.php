@@ -63,6 +63,10 @@ Route::post('/principles', [AboutUsDashController::class, 'principlesStore'])->n
 Route::put('/principles/{id}', [AboutUsDashController::class, 'principlesUpdate'])->name('dashboard.principles.update');
 Route::delete('/principles/{id}', [AboutUsDashController::class, 'principlesDestroy'])->name('dashboard.principles.destroy');
 
+Route::put('/dashboard/company-descriptions', [AboutUsDashController::class, 'companyDescriptionsUpdate'])->name('dashboard.company-descriptions.store');
+Route::put('/company-descriptions/{id}', [AboutUsDashController::class, 'companyDescriptionsUpdate'])->name('dashboard.company-descriptions.update');
+Route::delete('/company-descriptions/{id}', [AboutUsDashController::class, 'companyDescriptionsDestroy'])->name('dashboard.company-descriptions.destroy');
+
 
 
 

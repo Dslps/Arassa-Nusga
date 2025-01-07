@@ -321,14 +321,23 @@
     <div class="p-4 border-2 border-gray-200 border-dashed rounded-lg dark:border-gray-700">
         <p class="base-text mb-10">Описание компаний</p>
         <!-- Форма -->
-        <form enctype="multipart/form-data">
+        <form action="{{ route('dashboard.company-descriptions.store') }}" method="POST" enctype="multipart/form-data">
+            @csrf
+            @method('PUT') <!-- Указываем метод для обновления -->
+
             <!-- Загрузить фотографии -->
             <div class="mb-6">
                 <label for="photos" class="block text-gray-700 font-medium mb-2">
                     Загрузить фотографии
                 </label>
                 <input type="file" id="photos" name="photos[]" accept="image/*" multiple class="border-2 border-dashed border-gray-300 p-4 w-full rounded">
-                <div id="preview-container" class="flex flex-wrap gap-2 mt-4"></div>
+                @if (!empty($companyDescription->photos))
+                    <div class="flex flex-wrap gap-2 mt-4">
+                        @foreach (explode(',', $companyDescription->photos) as $photo)
+                            <img src="{{ asset('storage/' . $photo) }}" alt="Photo" class="w-32 h-auto rounded border">
+                        @endforeach
+                    </div>
+                @endif
             </div>
 
             <!-- Титульный текст (3 языка) -->
@@ -340,7 +349,7 @@
                         <label for="title_ru" class="block text-gray-700 font-medium mb-1">
                             Титульный текст (RU):
                         </label>
-                        <input type="text" id="title_ru" name="title_ru" class="border-2 border-dashed border-gray-300 p-2 w-full rounded" maxlength="255">
+                        <input type="text" id="title_ru" name="title_ru" value="{{ $companyDescription->title_ru }}" class="border-2 border-dashed border-gray-300 p-2 w-full rounded" maxlength="255">
                     </div>
 
                     <!-- Английский -->
@@ -348,7 +357,7 @@
                         <label for="title_en" class="block text-gray-700 font-medium mb-1">
                             Title (EN):
                         </label>
-                        <input type="text" id="title_en" name="title_en" class="border-2 border-dashed border-gray-300 p-2 w-full rounded" maxlength="255">
+                        <input type="text" id="title_en" name="title_en" value="{{ $companyDescription->title_en }}" class="border-2 border-dashed border-gray-300 p-2 w-full rounded" maxlength="255">
                     </div>
 
                     <!-- Туркменский -->
@@ -356,7 +365,7 @@
                         <label for="title_tm" class="block text-gray-700 font-medium mb-1">
                             Title (TM):
                         </label>
-                        <input type="text" id="title_tm" name="title_tm" class="border-2 border-dashed border-gray-300 p-2 w-full rounded" maxlength="255">
+                        <input type="text" id="title_tm" name="title_tm" value="{{ $companyDescription->title_tm }}" class="border-2 border-dashed border-gray-300 p-2 w-full rounded" maxlength="255">
                     </div>
                 </div>
             </div>
@@ -370,7 +379,7 @@
                         <label for="description_ru" class="block text-gray-700 font-medium mb-1">
                             Описание (RU):
                         </label>
-                        <textarea id="description_ru" name="description_ru" rows="4" class="border-2 border-dashed border-gray-300 p-2 w-full rounded"></textarea>
+                        <textarea id="description_ru" name="description_ru" rows="4" class="border-2 border-dashed border-gray-300 p-2 w-full rounded">{{ $companyDescription->description_ru }}</textarea>
                     </div>
 
                     <!-- Английский -->
@@ -378,7 +387,7 @@
                         <label for="description_en" class="block text-gray-700 font-medium mb-1">
                             Description (EN):
                         </label>
-                        <textarea id="description_en" name="description_en" rows="4" class="border-2 border-dashed border-gray-300 p-2 w-full rounded"></textarea>
+                        <textarea id="description_en" name="description_en" rows="4" class="border-2 border-dashed border-gray-300 p-2 w-full rounded">{{ $companyDescription->description_en }}</textarea>
                     </div>
 
                     <!-- Туркменский -->
@@ -386,7 +395,7 @@
                         <label for="description_tm" class="block text-gray-700 font-medium mb-1">
                             Description (TM):
                         </label>
-                        <textarea id="description_tm" name="description_tm" rows="4" class="border-2 border-dashed border-gray-300 p-2 w-full rounded"></textarea>
+                        <textarea id="description_tm" name="description_tm" rows="4" class="border-2 border-dashed border-gray-300 p-2 w-full rounded">{{ $companyDescription->description_tm }}</textarea>
                     </div>
                 </div>
             </div>
@@ -395,11 +404,9 @@
                 Сохранить
             </button>
         </form>
-
-       
-        
     </div>
 </div>
+
 
 {{-- <div class="p-4">
     <div class="p-4 border-2 border-gray-200 border-dashed rounded-lg dark:border-gray-700 mt-5">
