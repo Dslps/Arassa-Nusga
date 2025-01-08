@@ -83,6 +83,13 @@ Route::delete('/dashboard/about-us/delete-certificate/{id}', [AboutUsDashControl
 // Сервис Битрикс24
 Route::get('bitrix24-dash', [Bitrix24DashController::class, 'index'])->name('bitrix24-dash');
 
+Route::get('/service/bitrix24', [Bitrix24DashController::class, 'index'])->name('bitrix24.index');
+Route::post('/service/bitrix24/store', [Bitrix24DashController::class, 'store'])->name('bitrix24.store');
+
+Route::post('/services/store', [Bitrix24DashController::class, 'storeService'])->name('bitrix24-cloud.store');
+Route::get('/services/{id}/edit', [Bitrix24DashController::class, 'editService'])->name('bitrix24-cloud.edit');
+Route::put('/services/{id}/update', [Bitrix24DashController::class, 'updateService'])->name('bitrix24-cloud.update');
+Route::delete('/services/{id}/destroy', [Bitrix24DashController::class, 'destroyService'])->name('bitrix24-cloud.destroy');
 
 
 

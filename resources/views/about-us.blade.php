@@ -14,9 +14,6 @@
                         @foreach(explode("\n", $aboutUs->{'description_' . app()->getLocale()}) as $line)
                             <li class="list-marker break-words min-w-0">{{ $line }}</li>
                         @endforeach
-                    @else
-                        <li class="list-marker break-words min-w-0">{{ __('messages.default_description_line1') }}</li>
-                        <li class="list-marker break-words min-w-0"><a href="#">{{ __('messages.default_description_line2_with_link') }}</a></li>
                     @endif
                 </ul>
             </div>
@@ -70,15 +67,8 @@
                         <img class="object-cover h-full min-w-[2000px]" src="{{ Storage::url($photo) }}"
                             alt="{{ __('messages.about_us_photo') }}">
                     @endforeach
-                @else
-                    <img class="object-cover h-full min-w-[2000px]"
-                        src="{{ asset('img/home-page/corporate.png') }}" {{-- Исправлена опечатка --}}
-                        alt="{{ __('messages.default_about_us_image') }}">
                 @endif
-            @else
-                <img class="object-cover h-full min-w-[2000px]"
-                    src="{{ asset('img/home-page/corporate.png') }}" {{-- Исправлена опечатка --}}
-                    alt="{{ __('messages.default_about_us_image') }}">
+
             @endif
         </div>
     </div>
@@ -103,8 +93,6 @@
                     <!-- Изображение -->
                     @if($principle->photos)
                     <img class="lg:w-[80px] w-[50px] lg:h-[80px] h-[50px] object-cover lg:mx-0 mx-auto" src="{{ asset('storage/' . $principle->photos) }}" alt="{{ $principle->{'title_' . app()->getLocale()} }}">
-                    @else
-                    <img class="lg:w-[80px] w-[50px] lg:h-[80px] h-[50px] object-cover lg:mx-0 mx-auto" src="{{ asset('img/default-placeholder.png') }}" alt="Placeholder">
                     @endif
     
                     <!-- Заголовок -->
@@ -133,11 +121,7 @@
             @if (!empty($companyDescriptions->first()->photos)) 
                 <img src="{{ asset('storage/' . explode(',', $companyDescriptions->first()->photos)[0]) }}" 
                      alt="Описание компаний" 
-                     class="w-full lg:w-auto h-auto object-cover">
-            @else
-                <img src="{{ asset('img/default-placeholder.png') }}" 
-                     alt="Заглушка" 
-                     class="w-full lg:w-auto h-auto object-cover">
+                     class="w-full h-auto object-cover">
             @endif
         </div>
         
@@ -218,9 +202,6 @@
                     @if($employee->photo)
                         <img class="w-full h-auto object-cover max-w-full aspect-square" 
                             src="{{ asset('storage/' . $employee->photo) }}" alt="{{ $employee->{'name_' . app()->getLocale()} }}">
-                    @else
-                        <img class="w-full h-auto object-cover max-w-full aspect-square" 
-                            src="{{ asset('img/default-avatar.png') }}" alt="Нет фото">
                     @endif
                     <div class="mt-[20px] text-center">
                         <p class="base-text font-semibold text-[var(--comment-color)]">
@@ -267,7 +248,7 @@
                     </div>
                 @empty
                     <div>
-                        <p>Сертификаты отсутствуют.</p>
+                        <p class="text-center">Сертификаты отсутствуют.</p>
                     </div>
                 @endforelse
             </div>

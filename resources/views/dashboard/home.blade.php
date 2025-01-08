@@ -73,7 +73,6 @@
                                 <label for="title_ru" class="block mb-1 font-semibold">Название (RU):</label>
                                 <input type="text" id="title_ru" name="title_ru" placeholder="Введите название (RU)"
                                     class="border p-2 w-full" maxlength="30" required>
-                                <p class="text-xs text-gray-500 mt-1">Максимум 30 символов</p>
                                 <p class="text-xs text-gray-500 mt-1" id="titleRuCount">30 символов осталось</p>
                             </div>
                             <!-- EN -->
@@ -81,7 +80,6 @@
                                 <label for="title_en" class="block mb-1 font-semibold">Название (EN):</label>
                                 <input type="text" id="title_en" name="title_en" placeholder="Введите название (EN)"
                                     class="border p-2 w-full" maxlength="30">
-                                <p class="text-xs text-gray-500 mt-1">Максимум 30 символов</p>
                                 <p class="text-xs text-gray-500 mt-1" id="titleEnCount">30 символов осталось</p>
                             </div>
                             <!-- TM -->
@@ -89,7 +87,6 @@
                                 <label for="title_tm" class="block mb-1 font-semibold">Название (TM):</label>
                                 <input type="text" id="title_tm" name="title_tm" placeholder="Введите название (TM)"
                                     class="border p-2 w-full" maxlength="30">
-                                <p class="text-xs text-gray-500 mt-1">Максимум 30 символов</p>
                                 <p class="text-xs text-gray-500 mt-1" id="titleTmCount">30 символов осталось</p>
                             </div>
                         </div>
@@ -101,7 +98,6 @@
                                 <label for="description_ru" class="block mb-1 font-semibold">Описание (RU):</label>
                                 <textarea id="description_ru" name="description_ru" placeholder="Введите описание (RU)" class="border p-2 w-full"
                                     rows="3"></textarea>
-                                <p class="text-xs text-gray-500 mt-1">Максимум 200 символов</p>
                                 <p class="text-xs text-gray-500 mt-1" id="descriptionRuCount">200 символов осталось</p>
                             </div>
                             <!-- EN -->
@@ -109,7 +105,6 @@
                                 <label for="description_en" class="block mb-1 font-semibold">Описание (EN):</label>
                                 <textarea id="description_en" name="description_en" placeholder="Введите описание (EN)" class="border p-2 w-full"
                                     rows="3"></textarea>
-                                <p class="text-xs text-gray-500 mt-1">Максимум 200 символов</p>
                                 <p class="text-xs text-gray-500 mt-1" id="descriptionEnCount">200 символов осталось</p>
                             </div>
                             <!-- TM -->
@@ -117,7 +112,6 @@
                                 <label for="description_tm" class="block mb-1 font-semibold">Описание (TM):</label>
                                 <textarea id="description_tm" name="description_tm" placeholder="Введите описание (TM)" class="border p-2 w-full"
                                     rows="3"></textarea>
-                                <p class="text-xs text-gray-500 mt-1">Максимум 200 символов</p>
                                 <p class="text-xs text-gray-500 mt-1" id="descriptionTmCount">200 символов осталось</p>
                             </div>
                         </div>
