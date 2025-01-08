@@ -239,61 +239,39 @@
     @include('include.partners')
     {{-- ----------------------Сертификаты-------------------------- --}}
     <div class="w-full max-w-[2000px] mx-auto px-0 lg:px-[60px] 2xl:px-[100px] mt-[50px] lg:mt-[90px]">
-        <div class="flex sm:flex-row flex-col justify-between px-10">
+        <div class="flex sm:flex-row flex-col justify-between">
             <div class="flex items-center">
                 <span class="title-2 text-[var(--accent-color)] mr-[15px]">//</span>
                 <p class="title-2 font-semibold sm:text-start text-center">Наши сертификаты</p>
             </div>
             <div class="flex gap-[50px] sm:mt-0 mt-5 mx-auto sm:mx-0">
-                <button type="button" id="carousel-prev-certificates" class="slider-button group">
-                    <span class="">
+                <button type="button" class="carousel-prev-certificates slider-button group">
+                    <span>
                         <i class="fa-solid fa-arrow-left"></i>
                         <span class="sr-only">Previous</span>
                     </span>
                 </button>
-                <button type="button" id="carousel-next-certificates" class="slider-button group">
-                    <span class="">
+                <button type="button" class="carousel-next-certificates slider-button group">
+                    <span>
                         <i class="fa-solid fa-arrow-right"></i>
                         <span class="sr-only">Next</span>
                     </span>
                 </button>
             </div>
         </div>
-        <div class=" flex mt-[75px] overflow-hidden" id="carousel-container">
-            <div class="flex gap-[40px]" id="carousel-content-certificates">
-                <div>
-                    <img class="max-w-[400px] max-h-[460px]" src="{{ asset('img/about-us/certificate1.png') }}"
-                        alt="">
-                </div>
-                <div>
-                    <img class="max-w-[400px] max-h-[460px]" src="{{ asset('img/about-us/certificate2.png') }}"
-                        alt="">
-                </div>
-                <div>
-                    <img class="max-w-[400px] max-h-[460px]" src="{{ asset('img/about-us/certificate3.png') }}"
-                        alt="">
-                </div>
-                <div>
-                    <img class="max-w-[400px] max-h-[460px]" src="{{ asset('img/about-us/certificate4.png') }}"
-                        alt="">
-                </div>
-                <div>
-                    <img class="max-w-[400px] max-h-[460px]" src="{{ asset('img/about-us/certificate1.png') }}"
-                        alt="">
-                </div>
-                <div>
-                    <img class="max-w-[400px] max-h-[460px]" src="{{ asset('img/about-us/certificate2.png') }}"
-                        alt="">
-                </div>
-                <div>
-                    <img class="max-w-[400px] max-h-[460px]" src="{{ asset('img/about-us/certificate3.png') }}"
-                        alt="">
-                </div>
-                <div>
-                    <img class="max-w-[400px] max-h-[460px]" src="{{ asset('img/about-us/certificate4.png') }}"
-                        alt="">
-                </div>
+        <div class="flex w-full h-[460px] mt-[75px] overflow-hidden">
+            <div class="carousel-certificates w-full">
+                @forelse($certificates as $certificate)
+                    <div class="carousel-item px-4"> <!-- Добавлен горизонтальный padding -->
+                        <img class="max-w-[400px] max-h-[460px]" src="{{ asset('storage/' . $certificate->photo_path) }}" alt="Сертификат">
+                    </div>
+                @empty
+                    <div>
+                        <p>Сертификаты отсутствуют.</p>
+                    </div>
+                @endforelse
             </div>
         </div>
     </div>
+    
 @endsection

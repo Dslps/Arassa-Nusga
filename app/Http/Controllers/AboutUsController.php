@@ -6,7 +6,8 @@ use App\Models\AboutUs;
 use App\Models\Principle;
 use App\Models\CompanyDescription;
 use App\Models\Achievement;
-use App\Models\Employee; // Добавьте этот импорт
+use App\Models\Employee; 
+use App\Models\Certificate; 
 
 use Illuminate\Http\Request;
 
@@ -27,9 +28,19 @@ class AboutUsController extends Controller
         $achievements = Achievement::all();
 
         // Получение всех сотрудников
-        $employees = Employee::all(); // Добавьте эту строку
+        $employees = Employee::all();
+
+        // Получение всех сертификатов
+        $certificates = Certificate::all(); // Добавьте эту строку
 
         // Передача всех данных в представление
-        return view('about-us', compact('aboutUs', 'principles', 'companyDescriptions', 'achievements', 'employees'));
+        return view('about-us', compact(
+            'aboutUs', 
+            'principles', 
+            'companyDescriptions', 
+            'achievements', 
+            'employees',
+            'certificates' // Добавьте эту переменную
+        ));
     }
 }

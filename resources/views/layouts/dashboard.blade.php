@@ -206,9 +206,7 @@
                     <ul
                         class="absolute hidden mt-2 bg-white rounded-lg shadow-lg w-[230px] dark:bg-gray-700 group-hover:block">
                         <li>
-                            <a href="#task1"
-                                class="block px-4 py-2 text-gray-700 hover:bg-gray-100 dark:text-gray-300 dark:hover:bg-gray-600">Bitrix
-                                24</a>
+                            <a href="{{route('bitrix24-dash')}}" class="block px-4 py-2 text-gray-700 hover:bg-gray-100 dark:text-gray-300 dark:hover:bg-gray-600">Bitrix24</a>
                         </li>
                         <li>
                             <a href="#task2"

@@ -15,6 +15,7 @@ use App\Http\Controllers\WebDevelopmentController;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\Dashboard\HomeDashController;
 use App\Http\Controllers\Dashboard\AboutUsDashController;
+use App\Http\Controllers\Dashboard\Bitrix24DashController;
 
 Route::get('/settings', function () {
     return view('settings');
@@ -76,6 +77,11 @@ Route::post('/dashboard/employees', [AboutUsDashController::class, 'employeesSto
 Route::put('/dashboard/employees/{id}', [AboutUsDashController::class, 'employeesUpdate'])->name('dashboard.employees.update');
 Route::delete('/dashboard/employees/{id}', [AboutUsDashController::class, 'employeesDestroy'])->name('dashboard.employees.destroy');
 
+Route::post('/dashboard/about-us/save-certificates', [AboutUsDashController::class, 'saveCertificates'])->name('aboutus.saveCertificates');
+Route::delete('/dashboard/about-us/delete-certificate/{id}', [AboutUsDashController::class, 'deleteCertificate'])->name('aboutus.deleteCertificate');
+
+// Сервис Битрикс24
+Route::get('bitrix24-dash', [Bitrix24DashController::class, 'index'])->name('bitrix24-dash');
 
 
 

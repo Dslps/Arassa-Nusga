@@ -10,6 +10,7 @@ use Illuminate\Support\Facades\Storage;
 use App\Models\CompanyDescription;
 use App\Models\Achievement;
 use App\Models\Employee;
+use App\Models\Certificate;
 
 class AboutUsDashController extends Controller
 {
@@ -17,24 +18,35 @@ class AboutUsDashController extends Controller
      * Отображение страницы "О нас" и "Принципы работы"
      */
     public function index()
-{
-    // Получение всех записей принципов
-    $principles = Principle::all();
+    {
+        // Получение всех записей принципов
+        $principles = Principle::all();
 
-    // Получение данных "О нас" или создание новой записи
-    $aboutUs = AboutUs::first() ?? new AboutUs();
+        // Получение данных "О нас" или создание новой записи
+        $aboutUs = AboutUs::first() ?? new AboutUs();
 
-    // Получение данных описания компаний
-    $companyDescription = CompanyDescription::first() ?? new CompanyDescription();
+        // Получение данных описания компаний
+        $companyDescription = CompanyDescription::first() ?? new CompanyDescription();
 
-    // Получение данных достижений
-    $achievement = Achievement::first() ?? new Achievement();
+        // Получение данных достижений
+        $achievement = Achievement::first() ?? new Achievement();
 
-    // Получение данных сотрудников
-    $employees = Employee::all();
+        // Получение данных сотрудников
+        $employees = Employee::all();
 
-    return view('dashboard.about-us', compact('principles', 'aboutUs', 'companyDescription', 'achievement', 'employees'));
-}
+        // Получение всех сертификатов с пагинацией (например, 20 на страницу)
+        $certificates = Certificate::paginate(20); // Используйте paginate вместо all
+
+        // Передача всех переменных в представление
+        return view('dashboard.about-us', compact(
+            'principles', 
+            'aboutUs', 
+            'companyDescription', 
+            'achievement', 
+            'employees', 
+            'certificates'
+        ));
+    }
 
     
     
@@ -386,5 +398,71 @@ public function employeesStore(Request $request)
         $employee->delete();
 
         return redirect()->back()->with('success', 'Сотрудник успешно удалён!');
+    }
+    // --------------------------------------------------------------
+
+    public function saveCertificates(Request $request)
+    {
+        // Максимальное количество сертификатов (опционально)
+        $maxCertificates = 50;
+
+        // Текущее количество сертификатов
+        $currentCount = Certificate::count();
+
+        // Количество новых сертификатов
+        $newCount = count($request->file('photos', []));
+
+        if(($currentCount + $newCount) > $maxCertificates){
+            return redirect()->back()->withErrors(['photos' => 'Максимальное количество сертификатов составляет '.$maxCertificates.'.']);
+        }
+
+        // Валидация входящих данных
+        $request->validate([
+            'photos.*' => 'required|image|mimes:jpeg,png,jpg,gif,svg|max:2048', // Максимальный размер 2MB на файл
+        ], [
+            'photos.*.required' => 'Каждый файл обязателен для загрузки.',
+            'photos.*.image' => 'Загружаемый файл должен быть изображением.',
+            'photos.*.mimes' => 'Поддерживаемые форматы: jpeg, png, jpg, gif, svg.',
+            'photos.*.max' => 'Максимальный размер файла: 2MB.',
+        ]);
+
+        // Проверяем, есть ли загруженные файлы
+        if($request->hasFile('photos')){
+            foreach($request->file('photos') as $photo){
+                // Генерируем уникальное имя файла
+                $filename = time().'_'.$photo->getClientOriginalName();
+
+                // Сохраняем файл в папку 'public/certificates'
+                $path = $photo->storeAs('certificates', $filename, 'public');
+
+                // Сохраняем путь к файлу в базе данных
+                Certificate::create([
+                    'photo_path' => $path,
+                ]);
+            }
+        }
+
+        // Можно добавить сообщение об успешной загрузке
+        return redirect()->back()->with('success', 'Сертификаты успешно загружены!');
+    }
+
+    /**
+     * Обработка удаления сертификата.
+     */
+    public function deleteCertificate($id)
+    {
+        // Найти сертификат по ID
+        $certificate = Certificate::findOrFail($id);
+
+        // Удалить файл из хранилища
+        if(Storage::disk('public')->exists($certificate->photo_path)){
+            Storage::disk('public')->delete($certificate->photo_path);
+        }
+
+        // Удалить запись из базы данных
+        $certificate->delete();
+
+        // Вернуться обратно с сообщением об успехе
+        return redirect()->back()->with('success', 'Сертификат успешно удален!');
     }
 }

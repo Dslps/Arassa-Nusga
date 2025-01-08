@@ -43,6 +43,48 @@ $(document).ready(function () {
 });
 
 // ---------------------------------------------------------------------
+$(document).ready(function () {
+    // Инициализация Slick для сертификатов
+    $('.carousel-certificates').slick({
+        dots: false,
+        infinite: true,
+        speed: 1000,
+        slidesToShow: 4,
+        slidesToScroll: 1,
+        arrows: false,
+        responsive: [
+            {
+                breakpoint: 1280,
+                settings: {
+                    slidesToShow: 3,
+                }
+            },
+            {
+                breakpoint: 1024,
+                settings: {
+                    slidesToShow: 2,
+                }
+            },
+            {
+                breakpoint: 768,
+                settings: {
+                    slidesToShow: 1,
+                }
+            },
+        ]
+    });
+
+    // Кнопки управления
+    $('.carousel-prev-certificates').click(function(){
+        $('.carousel-certificates').slick('slickPrev');
+    });
+
+    $('.carousel-next-certificates').click(function(){
+        $('.carousel-certificates').slick('slickNext');
+    });
+});
+
+// ---------------------------------------------------------------------
 // слайдер на наших партнеров
 $(document).ready(function () {
     $('.partners').slick({
