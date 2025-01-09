@@ -209,7 +209,7 @@
                             <a href="{{route('bitrix24-dash')}}" class="block px-4 py-2 text-gray-700 hover:bg-gray-100 dark:text-gray-300 dark:hover:bg-gray-600">Bitrix24</a>
                         </li>
                         <li>
-                            <a href="#task2"
+                            <a href="{{route('mobile-dash')}}"
                                 class="block px-4 py-2 text-gray-700 hover:bg-gray-100 dark:text-gray-300 dark:hover:bg-gray-600">Mobile
                                 Applications</a>
                         </li>

@@ -4,15 +4,15 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Model;
 
-class Bitrix24 extends Model
+class Mobile extends Model
 {
     protected $fillable = [
         'title_ru',
         'title_en',
         'title_tm',
-        'description_ru',
-        'description_en',
-        'description_tm',
+        'categories_ru',
+        'categories_en',
+        'categories_tm',
         'photos',
     ];
 

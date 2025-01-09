@@ -165,16 +165,7 @@
                 </div>
             @endif
 
-            <!-- Сообщение об ошибках -->
-            @if ($errors->any())
-                <div class="bg-red-500 text-white p-4 rounded mb-4">
-                    <ul>
-                        @foreach ($errors->all() as $error)
-                            <li>{{ $error }}</li>
-                        @endforeach
-                    </ul>
-                </div>
-            @endif
+            
 
             <!-- Таблица -->
             <table class="table-auto w-full border-collapse border border-gray-300">
@@ -561,12 +552,6 @@
         <div class="p-4 border-2 border-gray-200 border-dashed rounded-lg dark:border-gray-700">
             <p class="text-lg font-semibold mb-4">Руководство:</p>
 
-            <!-- Сообщение об успехе -->
-            @if (session('success'))
-                <div class="bg-green-500 text-white p-4 rounded mb-4">
-                    {{ session('success') }}
-                </div>
-            @endif
 
             <!-- Сообщение об ошибках -->
             @if ($errors->any())

@@ -6,7 +6,6 @@ use App\Http\Controllers\AuthController;
 use App\Http\Controllers\Bitrix24Controller;
 use App\Http\Controllers\BlogController;
 use App\Http\Controllers\ContactController;
-use App\Http\Controllers\Dashboard\DashboardController;
 use App\Http\Controllers\HomeController;
 use App\Http\Controllers\MobileController;
 use App\Http\Controllers\ProjectController;
@@ -16,11 +15,10 @@ use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\Dashboard\HomeDashController;
 use App\Http\Controllers\Dashboard\AboutUsDashController;
 use App\Http\Controllers\Dashboard\Bitrix24DashController;
+use App\Http\Controllers\Dashboard\DashboardController;
+use App\Http\Controllers\Dashboard\MobileDashController;
 
-Route::get('/settings', function () {
-    return view('settings');
-})->name('settings');
-
+Route::get('/settings', function () {return view('settings');})->name('settings');
 
 Route::get('/', ([HomeController::class, 'index']))->name('home');
 Route::get('/about-us', ([AboutUsController::class, 'index']))->name('about-us');
@@ -101,5 +99,9 @@ Route::put('/implementation-stages/{id}/update', [Bitrix24DashController::class,
 Route::delete('/implementation-stages/{id}/destroy', [Bitrix24DashController::class, 'destroyImplementationStage'])->name('implementation-stages.destroy');
 Route::get('/implementation-stages/{id}/edit', [Bitrix24DashController::class, 'editImplementationStage'])->name('implementation-stages.edit');
 
+// Сервис мобильных приложений
+Route::get('mobile-dash', [MobileDashController::class, 'index'])->name('mobile-dash');
 
+Route::get('/service/mobile', [MobileDashController::class, 'index'])->name('mobile.index');
+Route::post('/service/mobile/store', [MobileDashController::class, 'store'])->name('mobile.store');
 
