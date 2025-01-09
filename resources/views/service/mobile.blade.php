@@ -14,7 +14,7 @@
                     <p class="base-text">{{ $mobile->{'categories_' . app()->getLocale()} }}</p>
                     
                     <!-- Кнопка Заказать Услугу -->
-                    <a href="{{ $mobile->service_url ?? '#' }}"> <!-- Предполагается, что в модели есть поле service_url -->
+                    <a href="{{ $mobile->service_url ?? '#' }}">
                         <div class="w-[230px] h-[40px] hidden lg:flex items-center border-t-2 border-b-2 justify-center lg:mt-[25px] lg:m-0 m-auto mt-[25px]">
                             <p>Заказать услугу <i class="ml-[10px] fa-solid fa-arrow-right-long"></i></p>
                         </div>

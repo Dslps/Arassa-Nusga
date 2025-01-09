@@ -2,18 +2,16 @@
 
 namespace App\Models;
 
-use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
-class Service extends Model
+class MobileDevelopment extends Model
 {
-    use HasFactory;
+    protected $table = 'mobile_developments';
 
     protected $fillable = [
         'title_ru',
         'title_en',
         'title_tm',
-        'list',
         'categories_ru',
         'categories_en',
         'categories_tm',
@@ -23,5 +21,5 @@ class Service extends Model
         'categories_ru' => 'array',
         'categories_en' => 'array',
         'categories_tm' => 'array',
-    ];
+    ];    
 }
