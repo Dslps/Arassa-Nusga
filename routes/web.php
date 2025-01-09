@@ -91,5 +91,10 @@ Route::get('/services/{id}/edit', [Bitrix24DashController::class, 'editService']
 Route::put('/services/{id}/update', [Bitrix24DashController::class, 'updateService'])->name('bitrix24-cloud.update');
 Route::delete('/services/{id}/destroy', [Bitrix24DashController::class, 'destroyService'])->name('bitrix24-cloud.destroy');
 
+Route::post('/boxes/store', [Bitrix24DashController::class, 'storeBox'])->name('bitrix24-boxes.store');
+Route::put('/boxes/{id}/update', [Bitrix24DashController::class, 'updateBox'])->name('bitrix24-boxes.update');
+Route::delete('/boxes/{id}/destroy', [Bitrix24DashController::class, 'destroyBox'])->name('bitrix24-boxes.destroy');
+Route::get('/boxes/{id}/edit', [Bitrix24DashController::class, 'editBox'])->name('bitrix24-boxes.edit');
+
 
 

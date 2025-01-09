@@ -4,7 +4,7 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Model;
 
-class Bitrix24Box extends Model
+class ImplementationStagesBitrix24 extends Model
 {
     //
 }

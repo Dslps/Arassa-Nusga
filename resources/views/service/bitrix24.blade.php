@@ -142,132 +142,64 @@
                         </ul>
 
                     </div>
+                  
+               
+                
+                    @foreach ($boxes as $index => $box)
                     <div
                         class="animate-block p-[30px] w-full h-[250px] sm:w-[50%] 2xl:w-[25%] flex flex-col bg-white shadow hover:shadow-lg hover:-translate-y-1 transition-transform duration-300">
-                        <p class="base-text mb-[15px] text-[var(--comment-color)] font-semibold">Базовый</p>
+                        
+                        <!-- Название Коробки -->
+                        <p class="base-text mb-[15px] text-[var(--comment-color)] font-semibold">
+                            {{ $box->{'title_' . app()->getLocale()} }}
+                        </p>
+                        
+                        <!-- Список Категорий -->
                         <ul class="ml-[10px] text-[var(--accent-color)] small-text font-semibold">
-                            <li class="list-marker">Для эффективной работы небольших компаний</li>
-                            <li class="list-marker">Системы управления бюджетированием</li>
-                            <li class="list-marker">Управление расчетами и платежами</li>
+                            @foreach ($box->{'categories_' . app()->getLocale()} as $category)
+                                <li class="list-marker">{{ $category }}</li>
+                            @endforeach
                         </ul>
+                        
+                        <!-- Нижняя Часть Карточки с Номером и Ценой -->
                         <div class="flex items-end justify-between mt-auto">
-                            <div class="number text-[var(--comment-color)] font-semibold">02</div>
+                            
+                            <!-- Номер Коробки -->
+                            <div class="number text-[var(--comment-color)] font-semibold">{{ $index + 1 }}</div>
+                            
+                            <!-- Ценообразование -->
                             <div>
                                 <div class="flex flex-col">
-                                    <div class="flex items-center">
-                                        <p class="smaii-text line-through font-semibold">230 тм</p>
-                                        <div
-                                            class="bg-[var(--price-color)] text-[var(--white-color)] flex justify-center items-center p-[3px] rounded-tl-[10px] rounded-tr-[5px] rounded-br-[10px] rounded-bl-[5px] ml-[4px]">
-                                            <p class="small-text">-20%</p>
+                                    @if ($box->discount && $box->discount < 100)
+                                        @php
+                                            // Расчет оригинальной цены, если скидка указана и меньше 100%
+                                            $originalPrice = $box->price / (1 - ($box->discount / 100));
+                                        @endphp
+                                        <div class="flex items-center">
+                                            <p class="small-text line-through font-semibold">
+                                                {{ number_format($originalPrice, 0, ',', ' ') }} тм
+                                            </p>
+                                            <div
+                                                class="bg-[var(--price-color)] text-[var(--white-color)] flex justify-center items-center p-[3px] rounded-tl-[10px] rounded-tr-[5px] rounded-br-[10px] rounded-bl-[5px] ml-[4px]">
+                                                <p class="small-text">-{{ $box->discount }}%</p>
+                                            </div>
                                         </div>
-                                    </div>
-                                    <p class="number font-semibold">200 тм</p>
+                                        <p class="number font-semibold">{{ number_format($box->price, 0, ',', ' ') }} тм</p>
+                                    @else
+                                        <p class="number font-semibold">{{ number_format($box->price, 0, ',', ' ') }} тм</p>
+                                    @endif
                                 </div>
                             </div>
                         </div>
                     </div>
+                @endforeach
+                
+                
+                    
+                    
 
                     {{-- 2 карточка --}}
-                    <div
-                        class="animate-block p-[30px] w-full h-[250px] sm:w-[50%] 2xl:w-[25%] flex flex-col bg-white shadow hover:shadow-lg hover:-translate-y-1 transition-transform duration-300">
-                        <p class="base-text mb-[15px] text-[var(--comment-color)] font-semibold">Базовый</p>
-                        <ul class="ml-[10px] text-[var(--accent-color)] small-text font-semibold">
-                            <li class="list-marker">Для эффективной работы небольших компаний</li>
-                            <li class="list-marker">Системы управления бюджетированием</li>
-                            <li class="list-marker">Управление расчетами и платежами</li>
-                        </ul>
-                        <div class="flex items-end justify-between mt-auto">
-                            <div class="number text-[var(--comment-color)] font-semibold">02</div>
-                            <div>
-                                <div class="flex flex-col">
-                                    <div class="flex items-center">
-                                        <p class="smaii-text line-through font-semibold">230 тм</p>
-                                        <div
-                                            class="bg-[var(--price-color)] text-[var(--white-color)] flex justify-center items-center p-[3px] rounded-tl-[10px] rounded-tr-[5px] rounded-br-[10px] rounded-bl-[5px] ml-[4px]">
-                                            <p class="small-text">-20%</p>
-                                        </div>
-                                    </div>
-                                    <p class="number font-semibold">200 тм</p>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-
-                    {{-- 3 карточка --}}
-                    <div
-                        class="animate-block p-[30px] w-full h-[250px] sm:w-[50%] 2xl:w-[25%] flex flex-col bg-white shadow hover:shadow-lg hover:-translate-y-1 transition-transform duration-300">
-                        <p class="base-text mb-[15px] text-[var(--comment-color)] font-semibold">Базовый</p>
-                        <ul class="ml-[10px] text-[var(--accent-color)] small-text font-semibold">
-                            <li class="list-marker">Для эффективной работы небольших компаний</li>
-                            <li class="list-marker">Системы управления бюджетированием</li>
-                            <li class="list-marker">Управление расчетами и платежами</li>
-                        </ul>
-                        <div class="flex items-end justify-between mt-auto">
-                            <div class="number text-[var(--comment-color)] font-semibold">02</div>
-                            <div>
-                                <div class="flex flex-col">
-                                    <div class="flex items-center">
-                                        <p class="smaii-text line-through font-semibold">230 тм</p>
-                                        <div
-                                            class="bg-[var(--price-color)] text-[var(--white-color)] flex justify-center items-center p-[3px] rounded-tl-[10px] rounded-tr-[5px] rounded-br-[10px] rounded-bl-[5px] ml-[4px]">
-                                            <p class="small-text">-20%</p>
-                                        </div>
-                                    </div>
-                                    <p class="number font-semibold">200 тм</p>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                    {{-- 4 карточка --}}
-                    <div
-                        class="animate-block p-[30px] w-full h-[250px] sm:w-[50%] 2xl:w-[25%] flex flex-col bg-white shadow hover:shadow-lg hover:-translate-y-1 transition-transform duration-300">
-                        <p class="base-text mb-[15px] text-[var(--comment-color)] font-semibold">Базовый</p>
-                        <ul class="ml-[10px] text-[var(--accent-color)] small-text font-semibold">
-                            <li class="list-marker">Для эффективной работы небольших компаний</li>
-                            <li class="list-marker">Системы управления бюджетированием</li>
-                            <li class="list-marker">Управление расчетами и платежами</li>
-                        </ul>
-                        <div class="flex items-end justify-between mt-auto">
-                            <div class="number text-[var(--comment-color)] font-semibold">02</div>
-                            <div>
-                                <div class="flex flex-col">
-                                    <div class="flex items-center">
-                                        <p class="smaii-text line-through font-semibold">230 тм</p>
-                                        <div
-                                            class="bg-[var(--price-color)] text-[var(--white-color)] flex justify-center items-center p-[3px] rounded-tl-[10px] rounded-tr-[5px] rounded-br-[10px] rounded-bl-[5px] ml-[4px]">
-                                            <p class="small-text">-20%</p>
-                                        </div>
-                                    </div>
-                                    <p class="number font-semibold">200 тм</p>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                    {{-- 5 карточка --}}
-                    <div
-                        class="animate-block p-[30px] w-full h-[250px] sm:w-[50%] 2xl:w-[25%] flex flex-col bg-white shadow hover:shadow-lg hover:-translate-y-1 transition-transform duration-300">
-                        <p class="base-text mb-[15px] text-[var(--comment-color)] font-semibold">Базовый</p>
-                        <ul class="ml-[10px] text-[var(--accent-color)] small-text font-semibold">
-                            <li class="list-marker">Для эффективной работы небольших компаний</li>
-                            <li class="list-marker">Системы управления бюджетированием</li>
-                            <li class="list-marker">Управление расчетами и платежами</li>
-                        </ul>
-                        <div class="flex items-end justify-between mt-auto">
-                            <div class="number text-[var(--comment-color)] font-semibold">02</div>
-                            <div>
-                                <div class="flex flex-col">
-                                    <div class="flex items-center">
-                                        <p class="smaii-text line-through font-semibold">230 тм</p>
-                                        <div
-                                            class="bg-[var(--price-color)] text-[var(--white-color)] flex justify-center items-center p-[3px] rounded-tl-[10px] rounded-tr-[5px] rounded-br-[10px] rounded-bl-[5px] ml-[4px]">
-                                            <p class="small-text">-20%</p>
-                                        </div>
-                                    </div>
-                                    <p class="number font-semibold">200 тм</p>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
+                    
 
                 </div>
             </div>

@@ -176,23 +176,24 @@
                             <td class="border border-gray-300 px-4 py-2 text-center">
                                 <button
                                     onclick="ServiceModal.open(
-                                    'edit',
-                                    {{ $service->id }},
-                                    '{{ $service->title_ru }}',
-                                    '{{ $service->title_en }}',
-                                    '{{ $service->title_tm }}',
-                                    { 
-                                        ru: {{ json_encode($service->categories_ru ?? []) }},
-                                        en: {{ json_encode($service->categories_en ?? []) }},
-                                        tm: {{ json_encode($service->categories_tm ?? []) }}
-                                    },
-                                    {{ $service->discount }},
-                                    {{ $service->price }}
-                                )"
+                                        'edit',
+                                        {{ $service->id }},
+                                        '{{ addslashes($service->title_ru) }}',
+                                        '{{ addslashes($service->title_en) }}',
+                                        '{{ addslashes($service->title_tm) }}',
+                                        { 
+                                            ru: @json($service->categories_ru ?? []),
+                                            en: @json($service->categories_en ?? []),
+                                            tm: @json($service->categories_tm ?? [])
+                                        },
+                                        {{ $service->discount !== null ? $service->discount : 'null' }},
+                                        {{ $service->price !== null ? $service->price : 'null' }}
+                                    )"
                                     class="text-orange-500">
                                     <i class="text-[20px] fa-solid fa-pencil"></i>
                                 </button>
                             </td>
+                            
                             <td class="border border-gray-300 px-4 py-2 text-center">
                                 <form action="{{ route('bitrix24-cloud.destroy', $service->id) }}" method="POST"
                                     onsubmit="return confirm('Вы уверены, что хотите удалить эту запись?');">
@@ -353,7 +354,7 @@
             </div>
         </div>
     </div>
-    {{-- Битрикс коробка --}}
+    {{------------------------------------------- Битрикс коробка ----------------------------------------------}}
     <div class="p-4 sm:ml-64">
         <div class="p-4 border-2 border-gray-200 border-dashed rounded-lg dark:border-gray-700">
             <p class="text-lg font-semibold mb-4">Бирикс коробка:</p>
@@ -374,7 +375,54 @@
                     </tr>
                 </thead>
                 <tbody id="newServicesTableBody">
-                    <!-- Данные будут добавлены динамически -->
+                    @foreach ($boxes as $index => $box)
+                        <tr>
+                            <td class="border border-gray-300 px-4 py-2 text-center">{{ $index + 1 }}</td>
+                            <td class="border border-gray-300 px-4 py-2">{{ $box->title_ru }}</td>
+                            <td class="border border-gray-300 px-4 py-2 max-w-[600px] overflow-x-auto whitespace-nowrap">
+                                {{ implode(', ', $box->categories_ru ?? []) }}
+                            </td>
+                            <td class="border border-gray-300 px-4 py-2 max-w-[600px] overflow-x-auto whitespace-nowrap">
+                                {{ implode(', ', $box->categories_en ?? []) }}
+                            </td>
+                            <td class="border border-gray-300 px-4 py-2 max-w-[600px] overflow-x-auto whitespace-nowrap">
+                                {{ implode(', ', $box->categories_tm ?? []) }}
+                            </td>
+                            <td class="border border-gray-300 px-4 py-2 text-center">{{ $box->discount }}</td>
+                            <td class="border border-gray-300 px-4 py-2 text-center">{{ $box->price }}</td>
+                            <td class="border border-gray-300 px-4 py-2 text-center">
+                                <button
+                                    onclick="NewServiceModal.open(
+                                        'edit',
+                                        {{ $box->id }},
+                                        '{{ addslashes($box->title_ru) }}',
+                                        '{{ addslashes($box->title_en) }}',
+                                        '{{ addslashes($box->title_tm) }}',
+                                        { 
+                                            ru: @json($box->categories_ru ?? []),
+                                            en: @json($box->categories_en ?? []),
+                                            tm: @json($box->categories_tm ?? [])
+                                        },
+                                        {{ $box->discount !== null ? $box->discount : 'null' }},
+                                        {{ $box->price !== null ? $box->price : 'null' }}
+                                    )"
+                                    class="text-orange-500">
+                                    <i class="text-[20px] fa-solid fa-pencil"></i>
+                                </button>
+                            </td>
+                            
+                            <td class="border border-gray-300 px-4 py-2 text-center">
+                                <form action="{{ route('bitrix24-boxes.destroy', $box->id) }}" method="POST"
+                                    onsubmit="return confirm('Вы уверены, что хотите удалить эту запись?');">
+                                    @csrf
+                                    @method('DELETE')
+                                    <button type="submit" class="text-red-600">
+                                        <i class="text-[20px] fa-solid fa-trash"></i>
+                                    </button>
+                                </form>
+                            </td>
+                        </tr>
+                    @endforeach
                 </tbody>
             </table>
 
@@ -392,9 +440,11 @@
                 <div class="bg-white p-8 rounded shadow-lg w-3/4 max-w-4xl">
                     <h2 id="newServiceModalTitle" class="text-xl mb-4"></h2>
                     <form id="newServiceModalForm" method="POST" action="#" enctype="multipart/form-data">
+                        @csrf
                         <input type="hidden" name="_method" id="newServiceFormMethod" value="POST">
                         <input type="hidden" id="newServiceModalId" name="id">
 
+                        <!-- Поля Названия -->
                         <div class="flex gap-4 mb-4">
                             <div class="w-1/3">
                                 <label for="newServiceTitleRu" class="block mb-1 font-semibold">Название (RU):</label>
@@ -486,7 +536,6 @@
                             </div>
                         </div>
 
-
                         <!-- Поля Скидка и Цена -->
                         <div class="mb-4 flex gap-4">
                             <div class="w-1/2">
@@ -546,48 +595,80 @@
                 ru: [],
                 en: [],
                 tm: []
-            }, discount = '', price = '') {
+            }, discount = null, price = null) { // Значения по умолчанию как null
+                console.log('ServiceModal.open вызван с действием:', action); // Отладочное сообщение
+    
                 const form = document.getElementById('serviceModalForm');
-                document.getElementById('serviceModal').classList.remove('hidden');
-                document.getElementById('serviceModalTitle').innerText = action === 'add' ? 'Добавить Услугу' :
-                    'Редактировать Услугу';
-
-                form.action = action === 'add' ?
-                    "{{ route('bitrix24-cloud.store') }}" :
-                    `/services/${id}/update`;
-
-                document.getElementById('serviceFormMethod').value = action === 'add' ? 'POST' : 'PUT';
-                document.getElementById('serviceModalId').value = id || '';
-                document.getElementById('serviceTitleRu').value = title_ru || '';
-                document.getElementById('serviceTitleEn').value = title_en || '';
-                document.getElementById('serviceTitleTm').value = title_tm || '';
-
-                document.querySelectorAll('input[name="categories_ru[]"]').forEach((input, index) => input.value =
-                    categories.ru[index] || '');
-                document.querySelectorAll('input[name="categories_en[]"]').forEach((input, index) => input.value =
-                    categories.en[index] || '');
-                document.querySelectorAll('input[name="categories_tm[]"]').forEach((input, index) => input.value =
-                    categories.tm[index] || '');
-
-                document.getElementById('serviceDiscount').value = discount || '';
-                document.getElementById('servicePrice').value = price || '';
-
-                ServiceModal.updateCharacterCounts();
+                const modal = document.getElementById('serviceModal');
+    
+                if (!form || !modal) {
+                    console.error('Форма или модальное окно не найдены.');
+                    return;
+                }
+    
+                try {
+                    // Установка заголовка модального окна
+                    document.getElementById('serviceModalTitle').innerText = action === 'add' ? 'Добавить Услугу' : 'Редактировать Услугу';
+    
+                    // Установка атрибута action формы
+                    form.action = action === 'add' ?
+                        "{{ route('bitrix24-cloud.store') }}" :
+                        `/services/${id}/update`;
+    
+                    // Установка метода формы
+                    document.getElementById('serviceFormMethod').value = action === 'add' ? 'POST' : 'PUT';
+    
+                    // Установка скрытого поля ID
+                    document.getElementById('serviceModalId').value = id || '';
+    
+                    // Установка значений полей названия
+                    document.getElementById('serviceTitleRu').value = title_ru || '';
+                    document.getElementById('serviceTitleEn').value = title_en || '';
+                    document.getElementById('serviceTitleTm').value = title_tm || '';
+    
+                    // Заполнение категорий
+                    document.querySelectorAll('input[name="categories_ru[]"]').forEach((input, index) => {
+                        input.value = categories.ru[index] || '';
+                    });
+                    document.querySelectorAll('input[name="categories_en[]"]').forEach((input, index) => {
+                        input.value = categories.en[index] || '';
+                    });
+                    document.querySelectorAll('input[name="categories_tm[]"]').forEach((input, index) => {
+                        input.value = categories.tm[index] || '';
+                    });
+    
+                    // Установка значений полей скидки и цены с проверкой на null
+                    document.getElementById('serviceDiscount').value = (discount !== null && discount !== undefined) ? discount : '';
+                    document.getElementById('servicePrice').value = (price !== null && price !== undefined) ? price : '';
+    
+                    // Показ модального окна
+                    modal.classList.remove('hidden');
+    
+                    // Обновление счетчиков символов
+                    ServiceModal.updateCharacterCounts();
+                } catch (error) {
+                    console.error('Ошибка в ServiceModal.open:', error);
+                }
             },
             close: function() {
-                document.getElementById('serviceModal').classList.add('hidden');
-                document.getElementById('serviceModalForm').reset();
+                const modal = document.getElementById('serviceModal');
+                const form = document.getElementById('serviceModalForm');
+    
+                if (modal && form) {
+                    modal.classList.add('hidden');
+                    form.reset();
+                } else {
+                    console.error('Модальное окно или форма не найдены.');
+                }
             },
             updateCharacterCounts: function() {
                 document.querySelectorAll('input[maxlength]').forEach(input => {
                     const counter = input.nextElementSibling;
-
+    
                     if (counter && counter.tagName.toLowerCase() === 'p') {
-            
                         ServiceModal.updateCharacterCount(input, counter);
-
-                        input.addEventListener('input', () => ServiceModal.updateCharacterCount(input,
-                            counter));
+    
+                        input.addEventListener('input', () => ServiceModal.updateCharacterCount(input, counter));
                     }
                 });
             },
@@ -597,12 +678,12 @@
                 counter.textContent = `${remaining} символов осталось`;
             }
         };
-
+    
         document.addEventListener('DOMContentLoaded', function() {
-
             ServiceModal.updateCharacterCounts();
         });
     </script>
+    
     {{-- бирикс коробка --}}
     <script>
         const NewServiceModal = {
@@ -610,43 +691,80 @@
                 ru: [],
                 en: [],
                 tm: []
-            }, discount = '', price = '') {
+            }, discount = null, price = null) { // Установлены значения по умолчанию как null
+                console.log('NewServiceModal.open вызван с действием:', action); // Отладочное сообщение
+    
                 const form = document.getElementById('newServiceModalForm');
-                document.getElementById('newServiceModal').classList.remove('hidden');
-                document.getElementById('newServiceModalTitle').innerText = action === 'add' ? 'Добавить запись' :
-                    'Редактировать запись';
-
-                form.action = action === 'add' ? "#" : `/new-services/${id}/update`;
-
-                document.getElementById('newServiceFormMethod').value = action === 'add' ? 'POST' : 'PUT';
-                document.getElementById('newServiceModalId').value = id || '';
-                document.getElementById('newServiceTitleRu').value = title_ru || '';
-                document.getElementById('newServiceTitleEn').value = title_en || '';
-                document.getElementById('newServiceTitleTm').value = title_tm || '';
-
-                document.querySelectorAll('input[name="categories_ru[]"]').forEach((input, index) => input.value =
-                    categories.ru[index] || '');
-                document.querySelectorAll('input[name="categories_en[]"]').forEach((input, index) => input.value =
-                    categories.en[index] || '');
-                document.querySelectorAll('input[name="categories_tm[]"]').forEach((input, index) => input.value =
-                    categories.tm[index] || '');
-
-                document.getElementById('newServiceDiscount').value = discount || '';
-                document.getElementById('newServicePrice').value = price || '';
-
-                NewServiceModal.updateCharacterCounts();
+                const modal = document.getElementById('newServiceModal');
+    
+                if (!form || !modal) {
+                    console.error('Форма или модальное окно не найдены.');
+                    return;
+                }
+    
+                try {
+                    // Установка заголовка модального окна
+                    document.getElementById('newServiceModalTitle').innerText = action === 'add' ? 'Добавить Коробку' : 'Редактировать Коробку';
+    
+                    // Установка атрибута action формы
+                    form.action = action === 'add' ?
+                        "{{ route('bitrix24-boxes.store') }}" :
+                        `/boxes/${id}/update`;
+    
+                    // Установка метода формы
+                    document.getElementById('newServiceFormMethod').value = action === 'add' ? 'POST' : 'PUT';
+    
+                    // Установка скрытого поля ID
+                    document.getElementById('newServiceModalId').value = id || '';
+    
+                    // Установка значений полей названия
+                    document.getElementById('newServiceTitleRu').value = title_ru || '';
+                    document.getElementById('newServiceTitleEn').value = title_en || '';
+                    document.getElementById('newServiceTitleTm').value = title_tm || '';
+    
+                    // Заполнение категорий
+                    document.querySelectorAll('input[name="categories_ru[]"]').forEach((input, index) => {
+                        input.value = categories.ru[index] || '';
+                    });
+                    document.querySelectorAll('input[name="categories_en[]"]').forEach((input, index) => {
+                        input.value = categories.en[index] || '';
+                    });
+                    document.querySelectorAll('input[name="categories_tm[]"]').forEach((input, index) => {
+                        input.value = categories.tm[index] || '';
+                    });
+    
+                    // Установка значений полей скидки и цены с проверкой на null
+                    document.getElementById('newServiceDiscount').value = (discount !== null && discount !== undefined) ? discount : '';
+                    document.getElementById('newServicePrice').value = (price !== null && price !== undefined) ? price : '';
+    
+                    // Показ модального окна
+                    modal.classList.remove('hidden');
+    
+                    // Обновление счетчиков символов
+                    NewServiceModal.updateCharacterCounts();
+                } catch (error) {
+                    console.error('Ошибка в NewServiceModal.open:', error);
+                }
             },
             close: function() {
-                document.getElementById('newServiceModal').classList.add('hidden');
-                document.getElementById('newServiceModalForm').reset();
+                const modal = document.getElementById('newServiceModal');
+                const form = document.getElementById('newServiceModalForm');
+    
+                if (modal && form) {
+                    modal.classList.add('hidden');
+                    form.reset();
+                } else {
+                    console.error('Модальное окно или форма не найдены.');
+                }
             },
             updateCharacterCounts: function() {
                 document.querySelectorAll('input[maxlength]').forEach(input => {
                     const counter = input.nextElementSibling;
+    
                     if (counter && counter.tagName.toLowerCase() === 'p') {
                         NewServiceModal.updateCharacterCount(input, counter);
-                        input.addEventListener('input', () => NewServiceModal.updateCharacterCount(input,
-                            counter));
+    
+                        input.addEventListener('input', () => NewServiceModal.updateCharacterCount(input, counter));
                     }
                 });
             },
@@ -656,7 +774,7 @@
                 counter.textContent = `${remaining} символов осталось`;
             }
         };
-
+    
         document.addEventListener('DOMContentLoaded', function() {
             NewServiceModal.updateCharacterCounts();
         });

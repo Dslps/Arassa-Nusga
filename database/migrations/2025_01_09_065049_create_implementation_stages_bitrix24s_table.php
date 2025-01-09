@@ -11,7 +11,7 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('bitrix24_boxes', function (Blueprint $table) {
+        Schema::create('implementation_stages_bitrix24s', function (Blueprint $table) {
             $table->id();
             $table->timestamps();
         });
@@ -22,6 +22,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('bitrix24_boxes');
+        Schema::dropIfExists('implementation_stages_bitrix24s');
     }
 };
