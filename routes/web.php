@@ -96,5 +96,10 @@ Route::put('/boxes/{id}/update', [Bitrix24DashController::class, 'updateBox'])->
 Route::delete('/boxes/{id}/destroy', [Bitrix24DashController::class, 'destroyBox'])->name('bitrix24-boxes.destroy');
 Route::get('/boxes/{id}/edit', [Bitrix24DashController::class, 'editBox'])->name('bitrix24-boxes.edit');
 
+Route::post('/implementation-stages/store', [Bitrix24DashController::class, 'storeImplementationStage'])->name('implementation-stages.store');
+Route::put('/implementation-stages/{id}/update', [Bitrix24DashController::class, 'updateImplementationStage'])->name('implementation-stages.update');
+Route::delete('/implementation-stages/{id}/destroy', [Bitrix24DashController::class, 'destroyImplementationStage'])->name('implementation-stages.destroy');
+Route::get('/implementation-stages/{id}/edit', [Bitrix24DashController::class, 'editImplementationStage'])->name('implementation-stages.edit');
+
 
 

@@ -13,6 +13,12 @@ return new class extends Migration
     {
         Schema::create('implementation_stages_bitrix24s', function (Blueprint $table) {
             $table->id();
+            $table->string('title_ru', 40);
+            $table->string('title_en', 40)->nullable();
+            $table->string('title_tm', 40)->nullable();
+            $table->json('categories_ru')->nullable();
+            $table->json('categories_en')->nullable();
+            $table->json('categories_tm')->nullable();
             $table->timestamps();
         });
     }

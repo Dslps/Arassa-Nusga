@@ -7,6 +7,7 @@ use Illuminate\Http\Request;
 use App\Models\Bitrix24;
 use App\Models\Bitrix24Cloud;
 use App\Models\Bitrix24Boxes;
+use App\Models\ImplementationStagesBitrix24;
 use Illuminate\Support\Facades\Storage;
 
 class Bitrix24DashController extends Controller
@@ -21,8 +22,9 @@ class Bitrix24DashController extends Controller
         $bitrix24 = Bitrix24::first() ?? new Bitrix24();
         $services = Bitrix24Cloud::all();
         $boxes = Bitrix24Boxes::all();
+        $implementationStages = ImplementationStagesBitrix24::all();
 
-        return view('dashboard.service.bitrix24', compact('bitrix24', 'services', 'boxes'));
+        return view('dashboard.service.bitrix24', compact('bitrix24', 'services', 'boxes', 'implementationStages'));
     }
 
 
@@ -247,5 +249,67 @@ class Bitrix24DashController extends Controller
         $box->delete();
 
         return redirect()->back()->with('success', 'Коробка успешно удалена!');
+    }
+
+    // ------------------------------------------------------------------------------------
+
+    public function storeImplementationStage(Request $request)
+    {
+        $validatedData = $request->validate([
+            'title_ru' => 'required|string|max:40',
+            'title_en' => 'nullable|string|max:40',
+            'title_tm' => 'nullable|string|max:40',
+            'categories_ru' => 'nullable|array',
+            'categories_en' => 'nullable|array',
+            'categories_tm' => 'nullable|array',
+        ]);
+
+        if ($request->has('id') && $request->input('id')) {
+
+            $stage = ImplementationStagesBitrix24::findOrFail($request->input('id'));
+            $stage->update($validatedData);
+            $message = 'Этап реализации успешно обновлен!';
+        } else {
+          
+            ImplementationStagesBitrix24::create($validatedData);
+            $message = 'Этап реализации успешно добавлен!';
+        }
+
+        return redirect()->route('bitrix24.index')->with('success', $message);
+    }
+
+    public function editImplementationStage($id)
+    {
+        $stage = ImplementationStagesBitrix24::findOrFail($id);
+        return response()->json($stage);
+    }
+
+    public function updateImplementationStage(Request $request, $id)
+    {
+        // Валидация данных
+        $validatedData = $request->validate([
+            'title_ru' => 'required|string|max:40',
+            'title_en' => 'nullable|string|max:40',
+            'title_tm' => 'nullable|string|max:40',
+            'categories_ru' => 'nullable|array',
+            'categories_en' => 'nullable|array',
+            'categories_tm' => 'nullable|array',
+        ]);
+
+        $stage = ImplementationStagesBitrix24::findOrFail($id);
+        $stage->update($validatedData);
+
+        return redirect()->back()->with('success', 'Данные этапа реализации успешно сохранены!');
+    }
+
+    /**
+     * Удаление этапа реализации.
+     */
+    public function destroyImplementationStage($id)
+    {
+        $stage = ImplementationStagesBitrix24::findOrFail($id);
+        $stage->delete();
+
+        return redirect()->back()->with('success', 'Этап реализации успешно удален!');
     }
 }
