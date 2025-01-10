@@ -128,3 +128,8 @@ Route::get('/web-services/{id}/edit', [WebDashController::class, 'editService'])
 Route::post('/web-services/store', [WebDashController::class, 'storeService'])->name('web-services.store');
 Route::put('/web-services/{id}/update', [WebDashController::class, 'updateService'])->name('web-services.update'); 
 Route::delete('/web-services/{id}/destroy', [WebDashController::class, 'destroyService'])->name('web-services.destroy');
+
+Route::post('/web-implementation-stages/store', [WebDashController::class, 'storeImplementationStage'])->name('web-implementation-stages.store');
+Route::put('/web-implementation-stages/{id}/update', [WebDashController::class, 'updateImplementationStage'])->name('web-implementation-stages.update');
+Route::delete('/web-implementation-stages/{id}/destroy', [WebDashController::class, 'destroyImplementationStage'])->name('web-implementation-stages.destroy');
+Route::get('/web-implementation-stages/{id}/edit', [WebDashController::class, 'editImplementationStage'])->name('web-implementation-stages.edit');

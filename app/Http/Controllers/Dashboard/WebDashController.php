@@ -6,6 +6,7 @@ use App\Models\WebService;
 use Illuminate\Support\Facades\Storage;
 use Illuminate\Http\Request;
 use App\Models\Web;
+use App\Models\ImplementationStagesWeb;
 
 class WebDashController extends Controller
 {
@@ -13,8 +14,9 @@ class WebDashController extends Controller
 
         $web = Web::first() ?? new Web();
         $services = WebService::all();
+        $implementationStages = ImplementationStagesWeb::all();
         
-        return view('dashboard.service.web-development', compact('web', 'services'));
+        return view('dashboard.service.web-development', compact('web', 'services',  'implementationStages'));
     }
 
     public function store(Request $request)
@@ -92,7 +94,7 @@ class WebDashController extends Controller
             $message = 'Услуга успешно добавлена!';
         }
 
-        return redirect()->route('mobile.index')->with('success', $message);
+        return redirect()->route('web.index')->with('success', $message);
     }
 
     public function updateService(Request $request, $id)
@@ -120,7 +122,7 @@ class WebDashController extends Controller
         // Обновление данных
         $service->update($validated);
 
-        return redirect()->route('mobile.index')->with('success', 'Услуга обновлена успешно.');
+        return redirect()->route('web.index')->with('success', 'Услуга обновлена успешно.');
     }
     public function destroyService($id)
     {
@@ -128,5 +130,67 @@ class WebDashController extends Controller
         $service->delete();
     
         return redirect()->back()->with('success', 'Услуга успешно удалена!');
+    }
+
+    // ----------------------------------------------------------------
+
+    public function storeImplementationStage(Request $request)
+    {
+        $validatedData = $request->validate([
+            'title_ru' => 'required|string|max:40',
+            'title_en' => 'nullable|string|max:40',
+            'title_tm' => 'nullable|string|max:40',
+            'categories_ru' => 'nullable|array',
+            'categories_en' => 'nullable|array',
+            'categories_tm' => 'nullable|array',
+        ]);
+
+        if ($request->has('id') && $request->input('id')) {
+
+            $stage = ImplementationStagesWeb::findOrFail($request->input('id'));
+            $stage->update($validatedData);
+            $message = 'Этап реализации успешно обновлен!';
+        } else {
+
+            ImplementationStagesWeb::create($validatedData);
+            $message = 'Этап реализации успешно добавлен!';
+        }
+
+        return redirect()->route('web.index')->with('success', $message);
+    }
+
+    public function editImplementationStage($id)
+    {
+        $stage = ImplementationStagesWeb::findOrFail($id);
+        return response()->json($stage);
+    }
+
+    public function updateImplementationStage(Request $request, $id)
+    {
+        // Валидация данных
+        $validatedData = $request->validate([
+            'title_ru' => 'required|string|max:40',
+            'title_en' => 'nullable|string|max:40',
+            'title_tm' => 'nullable|string|max:40',
+            'categories_ru' => 'nullable|array',
+            'categories_en' => 'nullable|array',
+            'categories_tm' => 'nullable|array',
+        ]);
+
+        $stage = ImplementationStagesWeb::findOrFail($id);
+        $stage->update($validatedData);
+
+        return redirect()->back()->with('success', 'Данные этапа реализации успешно сохранены!');
+    }
+
+    /**
+     * Удаление этапа реализации.
+     */
+    public function destroyImplementationStage($id)
+    {
+        $stage = ImplementationStagesWeb::findOrFail($id);
+        $stage->delete();
+
+        return redirect()->back()->with('success', 'Этап реализации успешно удален!');
     }
 }
