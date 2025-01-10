@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers\Dashboard;
 use App\Http\Controllers\Controller;
+use App\Models\WebService;
 use Illuminate\Support\Facades\Storage;
 use Illuminate\Http\Request;
 use App\Models\Web;
@@ -11,8 +12,9 @@ class WebDashController extends Controller
     public function index(){
 
         $web = Web::first() ?? new Web();
+        $services = WebService::all();
         
-        return view('dashboard.service.web-development', compact('web'));
+        return view('dashboard.service.web-development', compact('web', 'services'));
     }
 
     public function store(Request $request)
@@ -59,5 +61,72 @@ class WebDashController extends Controller
         $web->save();
 
         return redirect()->back()->with('success', 'Данные успешно сохранены!');
+    }
+    // --------------------------------------------------------------------------
+
+    public function storeService(Request $request)
+    {
+        // Валидация данных
+        $validatedData = $request->validate([
+            'title_ru' => 'required|string|max:40',
+            'title_en' => 'nullable|string|max:40',
+            'title_tm' => 'nullable|string|max:40',
+            'categories_ru' => 'nullable|array',
+            'categories_en' => 'nullable|array',
+            'categories_tm' => 'nullable|array',
+        ]);
+
+        // Дополнительные проверки
+        foreach (['title_ru', 'title_en', 'title_tm'] as $field) {
+            if (is_array($validatedData[$field] ?? null)) {
+                $validatedData[$field] = json_encode($validatedData[$field]);
+            }
+        }
+
+        if ($request->has('id') && $request->input('id')) {
+            $service = WebService::findOrFail($request->input('id'));
+            $service->update($validatedData);
+            $message = 'Услуга успешно обновлена!';
+        } else {
+            WebService::create($validatedData);
+            $message = 'Услуга успешно добавлена!';
+        }
+
+        return redirect()->route('mobile.index')->with('success', $message);
+    }
+
+    public function updateService(Request $request, $id)
+    {
+        // Валидация данных
+        $validated = $request->validate([
+            'title_ru' => 'required|string|max:40',
+            'title_en' => 'nullable|string|max:40',
+            'title_tm' => 'nullable|string|max:40',
+            'categories_ru' => 'array',
+            'categories_en' => 'array',
+            'categories_tm' => 'array',
+        ]);
+
+        // Дополнительные проверки
+        foreach (['title_ru', 'title_en', 'title_tm'] as $field) {
+            if (is_array($validated[$field] ?? null)) {
+                $validated[$field] = json_encode($validated[$field]);
+            }
+        }
+
+        // Поиск записи
+        $service = WebService::findOrFail($id);
+
+        // Обновление данных
+        $service->update($validated);
+
+        return redirect()->route('mobile.index')->with('success', 'Услуга обновлена успешно.');
+    }
+    public function destroyService($id)
+    {
+        $service = WebService::findOrFail($id);
+        $service->delete();
+    
+        return redirect()->back()->with('success', 'Услуга успешно удалена!');
     }
 }

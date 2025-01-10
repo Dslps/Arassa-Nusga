@@ -123,3 +123,8 @@ Route::get('web-development-dash', [WebDashController::class, 'index'])->name('w
 
 Route::get('/web-development/web', [WebDashController::class, 'index'])->name('web.index');
 Route::post('/web-development/web/store', [WebDashController::class, 'store'])->name('web.store');
+
+Route::get('/web-services/{id}/edit', [WebDashController::class, 'editService'])->name('web-services.edit');
+Route::post('/web-services/store', [WebDashController::class, 'storeService'])->name('web-services.store');
+Route::put('/web-services/{id}/update', [WebDashController::class, 'updateService'])->name('web-services.update'); 
+Route::delete('/web-services/{id}/destroy', [WebDashController::class, 'destroyService'])->name('web-services.destroy');
