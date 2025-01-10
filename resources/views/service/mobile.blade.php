@@ -111,86 +111,35 @@
             </div>
             <div class="flex justify-center">
                 <div class="w-full grid grid-cols-1 sm:grid-cols-2 2xl:grid-cols-4 gap-5 mt-[50px]">
-                    <div class="p-[30px] bg-[var(--white-color)]"
-                        style="animation: shadowPulse 2s ease-in-out infinite; animation-delay: 0s;">
-                        <p class="number mb-[15px] text-[var(--comment-color)] font-semibold">Идея</p>
-                        <ul class="ml-[10px] text-[var(--accent-color)] small-text font-semibold">
-                            <li class="list-marker">Формирование замысла</li>
-                            <li class="list-marker">Анализ и проработка</li>
-                            <li class="list-marker">Визуализация и презентация</li>
-                        </ul>
-                        <p class="number font-semibold text-[var(--accent-color)] mt-[15px]">01</p>
-                    </div>
-                    <div class="p-[30px] bg-[var(--white-color)]"
-                        style="animation: shadowPulse 2s ease-in-out infinite; animation-delay: 0.4s;">
-                        <p class="number mb-[15px] text-[var(--comment-color)] font-semibold">Техническое задание</p>
-                        <ul class="ml-[10px] text-[var(--accent-color)] small-text font-semibold">
-                            <li class="list-marker">Сбор и анализ требований</li>
-                            <li class="list-marker">Структурирование и документирование</li>
-                            <li class="list-marker">Согласование и утверждение</li>
-                        </ul>
-                        <p class="number font-semibold text-[var(--accent-color)] mt-[15px]">02</p>
-                    </div>
-                    <div class="p-[30px] bg-[var(--white-color)]"
-                        style="animation: shadowPulse 2s ease-in-out infinite; animation-delay: 0.6s;">
-                        <p class="number mb-[15px] text-[var(--comment-color)] font-semibold">Разработка</p>
-                        <ul class="ml-[10px] text-[var(--accent-color)] small-text font-semibold">
-                            <li class="list-marker">Планирование и проектирование</li>
-                            <li class="list-marker">Программирование</li>
-                            <li class="list-marker">Тестирование и отладка</li>
-                        </ul>
-                        <p class="number font-semibold text-[var(--accent-color)] mt-[15px]">03</p>
-                    </div>
-                    <div class="p-[30px] bg-[var(--white-color)]"
-                        style="animation: shadowPulse 2s ease-in-out infinite; animation-delay: 0.8s;">
-                        <p class="number mb-[15px] text-[var(--comment-color)] font-semibold">Публикация приложений</p>
-                        <ul class="ml-[10px] text-[var(--accent-color)] small-text font-semibold">
-                            <li class="list-marker">Подготовка приложения</li>
-                            <li class="list-marker">Прохождение проверки</li>
-                            <li class="list-marker">Размещение и запуск</li>
-                        </ul>
-                        <p class="number font-semibold text-[var(--accent-color)] mt-[15px]">04</p>
-                    </div>
-                    <div class="p-[30px] bg-[var(--white-color)]"
-                        style="animation: shadowPulse 2s ease-in-out infinite; animation-delay: 1s;">
-                        <p class="number mb-[15px] text-[var(--comment-color)] font-semibold">Публикация приложений</p>
-                        <ul class="ml-[10px] text-[var(--accent-color)] small-text font-semibold">
-                            <li class="list-marker">Подготовка приложения</li>
-                            <li class="list-marker">Прохождение проверки</li>
-                            <li class="list-marker">Размещение и запуск</li>
-                        </ul>
-                        <p class="number font-semibold text-[var(--accent-color)] mt-[15px]">05</p>
-                    </div>
-                    <div class="p-[30px] bg-[var(--white-color)]"
-                        style="animation: shadowPulse 2s ease-in-out infinite; animation-delay: 1.2s;">
-                        <p class="number mb-[15px] text-[var(--comment-color)] font-semibold">Публикация приложений</p>
-                        <ul class="ml-[10px] text-[var(--accent-color)] small-text font-semibold">
-                            <li class="list-marker">Подготовка приложения</li>
-                            <li class="list-marker">Прохождение проверки</li>
-                            <li class="list-marker">Размещение и запуск</li>
-                        </ul>
-                        <p class="number font-semibold text-[var(--accent-color)] mt-[15px]">06</p>
-                    </div>
-                    <div class="p-[30px] bg-[var(--white-color)]"
-                        style="animation: shadowPulse 2s ease-in-out infinite; animation-delay: 1.4s;">
-                        <p class="number mb-[15px] text-[var(--comment-color)] font-semibold">Публикация приложений</p>
-                        <ul class="ml-[10px] text-[var(--accent-color)] small-text font-semibold">
-                            <li class="list-marker">Подготовка приложения</li>
-                            <li class="list-marker">Прохождение проверки</li>
-                            <li class="list-marker">Размещение и запуск</li>
-                        </ul>
-                        <p class="number font-semibold text-[var(--accent-color)] mt-[15px]">07</p>
-                    </div>
-                    <div class="p-[30px] bg-[var(--white-color)]"
-                        style="animation: shadowPulse 2s ease-in-out infinite; animation-delay: 1.8s;">
-                        <p class="number mb-[15px] text-[var(--comment-color)] font-semibold">Публикация приложений</p>
-                        <ul class="ml-[10px] text-[var(--accent-color)] small-text font-semibold">
-                            <li class="list-marker">Подготовка приложения</li>
-                            <li class="list-marker">Прохождение проверки</li>
-                            <li class="list-marker">Размещение и запуск</li>
-                        </ul>
-                        <p class="number font-semibold text-[var(--accent-color)] mt-[15px]">08</p>
-                    </div>
+
+                    @foreach ($implementationStages as $index => $stage)
+                        <div class="animate-block p-[30px] bg-[var(--white-color)]"
+                            style="animation: shadowPulse 2s ease-in-out infinite; animation-delay: {{ 0.4 * $index }}s;">
+
+                            <!-- Титульный текст на текущем языке -->
+                            <p class="number mb-[15px] text-[var(--comment-color)] font-semibold">
+                                {{ $stage->{'title_' . app()->getLocale()} }}
+                            </p>
+
+                            <!-- Условное отображение категорий на текущем языке -->
+                            @php
+                                $currentCategories = $stage->{'categories_' . app()->getLocale()} ?? [];
+                            @endphp
+
+                            @if (!empty($currentCategories) && is_array($currentCategories))
+                                <ul class="ml-[10px] text-[var(--accent-color)] small-text font-semibold">
+                                    @foreach ($currentCategories as $category)
+                                        <li class="list-marker">{{ $category }}</li>
+                                    @endforeach
+                                </ul>
+                            @endif
+
+                            <!-- Нумерация этапа -->
+                            <p class="number font-semibold text-[var(--accent-color)] mt-[15px]">
+                                {{ str_pad($index + 1, 2, '0', STR_PAD_LEFT) }}
+                            </p>
+                        </div>
+                    @endforeach
 
                 </div>
             </div>

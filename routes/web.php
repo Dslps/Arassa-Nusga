@@ -105,8 +105,12 @@ Route::get('mobile-dash', [MobileDashController::class, 'index'])->name('mobile-
 Route::get('/service/mobile', [MobileDashController::class, 'index'])->name('mobile.index');
 Route::post('/service/mobile/store', [MobileDashController::class, 'store'])->name('mobile.store');
 
+Route::get('/mobile-services/{id}/edit', [MobileDashController::class, 'editService'])->name('mobile-development.edit');
+Route::post('/mobile-services/store', [MobileDashController::class, 'storeService'])->name('mobile-development.store');
+Route::put('/mobile-services/{id}/update', [MobileDashController::class, 'updateService'])->name('mobile-development.update'); 
+Route::delete('/mobile-services/{id}/destroy', [MobileDashController::class, 'destroyService'])->name('mobile-development.destroy');
 
-Route::get('/services/{id}/edit', [MobileDashController::class, 'editService'])->name('mobile-development.edit');
-Route::post('/services/store', [MobileDashController::class, 'storeService'])->name('mobile-development.store');
-Route::put('/services/{id}/update', [MobileDashController::class, 'updateService'])->name('mobile-development.update'); 
-Route::delete('/services/{id}/destroy', [MobileDashController::class, 'destroyService'])->name('mobile-development.destroy');
+Route::post('/mobile-implementation-stages/store', [MobileDashController::class, 'storeImplementationStage'])->name('mobile-implementation-stages.store');
+Route::put('/mobile-implementation-stages/{id}/update', [MobileDashController::class, 'updateImplementationStage'])->name('mobile-implementation-stages.update');
+Route::delete('/mobile-implementation-stages/{id}/destroy', [MobileDashController::class, 'destroyImplementationStage'])->name('mobile-implementation-stages.destroy');
+Route::get('/mobile-implementation-stages/{id}/edit', [MobileDashController::class, 'editImplementationStage'])->name('mobile-implementation-stages.edit');
