@@ -6,6 +6,7 @@ use App\Http\Controllers\AuthController;
 use App\Http\Controllers\Bitrix24Controller;
 use App\Http\Controllers\BlogController;
 use App\Http\Controllers\ContactController;
+use App\Http\Controllers\Dashboard\AntivirusesDashController;
 use App\Http\Controllers\Dashboard\WebDash;
 use App\Http\Controllers\Dashboard\WebDashController;
 use App\Http\Controllers\Dashboard\WebDevelopmentDash;
@@ -133,3 +134,9 @@ Route::post('/web-implementation-stages/store', [WebDashController::class, 'stor
 Route::put('/web-implementation-stages/{id}/update', [WebDashController::class, 'updateImplementationStage'])->name('web-implementation-stages.update');
 Route::delete('/web-implementation-stages/{id}/destroy', [WebDashController::class, 'destroyImplementationStage'])->name('web-implementation-stages.destroy');
 Route::get('/web-implementation-stages/{id}/edit', [WebDashController::class, 'editImplementationStage'])->name('web-implementation-stages.edit');
+
+// Серивис антивирусов
+Route::get('antiviruses-dash', [AntivirusesDashController::class, 'index'])->name('antiviruses-dash');
+
+Route::get('/antiviruses-dash/antiviruses', [AntivirusesDashController::class, 'index'])->name('antiviruses.index');
+Route::post('/antiviruses-dash/antiviruses/store', [AntivirusesDashController::class, 'store'])->name('antiviruses.store');

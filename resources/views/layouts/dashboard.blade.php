@@ -219,7 +219,7 @@
                                 Development</a>
                         </li>
                         <li>
-                            <a href="#task3"
+                            <a href="{{route('antiviruses-dash')}}"
                                 class="block px-4 py-2 text-gray-700 hover:bg-gray-100 dark:text-gray-300 dark:hover:bg-gray-600">Antiviruses</a>
                         </li>
                     </ul>
