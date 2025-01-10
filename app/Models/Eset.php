@@ -5,11 +5,11 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
-class Kaspersky extends Model
+class Eset extends Model
 {
     use HasFactory;
 
-    protected $table = 'kasperskies';
+    protected $table = 'esets';
 
     protected $fillable = [
         'id',

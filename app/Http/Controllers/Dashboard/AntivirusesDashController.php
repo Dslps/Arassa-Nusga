@@ -5,6 +5,7 @@ use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\Storage;
 use App\Models\Antiviruses;
 use App\Models\Kaspersky;
+use App\Models\Eset;
 
 use Illuminate\Http\Request;
 
@@ -14,8 +15,9 @@ class AntivirusesDashController extends Controller
 
         $antiviruses = Antiviruses::first() ?? new Antiviruses();
         $kaspersky = Kaspersky::all();
+        $eset = Eset::all();
 
-        return view('dashboard.service.antiviruses', compact('antiviruses', 'kaspersky'));
+        return view('dashboard.service.antiviruses', compact('antiviruses', 'kaspersky', 'eset'));
     }
     
     public function store(Request $request)
@@ -148,5 +150,84 @@ class AntivirusesDashController extends Controller
         $kaspersky->delete();
 
         return redirect()->back()->with('success', 'Данные касперского успешно удалены!');
+    }
+
+    // --------------------------------------------------------------------------------------
+    public function storeEset(Request $request)
+    {
+        // Валидация данных
+        $validatedData = $request->validate([
+            'title_ru' => 'required|string|max:40',
+            'title_en' => 'nullable|string|max:40',
+            'title_tm' => 'nullable|string|max:40',
+            'categories_ru' => 'nullable|array',
+            'categories_en' => 'nullable|array',
+            'categories_tm' => 'nullable|array',
+            'discount' => 'nullable|integer|min:0|max:100',
+            'price' => 'nullable|numeric|min:0',
+        ]);
+
+        if ($request->has('id') && $request->input('id')) {
+            // Обновление существующей коробки
+            $eset = Eset::findOrFail($request->input('id'));
+            $eset->update($validatedData);
+            $message = 'Коробка успешно обновлена!';
+        } else {
+            // Получение минимально доступного ID
+            $existingIds = Eset::pluck('id')->toArray();
+            sort($existingIds);
+
+            $newId = 1; // Начинаем с ID 1
+            foreach ($existingIds as $id) {
+                if ($id != $newId) {
+                    break; // Найден пропущенный ID
+                }
+                $newId++;
+            }
+
+            // Установка нового ID
+            $validatedData['id'] = $newId;
+
+            // Создание новой коробки
+            Eset::create($validatedData);
+            $message = 'Коробка успешно добавлена!';
+        }
+
+        return redirect()->route('antiviruses.index')->with('success', $message);
+    }
+
+    public function editEset($id)
+    {
+        $eset = Eset::findOrFail($id);
+
+        return response()->json($eset);
+    }
+
+    public function updateEset(Request $request, $id)
+    {
+        // Валидация данных
+        $validatedData = $request->validate([
+            'title_ru' => 'required|string|max:40',
+            'title_en' => 'nullable|string|max:40',
+            'title_tm' => 'nullable|string|max:40',
+            'categories_ru' => 'nullable|array',
+            'categories_en' => 'nullable|array',
+            'categories_tm' => 'nullable|array',
+            'discount' => 'integer|min:0|max:100',
+            'price' => 'required|numeric|min:0',
+        ]);
+
+        $eset = Eset::findOrFail($id);
+        $eset->update($validatedData);
+
+        return redirect()->back()->with('success', 'Данные Есета успешно сохранены!');
+    }
+
+    public function destroyEset($id)
+    {
+        $eset = Eset::findOrFail($id);
+        $eset->delete();
+
+        return redirect()->back()->with('success', 'Данные Есета успешно удалены!');
     }
 }

@@ -145,3 +145,8 @@ Route::post('/kaspersky/store', [AntivirusesDashController::class, 'storeKaspers
 Route::put('/kaspersky/{id}/update', [AntivirusesDashController::class, 'updateKaspersky'])->name('kaspersky.update');
 Route::delete('/kaspersky/{id}/destroy', [AntivirusesDashController::class, 'destroyKaspersky'])->name('kaspersky.destroy');
 Route::get('/kaspersky/{id}/edit', [AntivirusesDashController::class, 'editKaspersky'])->name('kaspersky.edit');
+
+Route::post('/eset/store', [AntivirusesDashController::class, 'storeEset'])->name('eset.store');
+Route::put('/eset/{id}/update', [AntivirusesDashController::class, 'updateEset'])->name('eset.update');
+Route::delete('/eset/{id}/destroy', [AntivirusesDashController::class, 'destroyEset'])->name('eset.destroy');
+Route::get('/eset/{id}/edit', [AntivirusesDashController::class, 'editEset'])->name('eset.edit');
