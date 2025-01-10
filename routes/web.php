@@ -6,6 +6,9 @@ use App\Http\Controllers\AuthController;
 use App\Http\Controllers\Bitrix24Controller;
 use App\Http\Controllers\BlogController;
 use App\Http\Controllers\ContactController;
+use App\Http\Controllers\Dashboard\WebDash;
+use App\Http\Controllers\Dashboard\WebDashController;
+use App\Http\Controllers\Dashboard\WebDevelopmentDash;
 use App\Http\Controllers\HomeController;
 use App\Http\Controllers\MobileController;
 use App\Http\Controllers\ProjectController;
@@ -114,3 +117,9 @@ Route::post('/mobile-implementation-stages/store', [MobileDashController::class,
 Route::put('/mobile-implementation-stages/{id}/update', [MobileDashController::class, 'updateImplementationStage'])->name('mobile-implementation-stages.update');
 Route::delete('/mobile-implementation-stages/{id}/destroy', [MobileDashController::class, 'destroyImplementationStage'])->name('mobile-implementation-stages.destroy');
 Route::get('/mobile-implementation-stages/{id}/edit', [MobileDashController::class, 'editImplementationStage'])->name('mobile-implementation-stages.edit');
+
+// Сервис веб-разработки
+Route::get('web-development-dash', [WebDashController::class, 'index'])->name('web-development-dash');
+
+Route::get('/web-development/web', [WebDashController::class, 'index'])->name('web.index');
+Route::post('/web-development/web/store', [WebDashController::class, 'store'])->name('web.store');
