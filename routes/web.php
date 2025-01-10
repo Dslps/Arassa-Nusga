@@ -105,7 +105,8 @@ Route::get('mobile-dash', [MobileDashController::class, 'index'])->name('mobile-
 Route::get('/service/mobile', [MobileDashController::class, 'index'])->name('mobile.index');
 Route::post('/service/mobile/store', [MobileDashController::class, 'store'])->name('mobile.store');
 
-Route::post('/services/store', [MobileDashController::class, 'storeService'])->name('mobile-development.store');
+
 Route::get('/services/{id}/edit', [MobileDashController::class, 'editService'])->name('mobile-development.edit');
+Route::post('/services/store', [MobileDashController::class, 'storeService'])->name('mobile-development.store');
 Route::put('/services/{id}/update', [MobileDashController::class, 'updateService'])->name('mobile-development.update'); 
 Route::delete('/services/{id}/destroy', [MobileDashController::class, 'destroyService'])->name('mobile-development.destroy');

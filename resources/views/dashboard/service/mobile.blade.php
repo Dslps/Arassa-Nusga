@@ -137,7 +137,7 @@
     {{-- --------------------------------------------------------------------------------- --}}
     <div class="p-4 sm:ml-64">
         <div class="p-4 border-2 border-gray-200 border-dashed rounded-lg dark:border-gray-700">
-            <p class="text-lg font-semibold mb-4">Битрикс облако:</p>
+            <p class="text-lg font-semibold mb-4">Мобильная разработка:</p>
 
             <!-- Таблица с услугами -->
             <table class="table-auto w-full border-collapse border border-gray-300">
@@ -170,22 +170,23 @@
                                 {{ implode(', ', $service->categories_tm ?? []) }}
                             </td>
                             <td class="border border-gray-300 px-4 py-2 text-center">
-                                <button
-                                    onclick="ServiceModal.open(
-                                        'edit',
-                                        {{ $service->id }},
-                                        '{{ addslashes($service->title_ru ?? '') }}',
-                                        '{{ addslashes($service->title_en ?? '') }}',
-                                        '{{ addslashes($service->title_tm ?? '') }}',
-                                        { 
-                                            ru: @json($service->categories_ru ?? []),
-                                            en: @json($service->categories_en ?? []),
-                                            tm: @json($service->categories_tm ?? [])
-                                        }
-                                    )"
-                                    class="text-orange-500">
-                                    <i class="text-[20px] fa-solid fa-pencil"></i>
-                                </button>
+                               <!-- Внутри foreach -->
+                               <button
+                               onclick="ServiceModal.open(
+                                   'edit',
+                                   {{ $service->id }},
+                                   '{{ addslashes(is_array($service->title_ru) ? implode(', ', $service->title_ru) : $service->title_ru) }}',
+                                   '{{ addslashes(is_array($service->title_en) ? implode(', ', $service->title_en) : $service->title_en) }}',
+                                   '{{ addslashes(is_array($service->title_tm) ? implode(', ', $service->title_tm) : $service->title_tm) }}',
+                                   '{{ implode(', ', $service->categories_ru ?? []) }}',
+                                   '{{ implode(', ', $service->categories_en ?? []) }}',
+                                   '{{ implode(', ', $service->categories_tm ?? []) }}'
+                               )"
+                               class="text-orange-500">
+                               <i class="text-[20px] fa-solid fa-pencil"></i>
+                           </button>
+                           
+
                             </td>
                             
 
@@ -335,17 +336,15 @@
 
     <script>
         const ServiceModal = {
-            open: function (action, id = null, title_ru = '', title_en = '', title_tm = '', categories = {
-                ru: [],
-                en: [],
-                tm: []
-            }) {
-                console.log('Action:', action);
+            open: function(action, id = null, title_ru = '', title_en = '', title_tm = '', categories_ru = '', categories_en = '', categories_tm = '') {
+                console.log('ServiceModal.open вызван с действием:', action);
                 console.log('ID:', id);
                 console.log('Title RU:', title_ru);
                 console.log('Title EN:', title_en);
                 console.log('Title TM:', title_tm);
-                console.log('Categories:', categories);
+                console.log('Categories RU:', categories_ru);
+                console.log('Categories EN:', categories_en);
+                console.log('Categories TM:', categories_tm);
     
                 const form = document.getElementById('serviceModalForm');
                 const modal = document.getElementById('ServiceModal');
@@ -355,37 +354,44 @@
                     return;
                 }
     
-                // Установка заголовка
-                const modalTitle = document.getElementById('serviceModalTitle');
-                modalTitle.innerText = action === 'add' ? 'Добавить Услугу' : 'Редактировать Услугу';
+                try {
+                    // Установка заголовка модального окна
+                    const modalTitle = document.getElementById('serviceModalTitle');
+                    modalTitle.innerText = action === 'add' ? 'Добавить Услугу' : 'Редактировать Услугу';
     
-                // Установка action формы
-                if (action === 'add') {
-                    form.action = "{{ route('mobile-development.store') }}";
-                    document.getElementById('serviceFormMethod').value = 'POST';
-                } else {
-                    form.action = `{{ url('mobile-development.update') }}/${id}`;
-                    document.getElementById('serviceFormMethod').value = 'PUT';
+                    // Установка атрибута action формы и метода
+                    if (action === 'add') {
+                        form.action = "{{ route('mobile-development.store') }}";
+                        document.getElementById('serviceFormMethod').value = 'POST';
+                    } else {
+                        form.action = `/services/${id}/update`;
+                        document.getElementById('serviceFormMethod').value = 'PUT';
+                    }
+    
+                    // Установка скрытого поля ID
+                    document.getElementById('serviceModalId').value = id || '';
+    
+                    // Установка значений полей названия
+                    document.getElementById('serviceTitleRu').value = title_ru || '';
+                    document.getElementById('serviceTitleEn').value = title_en || '';
+                    document.getElementById('serviceTitleTm').value = title_tm || '';
+    
+                    // Заполнение полей категорий из строк
+                    this.fillCategoryFieldsFromString('categories_ru[]', categories_ru);
+                    this.fillCategoryFieldsFromString('categories_en[]', categories_en);
+                    this.fillCategoryFieldsFromString('categories_tm[]', categories_tm);
+    
+                    // Показ модального окна
+                    modal.classList.remove('hidden');
+    
+                    // Обновление счетчиков символов
+                    this.updateCharacterCounts();
+                } catch (error) {
+                    console.error('Ошибка в ServiceModal.open:', error);
                 }
-    
-                // Установка ID
-                document.getElementById('serviceModalId').value = id || '';
-    
-                // Установка значений полей
-                document.getElementById('serviceTitleRu').value = title_ru || '';
-                document.getElementById('serviceTitleEn').value = title_en || '';
-                document.getElementById('serviceTitleTm').value = title_tm || '';
-    
-                // Заполнение полей категорий
-                this.fillCategoryFields('categories_ru[]', categories.ru);
-                this.fillCategoryFields('categories_en[]', categories.en);
-                this.fillCategoryFields('categories_tm[]', categories.tm);
-    
-                // Показ модального окна
-                modal.classList.remove('hidden');
             },
     
-            close: function () {
+            close: function() {
                 const modal = document.getElementById('ServiceModal');
                 const form = document.getElementById('serviceModalForm');
     
@@ -397,17 +403,41 @@
                 }
             },
     
-            fillCategoryFields: function (fieldName, values) {
+            fillCategoryFieldsFromString: function(fieldName, valueString) {
+                const values = valueString.split(',').map(item => item.trim());
                 const inputs = document.querySelectorAll(`input[name="${fieldName}"]`);
                 inputs.forEach((input, index) => {
                     input.value = values[index] || '';
                 });
+            },
+    
+            updateCharacterCounts: function() {
+                document.querySelectorAll('input[maxlength]').forEach(input => {
+                    const counter = input.nextElementSibling;
+    
+                    if (counter && counter.tagName.toLowerCase() === 'p') {
+                        this.updateCharacterCount(input, counter);
+    
+                        // Удаляем предыдущий слушатель, чтобы избежать множественных вызовов
+                        input.removeEventListener('input', this.handleInput);
+                        input.addEventListener('input', () => this.updateCharacterCount(input, counter));
+                    }
+                });
+            },
+    
+            updateCharacterCount: function(input, counter) {
+                const maxLength = parseInt(input.getAttribute('maxlength'), 10);
+                const remaining = maxLength - input.value.length;
+                counter.textContent = `${remaining} символов осталось`;
             }
         };
     
-        document.addEventListener('DOMContentLoaded', function () {
+        document.addEventListener('DOMContentLoaded', function() {
             console.log('ServiceModal initialized');
+            ServiceModal.updateCharacterCounts();
         });
     </script>
+    
+
     
 @endsection

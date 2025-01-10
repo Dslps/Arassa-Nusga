@@ -21,5 +21,21 @@ class MobileDevelopment extends Model
         'categories_ru' => 'array',
         'categories_en' => 'array',
         'categories_tm' => 'array',
-    ];    
+    ];
+
+    // Аксессоры для гарантии строковых значений
+    public function getTitleRuAttribute($value)
+    {
+        return is_array($value) ? json_encode($value) : $value;
+    }
+
+    public function getTitleEnAttribute($value)
+    {
+        return is_array($value) ? json_encode($value) : $value;
+    }
+
+    public function getTitleTmAttribute($value)
+    {
+        return is_array($value) ? json_encode($value) : $value;
+    }
 }

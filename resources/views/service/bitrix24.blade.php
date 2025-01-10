@@ -4,24 +4,27 @@
     <div class="w-full max-w-[2000px] lg:pt-[15vh] pt-[140px] mx-auto">
         <div class="w-full flex">
             <!-- Левая часть с текстом и кнопкой -->
-            <div class="animate-left lg:w-[800px] lg:h-[660px] h-max bg-[var(--accent-color)] flex flex-col lg:flex-row lg:items-center px-[30px] lg:px-[60px] 2xl:px-[100px] w-full">
-               
-               <div class="text-[var(--white-color)] lg:mt-0 mt-10 lg:text-start text-center">
+            <div
+                class="animate-left lg:w-[800px] lg:h-[660px] h-max bg-[var(--accent-color)] flex flex-col lg:flex-row lg:items-center px-[30px] lg:px-[60px] 2xl:px-[100px] w-full">
+
+                <div class="text-[var(--white-color)] lg:mt-0 mt-10 lg:text-start text-center">
                     <!-- Динамический Титульный Текст -->
                     <p class="title font-semibold">{{ $bitrix24->{'title_' . app()->getLocale()} }}</p>
-                    
+
                     <!-- Динамическое Описание -->
                     <p class="base-text">{{ $bitrix24->{'description_' . app()->getLocale()} }}</p>
-                    
+
                     <!-- Кнопка Заказать Услугу -->
-                    <a href="{{ $bitrix24->service_url ?? '#' }}"> <!-- Предполагается, что в модели есть поле service_url -->
-                        <div class="w-[230px] h-[40px] hidden lg:flex items-center border-t-2 border-b-2 justify-center lg:mt-[25px] lg:m-0 m-auto mt-[25px]">
+                    <a href="{{ $bitrix24->service_url ?? '#' }}">
+                        <!-- Предполагается, что в модели есть поле service_url -->
+                        <div
+                            class="w-[230px] h-[40px] hidden lg:flex items-center border-t-2 border-b-2 justify-center lg:mt-[25px] lg:m-0 m-auto mt-[25px]">
                             <p>Заказать услугу <i class="ml-[10px] fa-solid fa-arrow-right-long"></i></p>
                         </div>
                     </a>
-                    
+
                     <!-- Изображение для мобильных устройств -->
-                    @if(isset($bitrix24->photos) && count($bitrix24->photos) > 0)
+                    @if (isset($bitrix24->photos) && count($bitrix24->photos) > 0)
                         <div class="lg:hidden flex justify-center mt-4 py-5">
                             <img src="{{ asset('storage/' . $bitrix24->photos[0]) }}" alt="Bitrix24 Image">
                         </div>
@@ -30,19 +33,20 @@
                             <img src="{{ asset('img/service/bitrix24/box-corp.png') }}" alt="Bitrix24 Image">
                         </div>
                     @endif
-               </div>
-                
+                </div>
+
             </div>
-            
+
             <!-- Правая часть с изображением для десктопов -->
-            <div class="animate-bottom lg:flex hidden w-[1120px] px-[30px] lg:px-[60px] 2xl:px-[100px] h-[660px] justify-center items-center">
-                @if(isset($bitrix24->photos) && count($bitrix24->photos) > 0)
+            <div
+                class="animate-bottom lg:flex hidden w-[1120px] px-[30px] lg:px-[60px] 2xl:px-[100px] h-[660px] justify-center items-center">
+                @if (isset($bitrix24->photos) && count($bitrix24->photos) > 0)
                     <img class="w-full h-full" src="{{ asset('storage/' . $bitrix24->photos[0]) }}" alt="Bitrix24 Image">
                 @else
                     <img class="w-full h-full" src="{{ asset('img/service/bitrix24/box-corp.png') }}" alt="Bitrix24 Image">
                 @endif
             </div>
-            
+
         </div>
     </div>
     {{-- ------------------------------------спискок предлагаемых услуг с ценой------------------------------------------- --}}
@@ -52,7 +56,8 @@
                 <span class="title-2 text-[var(--accent-color)] mr-[20px] lg:block hidden">//</span>
                 <div class="max-w-[860px]  sm:px-0">
                     <p class="title-2 font-semibold text-center lg:text-start">Наши услуги</p>
-                    <p class="base-text text-center lg:text-start lg:px-0 px-[30px]">The quiet forest was alive with the sounds of nature. Birds chirped melodiously, and
+                    <p class="base-text text-center lg:text-start lg:px-0 px-[30px]">The quiet forest was alive with the
+                        sounds of nature. Birds chirped melodiously, and
                         a gentle breeze rustled the leaves, carrying the earthy scent of pine and moss. Sunlight streamed
                         through the</p>
                 </div>
@@ -75,50 +80,50 @@
 
                     </div>
                     @foreach ($bitrix24Cloud as $index => $cloud)
-<div
-    class="animate-block p-[30px] w-full h-[250px] sm:w-[50%] 2xl:w-[25%] flex flex-col bg-white shadow hover:shadow-lg hover:-translate-y-1 transition-transform duration-300">
-    
-    {{-- Титульный текст --}}
-    <p class="base-text mb-[15px] text-[var(--comment-color)] font-semibold">
-        {{ $cloud->title_ru ?? 'Название не указано' }}
-    </p>
-    
-    {{-- Категории --}}
-    <ul class="ml-[10px] text-[var(--accent-color)] small-text font-semibold">
-        @foreach ($cloud->categories_ru ?? [] as $category)
-        <li class="list-marker">{{ $category }}</li>
-        @endforeach
-    </ul>
+                        <div
+                            class="animate-block p-[30px] w-full h-[250px] sm:w-[50%] 2xl:w-[25%] flex flex-col bg-white shadow hover:shadow-lg hover:-translate-y-1 transition-transform duration-300">
 
-    <div class="flex items-end justify-between mt-auto">
-        {{-- Порядковый номер --}}
-        <div class="number text-[var(--comment-color)] font-semibold">
-            {{ str_pad($index + 1, 2, '0', STR_PAD_LEFT) }}
-        </div>
+                            {{-- Титульный текст --}}
+                            <p class="base-text mb-[15px] text-[var(--comment-color)] font-semibold">
+                                {{ $cloud->title_ru ?? 'Название не указано' }}
+                            </p>
 
-        {{-- Цена и скидка --}}
-        <div>
-            <div class="flex flex-col">
-                @if ($cloud->discount > 0)
-                <div class="flex items-center">
-                    <p class="smaii-text line-through font-semibold">
-                        {{ $cloud->price }} тм
-                    </p>
-                    <div
-                        class="bg-[var(--price-color)] text-[var(--white-color)] flex justify-center items-center p-[3px] rounded-tl-[10px] rounded-tr-[5px] rounded-br-[10px] rounded-bl-[5px] ml-[4px]">
-                        <p class="small-text">-{{ $cloud->discount }}%</p>
-                    </div>
-                </div>
-                @endif
-                <p class="number font-semibold">
-                    {{ $cloud->price - ($cloud->price * $cloud->discount / 100) }} тм
-                </p>
-            </div>
-        </div>
-    </div>
-</div>
-@endforeach
-               
+                            {{-- Категории --}}
+                            <ul class="ml-[10px] text-[var(--accent-color)] small-text font-semibold">
+                                @foreach ($cloud->categories_ru ?? [] as $category)
+                                    <li class="list-marker">{{ $category }}</li>
+                                @endforeach
+                            </ul>
+
+                            <div class="flex items-end justify-between mt-auto">
+                                {{-- Порядковый номер --}}
+                                <div class="number text-[var(--comment-color)] font-semibold">
+                                    {{ str_pad($index + 1, 2, '0', STR_PAD_LEFT) }}
+                                </div>
+
+                                {{-- Цена и скидка --}}
+                                <div>
+                                    <div class="flex flex-col">
+                                        @if ($cloud->discount > 0)
+                                            <div class="flex items-center">
+                                                <p class="smaii-text line-through font-semibold">
+                                                    {{ $cloud->price }} тм
+                                                </p>
+                                                <div
+                                                    class="bg-[var(--price-color)] text-[var(--white-color)] flex justify-center items-center p-[3px] rounded-tl-[10px] rounded-tr-[5px] rounded-br-[10px] rounded-bl-[5px] ml-[4px]">
+                                                    <p class="small-text">-{{ $cloud->discount }}%</p>
+                                                </div>
+                                            </div>
+                                        @endif
+                                        <p class="number font-semibold">
+                                            {{ $cloud->price - ($cloud->price * $cloud->discount) / 100 }} тм
+                                        </p>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    @endforeach
+
 
                 </div>
             </div>
@@ -142,64 +147,66 @@
                         </ul>
 
                     </div>
-                  
-               
-                
+
+
+
                     @foreach ($boxes as $index => $box)
-                    <div
-                        class="animate-block p-[30px] w-full h-[250px] sm:w-[50%] 2xl:w-[25%] flex flex-col bg-white shadow hover:shadow-lg hover:-translate-y-1 transition-transform duration-300">
-                        
-                        <!-- Название Коробки -->
-                        <p class="base-text mb-[15px] text-[var(--comment-color)] font-semibold">
-                            {{ $box->{'title_' . app()->getLocale()} }}
-                        </p>
-                        
-                        <!-- Список Категорий -->
-                        <ul class="ml-[10px] text-[var(--accent-color)] small-text font-semibold">
-                            @foreach ($box->{'categories_' . app()->getLocale()} as $category)
-                                <li class="list-marker">{{ $category }}</li>
-                            @endforeach
-                        </ul>
-                        
-                        <!-- Нижняя Часть Карточки с Номером и Ценой -->
-                        <div class="flex items-end justify-between mt-auto">
-                            
-                            <!-- Номер Коробки -->
-                            <div class="number text-[var(--comment-color)] font-semibold">{{ $index + 1 }}</div>
-                            
-                            <!-- Ценообразование -->
-                            <div>
-                                <div class="flex flex-col">
-                                    @if ($box->discount && $box->discount < 100)
-                                        @php
-                                            // Расчет оригинальной цены, если скидка указана и меньше 100%
-                                            $originalPrice = $box->price / (1 - ($box->discount / 100));
-                                        @endphp
-                                        <div class="flex items-center">
-                                            <p class="small-text line-through font-semibold">
-                                                {{ number_format($originalPrice, 0, ',', ' ') }} тм
-                                            </p>
-                                            <div
-                                                class="bg-[var(--price-color)] text-[var(--white-color)] flex justify-center items-center p-[3px] rounded-tl-[10px] rounded-tr-[5px] rounded-br-[10px] rounded-bl-[5px] ml-[4px]">
-                                                <p class="small-text">-{{ $box->discount }}%</p>
+                        <div
+                            class="animate-block p-[30px] w-full h-[250px] sm:w-[50%] 2xl:w-[25%] flex flex-col bg-white shadow hover:shadow-lg hover:-translate-y-1 transition-transform duration-300">
+
+                            <!-- Название Коробки -->
+                            <p class="base-text mb-[15px] text-[var(--comment-color)] font-semibold">
+                                {{ $box->{'title_' . app()->getLocale()} }}
+                            </p>
+
+                            <!-- Список Категорий -->
+                            <ul class="ml-[10px] text-[var(--accent-color)] small-text font-semibold">
+                                @foreach ($box->{'categories_' . app()->getLocale()} as $category)
+                                    <li class="list-marker">{{ $category }}</li>
+                                @endforeach
+                            </ul>
+
+                            <!-- Нижняя Часть Карточки с Номером и Ценой -->
+                            <div class="flex items-end justify-between mt-auto">
+
+                                <!-- Номер Коробки -->
+                                <div class="number text-[var(--comment-color)] font-semibold">{{ $index + 1 }}</div>
+
+                                <!-- Ценообразование -->
+                                <div>
+                                    <div class="flex flex-col">
+                                        @if ($box->discount && $box->discount < 100)
+                                            @php
+                                                // Расчет оригинальной цены, если скидка указана и меньше 100%
+                                                $originalPrice = $box->price / (1 - $box->discount / 100);
+                                            @endphp
+                                            <div class="flex items-center">
+                                                <p class="small-text line-through font-semibold">
+                                                    {{ number_format($originalPrice, 0, ',', ' ') }} тм
+                                                </p>
+                                                <div
+                                                    class="bg-[var(--price-color)] text-[var(--white-color)] flex justify-center items-center p-[3px] rounded-tl-[10px] rounded-tr-[5px] rounded-br-[10px] rounded-bl-[5px] ml-[4px]">
+                                                    <p class="small-text">-{{ $box->discount }}%</p>
+                                                </div>
                                             </div>
-                                        </div>
-                                        <p class="number font-semibold">{{ number_format($box->price, 0, ',', ' ') }} тм</p>
-                                    @else
-                                        <p class="number font-semibold">{{ number_format($box->price, 0, ',', ' ') }} тм</p>
-                                    @endif
+                                            <p class="number font-semibold">{{ number_format($box->price, 0, ',', ' ') }}
+                                                тм</p>
+                                        @else
+                                            <p class="number font-semibold">{{ number_format($box->price, 0, ',', ' ') }}
+                                                тм</p>
+                                        @endif
+                                    </div>
                                 </div>
                             </div>
                         </div>
-                    </div>
-                @endforeach
-                
-                
-                    
-                    
+                    @endforeach
+
+
+
+
 
                     {{-- 2 карточка --}}
-                    
+
 
                 </div>
             </div>
@@ -217,19 +224,19 @@
             <div class="flex justify-center">
                 <div class="w-full grid grid-cols-1 sm:grid-cols-2 2xl:grid-cols-4 gap-5 mt-[50px]">
                     @foreach ($implementationStages as $index => $stage)
-                        <div class="animate-block p-[30px] bg-[var(--white-color)]" 
+                        <div class="animate-block p-[30px] bg-[var(--white-color)]"
                             style="animation: shadowPulse 2s ease-in-out infinite; animation-delay: {{ 0.4 * $index }}s;">
-                            
+
                             <!-- Титульный текст на текущем языке -->
                             <p class="number mb-[15px] text-[var(--comment-color)] font-semibold">
                                 {{ $stage->{'title_' . app()->getLocale()} }}
                             </p>
-                            
+
                             <!-- Условное отображение категорий на текущем языке -->
                             @php
                                 $currentCategories = $stage->{'categories_' . app()->getLocale()} ?? [];
                             @endphp
-            
+
                             @if (!empty($currentCategories) && is_array($currentCategories))
                                 <ul class="ml-[10px] text-[var(--accent-color)] small-text font-semibold">
                                     @foreach ($currentCategories as $category)
@@ -237,7 +244,7 @@
                                     @endforeach
                                 </ul>
                             @endif
-            
+
                             <!-- Нумерация этапа -->
                             <p class="number font-semibold text-[var(--accent-color)] mt-[15px]">
                                 {{ str_pad($index + 1, 2, '0', STR_PAD_LEFT) }}
@@ -246,8 +253,8 @@
                     @endforeach
                 </div>
             </div>
-            
-            
+
+
         </div>
     </div>
 @endsection
