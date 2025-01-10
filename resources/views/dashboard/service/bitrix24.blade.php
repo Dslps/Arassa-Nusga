@@ -838,7 +838,7 @@
 
                     // Установка значений полей скидки и цены с проверкой на null
                     document.getElementById('serviceDiscount').value = (discount !== null && discount !==
-                        undefined) ? discount : '';
+                        undefined) ? discount : 0;
                     document.getElementById('servicePrice').value = (price !== null && price !== undefined) ?
                         price : '';
 
@@ -938,7 +938,7 @@
 
                     // Установка значений полей скидки и цены с проверкой на null
                     document.getElementById('newServiceDiscount').value = (discount !== null && discount !==
-                        undefined) ? discount : '';
+                        undefined) ? discount : 0;
                     document.getElementById('newServicePrice').value = (price !== null && price !== undefined) ?
                         price : '';
 

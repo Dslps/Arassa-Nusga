@@ -140,3 +140,8 @@ Route::get('antiviruses-dash', [AntivirusesDashController::class, 'index'])->nam
 
 Route::get('/antiviruses-dash/antiviruses', [AntivirusesDashController::class, 'index'])->name('antiviruses.index');
 Route::post('/antiviruses-dash/antiviruses/store', [AntivirusesDashController::class, 'store'])->name('antiviruses.store');
+
+Route::post('/kaspersky/store', [AntivirusesDashController::class, 'storeKaspersky'])->name('kaspersky.store');
+Route::put('/kaspersky/{id}/update', [AntivirusesDashController::class, 'updateKaspersky'])->name('kaspersky.update');
+Route::delete('/kaspersky/{id}/destroy', [AntivirusesDashController::class, 'destroyKaspersky'])->name('kaspersky.destroy');
+Route::get('/kaspersky/{id}/edit', [AntivirusesDashController::class, 'editKaspersky'])->name('kaspersky.edit');
