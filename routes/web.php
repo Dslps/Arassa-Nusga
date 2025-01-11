@@ -150,3 +150,9 @@ Route::post('/eset/store', [AntivirusesDashController::class, 'storeEset'])->nam
 Route::put('/eset/{id}/update', [AntivirusesDashController::class, 'updateEset'])->name('eset.update');
 Route::delete('/eset/{id}/destroy', [AntivirusesDashController::class, 'destroyEset'])->name('eset.destroy');
 Route::get('/eset/{id}/edit', [AntivirusesDashController::class, 'editEset'])->name('eset.edit');
+
+
+Route::post('/pro32/store', [AntivirusesDashController::class, 'storePro32'])->name('pro32.store');
+Route::put('/pro32/{id}/update', [AntivirusesDashController::class, 'updatePro32'])->name('pro32.update');
+Route::delete('/pro32/{id}/destroy', [AntivirusesDashController::class, 'destroyPro32'])->name('pro32.destroy');
+Route::get('/pro32/{id}/edit', [AntivirusesDashController::class, 'editPro32'])->name('pro32.edit');

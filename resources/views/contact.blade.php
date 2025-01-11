@@ -1,16 +1,18 @@
 @extends('layouts.app')
 @section('content')
 
-<div class="w-full max-w-[2000px] pt-[15vh] mx-auto">
+<div class="w-full max-w-[2000px] lg:pt-[15vh] pt-[140px] mx-auto">
     <div class=" w-full flex">
-        <div class="animate-left lg:w-[800px] h-[660px] bg-[var(--accent-color)]  flex flex-col lg:flex-row lg:items-center  px-10 xl:px-[100px] w-full">
+        <div class="animate-left lg:w-[800px] lg:h-[600px] h-max lg:py-0 py-5 bg-[var(--accent-color)]  flex flex-col lg:flex-row lg:items-center px-10 2xl:px-[100px] lg:px-[60px] w-full">
             <div class=" lg:hidden block text-[var(--white-color)] mb-10">
+                <p class="title mb-5">Свяжитесь с нами:</p>
                 <p>Ашхабад</p>
                 <p>Бизнес-центр Arzuw, ул. Г. Кулиева (Объездная),Ашхабад, Туркменистан</p>
                 <p>Тел: +99312754480 / +99361648605</p>
                 <p>info@arassanusga.com</p>
             </div>
             <form class="w-full">
+                <p class="title-2 text-white mb-5">Свяжитесь с нами:</p>
                 <div class="relative z-0 w-full mb-5 group">
                     <input type="text" name="username" id="username"
                         class="base-text block py-2.5 px-0 w-full text-[var(--white-color)] bg-transparent border-0 border-b-2 border-[var(--white-color)] appearance-none dark:text-white dark:border-gray-600 dark:focus:border-blue-500 focus:outline-none focus:ring-0 focus:border-[var(--white-color)] peer"
@@ -51,14 +53,11 @@
                     </label>
                 </div>
                 
-                
-
-
                 <button class=" py-3 px-10 mt-5 bg-[var(--white-color)] border-[1px] border-[var(--accent-color)] hover:bg-[var(--hover)] hover:text-[var(--white-color)] hover:border-[1px] hover:border-[var(--white-color)] duration-300 small-text">Submit</button>
             </form>
             
         </div>
-        <div class="animate-bottom lg:flex w-[1120px] h-[560px] px-[50px] xl:px-[100px] justify-center items-center hidden">
+        <div class="animate-bottom lg:flex w-[1120px] h-[560px] px-[50px] 2xl:px-[100px] lg:px-[60px] justify-center items-center hidden">
             <div>
                 <p>Ашхабад</p>
                 <p>Бизнес-центр Arzuw, ул. Г. Кулиева (Объездная),Ашхабад, Туркменистан</p>

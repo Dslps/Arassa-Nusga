@@ -6,6 +6,7 @@ use Illuminate\Support\Facades\Storage;
 use App\Models\Antiviruses;
 use App\Models\Kaspersky;
 use App\Models\Eset;
+use App\Models\Pro32;
 
 use Illuminate\Http\Request;
 
@@ -16,8 +17,9 @@ class AntivirusesDashController extends Controller
         $antiviruses = Antiviruses::first() ?? new Antiviruses();
         $kaspersky = Kaspersky::all();
         $eset = Eset::all();
+        $pro32 = Pro32::all();
 
-        return view('dashboard.service.antiviruses', compact('antiviruses', 'kaspersky', 'eset'));
+        return view('dashboard.service.antiviruses', compact('antiviruses', 'kaspersky', 'eset', 'pro32'));
     }
     
     public function store(Request $request)
@@ -227,6 +229,86 @@ class AntivirusesDashController extends Controller
     {
         $eset = Eset::findOrFail($id);
         $eset->delete();
+
+        return redirect()->back()->with('success', 'Данные Есета успешно удалены!');
+    }
+
+    // -----------------------------------------------------------------------
+
+    public function storePro32(Request $request)
+    {
+        // Валидация данных
+        $validatedData = $request->validate([
+            'title_ru' => 'required|string|max:40',
+            'title_en' => 'nullable|string|max:40',
+            'title_tm' => 'nullable|string|max:40',
+            'categories_ru' => 'nullable|array',
+            'categories_en' => 'nullable|array',
+            'categories_tm' => 'nullable|array',
+            'discount' => 'nullable|integer|min:0|max:100',
+            'price' => 'nullable|numeric|min:0',
+        ]);
+
+        if ($request->has('id') && $request->input('id')) {
+            // Обновление существующей коробки
+            $pro32 = Pro32::findOrFail($request->input('id'));
+            $pro32->update($validatedData);
+            $message = 'Коробка успешно обновлена!';
+        } else {
+            // Получение минимально доступного ID
+            $existingIds = Pro32::pluck('id')->toArray();
+            sort($existingIds);
+
+            $newId = 1; // Начинаем с ID 1
+            foreach ($existingIds as $id) {
+                if ($id != $newId) {
+                    break; // Найден пропущенный ID
+                }
+                $newId++;
+            }
+
+            // Установка нового ID
+            $validatedData['id'] = $newId;
+
+            // Создание новой коробки
+            Pro32::create($validatedData);
+            $message = 'Коробка успешно добавлена!';
+        }
+
+        return redirect()->route('antiviruses.index')->with('success', $message);
+    }
+
+    public function editPro32($id)
+    {
+        $pro32 = Pro32::findOrFail($id);
+
+        return response()->json($pro32);
+    }
+
+    public function updatePro32(Request $request, $id)
+    {
+        // Валидация данных
+        $validatedData = $request->validate([
+            'title_ru' => 'required|string|max:40',
+            'title_en' => 'nullable|string|max:40',
+            'title_tm' => 'nullable|string|max:40',
+            'categories_ru' => 'nullable|array',
+            'categories_en' => 'nullable|array',
+            'categories_tm' => 'nullable|array',
+            'discount' => 'integer|min:0|max:100',
+            'price' => 'required|numeric|min:0',
+        ]);
+
+        $pro32 = Pro32::findOrFail($id);
+        $pro32->update($validatedData);
+
+        return redirect()->back()->with('success', 'Данные Есета успешно сохранены!');
+    }
+
+    public function destroyPro32($id)
+    {
+        $pro32 = Pro32::findOrFail($id);
+        $pro32->delete();
 
         return redirect()->back()->with('success', 'Данные Есета успешно удалены!');
     }

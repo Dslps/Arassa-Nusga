@@ -578,6 +578,226 @@
     </div>
 </div>
 
+{{-- ---------------------------------------------------------------------------- --}}
+
+<div class="p-4 sm:ml-64">
+    <div class="p-4 border-2 border-gray-200 border-dashed rounded-lg dark:border-gray-700">
+        <p class="text-lg font-semibold mb-4">Про 32:</p>
+
+        <!-- Таблица с услугами -->
+        <table class="table-auto w-full border-collapse border border-gray-300">
+            <thead>
+                <tr class="bg-gray-40">
+                    <th class="border border-gray-300 px-4 py-2">#</th>
+                    <th class="border border-gray-300 px-4 py-2">Титульный текст</th>
+                    <th class="border border-gray-300 px-4 py-2">Категории (RU)</th>
+                    <th class="border border-gray-300 px-4 py-2">Категории (EN)</th>
+                    <th class="border border-gray-300 px-4 py-2">Категории (TM)</th>
+                    <th class="border border-gray-300 px-4 py-2">Скидка (%)</th>
+                    <th class="border border-gray-300 px-4 py-2">Цена (Тм)</th>
+                    <th class="border border-gray-300 px-4 py-2">Редактировать</th>
+                    <th class="border border-gray-300 px-4 py-2">Удалить</th>
+                </tr>
+            </thead>
+            <tbody id="servicesTableBody">
+                @foreach ($pro32 as $index => $pro32s)
+                    <tr>
+                        <!-- Вывод порядкового номера строки -->
+                        <td class="border border-gray-300 px-4 py-2 text-center">{{ $index + 1 }}</td>
+
+                        <!-- Остальные данные -->
+                        <td class="border border-gray-300 px-4 py-2">{{ $pro32s->title_ru }}</td>
+
+                        <td class="border border-gray-300 px-4 py-2 max-w-[600px] overflow-x-auto whitespace-nowrap">
+                            {{ implode(', ', $pro32s->categories_ru ?? []) }}
+                        </td>
+                        <td class="border border-gray-300 px-4 py-2 max-w-[600px] overflow-x-auto whitespace-nowrap">
+                            {{ implode(', ', $pro32s->categories_en ?? []) }}
+                        </td>
+                        <td class="border border-gray-300 px-4 py-2 max-w-[600px] overflow-x-auto whitespace-nowrap">
+                            {{ implode(', ', $pro32s->categories_tm ?? []) }}
+                        </td>
+                        <td class="border border-gray-300 px-4 py-2 text-center">{{ $pro32s->discount }}</td>
+                        <td class="border border-gray-300 px-4 py-2 text-center">{{ $pro32s->price }}</td>
+                        <td class="border border-gray-300 px-4 py-2 text-center">
+                            <button
+                                onclick="pro32.open(
+                                    'edit',
+                                    {{ $pro32s->id }},
+                                    '{{ addslashes($pro32s->title_ru) }}',
+                                    '{{ addslashes($pro32s->title_en) }}',
+                                    '{{ addslashes($pro32s->title_tm) }}',
+                                    { 
+                                        ru: @json($pro32s->categories_ru ?? []),
+                                        en: @json($pro32s->categories_en ?? []),
+                                        tm: @json($pro32s->categories_tm ?? [])
+                                    },
+                                    {{ $pro32s->discount !== null ? $pro32s->discount : 'null' }},
+                                    {{ $pro32s->price !== null ? $pro32s->price : 'null' }}
+                                )"
+                                class="text-orange-500">
+                                <i class="text-[20px] fa-solid fa-pencil"></i>
+                            </button>
+                        </td>
+
+                        <td class="border border-gray-300 px-4 py-2 text-center">
+                            <form action="{{ route('pro32.destroy', $pro32s->id) }}" method="POST"
+                                onsubmit="return confirm('Вы уверены, что хотите удалить эту запись?');">
+                                @csrf
+                                @method('DELETE')
+                                <button type="submit" class="text-red-600">
+                                    <i class="text-[20px] fa-solid fa-trash"></i>
+                                </button>
+                            </form>
+                        </td>
+                    </tr>
+                @endforeach
+            </tbody>
+
+        </table>
+
+        <!-- Кнопка добавления записи -->
+        <div class="flex justify-center mt-4">
+            <button onclick="pro32.open('add')"
+                class="bg-blue-500 text-white px-6 py-2 rounded shadow hover:bg-blue-600">
+                + Добавить запись
+            </button>
+        </div>
+
+        <!-- Модальное окно -->
+        <div id="pro32Modal" class="fixed inset-0 bg-black bg-opacity-50 flex justify-center items-center hidden">
+            <div class="bg-white p-8 rounded shadow-lg w-3/4 max-w-4xl">
+                <h2 id="pro32ModalTitle" class="text-xl mb-4"></h2>
+                <form id="pro32ModalForm" method="POST" action="{{ route('eset.store') }}"
+                    enctype="multipart/form-data">
+                    @csrf
+                    <input type="hidden" name="_method" id="pro32FormMethod" value="POST">
+                    <input type="hidden" id="pro32ModalId" name="id">
+
+                    <!-- Поля Названия -->
+                    <div class="flex gap-4 mb-4">
+                        <!-- Названия -->
+                        <div class="w-1/3">
+                            <label for="pro32TitleRu" class="block mb-1 font-semibold">Название (RU):</label>
+                            <input type="text" id="pro32TitleRu" name="title_ru"
+                                placeholder="Введите название (RU)" class="border p-2 w-full" maxlength="40"
+                                required>
+                            <p class="text-xs text-gray-500 mt-1">40 символов осталось</p>
+                        </div>
+                        <div class="w-1/3">
+                            <label for="pro32TitleEn" class="block mb-1 font-semibold">Название (EN):</label>
+                            <input type="text" id="pro32TitleEn" name="title_en"
+                                placeholder="Введите название (EN)" class="border p-2 w-full" maxlength="40">
+                            <p class="text-xs text-gray-500 mt-1">40 символов осталось</p>
+                        </div>
+                        <div class="w-1/3">
+                            <label for="pro32TitleTm" class="block mb-1 font-semibold">Название (TM):</label>
+                            <input type="text" id="pro32TitleTm" name="title_tm"
+                                placeholder="Введите название (TM)" class="border p-2 w-full" maxlength="40">
+                            <p class="text-xs text-gray-500 mt-1">40 символов осталось</p>
+                        </div>
+                    </div>
+
+                    <!-- Категории -->
+                    <div class="mb-4">
+                        <div class="flex gap-4 mb-2">
+                            <div class="w-1/3">
+                                <label class="block mb-1 font-semibold">Категория 1 (RU):</label>
+                                <input type="text" name="categories_ru[]" placeholder="Введите категорию 1 (RU)"
+                                    class="border p-2 w-full" maxlength="30">
+                                <p class="text-xs text-gray-500 mt-1">30 символов осталось</p>
+                            </div>
+                            <div class="w-1/3">
+                                <label class="block mb-1 font-semibold">Категория 1 (EN):</label>
+                                <input type="text" name="categories_en[]" placeholder="Введите категорию 1 (EN)"
+                                    class="border p-2 w-full" maxlength="30">
+                                <p class="text-xs text-gray-500 mt-1">30 символов осталось</p>
+                            </div>
+                            <div class="w-1/3">
+                                <label class="block mb-1 font-semibold">Категория 1 (TM):</label>
+                                <input type="text" name="categories_tm[]" placeholder="Введите категорию 1 (TM)"
+                                    class="border p-2 w-full" maxlength="30">
+                                <p class="text-xs text-gray-500 mt-1">30 символов осталось</p>
+                            </div>
+                        </div>
+                        <div class="flex gap-4 mb-2">
+                            <div class="w-1/3">
+                                <label class="block mb-1 font-semibold">Категория 2 (RU):</label>
+                                <input type="text" name="categories_ru[]" placeholder="Введите категорию 2 (RU)"
+                                    class="border p-2 w-full" maxlength="30">
+                                <p class="text-xs text-gray-500 mt-1">30 символов осталось</p>
+                            </div>
+                            <div class="w-1/3">
+                                <label class="block mb-1 font-semibold">Категория 2 (EN):</label>
+                                <input type="text" name="categories_en[]" placeholder="Введите категорию 2 (EN)"
+                                    class="border p-2 w-full" maxlength="30">
+                                <p class="text-xs text-gray-500 mt-1">30 символов осталось</p>
+                            </div>
+                            <div class="w-1/3">
+                                <label class="block mb-1 font-semibold">Категория 2 (TM):</label>
+                                <input type="text" name="categories_tm[]" placeholder="Введите категорию 2 (TM)"
+                                    class="border p-2 w-full" maxlength="30">
+                                <p class="text-xs text-gray-500 mt-1">30 символов осталось</p>
+                            </div>
+                        </div>
+                        <div class="flex gap-4">
+                            <div class="w-1/3">
+                                <label class="block mb-1 font-semibold">Категория 3 (RU):</label>
+                                <input type="text" name="categories_ru[]" placeholder="Введите категорию 3 (RU)"
+                                    class="border p-2 w-full" maxlength="30">
+                                <p class="text-xs text-gray-500 mt-1">30 символов осталось</p>
+                            </div>
+                            <div class="w-1/3">
+                                <label class="block mb-1 font-semibold">Категория 3 (EN):</label>
+                                <input type="text" name="categories_en[]" placeholder="Введите категорию 3 (EN)"
+                                    class="border p-2 w-full" maxlength="30">
+                                <p class="text-xs text-gray-500 mt-1">30 символов осталось</p>
+                            </div>
+                            <div class="w-1/3">
+                                <label class="block mb-1 font-semibold">Категория 3 (TM):</label>
+                                <input type="text" name="categories_tm[]" placeholder="Введите категорию 3 (TM)"
+                                    class="border p-2 w-full" maxlength="30">
+                                <p class="text-xs text-gray-500 mt-1">30 символов осталось</p>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Поля Скидка и Цена -->
+                    <div class="mb-4 flex gap-4">
+                        <div class="w-1/2">
+                            <label for="pro32Discount" class="block mb-1 font-semibold">Скидка (%):</label>
+                            <input type="number" id="pro32Discount" name="discount"
+                                placeholder="Введите скидку (%)" class="border p-2 w-full" min="0"
+                                max="100">
+                        </div>
+
+                        <div class="w-1/2">
+                            <label for="pro32Price" class="block mb-1 font-semibold">Цена (Тм):</label>
+                            <input type="number" id="pro32Price" name="price" placeholder="Введите цену (Тм)"
+                                class="border p-2 w-full" min="0" required
+                                oninvalid="this.setCustomValidity('Пожалуйста, заполните поле Цена.')"
+                                oninput="this.setCustomValidity('')">
+                        </div>
+                    </div>
+
+                    <!-- Кнопки -->
+                    <div class="flex justify-end">
+                        <button type="button" onclick="pro32.close()"
+                            class="bg-gray-500 text-white px-4 py-2 rounded mr-2">
+                            Отмена
+                        </button>
+                        <button type="submit" id="pro32ModalSubmitButton"
+                            class="bg-blue-500 text-white px-4 py-2 rounded">
+                            Сохранить
+                        </button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+
+
 
 
 
@@ -779,5 +999,105 @@
         EsetModal.updateCharacterCounts();
     });
 </script>
+
+<script>
+    const pro32 = {
+        open: function(action, id = null, title_ru = '', title_en = '', title_tm = '', categories = {
+            ru: [],
+            en: [],
+            tm: []
+        }, discount = null, price = null) { // Значения по умолчанию как null
+            console.log('pro32.open вызван с действием:', action); // Отладочное сообщение
+
+            const form = document.getElementById('pro32ModalForm');
+            const modal = document.getElementById('pro32Modal');
+
+            if (!form || !modal) {
+                console.error('Форма или модальное окно не найдены.');
+                return;
+            }
+
+            try {
+                // Установка заголовка модального окна
+                document.getElementById('pro32ModalTitle').innerText = action === 'add' ? 'Добавить Услугу' :
+                    'Редактировать Услугу';
+
+                // Установка атрибута action формы
+                form.action = action === 'add' ?
+                    "{{ route('pro32.store') }}" :
+                    `/pro32/${id}/update`;
+
+                // Установка метода формы
+                document.getElementById('pro32FormMethod').value = action === 'add' ? 'POST' : 'PUT';
+
+                // Установка скрытого поля ID
+                document.getElementById('pro32ModalId').value = id || '';
+
+                // Установка значений полей названия
+                document.getElementById('pro32TitleRu').value = title_ru || '';
+                document.getElementById('pro32TitleEn').value = title_en || '';
+                document.getElementById('pro32TitleTm').value = title_tm || '';
+
+                // Заполнение категорий
+                document.querySelectorAll('input[name="categories_ru[]"]').forEach((input, index) => {
+                    input.value = categories.ru[index] || '';
+                });
+                document.querySelectorAll('input[name="categories_en[]"]').forEach((input, index) => {
+                    input.value = categories.en[index] || '';
+                });
+                document.querySelectorAll('input[name="categories_tm[]"]').forEach((input, index) => {
+                    input.value = categories.tm[index] || '';
+                });
+
+                // Установка значений полей скидки и цены с проверкой на null
+                document.getElementById('pro32Discount').value = (discount !== null && discount !==
+                    undefined) ? discount : 0;
+                document.getElementById('pro32Price').value = (price !== null && price !== undefined) ?
+                    price : '';
+
+                // Показ модального окна
+                modal.classList.remove('hidden');
+
+                // Обновление счетчиков символов
+                pro32.updateCharacterCounts();
+            } catch (error) {
+                console.error('Ошибка в pro32.open:', error);
+            }
+        },
+        close: function() {
+            const modal = document.getElementById('pro32Modal');
+            const form = document.getElementById('pro32ModalForm');
+
+            if (modal && form) {
+                modal.classList.add('hidden');
+                form.reset();
+            } else {
+                console.error('Модальное окно или форма не найдены.');
+            }
+        },
+        updateCharacterCounts: function() {
+            document.querySelectorAll('input[maxlength]').forEach(input => {
+                const counter = input.nextElementSibling;
+
+                if (counter && counter.tagName.toLowerCase() === 'p') {
+                    pro32.updateCharacterCount(input, counter);
+
+                    input.addEventListener('input', () => pro32.updateCharacterCount(input,
+                        counter));
+                }
+            });
+        },
+        updateCharacterCount: function(input, counter) {
+            const maxLength = parseInt(input.getAttribute('maxlength'), 10);
+            const remaining = maxLength - input.value.length;
+            counter.textContent = `${remaining} символов осталось`;
+        }
+    };
+
+    document.addEventListener('DOMContentLoaded', function() {
+        pro32.updateCharacterCounts();
+    });
+</script>
+
 
 @endsection
