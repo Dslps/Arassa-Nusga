@@ -7,6 +7,8 @@ use App\Http\Controllers\Bitrix24Controller;
 use App\Http\Controllers\BlogController;
 use App\Http\Controllers\ContactController;
 use App\Http\Controllers\Dashboard\AntivirusesDashController;
+use App\Http\Controllers\Dashboard\ContactDash;
+use App\Http\Controllers\Dashboard\ContactDashController;
 use App\Http\Controllers\Dashboard\WebDash;
 use App\Http\Controllers\Dashboard\WebDashController;
 use App\Http\Controllers\Dashboard\WebDevelopmentDash;
@@ -28,7 +30,6 @@ Route::get('/', ([HomeController::class, 'index']))->name('home');
 Route::get('/about-us', ([AboutUsController::class, 'index']))->name('about-us');
 Route::get('/project', ([ProjectController::class, 'index']))->name('project');
 Route::get('/blog', ([BlogController::class, 'index']))->name('blog');
-Route::get('/contact', ([ContactController::class, 'index']))->name('contact');
 Route::get('/bitrix24', ([Bitrix24Controller::class, 'index']))->name('bitrix24');
 Route::get('/mobile', ([MobileController::class, 'index']))->name('mobile');
 Route::get('/web-development', ([WebDevelopmentController::class, 'index']))->name('web-development');
@@ -156,3 +157,20 @@ Route::post('/pro32/store', [AntivirusesDashController::class, 'storePro32'])->n
 Route::put('/pro32/{id}/update', [AntivirusesDashController::class, 'updatePro32'])->name('pro32.update');
 Route::delete('/pro32/{id}/destroy', [AntivirusesDashController::class, 'destroyPro32'])->name('pro32.destroy');
 Route::get('/pro32/{id}/edit', [AntivirusesDashController::class, 'editPro32'])->name('pro32.edit');
+
+// контакты
+Route::get('contact-dash', [ContactDashController::class, 'index'])->name('contact-dash');
+
+Route::get('/contact', ([ContactController::class, 'index']))->name('contact');
+Route::post('/contact', [ContactController::class, 'submit'])->name('contact.submit');
+
+Route::prefix('dashboard')->middleware(['auth'])->group(function () {
+    Route::get('/contacts', [ContactDashController::class, 'index'])->name('dashboard.contacts');
+    
+    // Маршруты для просмотра и удаления сообщений
+    Route::get('/contacts/{contact}', [ContactDashController::class, 'show'])->name('dashboard.contacts.show');
+    Route::delete('/contacts/{contact}', [ContactDashController::class, 'destroy'])->name('dashboard.contacts.destroy');
+
+    // Маршрут для обработки ответа на сообщение
+    Route::post('/contacts/reply', [ContactDashController::class, 'reply'])->name('dashboard.contacts.reply');
+});

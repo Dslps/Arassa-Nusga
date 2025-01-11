@@ -11,8 +11,10 @@
                 <p>Тел: +99312754480 / +99361648605</p>
                 <p>info@arassanusga.com</p>
             </div>
-            <form class="w-full">
+            <form class="w-full" action="{{ route('contact.submit') }}" method="POST">
+                @csrf <!-- Защита от CSRF -->
                 <p class="title-2 text-white mb-5">Свяжитесь с нами:</p>
+                
                 <div class="relative z-0 w-full mb-5 group">
                     <input type="text" name="username" id="username"
                         class="base-text block py-2.5 px-0 w-full text-[var(--white-color)] bg-transparent border-0 border-b-2 border-[var(--white-color)] appearance-none dark:text-white dark:border-gray-600 dark:focus:border-blue-500 focus:outline-none focus:ring-0 focus:border-[var(--white-color)] peer"
@@ -22,8 +24,9 @@
                         Username
                     </label>
                 </div>
+            
                 <div class="relative z-0 w-full mb-5 group">
-                    <input type="phone_number" name="username" id="username"
+                    <input type="tel" name="phone_number" id="phone_number"
                         class="base-text block py-2.5 px-0 w-full text-[var(--white-color)] bg-transparent border-0 border-b-2 border-[var(--white-color)] appearance-none dark:text-white dark:border-gray-600 dark:focus:border-blue-500 focus:outline-none focus:ring-0 focus:border-[var(--white-color)] peer"
                         placeholder=" " required />
                     <label for="phone_number"
@@ -31,8 +34,9 @@
                         Phone Number
                     </label>
                 </div>
+            
                 <div class="relative z-0 w-full mb-5 group">
-                    <input type="email" name="username" id="username"
+                    <input type="email" name="email" id="email"
                         class="base-text block py-2.5 px-0 w-full text-[var(--white-color)] bg-transparent border-0 border-b-2 border-[var(--white-color)] appearance-none dark:text-white dark:border-gray-600 dark:focus:border-blue-500 focus:outline-none focus:ring-0 focus:border-[var(--white-color)] peer"
                         placeholder=" " required />
                     <label for="email"
@@ -40,9 +44,7 @@
                         Email
                     </label>
                 </div>
-
-                
-
+            
                 <div class="relative z-0 w-full mb-5 group">
                     <textarea name="message" id="message" rows="4"
                         class="block py-2.5 px-0 w-full text-[var(--white-color)] bg-transparent border-0 border-b-2 border-[var(--support-color)] appearance-none dark:text-white dark:focus:border-[var(--white-color)] focus:outline-none focus:ring-0 focus:border-[var(--white-color)] peer resize-none overflow-y-auto max-h-[150px]"
@@ -53,8 +55,11 @@
                     </label>
                 </div>
                 
-                <button class=" py-3 px-10 mt-5 bg-[var(--white-color)] border-[1px] border-[var(--accent-color)] hover:bg-[var(--hover)] hover:text-[var(--white-color)] hover:border-[1px] hover:border-[var(--white-color)] duration-300 small-text">Submit</button>
+                <button type="submit" class="py-3 px-10 mt-5 bg-[var(--white-color)] border-[1px] border-[var(--accent-color)] hover:bg-[var(--hover)] hover:text-[var(--white-color)] hover:border-[1px] hover:border-[var(--white-color)] duration-300 small-text">
+                    Submit
+                </button>
             </form>
+            
             
         </div>
         <div class="animate-bottom lg:flex w-[1120px] h-[560px] px-[50px] 2xl:px-[100px] lg:px-[60px] justify-center items-center hidden">
