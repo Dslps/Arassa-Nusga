@@ -56,10 +56,13 @@ class BlogDashController extends Controller
         $validated = $request->validate([
             'title_ru' => 'required|string|max:30',
             'description_ru' => 'required|string|max:200',
+            'additional_ru' => 'required|string|max:200',
             'title_en' => 'nullable|string|max:30',
             'description_en' => 'nullable|string|max:200',
+            'additional_en' => 'required|string|max:200',
             'title_tm' => 'nullable|string|max:30',
             'description_tm' => 'nullable|string|max:200',
+            'additional_tm' => 'required|string|max:200',
             'image' => 'nullable|image|mimes:jpeg,png,jpg,gif|max:2048',
         ]);
 
@@ -78,15 +81,15 @@ class BlogDashController extends Controller
         $blogstore = BlogStore::findOrFail($id);
 
         $validated = $request->validate([
-            'title_ru' => 'required|string|max:30',
+            'title_ru' => 'required|string|max:50',
             'description_ru' => 'required|string|max:200',
-            'additional-information_ru' => 'required|string|max:200',
-            'title_en' => 'nullable|string|max:30',
+            'additional_ru' => 'required|string',
+            'title_en' => 'nullable|string|max:50',
             'description_en' => 'nullable|string|max:200',
-            'additional-information_en' => 'nullable|string|max:200',
-            'title_tm' => 'nullable|string|max:30',
+            'additional_en' => 'nullable|string',
+            'title_tm' => 'nullable|string|max:50',
             'description_tm' => 'nullable|string|max:200',
-            'additional-information_tm' => 'nullable|string|max:200',
+            'additional_tm' => 'nullable|string',
             'image' => 'nullable|image|mimes:jpeg,png,jpg,gif|max:2048',
         ]);
 
@@ -99,7 +102,7 @@ class BlogDashController extends Controller
 
         $blogstore->update($validated);
 
-        return redirect()->back()->with('success', 'Принцип успешно обновлён!');
+        return redirect()->back()->with('success', 'Блог успешно обновлён!');
     }
 
     public function blogShow($id)
@@ -122,6 +125,6 @@ class BlogDashController extends Controller
 
         $blogstore->delete();
 
-        return redirect()->back()->with('success', 'Принцип успешно удалён!');
+        return redirect()->back()->with('success', 'Блог успешно удалён!');
     }
 }

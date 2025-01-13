@@ -6,16 +6,20 @@
     <div class="">
         @if ($blogstore->photos)
             <div class="w-full h-[600px]">
-                <img src="{{ asset('storage/' . $blogstore->photos) }}" alt="blog image" class=" w-full h-full object-cover" />
+                <img src="{{ asset('storage/' . $blogstore->photos) }}" alt="blog image" class="w-full h-full object-cover" />
             </div>
         @endif
-        <div>
-            {{ $blogstore->{'title_' . app()->getLocale()} }}
+        <div class="mt-5 px-[30px] lg:px-[60px] 2xl:px-[100px]">
+            <div class="small-text text-start lg:text-center">
+                {{ $blogstore->{'title_' . app()->getLocale()} }}
+            </div>
+            <div class="title text-start lg:text-center">
+                {{ $blogstore->{'description_' . app()->getLocale()} }}
+            </div>
+            <div class="base-text text-start break-words whitespace-pre-line">
+                {{ $blogstore->{'additional_' . app()->getLocale()} }}
+            </div>
         </div>
-        <div>
-            {{ $blogstore->{'description_' . app()->getLocale()} }}
-        </div>
-
     </div>
 </div>
 

@@ -22,6 +22,10 @@ export default {
                 '2xl': '1400px',
                 'xl': '1200px'
             },
+            textIndent: {
+                4: '1rem',
+                8: '2rem',
+              },
         },
     },
     plugins: [

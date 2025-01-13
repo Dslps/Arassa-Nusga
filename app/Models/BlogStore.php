@@ -16,6 +16,9 @@ class BlogStore extends Model
         'description_ru',
         'description_en',
         'description_tm',
+        'additional_ru',
+        'additional_en',
+        'additional_tm',
         'photos',
     ];
 }
