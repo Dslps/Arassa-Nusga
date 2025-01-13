@@ -4,34 +4,34 @@ namespace App\Http\Controllers\Dashboard;
 
 use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\Storage;
-use Illuminate\Http\Request;
-use App\Models\Blog;
-use App\Models\BlogStore;
+use App\Models\Project;
+use App\Models\ProjectStore;
 
-class BlogDashController extends Controller
+use Illuminate\Http\Request;
+
+class ProjectDashController extends Controller
 {
     public function index(){
 
-        $blog = Blog::first() ?? new Blog();
-        $blogstore = BlogStore::all();
+        $project = Project::first() ?? new Project();
+        $projectstore = ProjectStore::all();
 
-        return view('dashboard.blog', compact('blog', 'blogstore'));
+        return view('dashboard.project', compact('project', 'projectstore'));
     }
 
     public function store(Request $request)
     {
-        $blog = Blog::first() ?? new Blog();
+        $project = Project::first() ?? new Project();
 
         if ($request->hasFile('photos')) {
             $photosPaths = [];
             foreach ($request->file('photos') as $file) {
-                $path = $file->store('blog_photos', 'public');
+                $path = $file->store('project_photos', 'public');
                 $photosPaths[] = $path;
             }
-            $blog->photos = implode(',', $photosPaths);
+            $project->photos = implode(',', $photosPaths);
         }
 
-        // Обновление текстовых полей
         $fields = [
             'title_ru', 'title_en', 'title_tm',
             'description_ru', 'description_en', 'description_tm',
@@ -40,18 +40,18 @@ class BlogDashController extends Controller
 
         foreach ($fields as $field) {
             if ($request->filled($field)) {
-                $blog->$field = $request->input($field);
+                $project->$field = $request->input($field);
             }
         }
 
-        $blog->save();
+        $project->save();
 
         return redirect()->back()->with('success', 'Данные успешно обновлены!');
     }
 
-    // ---------------------------------------------------
+    // ---------------------------------------------------------
 
-    public function blogStore(Request $request)
+    public function projectStore(Request $request)
     {
         $validated = $request->validate([
             'title_ru' => 'required|string|max:30',
@@ -68,17 +68,17 @@ class BlogDashController extends Controller
 
         // Сохранение изображения
         if ($request->hasFile('image')) {
-            $validated['photos'] = $request->file('image')->store('blog', 'public');
+            $validated['photos'] = $request->file('image')->store('project', 'public');
         }
 
-        BlogStore::create($validated);
+        ProjectStore::create($validated);
 
         return redirect()->back()->with('success', 'Принцип успешно добавлен!');
     }
 
-    public function blogUpdate(Request $request, $id)
+    public function projectUpdate(Request $request, $id)
     {
-        $blogstore = BlogStore::findOrFail($id);
+        $projectstore = ProjectStore::findOrFail($id);
 
         $validated = $request->validate([
             'title_ru' => 'required|string|max:50',
@@ -94,36 +94,36 @@ class BlogDashController extends Controller
         ]);
 
         if ($request->hasFile('image')) {
-            if ($blogstore->photos) {
-                Storage::disk('public')->delete($blogstore->photos);
+            if ($projectstore->photos) {
+                Storage::disk('public')->delete($projectstore->photos);
             }
-            $validated['photos'] = $request->file('image')->store('blog', 'public');
+            $validated['photos'] = $request->file('image')->store('project', 'public');
         }
 
-        $blogstore->update($validated);
+        $projectstore->update($validated);
 
         return redirect()->back()->with('success', 'Блог успешно обновлён!');
     }
 
-    public function blogShow($id)
-{
-    // Получаем конкретную запись из таблицы
-    $blogstore = BlogStore::findOrFail($id);
-
-    // Возвращаем шаблон и передаём туда данные
-    return view('components.blog-details', compact('blogstore'));
-}
-
-
-    public function blogDestroy($id)
+    public function projectShow($id)
     {
-        $blogstore = BlogStore::findOrFail($id);
+        // Получаем конкретную запись из таблицы
+        $projectstore = ProjectStore::findOrFail($id);
+    
+        // Возвращаем шаблон и передаём туда данные
+        return view('components.project-details', compact('projectstore'));
+    }
 
-        if ($blogstore->photos) {
-            Storage::disk('public')->delete($blogstore->photos);
+
+    public function projectDestroy($id)
+    {
+        $projectstore = ProjectStore::findOrFail($id);
+
+        if ($projectstore->photos) {
+            Storage::disk('public')->delete($projectstore->photos);
         }
 
-        $blogstore->delete();
+        $projectstore->delete();
 
         return redirect()->back()->with('success', 'Блог успешно удалён!');
     }

@@ -6,12 +6,8 @@ use App\Http\Controllers\AuthController;
 use App\Http\Controllers\Bitrix24Controller;
 use App\Http\Controllers\BlogController;
 use App\Http\Controllers\ContactController;
-use App\Http\Controllers\Dashboard\AntivirusesDashController;
-use App\Http\Controllers\Dashboard\BlogDashController;
 use App\Http\Controllers\Dashboard\ContactDash;
-use App\Http\Controllers\Dashboard\ContactDashController;
 use App\Http\Controllers\Dashboard\WebDash;
-use App\Http\Controllers\Dashboard\WebDashController;
 use App\Http\Controllers\Dashboard\WebDevelopmentDash;
 use App\Http\Controllers\HomeController;
 use App\Http\Controllers\MobileController;
@@ -24,8 +20,28 @@ use App\Http\Controllers\Dashboard\AboutUsDashController;
 use App\Http\Controllers\Dashboard\Bitrix24DashController;
 use App\Http\Controllers\Dashboard\DashboardController;
 use App\Http\Controllers\Dashboard\MobileDashController;
+use App\Http\Controllers\Dashboard\ProjectDashController;
+use App\Http\Controllers\Dashboard\ContactDashController;
+use App\Http\Controllers\Dashboard\AntivirusesDashController;
+use App\Http\Controllers\Dashboard\BlogDashController;
+use App\Http\Controllers\Dashboard\WebDashController;
 
 Route::get('/settings', function () {return view('settings');})->name('settings');
+Route::get('/lang/{locale}', function ($locale) {
+    $supportedLocales = ['en', 'ru', 'tm'];
+
+    if (in_array($locale, $supportedLocales)) {
+        session(['locale' => $locale]);
+        App::setLocale($locale);
+    }
+
+    return redirect()->back();
+});
+
+
+
+
+
 
 Route::get('/', ([HomeController::class, 'index']))->name('home');
 Route::get('/about-us', ([AboutUsController::class, 'index']))->name('about-us');
@@ -171,6 +187,17 @@ Route::post('/blog-store', [BlogDashController::class, 'blogStore'])->name('dash
 Route::put('/blog-store/{id}', [BlogDashController::class, 'blogUpdate'])->name('dashboard.blog.update');
 Route::delete('/blog-store/{id}', [BlogDashController::class, 'blogDestroy'])->name('dashboard.blog.destroy');
 Route::get('/blog-show/{id}', [BlogDashController::class, 'blogShow'])->name('blog.show');
+
+// страница проектов админки
+Route::get('project-dash', [ProjectDashController::class, 'index'])->name('project-dash');
+
+Route::get('/project/project', [ProjectDashController::class, 'index'])->name('project.index');
+Route::post('/project/project', [ProjectDashController::class, 'store'])->name('project.store');
+
+Route::post('/project-store', [ProjectDashController::class, 'projectStore'])->name('dashboard.project.store');
+Route::put('/project-store/{id}', [ProjectDashController::class, 'projectUpdate'])->name('dashboard.project.update');
+Route::delete('/progect-store/{id}', [ProjectDashController::class, 'projectDestroy'])->name('dashboard.project.destroy');
+Route::get('/project-show/{id}', [ProjectDashController::class, 'projectShow'])->name('project.show');
 
 
 

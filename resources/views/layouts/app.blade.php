@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="{{ app()->getLocale() }}">
+<html lang="{{ App::getLocale() }}">
 <!-- Остальная верстка -->
 
 <head>
@@ -28,12 +28,14 @@
                 </a>
 
                 <div class="flex text-[var(--white-color)] gap-[5px] ml-auto">
-                    <p class=" font-semibold"><a href="#">Rus</a></p>
+                    <p class=" font-semibold"><a href="{{ url('/lang/ru') }}">Rus</a></p>
                     <span>/</span>
-                    <p class=" font-semibold"><a href="#">Tm</a></p>
+                    <p class=" font-semibold"><a href="{{ url('/lang/tm') }}">Tm</a></p>
                     <span>/</span>
-                    <p class=" font-semibold"><a href="#">Eng</a></p>
+                    <p class=" font-semibold"><a href="{{ url('/lang/en') }}">Eng</a></p>
                 </div>
+                
+                
             </div>
             <div class="lg:flex bg-[var(--white-color)] items-center justify-between px-[30px] lg:px-[60px] 2xl:px-[100px] w-[1120px] hidden">
                 <div class="flex gap-[5px]">
