@@ -19,48 +19,21 @@ class AboutUsDashController extends Controller
      */
     public function index()
     {
-        // Получение всех записей принципов
         $principles = Principle::all();
-
-        // Получение данных "О нас" или создание новой записи
         $aboutUs = AboutUs::first() ?? new AboutUs();
-
-        // Получение данных описания компаний
         $companyDescription = CompanyDescription::first() ?? new CompanyDescription();
-
-        // Получение данных достижений
         $achievement = Achievement::first() ?? new Achievement();
-
-        // Получение данных сотрудников
         $employees = Employee::all();
-
-        // Получение всех сертификатов с пагинацией (например, 20 на страницу)
-        $certificates = Certificate::paginate(20); // Используйте paginate вместо all
+        $certificates = Certificate::paginate(20); 
 
         // Передача всех переменных в представление
-        return view('dashboard.about-us', compact(
-            'principles', 
-            'aboutUs', 
-            'companyDescription', 
-            'achievement', 
-            'employees', 
-            'certificates'
-        ));
+        return view('dashboard.about-us', compact('principles', 'aboutUs', 'companyDescription', 'achievement', 'employees', 'certificates'));
     }
 
-    
-    
-
-    
-
-    /**
-     * Сохранение данных "О нас"
-     */
     public function store(Request $request)
     {
         $aboutUs = AboutUs::first() ?? new AboutUs();
 
-        // Сохранение фото
         if ($request->hasFile('photos')) {
             $photosPaths = [];
             foreach ($request->file('photos') as $file) {

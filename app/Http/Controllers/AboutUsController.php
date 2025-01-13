@@ -15,23 +15,12 @@ class AboutUsController extends Controller
 {
     public function index()
     {
-        // Получение данных "О нас"
         $aboutUs = AboutUs::first() ?? new AboutUs();
-
-        // Получение всех принципов работы
         $principles = Principle::all();
-
-        // Получение описаний компаний
         $companyDescriptions = CompanyDescription::all();
-
-        // Получение достижений
         $achievements = Achievement::all();
-
-        // Получение всех сотрудников
         $employees = Employee::all();
-
-        // Получение всех сертификатов
-        $certificates = Certificate::all(); // Добавьте эту строку
+        $certificates = Certificate::all(); 
 
         // Передача всех данных в представление
         return view('about-us', compact(

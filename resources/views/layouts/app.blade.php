@@ -2,15 +2,12 @@
 <html lang="{{ app()->getLocale() }}">
 <!-- Остальная верстка -->
 
-
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <title>Document</title>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/gsap.min.js"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/ScrollTrigger.min.js"></script>
     @vite(['resources/css/app.css', 'resources/js/jquery.min.js', 'resources/js/app.js', 'resources/css/slick.css', 'resources/js/slick.min.js'])
 </head>
 
@@ -151,20 +148,20 @@
                 <div class="flex-1 p-5">
                     <p class="">Навигация</p>
                     <ul class="list-none pl-[10px] space-y-2.5 mt-5">
-                        <li class="list-marker"><a class="bottom-link {{ Request::routeIs('home') ? 'before:w-full' : '' }}" href="">Главная</a></li>
-                        <li class="list-marker"><a class="bottom-link {{ Request::routeIs('about-us') ? 'before:w-full' : '' }}" href="">О нас</a></li>
-                        <li class="list-marker"><a class="bottom-link {{ Request::routeIs('blog') ? 'before:w-full' : '' }}" href="">Блог</a></li>
-                        <li class="list-marker"><a class="bottom-link {{ Request::routeIs('project') ? 'before:w-full' : '' }}" href="">Проекты</a></li>
+                        <li class="list-marker"><a class="bottom-link {{ Request::routeIs('home') ? 'before:w-full' : '' }}" href="{{route('home')}}">Главная</a></li>
+                        <li class="list-marker"><a class="bottom-link {{ Request::routeIs('about-us') ? 'before:w-full' : '' }}" href="{{route('about-us')}}">О нас</a></li>
+                        <li class="list-marker"><a class="bottom-link {{ Request::routeIs('blog') ? 'before:w-full' : '' }}" href="{{route('blog')}}">Блог</a></li>
+                        <li class="list-marker"><a class="bottom-link {{ Request::routeIs('project') ? 'before:w-full' : '' }}" href="{{route('project')}}">Проекты</a></li>
                     </ul>
                 </div>
                 {{-- ------------------------ --}}
                 <div class="flex-1 p-5">
                     <p class="">Услуги</p>
                     <ul class="list-none pl-[10px] space-y-2.5 mt-5">
-                        <li class="list-marker"><a class="bottom-link {{ Request::routeIs('bitrix24') ? 'before:w-full' : '' }}" href="">Битрикс 24</a></li>
-                        <li class="list-marker"><a class="bottom-link {{ Request::routeIs('') ? 'before:w-full' : '' }}" href="">Мобильные приложения</a></li>
-                        <li class="list-marker"><a class="bottom-link {{ Request::routeIs('') ? 'before:w-full' : '' }}" href="">Веб-разработка</a></li>
-                        <li class="list-marker"><a class="bottom-link {{ Request::routeIs('') ? 'before:w-full' : '' }}" href="">Антивирусы</a></li>
+                        <li class="list-marker"><a class="bottom-link {{ Request::routeIs('bitrix24') ? 'before:w-full' : '' }}" href="{{route('bitrix24')}}">Битрикс 24</a></li>
+                        <li class="list-marker"><a class="bottom-link {{ Request::routeIs('mobile') ? 'before:w-full' : 'mobile' }}" href="{{route('mobile')}}">Мобильные приложения</a></li>
+                        <li class="list-marker"><a class="bottom-link {{ Request::routeIs('web-development') ? 'before:w-full' : '' }}" href="{{route('web-development')}}">Веб-разработка</a></li>
+                        <li class="list-marker"><a class="bottom-link {{ Request::routeIs('antiviruses') ? 'before:w-full' : '' }}" href="{{route('antiviruses')}}">Антивирусы</a></li>
                     </ul>
                 </div>
                 {{-- ------------------------ --}}
@@ -180,21 +177,21 @@
                     <p class="">Контакты</p>
                     <ul class="list-none pl-[10px] space-y-2.5 mt-5">
                         <li>
-                            <a class="bottom-link {{ Request::routeIs('') ? 'before:w-full' : '' }}" href="">
+                            <a class="bottom-link {{ Request::routeIs('contact') ? 'before:w-full' : 'contact-dash' }}" href="{{route('contact')}}">
                                 <i class="mr-[10px] fa-regular fa-envelope"></i>
                                 info@arassanusga.com
                             </a>
                         </li>
                         <li>
-                            <a class="bottom-link {{ Request::routeIs('') ? 'before:w-full' : '' }}" href="">
+                            <a class="bottom-link {{ Request::routeIs('contact') ? 'before:w-full' : 'contact-dash' }}" href="{{route('contact')}}">
                                 <i class="mr-[10px] fa-solid fa-phone"></i>
                                 +99312754480
                             </a>
                             <span>/</span>
-                            <a class="bottom-link {{ Request::routeIs('') ? 'before:w-full' : '' }}" href="">+99361648605</a>
+                            <a class="bottom-link {{ Request::routeIs('contact') ? 'before:w-full' : 'contact-dash' }}" href="{{route('contact')}}">+99361648605</a>
                         </li>
                         <li>
-                            <a class="bottom-link {{ Request::routeIs('') ? 'before:w-full' : '' }}" href="">
+                            <a class="bottom-link {{ Request::routeIs('contact') ? 'before:w-full' : 'contact-dash' }}" href="{{route('contact')}}">
                                 <i class="mr-[10px] fa-solid fa-location-dot"></i>
                                 Бизнес-центр Arzuw, ул. Г. Кулиева (Объездная),Ашхабад, Туркменистан
                             </a>

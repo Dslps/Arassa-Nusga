@@ -7,6 +7,7 @@ use App\Http\Controllers\Bitrix24Controller;
 use App\Http\Controllers\BlogController;
 use App\Http\Controllers\ContactController;
 use App\Http\Controllers\Dashboard\AntivirusesDashController;
+use App\Http\Controllers\Dashboard\BlogDashController;
 use App\Http\Controllers\Dashboard\ContactDash;
 use App\Http\Controllers\Dashboard\ContactDashController;
 use App\Http\Controllers\Dashboard\WebDash;
@@ -41,6 +42,8 @@ Route::post('/login', [AuthController::class, 'login']);
 Route::post('/logout', [AuthController::class, 'logout'])->name('logout');
 
 Route::get('/admin', [DashboardController::class, 'index'])->middleware('auth')->name('dashboard');
+
+// защита роутов от внешних входов
 
 // домашняя страница админ панели
 Route::get('home-dashes', [HomeDashController::class, 'index'])->name('home-dash.index');
@@ -158,19 +161,34 @@ Route::put('/pro32/{id}/update', [AntivirusesDashController::class, 'updatePro32
 Route::delete('/pro32/{id}/destroy', [AntivirusesDashController::class, 'destroyPro32'])->name('pro32.destroy');
 Route::get('/pro32/{id}/edit', [AntivirusesDashController::class, 'editPro32'])->name('pro32.edit');
 
+// страница блога админки
+Route::get('blog-dash', [BlogDashController::class, 'index'])->name('blog-dash');
+
+Route::get('/blog/blog', [BlogDashController::class, 'index'])->name('blog.index');
+Route::post('/blog/blog', [BlogDashController::class, 'store'])->name('blog.store');
+
+Route::post('/blog-store', [BlogDashController::class, 'blogStore'])->name('dashboard.blog.store');
+Route::put('/blog-store/{id}', [BlogDashController::class, 'blogUpdate'])->name('dashboard.blog.update');
+Route::delete('/blog-store/{id}', [BlogDashController::class, 'blogDestroy'])->name('dashboard.blog.destroy');
+Route::get('/blog-show/{id}', [BlogDashController::class, 'blogShow'])->name('blog.show');
+
+
+
 // контакты
 Route::get('contact-dash', [ContactDashController::class, 'index'])->name('contact-dash');
-
 Route::get('/contact', ([ContactController::class, 'index']))->name('contact');
 Route::post('/contact', [ContactController::class, 'submit'])->name('contact.submit');
 
 Route::prefix('dashboard')->middleware(['auth'])->group(function () {
     Route::get('/contacts', [ContactDashController::class, 'index'])->name('dashboard.contacts');
-    
-    // Маршруты для просмотра и удаления сообщений
     Route::get('/contacts/{contact}', [ContactDashController::class, 'show'])->name('dashboard.contacts.show');
     Route::delete('/contacts/{contact}', [ContactDashController::class, 'destroy'])->name('dashboard.contacts.destroy');
-
-    // Маршрут для обработки ответа на сообщение
     Route::post('/contacts/reply', [ContactDashController::class, 'reply'])->name('dashboard.contacts.reply');
 });
+
+// пользователи
+Route::get('users', [UserController::class, 'index'])->name('users'); 
+Route::prefix('dashboard')->middleware(['auth'])->group(function () {
+Route::get('/users', [UserController::class, 'index'])->name('users.index');
+Route::post('/users/store', [UserController::class, 'store'])->name('users.store');
+Route::delete('/users/{user}', [UserController::class, 'destroy'])->name('users.destroy');});

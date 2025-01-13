@@ -1,4 +1,6 @@
 import 'flowbite';
+import { gsap } from "gsap";
+import { ScrollTrigger } from "gsap/ScrollTrigger";
 
 // ---------------------------------------------------------------------
 // слайдер на главной странице хедер части
@@ -181,7 +183,6 @@ document.addEventListener("DOMContentLoaded", () => {
         });
     }, { threshold: 0.3 });
 
-    // const blocks = document.querySelectorAll(".header, .carousel-item, .carousel-controller, .animate-block, .animate-image, .animate-text, .animate-left, animate-bottom, animate-block-partners");
     const blocks = document.querySelectorAll(".header, .carousel-controller, .animate-block, .animate-image, .animate-text, .animate-left, animate-bottom, animate-block-partners");
     blocks.forEach((block) => {
         observer.observe(block);
@@ -418,6 +419,16 @@ loadMoreBtn.addEventListener('click', () => {
 });
 updateItemsDisplay();
 // ------------------------
+
+    document.addEventListener('DOMContentLoaded', function () {
+        const toggleButton = document.querySelector('[data-dropdown-toggle="dropdown-user"]');
+        const dropdownMenu = document.getElementById('dropdown-user');
+
+        toggleButton.addEventListener('click', function () {
+            dropdownMenu.classList.toggle('hidden');
+        });
+    });
+
 
 
 

@@ -10,8 +10,7 @@
                         <div class="relative w-full h-full">
                             <!-- Динамическое изображение -->
                             <img class="absolute top-0 left-0 w-full h-full object-cover object-center" 
-                                 src="{{ asset('storage/' . $slide->image_path) }}" 
-                                 alt="{{ $slide->{'title_' . app()->getLocale()} }}">
+                                 src="{{ asset('storage/' . $slide->image_path) }}" alt="">
                         </div>
         
                         <!-- Контент слайдера -->
