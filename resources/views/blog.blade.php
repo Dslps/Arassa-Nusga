@@ -2,7 +2,8 @@
 @section('content')
 
     <div class="w-full flex m-auto max-w-[2000px] lg:pt-[15vh] pt-[140px]">
-        <div class="animate-left lg:w-[800px] lg:h-[660px] h-auto bg-[var(--accent-color)] flex items-center px-[30px] lg:py-[0px] py-[30px] lg:px-[60px] 2xl:px-[100px] w-full text-[var(--white-color)] break-words min-w-0">
+        <div
+            class="animate-left lg:w-[800px] lg:h-[660px] h-auto bg-[var(--accent-color)] flex items-center px-[30px] lg:py-[0px] py-[30px] lg:px-[60px] 2xl:px-[100px] w-full text-[var(--white-color)] break-words min-w-0">
             <div class="flex flex-col min-w-0">
                 <div class="min-w-0">
                     {{-- Титульное название --}}
@@ -53,13 +54,11 @@
             <div class="absolute flex justify-center z-[-10] w-full h-full">
                 @if (!empty($blog->photos))
                     @php
-                        // Проверяем, является ли photos массивом. Если нет, разбиваем строку на массив по запятой.
                         $photos = is_array($blog->photos) ? $blog->photos : explode(',', $blog->photos);
                     @endphp
 
                     @if (count($photos) > 0)
                         @foreach ($photos as $photo)
-                            {{-- Убираем возможные пробелы и экранирование символов --}}
                             @php
                                 $photo = trim($photo, ' "');
                             @endphp
@@ -77,21 +76,24 @@
     {{-- ------------------------------------------------------------------------------------------ --}}
 
     <div class="w-full max-w-[2000px] px-10 lg:px-[60px] 2xl:px-[100px] m-auto mt-[80px] xl:mt-[80px] 2xl:mt-[130px]">
-        <div class="flex justify-center flex-wrap gap-[30px]" id="itemContainer">
+        <div class="flex justify-start flex-wrap gap-[30px]" id="itemContainer">
 
-            <!-- 8 элементов, из которых по 4 будут показываться -->
             @foreach ($blogstore as $blogstores)
-                <div class="flex flex-col w-[400px]  h-max bg-[#D3D3D3] rounded-[5px] item">
+                <div class="flex flex-col w-[400px] h-[500px] bg-[#D3D3D3] rounded-[5px] item">
                     @if ($blogstores->photos)
-                        <div class="flex justify-center w-full h-[300px]">
-                            <img src="{{ asset('storage/' . $blogstores->photos) }}" alt="Изображение" class=" object-cover">
+                        <div class="flex justify-center w-full h-[250px]">
+                            <img src="{{ asset('storage/' . $blogstores->photos) }}" alt="Изображение"
+                                class="w-full h-full object-cover">
                         </div>
                     @else
                         Нет изображения
                     @endif
                     <div class="p-[20px] flex flex-col justify-between h-full">
-                        <p class="text-[var(--accent-color)] small-text">{{ $blogstores->{'title_' . app()->getLocale()} }}</p>
-                        <p class="mt-[15px] base-text font-semibold">{{ $blogstores->{'description_' . app()->getLocale()} }}</p>
+                        <p class="text-[var(--accent-color)] small-text">{{ $blogstores->{'title_' . app()->getLocale()} }}
+                        </p>
+                        <p class="mt-[15px] base-text font-semibold multiline-ellipsis" style="max-width: 400px;">
+                            {{ $blogstores->{'description_' . app()->getLocale()} }}
+                        </p>
                         <div class="flex items-end justify-between mt-10">
                             <p class="small-text">6 июля 2022</p>
                             <a href="{{ route('blog.show', $blogstores->id) }}">
@@ -118,4 +120,31 @@
                 больше</button>
         </div>
     </div>
+
+    <script>
+        const items = document.querySelectorAll('.item');
+        const loadMoreBtn = document.getElementById('loadMoreBtn');
+
+        let visibleCount = 4;
+
+        function updateItemsDisplay() {
+            items.forEach((item, index) => {
+                if (index < visibleCount) {
+                    item.style.display = 'flex';
+                } else {
+                    item.style.display = 'none';
+                }
+            });
+        }
+        loadMoreBtn.addEventListener('click', () => {
+            visibleCount += 4;
+            updateItemsDisplay();
+
+
+            if (visibleCount >= items.length) {
+                loadMoreBtn.style.display = 'none';
+            }
+        });
+        updateItemsDisplay();
+    </script>
 @endsection

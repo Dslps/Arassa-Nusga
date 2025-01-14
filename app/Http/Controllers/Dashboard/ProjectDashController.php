@@ -63,7 +63,7 @@ class ProjectDashController extends Controller
             'title_tm' => 'nullable|string|max:30',
             'description_tm' => 'nullable|string|max:200',
             'additional_tm' => 'required|string|max:200',
-            'image' => 'nullable|image|mimes:jpeg,png,jpg,gif|max:2048',
+            'image' => 'nullable|image|mimes:jpeg,png,jpg,gif|max:5000',
         ]);
 
         // Сохранение изображения
@@ -73,7 +73,7 @@ class ProjectDashController extends Controller
 
         ProjectStore::create($validated);
 
-        return redirect()->back()->with('success', 'Принцип успешно добавлен!');
+        return redirect()->back()->with('success', 'Проект успешно добавлен!');
     }
 
     public function projectUpdate(Request $request, $id)
@@ -90,7 +90,8 @@ class ProjectDashController extends Controller
             'title_tm' => 'nullable|string|max:50',
             'description_tm' => 'nullable|string|max:200',
             'additional_tm' => 'nullable|string',
-            'image' => 'nullable|image|mimes:jpeg,png,jpg,gif|max:2048',
+            'image' => 'nullable|image|mimes:jpeg,png,jpg,gif|max:5000',
+            
         ]);
 
         if ($request->hasFile('image')) {
@@ -98,6 +99,12 @@ class ProjectDashController extends Controller
                 Storage::disk('public')->delete($projectstore->photos);
             }
             $validated['photos'] = $request->file('image')->store('project', 'public');
+            $request->validate([
+                'photos.*' => 'file|mimes:jpeg,png,jpg,gif|max:5120',
+            ], [
+                'photos.*.max' => 'Размер файла не должен превышать 5 МБ.',
+                'photos.*.mimes' => 'Допускаются только изображения форматов: jpeg, png, jpg, gif.'
+            ]);
         }
 
         $projectstore->update($validated);

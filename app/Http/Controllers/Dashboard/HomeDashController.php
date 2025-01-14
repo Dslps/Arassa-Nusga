@@ -186,18 +186,13 @@ public function updateService(Request $request, $id)
     public function storeAboutUs(Request $request)
     {
         $validatedData = $request->validate([
-            // Валидация названий на разных языках
             'title_ru' => 'required|string|max:255',
             'title_en' => 'nullable|string|max:255',
             'title_tm' => 'nullable|string|max:255',
-
-            // Валидация описаний на разных языках
             'description_ru' => 'nullable|string',
             'description_en' => 'nullable|string',
             'description_tm' => 'nullable|string',
-
-            // Валидация изображения
-            'image' => 'nullable|image|max:5000', // Максимальный размер 5MB
+            'image' => 'nullable|image|max:5000', 
         ]);
 
         $aboutUs = new AboutUsHome();
@@ -218,26 +213,18 @@ public function updateService(Request $request, $id)
         return redirect()->route('home-dash.index')->with('success', 'Информация успешно добавлена!');
     }
 
-    /**
-     * Обновление информации "О нас" на трёх языках.
-     */
     public function updateAboutUs(Request $request, $id)
     {
         $aboutUs = AboutUsHome::findOrFail($id);
 
         $validatedData = $request->validate([
-            // Валидация названий на разных языках
             'title_ru' => 'required|string|max:255',
             'title_en' => 'nullable|string|max:255',
             'title_tm' => 'nullable|string|max:255',
-
-            // Валидация описаний на разных языках
             'description_ru' => 'nullable|string',
             'description_en' => 'nullable|string',
             'description_tm' => 'nullable|string',
-
-            // Валидация изображения
-            'image' => 'nullable|image|max:5000', // Максимальный размер 5MB
+            'image' => 'nullable|image|max:5000',
         ]);
 
         $aboutUs->title_ru = $validatedData['title_ru'];
@@ -249,7 +236,6 @@ public function updateService(Request $request, $id)
         $aboutUs->description_tm = $validatedData['description_tm'] ?? null;
 
         if ($request->hasFile('image')) {
-            // Удаление старого изображения, если оно существует
             if ($aboutUs->image_path && AboutUsHome::disk('public')->exists($aboutUs->image_path)) {
                 AboutUsHome::disk('public')->delete($aboutUs->image_path);
             }
@@ -259,22 +245,6 @@ public function updateService(Request $request, $id)
         $aboutUs->save();
 
         return redirect()->route('home-dash.index')->with('success', 'Информация успешно обновлена!');
-    }
-
-    /**
-     * Удаление информации "О нас".
-     */
-    public function destroyAboutUs($id)
-    {
-        $aboutUs = AboutUsHome::findOrFail($id);
-
-        if ($aboutUs->image_path && AboutUsHome::disk('public')->exists($aboutUs->image_path)) {
-            AboutUsHome::disk('public')->delete($aboutUs->image_path);
-        }
-
-        $aboutUs->delete();
-
-        return redirect()->route('home-dash.index')->with('success', 'Информация успешно удалена!');
     }
    }
 

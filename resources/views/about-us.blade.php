@@ -50,7 +50,7 @@
 {{-- Блок с изображением --}}
 <div
     class="animate-left z-[-10] lg:block hidden w-full max-w-[2000px] h-max lg:mt-[-100px] mx-auto overflow-hidden relative">
-    <div class="relative w-full h-[800px] overflow-hidden">
+    <div class="relative w-full h-[600px] overflow-hidden">
         <div class="absolute flex justify-center z-[-10] w-full h-full">
             @if(!empty($aboutUs->photos))
                 @php
@@ -126,7 +126,7 @@
         </div>
         
 
-        <div class="relarive lg:w-max w-full relative lg:ml-auto">
+        <div class="relarive xl:w-max w-full relative lg:ml-auto">
             <div
                 class=" w-full xl:w-[400px] h-max xl:h-[450px] bg-[var(--accent-color)] text-[var(--white-color)] p-10 relative xl:absolute xl:left-[-400px] left-0 3xl:bottom-[30px] bottom-0 z-0">
                 <div class="w-full h-full flex flex-col">
@@ -167,10 +167,9 @@
             </div>
             <div class="w-full xl:max-w-[800px]  mr-0 lg:mr-[100px] text-[var(--template-color)] p-10">
                 @foreach ($companyDescriptions as $description)
-                    <!-- Динамическое отображение заголовка на основе текущего языка -->
+
                     <p class="title-2 max-w-[430px] mb-[40px] font-semibold break-words">{{ $description->{'title_' . app()->getLocale()} }}</p>
             
-                    <!-- Список на основе текущего языка -->
                     <ul class="ml-[10px] base-text space-y-[15px]">
                         @foreach (preg_split('/\r\n|\r|\n/', $description->{'description_' . app()->getLocale()}) as $item)
                             @if (trim($item)) <!-- Игнорируем пустые строки -->

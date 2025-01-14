@@ -1,7 +1,5 @@
 <!DOCTYPE html>
-<html lang="{{ App::getLocale() }}">
-<!-- Остальная верстка -->
-
+<html lang="tm">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -15,7 +13,7 @@
     <header class="header w-full max-w-[2000px] mx-auto lg:h-[15vh] h-[140px] z-10">
         <nav class="w-full flex h-full small-text">
             <div class="lg:w-[800px] bg-[var(--accent-color)] h-full flex items-center px-[30px] lg:px-[60px] 2xl:px-[100px] w-full">
-                <div class="">
+                <div class=" lg:hidden block">
                     <!-- Кнопка для открытия хедера -->
                     <button id="toggle-header" class="text-white">
                         <i style="font-size: 25px;" class="fa-solid fa-bars"></i>
@@ -28,11 +26,17 @@
                 </a>
 
                 <div class="flex text-[var(--white-color)] gap-[5px] ml-auto">
-                    <p class=" font-semibold"><a href="{{ url('/lang/ru') }}">Rus</a></p>
+                    <p class="font-semibold">
+                        <a href="{{ route('lang.switch', 'ru') }}">Rus</a>
+                    </p>
                     <span>/</span>
-                    <p class=" font-semibold"><a href="{{ url('/lang/tm') }}">Tm</a></p>
+                    <p class="font-semibold">
+                        <a href="{{ route('lang.switch', 'tm') }}">Tm</a>
+                    </p>
                     <span>/</span>
-                    <p class=" font-semibold"><a href="{{ url('/lang/en') }}">Eng</a></p>
+                    <p class="font-semibold">
+                        <a href="{{ route('lang.switch', 'en') }}">Eng</a>
+                    </p>
                 </div>
                 
                 
@@ -100,7 +104,7 @@
             <button id="close-header" class="text-white absolute top-[70px] left-[100px]">
                 <i class="text-[25px] fa-solid fa-xmark"></i></button>
             <div class="flex">
-                <div class="flex ">
+                <div class="flex flex-col ">
                     <p><a href="#">Главная</a></p>
                     <p><a href="#">Услуги</a></p>
                     <p><a href="#">О нас</a></p>

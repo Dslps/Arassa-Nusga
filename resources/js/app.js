@@ -139,23 +139,6 @@ document.addEventListener("DOMContentLoaded", function () {
     });
 });
 // ---------------------------------------------------------------------
-// появление слайдера на домашней странице
-// document.addEventListener("DOMContentLoaded", function () {
-//     gsap.registerPlugin(ScrollTrigger);
-//     gsap.from(".carousel-item", {
-//         x: "-100%",           
-//         opacity: 0,           
-//         duration: 1.5,        
-//         ease: "power2.out",    
-//         scrollTrigger: {
-//             trigger: ".carousel-item", 
-//             start: "top 80%",        
-//             toggleActions: "play none none none",
-//         }
-//     });
-// });
-
-// ---------------------------------------------------------------------
 // нижний блок управления слайдером на домашней странице
 document.addEventListener("DOMContentLoaded", function () {
     gsap.registerPlugin(ScrollTrigger);
@@ -370,64 +353,8 @@ closeButton.addEventListener('click', () => {
 });
 // ---------------------------------------------------------------------
 // Кнопка показа дополнительных проектов
-    document.addEventListener('DOMContentLoaded', function() {
-        const loadMoreButton = document.getElementById('loadMoreButton');
-        const projectItems = document.querySelectorAll('.project-item');
-        let displayedItems = 6; 
+    
 
-        for (let i = displayedItems; i < projectItems.length; i++) {
-            projectItems[i].classList.add('hidden');
-        }
-
-        loadMoreButton.addEventListener('click', function() {
-            for (let i = displayedItems; i < displayedItems + 3 && i < projectItems.length; i++) {
-                projectItems[i].classList.remove('hidden');
-            }
-
-            displayedItems += 3;
-            if (displayedItems >= projectItems.length) {
-                loadMoreButton.classList.add('hidden');
-            }
-
-            if (displayedItems < projectItems.length) {
-                loadMoreButton.textContent = `Показать еще`;
-            }
-        });
-    });
-// ------------------------------открытие элементов на странице блога--------------------------------------------------
-const items = document.querySelectorAll('.item');
-const loadMoreBtn = document.getElementById('loadMoreBtn');
-
-let visibleCount = 4; 
-function updateItemsDisplay() {
-    items.forEach((item, index) => {
-        if (index < visibleCount) {
-            item.style.display = 'flex';
-        } else {
-            item.style.display = 'none'; 
-        }
-    });
-}
-loadMoreBtn.addEventListener('click', () => {
-    visibleCount += 4; 
-    updateItemsDisplay();
-
- 
-    if (visibleCount >= items.length) {
-        loadMoreBtn.style.display = 'none';
-    }
-});
-updateItemsDisplay();
-// ------------------------
-
-    document.addEventListener('DOMContentLoaded', function () {
-        const toggleButton = document.querySelector('[data-dropdown-toggle="dropdown-user"]');
-        const dropdownMenu = document.getElementById('dropdown-user');
-
-        toggleButton.addEventListener('click', function () {
-            dropdownMenu.classList.toggle('hidden');
-        });
-    });
 
 
 

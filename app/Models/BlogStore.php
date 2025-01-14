@@ -20,5 +20,6 @@ class BlogStore extends Model
         'additional_en',
         'additional_tm',
         'photos',
+        'published_date',
     ];
 }

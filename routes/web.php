@@ -25,23 +25,20 @@ use App\Http\Controllers\Dashboard\ContactDashController;
 use App\Http\Controllers\Dashboard\AntivirusesDashController;
 use App\Http\Controllers\Dashboard\BlogDashController;
 use App\Http\Controllers\Dashboard\WebDashController;
+use Illuminate\Support\Facades\Session;
+use Illuminate\Support\Facades\Log;
 
 Route::get('/settings', function () {return view('settings');})->name('settings');
-Route::get('/lang/{locale}', function ($locale) {
-    $supportedLocales = ['en', 'ru', 'tm'];
-
-    if (in_array($locale, $supportedLocales)) {
-        session(['locale' => $locale]);
-        App::setLocale($locale);
+Route::get('lang/{locale}', function ($locale) {
+    $locales = config('app.locales');
+    if (in_array($locale, $locales)) {
+        Session::put('locale', $locale);
+        Log::info('Locale set to: ' . $locale);
+    } else {
+        Log::info('Invalid locale: ' . $locale);
     }
-
     return redirect()->back();
-});
-
-
-
-
-
+})->name('lang.switch');
 
 Route::get('/', ([HomeController::class, 'index']))->name('home');
 Route::get('/about-us', ([AboutUsController::class, 'index']))->name('about-us');

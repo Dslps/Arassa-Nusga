@@ -236,27 +236,33 @@
                         <div class="grid grid-cols-3 gap-4">
                             <div>
                                 <label for="title_ru" class="block font-semibold">Название (RU)</label>
-                                <input type="text" name="title_ru" id="title_ru" class="border p-2 w-full" required>
+                                <input required type="text" name="title_ru" id="title_ru" class="border p-2 w-full" maxlength="50">
+                                <p class="text-xs text-gray-500 mt-1">50 символов осталось</p>
                             </div>
                             <div>
                                 <label for="title_en" class="block font-semibold">Название (EN)</label>
-                                <input type="text" name="title_en" id="title_en" class="border p-2 w-full">
+                                <input required type="text" name="title_en" id="title_en" class="border p-2 w-full" maxlength="50">
+                                <p class="text-xs text-gray-500 mt-1">50 символов осталось</p>
                             </div>
                             <div>
                                 <label for="title_tm" class="block font-semibold">Название (TM)</label>
-                                <input type="text" name="title_tm" id="title_tm" class="border p-2 w-full">
+                                <input required type="text" name="title_tm" id="title_tm" class="border p-2 w-full" maxlength="50">
+                                <p class="text-xs text-gray-500 mt-1">50 символов осталось</p>
                             </div>
                             <div>
                                 <label for="description_ru" class="block font-semibold">Описание (RU)</label>
-                                <textarea name="description_ru" id="description_ru" class="border p-2 w-full" required></textarea>
+                                <textarea required name="description_ru" id="description_ru" class="border p-2 w-full" maxlength="200"></textarea>
+                                <p class="text-xs text-gray-500 mt-1">200 символов осталось</p>
                             </div>
                             <div>
                                 <label for="description_en" class="block font-semibold">Описание (EN)</label>
-                                <textarea name="description_en" id="description_en" class="border p-2 w-full"></textarea>
+                                <textarea required name="description_en" id="description_en" class="border p-2 w-full" maxlength="200"></textarea>
+                                <p class="text-xs text-gray-500 mt-1">200 символов осталось</p>
                             </div>
                             <div>
                                 <label for="description_tm" class="block font-semibold">Описание (TM)</label>
-                                <textarea name="description_tm" id="description_tm" class="border p-2 w-full"></textarea>
+                                <textarea required name="description_tm" id="description_tm" class="border p-2 w-full" maxlength="200"></textarea>
+                                <p class="text-xs text-gray-500 mt-1">200 символов осталось</p>
                             </div>
                             <div class="col-span-3">
                                 <label for="image" class="block font-semibold">Изображение</label>
@@ -283,28 +289,33 @@
                         <div class="grid grid-cols-3 gap-4">
                             <div>
                                 <label for="edit_title_ru" class="block font-semibold">Название (RU)</label>
-                                <input type="text" name="title_ru" id="edit_title_ru" class="border p-2 w-full"
-                                    required>
+                                <input required type="text" name="title_ru" id="edit_title_ru" class="border p-2 w-full" maxlength="50">
+                                <p class="text-xs text-gray-500 mt-1">50 символов осталось</p>
                             </div>
                             <div>
                                 <label for="edit_title_en" class="block font-semibold">Название (EN)</label>
-                                <input type="text" name="title_en" id="edit_title_en" class="border p-2 w-full">
+                                <input required type="text" name="title_en" id="edit_title_en" class="border p-2 w-full" maxlength="50">
+                                <p class="text-xs text-gray-500 mt-1">50 символов осталось</p>
                             </div>
                             <div>
                                 <label for="edit_title_tm" class="block font-semibold">Название (TM)</label>
-                                <input type="text" name="title_tm" id="edit_title_tm" class="border p-2 w-full">
+                                <input required type="text" name="title_tm" id="edit_title_tm" class="border p-2 w-full" maxlength="50">
+                                <p class="text-xs text-gray-500 mt-1">50 символов осталось</p>
                             </div>
                             <div>
                                 <label for="edit_description_ru" class="block font-semibold">Описание (RU)</label>
-                                <textarea name="description_ru" id="edit_description_ru" class="border p-2 w-full" required></textarea>
+                                <textarea required name="description_ru" id="edit_description_ru" class="border p-2 w-full" maxlength="200"></textarea>
+                                <p class="text-xs text-gray-500 mt-1">200 символов осталось</p>
                             </div>
                             <div>
                                 <label for="edit_description_en" class="block font-semibold">Описание (EN)</label>
-                                <textarea name="description_en" id="edit_description_en" class="border p-2 w-full"></textarea>
+                                <textarea required name="description_en" id="edit_description_en" class="border p-2 w-full" maxlength="200"></textarea>
+                                <p class="text-xs text-gray-500 mt-1">200 символов осталось</p>
                             </div>
                             <div>
                                 <label for="edit_description_tm" class="block font-semibold">Описание (TM)</label>
-                                <textarea name="description_tm" id="edit_description_tm" class="border p-2 w-full"></textarea>
+                                <textarea required name="description_tm" id="edit_description_tm" class="border p-2 w-full" maxlength="200"></textarea>
+                                <p class="text-xs text-gray-500 mt-1">200 символов осталось</p>
                             </div>
                             <div class="col-span-3">
                                 <label for="edit_image" class="block font-semibold">Изображение</label>
@@ -319,6 +330,7 @@
                     </form>
                 </div>
             </div>
+
         </div>
     </div>
     {{-- ------------------------------------- описание компаний----------------------------------------- --}}
@@ -359,7 +371,7 @@
                             </label>
                             <input type="text" id="title_ru" name="title_ru"
                                 value="{{ $companyDescription->title_ru }}"
-                                class="border-2 border-dashed border-gray-300 p-2 w-full rounded" maxlength="255">
+                                class="border-2 border-dashed border-gray-300 p-2 w-full rounded" maxlength="150" placeholder="Максимально количество символов 150" required>
                         </div>
 
                         <!-- Английский -->
@@ -369,7 +381,7 @@
                             </label>
                             <input type="text" id="title_en" name="title_en"
                                 value="{{ $companyDescription->title_en }}"
-                                class="border-2 border-dashed border-gray-300 p-2 w-full rounded" maxlength="255">
+                                class="border-2 border-dashed border-gray-300 p-2 w-full rounded" maxlength="150" placeholder="Максимально количество символов 150" required>
                         </div>
 
                         <!-- Туркменский -->
@@ -379,7 +391,7 @@
                             </label>
                             <input type="text" id="title_tm" name="title_tm"
                                 value="{{ $companyDescription->title_tm }}"
-                                class="border-2 border-dashed border-gray-300 p-2 w-full rounded" maxlength="255">
+                                class="border-2 border-dashed border-gray-300 p-2 w-full rounded" maxlength="150" placeholder="Максимально количество символов 150" required>
                         </div>
                     </div>
                 </div>
@@ -394,7 +406,7 @@
                                 Описание (RU):
                             </label>
                             <textarea id="description_ru" name="description_ru" rows="4"
-                                class="border-2 border-dashed border-gray-300 p-2 w-full rounded">{{ $companyDescription->description_ru }}</textarea>
+                                class="border-2 border-dashed border-gray-300 p-2 w-full rounded" required>{{ $companyDescription->description_ru }}</textarea>
                         </div>
 
                         <!-- Английский -->
@@ -403,7 +415,7 @@
                                 Description (EN):
                             </label>
                             <textarea id="description_en" name="description_en" rows="4"
-                                class="border-2 border-dashed border-gray-300 p-2 w-full rounded">{{ $companyDescription->description_en }}</textarea>
+                                class="border-2 border-dashed border-gray-300 p-2 w-full rounded" required>{{ $companyDescription->description_en }}</textarea>
                         </div>
 
                         <!-- Туркменский -->
@@ -412,7 +424,7 @@
                                 Description (TM):
                             </label>
                             <textarea id="description_tm" name="description_tm" rows="4"
-                                class="border-2 border-dashed border-gray-300 p-2 w-full rounded">{{ $companyDescription->description_tm }}</textarea>
+                                class="border-2 border-dashed border-gray-300 p-2 w-full rounded" required>{{ $companyDescription->description_tm }}</textarea>
                         </div>
                     </div>
                 </div>
@@ -446,7 +458,7 @@
                                         Верхний текст (RU):
                                     </label>
                                     <textarea id="top_text_ru" name="top_text_ru" rows="3"
-                                        class="border-2 border-dashed border-gray-300 p-2 w-full rounded">{{ old('top_text_ru', $achievement->top_text_ru) }}</textarea>
+                                        class="border-2 border-dashed border-gray-300 p-2 w-full rounded" placeholder="Допустимые символы 60" maxlength="60" required>{{ old('top_text_ru', $achievement->top_text_ru) }}</textarea>
                                 </div>
 
                                 <!-- Английский -->
@@ -455,7 +467,7 @@
                                         Top Text (EN):
                                     </label>
                                     <textarea id="top_text_en" name="top_text_en" rows="3"
-                                        class="border-2 border-dashed border-gray-300 p-2 w-full rounded">{{ old('top_text_en', $achievement->top_text_en) }}</textarea>
+                                        class="border-2 border-dashed border-gray-300 p-2 w-full rounded" required placeholder="Допустимые символы 60" maxlength="60">{{ old('top_text_en', $achievement->top_text_en) }}</textarea>
                                 </div>
 
                                 <!-- Туркменский -->
@@ -464,7 +476,7 @@
                                         Top Text (TM):
                                     </label>
                                     <textarea id="top_text_tm" name="top_text_tm" rows="3"
-                                        class="border-2 border-dashed border-gray-300 p-2 w-full rounded">{{ old('top_text_tm', $achievement->top_text_tm) }}</textarea>
+                                        class="border-2 border-dashed border-gray-300 p-2 w-full rounded" required placeholder="Допустимые символы 60" maxlength="60">{{ old('top_text_tm', $achievement->top_text_tm) }}</textarea>
                                 </div>
                             </div>
                         </div>
@@ -480,7 +492,7 @@
                                     </label>
                                     <input type="text" id="title_ru" name="title_ru"
                                         value="{{ old('title_ru', $achievement->title_ru) }}"
-                                        class="border-2 border-dashed border-gray-300 p-2 w-full rounded" maxlength="255">
+                                        class="border-2 border-dashed border-gray-300 p-2 w-full rounded" placeholder="Допустимые символы 100" maxlength="100" required>
                                 </div>
 
                                 <!-- Английский -->
@@ -490,7 +502,7 @@
                                     </label>
                                     <input type="text" id="title_en" name="title_en"
                                         value="{{ old('title_en', $achievement->title_en) }}"
-                                        class="border-2 border-dashed border-gray-300 p-2 w-full rounded" maxlength="255">
+                                        class="border-2 border-dashed border-gray-300 p-2 w-full rounded" placeholder="Допустимые символы 100" maxlength="100" required>
                                 </div>
 
                                 <!-- Туркменский -->
@@ -500,7 +512,7 @@
                                     </label>
                                     <input type="text" id="title_tm" name="title_tm"
                                         value="{{ old('title_tm', $achievement->title_tm) }}"
-                                        class="border-2 border-dashed border-gray-300 p-2 w-full rounded" maxlength="255">
+                                        class="border-2 border-dashed border-gray-300 p-2 w-full rounded" placeholder="Допустимые символы 100" maxlength="100" required>
                                 </div>
                             </div>
                         </div>
@@ -515,7 +527,7 @@
                                         Описание (RU):
                                     </label>
                                     <textarea id="description_ru" name="description_ru" rows="4"
-                                        class="border-2 border-dashed border-gray-300 p-2 w-full rounded">{{ old('description_ru', $achievement->description_ru) }}</textarea>
+                                        class="border-2 border-dashed border-gray-300 p-2 w-full rounded" required placeholder="Допустимые символы 150" maxlength="150">{{ old('description_ru', $achievement->description_ru) }}</textarea>
                                 </div>
 
                                 <!-- Английский -->
@@ -524,7 +536,7 @@
                                         Description (EN):
                                     </label>
                                     <textarea id="description_en" name="description_en" rows="4"
-                                        class="border-2 border-dashed border-gray-300 p-2 w-full rounded">{{ old('description_en', $achievement->description_en) }}</textarea>
+                                        class="border-2 border-dashed border-gray-300 p-2 w-full rounded" required placeholder="Допустимые символы 150" maxlength="150">{{ old('description_en', $achievement->description_en) }}</textarea>
                                 </div>
 
                                 <!-- Туркменский -->
@@ -533,7 +545,7 @@
                                         Description (TM):
                                     </label>
                                     <textarea id="description_tm" name="description_tm" rows="4"
-                                        class="border-2 border-dashed border-gray-300 p-2 w-full rounded">{{ old('description_tm', $achievement->description_tm) }}</textarea>
+                                        class="border-2 border-dashed border-gray-300 p-2 w-full rounded" required placeholder="Допустимые символы 150" maxlength="150">{{ old('description_tm', $achievement->description_tm) }}</textarea>
                                 </div>
                             </div>
                         </div>
@@ -635,31 +647,31 @@
                             <div>
                                 <label for="position_ru" class="block font-semibold">Должность (RU)</label>
                                 <input type="text" id="position_ru" name="position_ru" class="border p-2 w-full"
-                                    required>
+                                    required maxlength="200" placeholder="Допустимое количество символов 200">
                             </div>
                             <div>
                                 <label for="position_en" class="block font-semibold">Position (EN)</label>
-                                <input type="text" id="position_en" name="position_en" class="border p-2 w-full">
+                                <input type="text" id="position_en" name="position_en" class="border p-2 w-full" required maxlength="200" placeholder="Допустимое количество символов 200">
                             </div>
                             <div>
                                 <label for="position_tm" class="block font-semibold">Position (TM)</label>
-                                <input type="text" id="position_tm" name="position_tm" class="border p-2 w-full">
+                                <input type="text" id="position_tm" name="position_tm" class="border p-2 w-full" required maxlength="200" placeholder="Допустимое количество символов 200">
                             </div>
                             <div>
                                 <label for="name_ru" class="block font-semibold">ФИО (RU)</label>
-                                <input type="text" id="name_ru" name="name_ru" class="border p-2 w-full" required>
+                                <input type="text" id="name_ru" name="name_ru" class="border p-2 w-full" required maxlength="200" placeholder="Допустимое количество символов 200">
                             </div>
                             <div>
                                 <label for="name_en" class="block font-semibold">Name (EN)</label>
-                                <input type="text" id="name_en" name="name_en" class="border p-2 w-full">
+                                <input type="text" id="name_en" name="name_en" class="border p-2 w-full" required maxlength="200" placeholder="Допустимое количество символов 200">
                             </div>
                             <div>
                                 <label for="name_tm" class="block font-semibold">Name (TM)</label>
-                                <input type="text" id="name_tm" name="name_tm" class="border p-2 w-full">
+                                <input type="text" id="name_tm" name="name_tm" class="border p-2 w-full" required maxlength="200" placeholder="Допустимое количество символов 200">
                             </div>
                             <div class="col-span-3">
                                 <label for="photo" class="block font-semibold">Фото</label>
-                                <input type="file" id="photo" name="photo" class="border p-2 w-full">
+                                <input type="file" id="photo" name="photo" class="border p-2 w-full" required maxlength="200" placeholder="Допустимое количество символов 200">
                             </div>
                         </div>
                         <div class="flex justify-end mt-4">
@@ -684,34 +696,34 @@
                             <div>
                                 <label for="edit_position_ru" class="block font-semibold">Должность (RU)</label>
                                 <input type="text" id="edit_position_ru" name="position_ru" class="border p-2 w-full"
-                                    required>
+                                    required maxlength="200" placeholder="Допустимое количество символов 200">
                             </div>
-                            <div>
+                            <div> 
                                 <label for="edit_position_en" class="block font-semibold">Position (EN)</label>
                                 <input type="text" id="edit_position_en" name="position_en"
-                                    class="border p-2 w-full">
+                                    class="border p-2 w-full" required maxlength="200" placeholder="Допустимое количество символов 200">
                             </div>
                             <div>
                                 <label for="edit_position_tm" class="block font-semibold">Position (TM)</label>
                                 <input type="text" id="edit_position_tm" name="position_tm"
-                                    class="border p-2 w-full">
+                                    class="border p-2 w-full" required maxlength="200" placeholder="Допустимое количество символов 200">
                             </div>
                             <div>
                                 <label for="edit_name_ru" class="block font-semibold">ФИО (RU)</label>
                                 <input type="text" id="edit_name_ru" name="name_ru" class="border p-2 w-full"
-                                    required>
+                                required maxlength="200" placeholder="Допустимое количество символов 200">
                             </div>
                             <div>
                                 <label for="edit_name_en" class="block font-semibold">Name (EN)</label>
-                                <input type="text" id="edit_name_en" name="name_en" class="border p-2 w-full">
+                                <input type="text" id="edit_name_en" name="name_en" class="border p-2 w-full" required maxlength="200" placeholder="Допустимое количество символов 200">
                             </div>
                             <div>
                                 <label for="edit_name_tm" class="block font-semibold">Name (TM)</label>
-                                <input type="text" id="edit_name_tm" name="name_tm" class="border p-2 w-full">
+                                <input type="text" id="edit_name_tm" name="name_tm" class="border p-2 w-full" required maxlength="200" placeholder="Допустимое количество символов 200">
                             </div>
                             <div class="col-span-3">
                                 <label for="edit_photo" class="block font-semibold">Фото</label>
-                                <input type="file" id="edit_photo" name="photo" class="border p-2 w-full">
+                                <input type="file" id="edit_photo" name="photo" class="border p-2 w-full" required maxlength="200" placeholder="Допустимое количество символов 200">
                             </div>
                         </div>
                         <div class="flex justify-end mt-4">

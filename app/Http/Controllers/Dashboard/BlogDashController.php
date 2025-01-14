@@ -54,26 +54,28 @@ class BlogDashController extends Controller
     public function blogStore(Request $request)
     {
         $validated = $request->validate([
-            'title_ru' => 'required|string|max:30',
+            'title_ru' => 'required|string|max:50',
             'description_ru' => 'required|string|max:200',
             'additional_ru' => 'required|string|max:200',
-            'title_en' => 'nullable|string|max:30',
+            'title_en' => 'nullable|string|max:50',
             'description_en' => 'nullable|string|max:200',
             'additional_en' => 'required|string|max:200',
-            'title_tm' => 'nullable|string|max:30',
+            'title_tm' => 'nullable|string|max:50',
             'description_tm' => 'nullable|string|max:200',
             'additional_tm' => 'required|string|max:200',
-            'image' => 'nullable|image|mimes:jpeg,png,jpg,gif|max:2048',
+            'image' => 'nullable|image|mimes:jpeg,png,jpg,gif|max:5000',
+            'published_date' => 'nullable|date',
         ]);
 
         // Сохранение изображения
         if ($request->hasFile('image')) {
             $validated['photos'] = $request->file('image')->store('blog', 'public');
         }
+        $validated['published_date'] = $request->input('published_date');
 
         BlogStore::create($validated);
 
-        return redirect()->back()->with('success', 'Принцип успешно добавлен!');
+        return redirect()->back()->with('success', 'Блог успешно добавлен!');
     }
 
     public function blogUpdate(Request $request, $id)
@@ -90,7 +92,8 @@ class BlogDashController extends Controller
             'title_tm' => 'nullable|string|max:50',
             'description_tm' => 'nullable|string|max:200',
             'additional_tm' => 'nullable|string',
-            'image' => 'nullable|image|mimes:jpeg,png,jpg,gif|max:2048',
+            'image' => 'nullable|image|mimes:jpeg,png,jpg,gif|max:5000',
+            'published_date' => 'nullable|date',
         ]);
 
         if ($request->hasFile('image')) {

@@ -49,17 +49,15 @@
     {{-- Блок с изображением --}}
     <div
         class="animate-left z-[-10] lg:block hidden w-full max-w-[2000px] h-max lg:mt-[-100px] mx-auto overflow-hidden relative">
-        <div class="relative w-full h-[800px] overflow-hidden">
+        <div class="relative w-full h-[600px] overflow-hidden">
             <div class="absolute flex justify-center z-[-10] w-full h-full">
                 @if (!empty($project->photos))
                     @php
-                        // Проверяем, является ли photos массивом. Если нет, разбиваем строку на массив по запятой.
                         $photos = is_array($project->photos) ? $project->photos : explode(',', $project->photos);
                     @endphp
 
                     @if (count($photos) > 0)
                         @foreach ($photos as $photo)
-                            {{-- Убираем возможные пробелы и экранирование символов --}}
                             @php
                                 $photo = trim($photo, ' "');
                             @endphp
@@ -84,7 +82,7 @@
         </div>
     </div>
     <div class="w-full px-5 lg:px-[60px] 2xl:px-[100px] m-auto mt-[50px]">
-        <div id="projectsContainer" class="flex justify-center gap-[35px] flex-wrap">
+        <div id="projectsContainer" class="flex justify-start gap-[35px] flex-wrap">
 
             @foreach ($projectstore as $projectstores)
                 <div class=" rounded-[10px] overflow-hidden mx-[10px] lg:w-[500px] w-[400px]">
@@ -98,9 +96,13 @@
                         @endif
                         <div
                             class="flex justify-between h-[100px] bg-[var(--light-comment-color)] text-[var(--teamplate color)]">
-                            <div class="p-5">
-                                <p class="projet-size-text">{{ $projectstores->{'title_' . app()->getLocale()} }}</p>
-                                <p class="small-text">{{ $projectstores->{'description_' . app()->getLocale()} }}</p>
+                            <div class="p-5 max-w-[400px]">
+                                <p class="projet-size-text truncate">
+                                    {{ $projectstores->{'title_' . app()->getLocale()} }}
+                                </p>
+                                <p class="small-text truncate">
+                                    {{ $projectstores->{'description_' . app()->getLocale()} }}
+                                </p>
                             </div>
                             <a href="{{ route('project.show', $projectstores->id) }}">
                                 <div
@@ -120,4 +122,31 @@
             </button>
         </div>
     </div>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+        const loadMoreButton = document.getElementById('loadMoreButton');
+        const projectItems = document.querySelectorAll('.project-item');
+        let displayedItems = 6; 
+
+        for (let i = displayedItems; i < projectItems.length; i++) {
+            projectItems[i].classList.add('hidden');
+        }
+
+        loadMoreButton.addEventListener('click', function() {
+            for (let i = displayedItems; i < displayedItems + 3 && i < projectItems.length; i++) {
+                projectItems[i].classList.remove('hidden');
+            }
+
+            displayedItems += 3;
+            if (displayedItems >= projectItems.length) {
+                loadMoreButton.classList.add('hidden');
+            }
+
+            if (displayedItems < projectItems.length) {
+                loadMoreButton.textContent = `Показать еще`;
+            }
+        });
+    });
+    </script>
 @endsection

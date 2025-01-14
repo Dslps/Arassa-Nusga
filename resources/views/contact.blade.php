@@ -13,7 +13,7 @@
             </div>
             <form class="w-full" action="{{ route('contact.submit') }}" method="POST">
                 @csrf <!-- Защита от CSRF -->
-                <p class="title-2 text-white mb-5">Свяжитесь с нами:</p>
+                <p class="title-2 text-white mb-5 lg:block hidden">Свяжитесь с нами:</p>
                 
                 <div class="relative z-0 w-full mb-5 group">
                     <input type="text" name="username" id="username"

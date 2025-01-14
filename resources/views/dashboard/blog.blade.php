@@ -49,7 +49,7 @@
                             </label>
                             <input type="text" id="title_ru" name="title_ru"
                                 value="{{ old('title_ru', $blog->title_ru) }}"
-                                class="border-2 border-dashed border-gray-300 p-2 w-full rounded" maxlength="255">
+                                class="border-2 border-dashed border-gray-300 p-2 w-full rounded" >
                         </div>
 
                         <!-- Английский -->
@@ -59,7 +59,7 @@
                             </label>
                             <input type="text" id="title_en" name="title_en"
                                 value="{{ old('title_en', $blog->title_en) }}"
-                                class="border-2 border-dashed border-gray-300 p-2 w-full rounded" maxlength="255">
+                                class="border-2 border-dashed border-gray-300 p-2 w-full rounded" >
                         </div>
 
                         <!-- Туркменский -->
@@ -69,7 +69,7 @@
                             </label>
                             <input type="text" id="title_tm" name="title_tm"
                                 value="{{ old('title_tm', $blog->title_tm) }}"
-                                class="border-2 border-dashed border-gray-300 p-2 w-full rounded" maxlength="255">
+                                class="border-2 border-dashed border-gray-300 p-2 w-full rounded" >
                         </div>
                     </div>
                 </div>
@@ -118,7 +118,7 @@
                             <label for="additional_ru" class="block text-gray-700 font-medium mb-1">
                                 Доп. информация (RU):
                             </label>
-                            <textarea id="additional_ru" name="additional_ru" rows="4"
+                            <textarea id="additional_ru" name="additional_ru" 
                                 class="border-2 border-dashed border-gray-300 p-2 w-full rounded">
                         {{ old('additional_ru', $blog->additional_ru) }}
                     </textarea>
@@ -129,7 +129,7 @@
                             <label for="additional_en" class="block text-gray-700 font-medium mb-1">
                                 Additional info (EN):
                             </label>
-                            <textarea id="additional_en" name="additional_en" rows="4"
+                            <textarea id="additional_en" name="additional_en" 
                                 class="border-2 border-dashed border-gray-300 p-2 w-full rounded">
                         {{ old('additional_en', $blog->additional_en) }}
                     </textarea>
@@ -140,7 +140,7 @@
                             <label for="additional_tm" class="block text-gray-700 font-medium mb-1">
                                 Additional info (TM):
                             </label>
-                            <textarea id="additional_tm" name="additional_tm" rows="4"
+                            <textarea id="additional_tm" name="additional_tm" 
                                 class="border-2 border-dashed border-gray-300 p-2 w-full rounded">
                         {{ old('additional_tm', $blog->additional_tm) }}
                     </textarea>
@@ -178,6 +178,7 @@
                         <th class="border border-gray-300 px-4 py-2">Изображение</th>
                         <th class="border border-gray-300 px-4 py-2">Титульный текст</th>
                         <th class="border border-gray-300 px-4 py-2">Описание</th>
+                        <th class="border border-gray-300 px-4 py-2">Дата</th>
                         <th class="border border-gray-300 px-4 py-2">Редактировать</th>
                         <th class="border border-gray-300 px-4 py-2">Удалить</th>
                     </tr>
@@ -197,7 +198,8 @@
                                 @endif
                             </td>
                             <td class="border border-gray-300 px-4 py-2">{{ $blogstores->title_ru }}</td>
-                            <td class="border border-gray-300 px-4 py-2">{{ $blogstores->description_ru }}</td>
+                            <td class="border border-gray-300 px-4 py-2 max-w-[200px] overflow-x-auto">{{ $blogstores->description_ru }}</td>
+                            <td class="border border-gray-300 px-4 py-2 max-w-[200px] overflow-x-auto">{{ $blogstores->published_date }}</td>
                             <td class="border border-gray-300 px-4 py-2">
                                 <div class="flex justify-center">
                                     <button class="text-orange-500 rounded"
@@ -268,17 +270,22 @@
                             </div>
                             <div>
                                 <label for="additional_ru" class="block font-semibold">Дополнительно (RU)</label>
-                                <textarea name="additional_ru" id="additional_ru" class="border p-2 w-full" ></textarea>
+                                <textarea name="additional_ru" id="additional_ru" class="border p-2 w-full" required></textarea>
                             </div>
                             <div>
                                 <label for="additional_en" class="block font-semibold">Дополнительно (EN)</label>
-                                <textarea name="additional_en" id="additional_en" class="border p-2 w-full" ></textarea>
+                                <textarea name="additional_en" id="additional_en" class="border p-2 w-full" required></textarea>
                             </div>
                             <div>
                                 <label for="additional_tm" class="block font-semibold">Дополнительно (TM)</label>
-                                <textarea name="additional_tm" id="additional_tm" class="border p-2 w-full" ></textarea>
+                                <textarea name="additional_tm" id="additional_tm" class="border p-2 w-full" required></textarea>
                             </div>
 
+                            <div>
+                                <label for="published_date" class="block font-semibold">Дата публикации</label>
+                                <input type="date" name="published_date" id="published_date" class="border p-2 w-full">
+                            </div>
+                            
                             <div class="col-span-3">
                                 <label for="image" class="block font-semibold">Изображение</label>
                                 <input type="file" name="image" id="image" class="border p-2 w-full">
@@ -349,7 +356,11 @@
                                 <label for="edit_additional_tm" class="block font-semibold">Дополнительно (TM)</label>
                                 <textarea name="additional_tm" id="edit_additional_tm" class="border p-2 w-full" required></textarea>
                             </div>
-
+                            <div>
+                                <label for="edit_published_date" class="block font-semibold">Дата публикации</label>
+                                <input type="date" name="published_date" id="edit_published_date" class="border p-2 w-full">
+                            </div>
+                            
                             <div class="col-span-3">
                                 <label for="edit_image" class="block font-semibold">Изображение</label>
                                 <input type="file" name="image" id="edit_image" class="border p-2 w-full">
@@ -374,25 +385,20 @@
 
 
     <script>
-        // Открыть модалку для добавления
         function openAddModal() {
             document.getElementById('addModal').classList.remove('hidden');
         }
 
-        // Закрыть модалку для добавления
         function closeAddModal() {
             document.getElementById('addModal').classList.add('hidden');
         }
 
-        // Открыть модалку для редактирования
         function openEditModal(principle) {
             document.getElementById('editModal').classList.remove('hidden');
 
             const editForm = document.getElementById('editForm');
-            // Формируем action
             editForm.action = `{{ route('dashboard.blog.update', ':id') }}`.replace(':id', principle.id);
 
-            // Заполняем поля
             document.getElementById('edit_title_ru').value = principle.title_ru || '';
             document.getElementById('edit_title_en').value = principle.title_en || '';
             document.getElementById('edit_title_tm').value = principle.title_tm || '';
@@ -401,13 +407,13 @@
             document.getElementById('edit_description_en').value = principle.description_en || '';
             document.getElementById('edit_description_tm').value = principle.description_tm || '';
 
-            // Новые поля additional
             document.getElementById('edit_additional_ru').value = principle.additional_ru || '';
             document.getElementById('edit_additional_en').value = principle.additional_en || '';
             document.getElementById('edit_additional_tm').value = principle.additional_tm || '';
+            document.getElementById('edit_published_date').value = principle.published_date || '';
+
         }
 
-        // Закрыть модалку для редактирования
         function closeEditModal() {
             document.getElementById('editModal').classList.add('hidden');
         }

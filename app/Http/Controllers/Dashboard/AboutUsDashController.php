@@ -14,9 +14,6 @@ use App\Models\Certificate;
 
 class AboutUsDashController extends Controller
 {
-    /**
-     * Отображение страницы "О нас" и "Принципы работы"
-     */
     public function index()
     {
         $principles = Principle::all();
@@ -26,7 +23,6 @@ class AboutUsDashController extends Controller
         $employees = Employee::all();
         $certificates = Certificate::paginate(20); 
 
-        // Передача всех переменных в представление
         return view('dashboard.about-us', compact('principles', 'aboutUs', 'companyDescription', 'achievement', 'employees', 'certificates'));
     }
 
@@ -43,7 +39,6 @@ class AboutUsDashController extends Controller
             $aboutUs->photos = implode(',', $photosPaths);
         }
 
-        // Обновление текстовых полей
         $fields = [
             'title_ru', 'title_en', 'title_tm',
             'description_ru', 'description_en', 'description_tm',
@@ -61,9 +56,6 @@ class AboutUsDashController extends Controller
         return redirect()->back()->with('success', 'Данные успешно обновлены!');
     }
 
-    /**
-     * Создание нового принципа работы
-     */
     public function principlesStore(Request $request)
     {
         $validated = $request->validate([
@@ -73,10 +65,9 @@ class AboutUsDashController extends Controller
             'description_en' => 'nullable|string|max:200',
             'title_tm' => 'nullable|string|max:30',
             'description_tm' => 'nullable|string|max:200',
-            'image' => 'nullable|image|mimes:jpeg,png,jpg,gif|max:2048',
+            'image' => 'nullable|image|mimes:jpeg,png,jpg,gif|max:5000',
         ]);
 
-        // Сохранение изображения
         if ($request->hasFile('image')) {
             $validated['photos'] = $request->file('image')->store('principles', 'public');
         }
@@ -91,13 +82,13 @@ class AboutUsDashController extends Controller
         $principle = Principle::findOrFail($id);
 
         $validated = $request->validate([
-            'title_ru' => 'required|string|max:30',
+            'title_ru' => 'required|string|max:50',
             'description_ru' => 'required|string|max:200',
-            'title_en' => 'nullable|string|max:30',
+            'title_en' => 'nullable|string|max:50',
             'description_en' => 'nullable|string|max:200',
-            'title_tm' => 'nullable|string|max:30',
+            'title_tm' => 'nullable|string|max:50',
             'description_tm' => 'nullable|string|max:200',
-            'image' => 'nullable|image|mimes:jpeg,png,jpg,gif|max:2048',
+            'image' => 'nullable|image|mimes:jpeg,png,jpg,gif|max:5000',
         ]);
 
         if ($request->hasFile('image')) {
@@ -139,10 +130,9 @@ class AboutUsDashController extends Controller
             'description_en' => 'nullable|string',
             'description_tm' => 'nullable|string',
             'photos' => 'nullable|array',
-            'photos.*' => 'image|mimes:jpeg,png,jpg,gif|max:2048',
+            'photos.*' => 'image|mimes:jpeg,png,jpg,gif|max:5000',
         ]);
 
-        // Загрузка фотографий
         $photoPaths = [];
         if ($request->hasFile('photos')) {
             foreach ($request->file('photos') as $photo) {
@@ -150,7 +140,6 @@ class AboutUsDashController extends Controller
             }
         }
 
-        // Сохранение данных
         CompanyDescription::create([
             'title_ru' => $validated['title_ru'],
             'title_en' => $validated['title_en'] ?? null,
@@ -164,9 +153,6 @@ class AboutUsDashController extends Controller
         return redirect()->back()->with('success', 'Описание компании успешно добавлено!');
     }
 
-    /**
-     * Обновление описания компании
-     */
     public function companyDescriptionsUpdate(Request $request)
 {
     $validated = $request->validate([
@@ -177,13 +163,11 @@ class AboutUsDashController extends Controller
         'description_en' => 'nullable|string',
         'description_tm' => 'nullable|string',
         'photos' => 'nullable|array',
-        'photos.*' => 'image|mimes:jpeg,png,jpg,gif|max:7000',
+        'photos.*' => 'image|mimes:jpeg,png,jpg,gif|max:5000',
     ]);
 
-    // Получение первой записи или создание новой
     $companyDescription = CompanyDescription::first() ?? new CompanyDescription();
 
-    // Удаление старых фотографий, если загружаются новые
     if ($request->hasFile('photos')) {
         if ($companyDescription->photos) {
             foreach (explode(',', $companyDescription->photos) as $photo) {
@@ -191,17 +175,14 @@ class AboutUsDashController extends Controller
             }
         }
 
-        // Загрузка новых фотографий
         $photoPaths = [];
         foreach ($request->file('photos') as $photo) {
             $photoPaths[] = $photo->store('company_photos', 'public');
         }
 
-        // Обновление фотографий
         $companyDescription->photos = implode(',', $photoPaths);
     }
 
-    // Обновление текстовых данных
     $companyDescription->fill([
         'title_ru' => $validated['title_ru'],
         'title_en' => $validated['title_en'] ?? null,
@@ -214,16 +195,10 @@ class AboutUsDashController extends Controller
     return redirect()->back()->with('success', 'Описание компании успешно обновлено!');
 }
 
-    
-
-    /**
-     * Удаление описания компании
-     */
     public function companyDescriptionsDestroy($id)
     {
         $companyDescription = CompanyDescription::findOrFail($id);
 
-        // Удаление фотографий
         if ($companyDescription->photos) {
             foreach (explode(',', $companyDescription->photos) as $photo) {
                 Storage::disk('public')->delete($photo);
@@ -301,16 +276,14 @@ public function employeesStore(Request $request)
             'name_ru' => 'required|string|max:255',
             'name_en' => 'nullable|string|max:255',
             'name_tm' => 'nullable|string|max:255',
-            'photo' => 'nullable|image|mimes:jpeg,png,jpg,gif|max:2048',
+            'photo' => 'nullable|image|mimes:jpeg,png,jpg,gif|max:5000',
         ]);
 
-        // Сохранение изображения
         $photoPath = null;
         if ($request->hasFile('photo')) {
             $photoPath = $request->file('photo')->store('employee_photos', 'public');
         }
 
-        // Сохранение данных в базу
         Employee::create([
             'position_ru' => $validated['position_ru'],
             'position_en' => $validated['position_en'] ?? null,
@@ -324,9 +297,6 @@ public function employeesStore(Request $request)
         return redirect()->back()->with('success', 'Сотрудник успешно добавлен!');
     }
 
-    /**
-     * Обновление данных сотрудника.
-     */
     public function employeesUpdate(Request $request, $id)
     {
         $validated = $request->validate([
@@ -336,12 +306,11 @@ public function employeesStore(Request $request)
             'name_ru' => 'required|string|max:255',
             'name_en' => 'nullable|string|max:255',
             'name_tm' => 'nullable|string|max:255',
-            'photo' => 'nullable|image|mimes:jpeg,png,jpg,gif|max:2048',
+            'photo' => 'nullable|image|mimes:jpeg,png,jpg,gif|max:5000',
         ]);
 
         $employee = Employee::findOrFail($id);
 
-        // Обновление изображения
         if ($request->hasFile('photo')) {
             if ($employee->photo) {
                 Storage::disk('public')->delete($employee->photo);
@@ -349,25 +318,19 @@ public function employeesStore(Request $request)
             $validated['photo'] = $request->file('photo')->store('employee_photos', 'public');
         }
 
-        // Обновление данных
         $employee->update($validated);
 
         return redirect()->back()->with('success', 'Данные сотрудника успешно обновлены!');
     }
 
-    /**
-     * Удаление сотрудника.
-     */
     public function employeesDestroy($id)
     {
         $employee = Employee::findOrFail($id);
 
-        // Удаление изображения
         if ($employee->photo) {
             Storage::disk('public')->delete($employee->photo);
         }
 
-        // Удаление записи
         $employee->delete();
 
         return redirect()->back()->with('success', 'Сотрудник успешно удалён!');
@@ -376,66 +339,49 @@ public function employeesStore(Request $request)
 
     public function saveCertificates(Request $request)
     {
-        // Максимальное количество сертификатов (опционально)
         $maxCertificates = 50;
-
-        // Текущее количество сертификатов
         $currentCount = Certificate::count();
-
-        // Количество новых сертификатов
         $newCount = count($request->file('photos', []));
 
         if(($currentCount + $newCount) > $maxCertificates){
             return redirect()->back()->withErrors(['photos' => 'Максимальное количество сертификатов составляет '.$maxCertificates.'.']);
         }
 
-        // Валидация входящих данных
         $request->validate([
-            'photos.*' => 'required|image|mimes:jpeg,png,jpg,gif,svg|max:2048', // Максимальный размер 2MB на файл
+            'photos.*' => 'required|image|mimes:jpeg,png,jpg,gif,svg|max:5000', 
         ], [
             'photos.*.required' => 'Каждый файл обязателен для загрузки.',
             'photos.*.image' => 'Загружаемый файл должен быть изображением.',
             'photos.*.mimes' => 'Поддерживаемые форматы: jpeg, png, jpg, gif, svg.',
-            'photos.*.max' => 'Максимальный размер файла: 2MB.',
+            'photos.*.max' => 'Максимальный размер файла: 5000.',
         ]);
 
-        // Проверяем, есть ли загруженные файлы
         if($request->hasFile('photos')){
             foreach($request->file('photos') as $photo){
-                // Генерируем уникальное имя файла
-                $filename = time().'_'.$photo->getClientOriginalName();
 
-                // Сохраняем файл в папку 'public/certificates'
+                $filename = time().'_'.$photo->getClientOriginalName();
                 $path = $photo->storeAs('certificates', $filename, 'public');
 
-                // Сохраняем путь к файлу в базе данных
                 Certificate::create([
                     'photo_path' => $path,
                 ]);
             }
         }
 
-        // Можно добавить сообщение об успешной загрузке
         return redirect()->back()->with('success', 'Сертификаты успешно загружены!');
     }
 
-    /**
-     * Обработка удаления сертификата.
-     */
     public function deleteCertificate($id)
     {
-        // Найти сертификат по ID
+
         $certificate = Certificate::findOrFail($id);
 
-        // Удалить файл из хранилища
         if(Storage::disk('public')->exists($certificate->photo_path)){
             Storage::disk('public')->delete($certificate->photo_path);
         }
 
-        // Удалить запись из базы данных
         $certificate->delete();
 
-        // Вернуться обратно с сообщением об успехе
         return redirect()->back()->with('success', 'Сертификат успешно удален!');
     }
 }

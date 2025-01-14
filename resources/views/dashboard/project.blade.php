@@ -2,7 +2,7 @@
 @section('content')
 
 <div class="p-4 sm:ml-64">
-    <div class="p-4 border-2 border-gray-200 border-dashed rounded-lg dark:border-gray-700 mt-14">
+    <div class="p-4 border-2 border-gray-100 border-dashed rounded-lg dark:border-gray-700 mt-14">
 
         @if (session('success'))
             <div class="bg-green-100 text-green-800 p-2 mb-4 rounded">
@@ -31,8 +31,8 @@
                     Загрузить фотографии
                 </label>
 
-                <input type="file" id="photos" name="photos[]" accept="image/*" multiple
-                    class="border-2 border-dashed border-gray-300 p-4 w-full rounded">
+
+                <input type="file" id="photos" name="photos[]" accept="image/*" multiple class="border-2 border-dashed border-gray-300 p-4 w-full rounded">
 
                 {{-- Контейнер для предпросмотра новых файлов --}}
                 <div id="preview-container" class="flex flex-wrap gap-2 mt-4"></div>
@@ -158,7 +158,7 @@
 {{-- --------------------------------------------------------------------- --}}
 
 <div class="p-4 sm:ml-64">
-    <div class="p-4 border-2 border-gray-200 border-dashed rounded-lg dark:border-gray-700">
+    <div class="p-4 border-2 border-gray-100 border-dashed rounded-lg dark:border-gray-700">
         <p class="text-lg font-semibold mb-4">Добавление постов</p>
 
         <!-- Сообщение об успехе -->
@@ -238,33 +238,33 @@
                     <div class="grid grid-cols-3 gap-4">
                         <div>
                             <label for="title_ru" class="block font-semibold">Название (RU)</label>
-                            <input type="text" name="title_ru" id="title_ru" class="border p-2 w-full" required maxlength="50">
-                            <p class="text-xs text-gray-500 mt-1">50 символов осталось</p>
+                            <input type="text" name="title_ru" id="title_ru" class="border p-2 w-full" required maxlength="25">
+                            <p class="text-xs text-gray-500 mt-1">25 символов осталось</p>
                         </div>
                         <div>
                             <label for="title_en" class="block font-semibold">Название (EN)</label>
-                            <input type="text" name="title_en" id="title_en" class="border p-2 w-full" required maxlength="50">
-                            <p class="text-xs text-gray-500 mt-1">50 символов осталось</p>
+                            <input type="text" name="title_en" id="title_en" class="border p-2 w-full" required maxlength="25">
+                            <p class="text-xs text-gray-500 mt-1">25 символов осталось</p>
                         </div>
                         <div>
                             <label for="title_tm" class="block font-semibold">Название (TM)</label>
-                            <input type="text" name="title_tm" id="title_tm" class="border p-2 w-full" required maxlength="50">
-                            <p class="text-xs text-gray-500 mt-1">50 символов осталось</p>
+                            <input type="text" name="title_tm" id="title_tm" class="border p-2 w-full" required maxlength="25">
+                            <p class="text-xs text-gray-500 mt-1">25 символов осталось</p>
                         </div>
                         <div>
                             <label for="description_ru" class="block font-semibold">Описание (RU)</label>
-                            <textarea name="description_ru" id="description_ru" class="border p-2 w-full" required maxlength="200"></textarea>
-                            <p class="text-xs text-gray-500 mt-1">200 символов осталось</p>
+                            <textarea name="description_ru" id="description_ru" class="border p-2 w-full" required maxlength="50"></textarea>
+                            <p class="text-xs text-gray-500 mt-1">50 символов осталось</p>
                         </div>
                         <div>
                             <label for="description_en" class="block font-semibold">Описание (EN)</label>
-                            <textarea name="description_en" id="description_en" class="border p-2 w-full" required maxlength="200"></textarea>
-                            <p class="text-xs text-gray-500 mt-1">200 символов осталось</p>
+                            <textarea name="description_en" id="description_en" class="border p-2 w-full" required maxlength="50"></textarea>
+                            <p class="text-xs text-gray-500 mt-1">50 символов осталось</p>
                         </div>
                         <div>
                             <label for="description_tm" class="block font-semibold">Описание (TM)</label>
-                            <textarea name="description_tm" id="description_tm" class="border p-2 w-full" required maxlength="200"></textarea>
-                            <p class="text-xs text-gray-500 mt-1">200 символов осталось</p>
+                            <textarea name="description_tm" id="description_tm" class="border p-2 w-full" required maxlength="50"></textarea>
+                            <p class="text-xs text-gray-500 mt-1">50 символов осталось</p>
                         </div>
                         <div>
                             <label for="additional_ru" class="block font-semibold">Дополнительно (RU)</label>
@@ -282,6 +282,7 @@
                         <div class="col-span-3">
                             <label for="image" class="block font-semibold">Изображение</label>
                             <input type="file" name="image" id="image" class="border p-2 w-full">
+                            <p class="text-xs text-gray-500 mt-1">Размер не должен превышать 5 мегабайт</p>
                         </div>
                     </div>
                     <div class="flex justify-end mt-4">
@@ -309,33 +310,33 @@
                     <div class="grid grid-cols-3 gap-4">
                         <div>
                             <label for="edit_title_ru" class="block font-semibold">Название (RU)</label>
-                            <input type="text" name="title_ru" id="edit_title_ru" class="border p-2 w-full" required maxlength="50">
-                            <p class="text-xs text-gray-500 mt-1">50 символов осталось</p>
+                            <input type="text" name="title_ru" id="edit_title_ru" class="border p-2 w-full" required maxlength="25">
+                            <p class="text-xs text-gray-500 mt-1">25 символов осталось</p>
                         </div>
                         <div>
                             <label for="edit_title_en" class="block font-semibold">Название (EN)</label>
-                            <input type="text" name="title_en" id="edit_title_en" class="border p-2 w-full" required maxlength="50">
-                            <p class="text-xs text-gray-500 mt-1">50 символов осталось</p>
+                            <input type="text" name="title_en" id="edit_title_en" class="border p-2 w-full" required maxlength="25">
+                            <p class="text-xs text-gray-500 mt-1">25 символов осталось</p>
                         </div>
                         <div>
                             <label for="edit_title_tm" class="block font-semibold">Название (TM)</label>
-                            <input type="text" name="title_tm" id="edit_title_tm" class="border p-2 w-full" required maxlength="50">
-                            <p class="text-xs text-gray-500 mt-1">50 символов осталось</p>
+                            <input type="text" name="title_tm" id="edit_title_tm" class="border p-2 w-full" required maxlength="25">
+                            <p class="text-xs text-gray-500 mt-1">25 символов осталось</p>
                         </div>
                         <div>
                             <label for="edit_description_ru" class="block font-semibold">Описание (RU)</label>
-                            <textarea name="description_ru" id="edit_description_ru" class="border p-2 w-full" required maxlength="200"></textarea>
-                            <p class="text-xs text-gray-500 mt-1">200 символов осталось</p>
+                            <textarea name="description_ru" id="edit_description_ru" class="border p-2 w-full" required maxlength="50"></textarea>
+                            <p class="text-xs text-gray-500 mt-1">50 символов осталось</p>
                         </div>
                         <div>
                             <label for="edit_description_en" class="block font-semibold">Описание (EN)</label>
-                            <textarea name="description_en" id="edit_description_en" class="border p-2 w-full" required maxlength="200"></textarea>
-                            <p class="text-xs text-gray-500 mt-1">200 символов осталось</p>
+                            <textarea name="description_en" id="edit_description_en" class="border p-2 w-full" required maxlength="50"></textarea>
+                            <p class="text-xs text-gray-500 mt-1">50 символов осталось</p>
                         </div>
                         <div>
                             <label for="edit_description_tm" class="block font-semibold">Описание (TM)</label>
-                            <textarea name="description_tm" id="edit_description_tm" class="border p-2 w-full" required maxlength="200"></textarea>
-                            <p class="text-xs text-gray-500 mt-1">200 символов осталось</p>
+                            <textarea name="description_tm" id="edit_description_tm" class="border p-2 w-full" required maxlength="50"></textarea>
+                            <p class="text-xs text-gray-500 mt-1">50 символов осталось</p>
                         </div>
                         <div>
                             <label for="edit_additional_ru" class="block font-semibold">Дополнительно (RU)</label>
@@ -353,6 +354,7 @@
                         <div class="col-span-3">
                             <label for="edit_image" class="block font-semibold">Изображение</label>
                             <input type="file" name="image" id="edit_image" class="border p-2 w-full">
+                            <p class="text-xs text-gray-500 mt-1">Размер не должен превышать 5 мегабайт</p>
                         </div>
                     </div>
                     <div class="flex justify-end mt-4">
