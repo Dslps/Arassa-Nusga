@@ -15,6 +15,7 @@ class MobileDevelopment extends Model
         'categories_ru',
         'categories_en',
         'categories_tm',
+        'price'
     ];
 
     protected $casts = [

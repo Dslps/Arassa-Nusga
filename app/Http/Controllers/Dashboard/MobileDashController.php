@@ -32,7 +32,7 @@ class MobileDashController extends Controller
             'categories_en' => 'required|string',
             'categories_tm' => 'required|string',
 
-            'photos.*' => 'nullable|image|mimes:jpeg,png,jpg,gif,svg|max:2048',
+            'photos.*' => 'nullable|image|mimes:jpeg,png,jpg,gif,svg|max:5000',
         ]);
 
         $mobile = Mobile::first() ?? new Mobile();
@@ -72,9 +72,9 @@ class MobileDashController extends Controller
     {
         // Валидация данных
         $validatedData = $request->validate([
-            'title_ru' => 'required|string|max:40',
-            'title_en' => 'nullable|string|max:40',
-            'title_tm' => 'nullable|string|max:40',
+            'title_ru' => 'required|string|max:60',
+            'title_en' => 'nullable|string|max:60',
+            'title_tm' => 'nullable|string|max:60',
             'categories_ru' => 'nullable|array',
             'categories_en' => 'nullable|array',
             'categories_tm' => 'nullable|array',
@@ -103,9 +103,9 @@ class MobileDashController extends Controller
     {
         // Валидация данных
         $validated = $request->validate([
-            'title_ru' => 'required|string|max:40',
-            'title_en' => 'nullable|string|max:40',
-            'title_tm' => 'nullable|string|max:40',
+            'title_ru' => 'required|string|max:60',
+            'title_en' => 'nullable|string|max:60',
+            'title_tm' => 'nullable|string|max:60',
             'categories_ru' => 'array',
             'categories_en' => 'array',
             'categories_tm' => 'array',
@@ -138,9 +138,9 @@ class MobileDashController extends Controller
     public function storeImplementationStage(Request $request)
     {
         $validatedData = $request->validate([
-            'title_ru' => 'required|string|max:40',
-            'title_en' => 'nullable|string|max:40',
-            'title_tm' => 'nullable|string|max:40',
+            'title_ru' => 'required|string|max:60',
+            'title_en' => 'nullable|string|max:60',
+            'title_tm' => 'nullable|string|max:60',
             'categories_ru' => 'nullable|array',
             'categories_en' => 'nullable|array',
             'categories_tm' => 'nullable|array',
@@ -170,9 +170,9 @@ class MobileDashController extends Controller
     {
         // Валидация данных
         $validatedData = $request->validate([
-            'title_ru' => 'required|string|max:40',
-            'title_en' => 'nullable|string|max:40',
-            'title_tm' => 'nullable|string|max:40',
+            'title_ru' => 'required|string|max:60',
+            'title_en' => 'nullable|string|max:60',
+            'title_tm' => 'nullable|string|max:60',
             'categories_ru' => 'nullable|array',
             'categories_en' => 'nullable|array',
             'categories_tm' => 'nullable|array',

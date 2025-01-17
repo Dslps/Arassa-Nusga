@@ -7,6 +7,7 @@ use App\Models\Antiviruses;
 use App\Models\Kaspersky;
 use App\Models\Eset;
 use App\Models\Pro32;
+use App\Models\WebService;
 
 use Illuminate\Http\Request;
 
@@ -33,7 +34,7 @@ class AntivirusesDashController extends Controller
             'categories_en' => 'required|string',
             'categories_tm' => 'required|string',
 
-            'photos.*' => 'nullable|image|mimes:jpeg,png,jpg,gif,svg|max:2048',
+            'photos.*' => 'nullable|image|mimes:jpeg,png,jpg,gif,svg|max:5000',
         ]);
 
         if (is_array($validatedData['title_ru'] ?? null) ||
@@ -80,9 +81,9 @@ class AntivirusesDashController extends Controller
     {
         // Валидация данных
         $validatedData = $request->validate([
-            'title_ru' => 'required|string|max:40',
-            'title_en' => 'nullable|string|max:40',
-            'title_tm' => 'nullable|string|max:40',
+            'title_ru' => 'required|string|max:60',
+            'title_en' => 'nullable|string|max:60',
+            'title_tm' => 'nullable|string|max:60',
             'categories_ru' => 'nullable|array',
             'categories_en' => 'nullable|array',
             'categories_tm' => 'nullable|array',
@@ -94,7 +95,7 @@ class AntivirusesDashController extends Controller
             // Обновление существующей коробки
             $kaspersky = Kaspersky::findOrFail($request->input('id'));
             $kaspersky->update($validatedData);
-            $message = 'Коробка успешно обновлена!';
+            $message = 'Касперский успешно обновлен!';
         } else {
             // Получение минимально доступного ID
             $existingIds = Kaspersky::pluck('id')->toArray();
@@ -113,7 +114,7 @@ class AntivirusesDashController extends Controller
 
             // Создание новой коробки
             Kaspersky::create($validatedData);
-            $message = 'Коробка успешно добавлена!';
+            $message = 'Касперский успешно добавлен!';
         }
 
         return redirect()->route('antiviruses.index')->with('success', $message);
@@ -130,9 +131,9 @@ class AntivirusesDashController extends Controller
     {
         // Валидация данных
         $validatedData = $request->validate([
-            'title_ru' => 'required|string|max:40',
-            'title_en' => 'nullable|string|max:40',
-            'title_tm' => 'nullable|string|max:40',
+            'title_ru' => 'required|string|max:60',
+            'title_en' => 'nullable|string|max:60',
+            'title_tm' => 'nullable|string|max:60',
             'categories_ru' => 'nullable|array',
             'categories_en' => 'nullable|array',
             'categories_tm' => 'nullable|array',
@@ -159,9 +160,9 @@ class AntivirusesDashController extends Controller
     {
         // Валидация данных
         $validatedData = $request->validate([
-            'title_ru' => 'required|string|max:40',
-            'title_en' => 'nullable|string|max:40',
-            'title_tm' => 'nullable|string|max:40',
+            'title_ru' => 'required|string|max:60',
+            'title_en' => 'nullable|string|max:60',
+            'title_tm' => 'nullable|string|max:60',
             'categories_ru' => 'nullable|array',
             'categories_en' => 'nullable|array',
             'categories_tm' => 'nullable|array',
@@ -173,7 +174,7 @@ class AntivirusesDashController extends Controller
             // Обновление существующей коробки
             $eset = Eset::findOrFail($request->input('id'));
             $eset->update($validatedData);
-            $message = 'Коробка успешно обновлена!';
+            $message = 'Eset успешно обновлен!';
         } else {
             // Получение минимально доступного ID
             $existingIds = Eset::pluck('id')->toArray();
@@ -192,7 +193,7 @@ class AntivirusesDashController extends Controller
 
             // Создание новой коробки
             Eset::create($validatedData);
-            $message = 'Коробка успешно добавлена!';
+            $message = 'Eset успешно добавлен!';
         }
 
         return redirect()->route('antiviruses.index')->with('success', $message);
@@ -209,9 +210,9 @@ class AntivirusesDashController extends Controller
     {
         // Валидация данных
         $validatedData = $request->validate([
-            'title_ru' => 'required|string|max:40',
-            'title_en' => 'nullable|string|max:40',
-            'title_tm' => 'nullable|string|max:40',
+            'title_ru' => 'required|string|max:60',
+            'title_en' => 'nullable|string|max:60',
+            'title_tm' => 'nullable|string|max:60',
             'categories_ru' => 'nullable|array',
             'categories_en' => 'nullable|array',
             'categories_tm' => 'nullable|array',
@@ -239,9 +240,9 @@ class AntivirusesDashController extends Controller
     {
         // Валидация данных
         $validatedData = $request->validate([
-            'title_ru' => 'required|string|max:40',
-            'title_en' => 'nullable|string|max:40',
-            'title_tm' => 'nullable|string|max:40',
+            'title_ru' => 'required|string|max:60',
+            'title_en' => 'nullable|string|max:60',
+            'title_tm' => 'nullable|string|max:60',
             'categories_ru' => 'nullable|array',
             'categories_en' => 'nullable|array',
             'categories_tm' => 'nullable|array',
@@ -253,7 +254,7 @@ class AntivirusesDashController extends Controller
             // Обновление существующей коробки
             $pro32 = Pro32::findOrFail($request->input('id'));
             $pro32->update($validatedData);
-            $message = 'Коробка успешно обновлена!';
+            $message = 'Pro32 успешно обновлен!';
         } else {
             // Получение минимально доступного ID
             $existingIds = Pro32::pluck('id')->toArray();
@@ -272,7 +273,7 @@ class AntivirusesDashController extends Controller
 
             // Создание новой коробки
             Pro32::create($validatedData);
-            $message = 'Коробка успешно добавлена!';
+            $message = 'Pro32 успешно добавлен!';
         }
 
         return redirect()->route('antiviruses.index')->with('success', $message);
@@ -289,9 +290,9 @@ class AntivirusesDashController extends Controller
     {
         // Валидация данных
         $validatedData = $request->validate([
-            'title_ru' => 'required|string|max:40',
-            'title_en' => 'nullable|string|max:40',
-            'title_tm' => 'nullable|string|max:40',
+            'title_ru' => 'required|string|max:60',
+            'title_en' => 'nullable|string|max:60',
+            'title_tm' => 'nullable|string|max:60',
             'categories_ru' => 'nullable|array',
             'categories_en' => 'nullable|array',
             'categories_tm' => 'nullable|array',

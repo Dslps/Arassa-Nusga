@@ -82,10 +82,9 @@
         </div>
     </div>
     <div class="w-full px-5 lg:px-[60px] 2xl:px-[100px] m-auto mt-[50px]">
-        <div id="projectsContainer" class="flex justify-start gap-[35px] flex-wrap">
-
+        <div id="projectsContainer" class="grid gap-[35px] grid-cols-1 lg:grid-cols-2 2xl:grid-cols-3">
             @foreach ($projectstore as $projectstores)
-                <div class=" rounded-[10px] overflow-hidden mx-[10px] lg:w-[500px] w-[400px]">
+                <div class="rounded-[10px] overflow-hidden mx-[10px]  w-full">
                     <div class="flex flex-col">
                         @if ($projectstores->photos)
                             <div class="overflow-hidden w-full h-[350px]">
@@ -94,9 +93,8 @@
                         @else
                             Нет изображения
                         @endif
-                        <div
-                            class="flex justify-between h-[100px] bg-[var(--light-comment-color)] text-[var(--teamplate color)]">
-                            <div class="p-5 max-w-[400px]">
+                        <div class="flex justify-between h-[100px] bg-[var(--light-comment-color)] text-[var(--teamplate color)]">
+                            <div class="p-5 w-full lg:max-w-[70%]">
                                 <p class="projet-size-text truncate">
                                     {{ $projectstores->{'title_' . app()->getLocale()} }}
                                 </p>
@@ -105,8 +103,7 @@
                                 </p>
                             </div>
                             <a href="{{ route('project.show', $projectstores->id) }}">
-                                <div
-                                    class="hover-button w-[100px] text-[var(--white-color)] h-[100px] flex justify-center items-center bg-[var(--button-color)]">
+                                <div class="hover-button w-[100px] text-[var(--white-color)] h-[100px] flex justify-center items-center bg-[var(--button-color)]">
                                     <i class="fa-solid fa-arrow-right"></i>
                                 </div>
                             </a>
@@ -114,7 +111,6 @@
                     </div>
                 </div>
             @endforeach
-
         </div>
         <div class="flex justify-center mt-5">
             <button id="loadMoreButton" class="bg-[var(--accent-color)] small-text text-white p-5 rounded-[5px]">

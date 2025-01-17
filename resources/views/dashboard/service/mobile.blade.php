@@ -10,7 +10,7 @@
                 </div>
             @endif
 
-            <p class="base-text mb-10">Битрикс 24</p>
+            <p class="base-text mb-10">Мобильная разработка</p>
             <p class="base-text mb-10">Стартовый текст и изображение:</p>
 
             <form action="{{ route('mobile.store') }}" method="POST" enctype="multipart/form-data">
@@ -24,7 +24,7 @@
 
                     <input type="file" id="photos" name="photos[]" accept="image/*" multiple
                         class="border-2 border-dashed border-gray-300 p-4 w-full rounded">
-
+                        <p class="text-xs text-gray-500 mt-1" id="categoriesEn3Count">Размер изображений не должен превышать 5 мб</p>
                     {{-- Контейнер для предпросмотра новых файлов --}}
                     <div id="preview-container" class="flex flex-wrap gap-2 mt-4"></div>
 
@@ -53,7 +53,7 @@
                             </label>
                             <input type="text" id="title_ru" name="title_ru"
                                 value="{{ old('title_ru', $mobile->title_ru) }}"
-                                class="border-2 border-dashed border-gray-300 p-2 w-full rounded" maxlength="255">
+                                class="border-2 border-dashed border-gray-300 p-2 w-full rounded" maxlength="50" placeholder="Допустимое количество символов 50">
                             @error('title_ru')
                                 <span class="text-red-500 text-sm">{{ $message }}</span>
                             @enderror
@@ -66,7 +66,7 @@
                             </label>
                             <input type="text" id="title_en" name="title_en"
                                 value="{{ old('title_en', $mobile->title_en) }}"
-                                class="border-2 border-dashed border-gray-300 p-2 w-full rounded" maxlength="255">
+                                class="border-2 border-dashed border-gray-300 p-2 w-full rounded" maxlength="50" placeholder="Допустимое количество символов 50">
                             @error('title_en')
                                 <span class="text-red-500 text-sm">{{ $message }}</span>
                             @enderror
@@ -79,7 +79,7 @@
                             </label>
                             <input type="text" id="title_tm" name="title_tm"
                                 value="{{ old('title_tm', $mobile->title_tm) }}"
-                                class="border-2 border-dashed border-gray-300 p-2 w-full rounded" maxlength="255">
+                                class="border-2 border-dashed border-gray-300 p-2 w-full rounded" maxlength="50" placeholder="Допустимое количество символов 50">
                             @error('title_tm')
                                 <span class="text-red-500 text-sm">{{ $message }}</span>
                             @enderror
@@ -97,7 +97,7 @@
                                 Описание (RU):
                             </label>
                             <textarea id="categories_ru" name="categories_ru" rows="4"
-                                class="border-2 border-dashed border-gray-300 p-2 w-full rounded">{{ old('categories_ru', $mobile->categories_ru) }}</textarea>
+                                class="border-2 border-dashed border-gray-300 p-2 w-full rounded" maxlength="200" placeholder="Допустимое количество символов 200">{{ old('categories_ru', $mobile->categories_ru) }}</textarea>
                             @error('categories_ru')
                                 <span class="text-red-500 text-sm">{{ $message }}</span>
                             @enderror
@@ -109,7 +109,9 @@
                                 Description (EN):
                             </label>
                             <textarea id="categories_en" name="categories_en" rows="4"
-                                class="border-2 border-dashed border-gray-300 p-2 w-full rounded">{{ old('categories_en', $mobile->categories_en) }}</textarea>
+                                class="border-2 border-dashed border-gray-300 p-2 w-full rounded" maxlength="200" placeholder="Допустимое количество символов 200">
+                                {{ old('categories_en', $mobile->categories_en) }}
+                            </textarea>
                             @error('categories_en')
                                 <span class="text-red-500 text-sm">{{ $message }}</span>
                             @enderror
@@ -121,7 +123,7 @@
                                 Description (TM):
                             </label>
                             <textarea id="categories_tm" name="categories_tm" rows="4"
-                                class="border-2 border-dashed border-gray-300 p-2 w-full rounded">{{ old('categories_tm', $mobile->categories_tm) }}</textarea>
+                                class="border-2 border-dashed border-gray-300 p-2 w-full rounded" maxlength="200" placeholder="Допустимое количество символов 200">{{ old('categories_tm', $mobile->categories_tm) }}</textarea>
                             @error('categories_tm')
                                 <span class="text-red-500 text-sm">{{ $message }}</span>
                             @enderror
@@ -160,13 +162,13 @@
 
                             <!-- Остальные данные -->
                             <td class="border border-gray-300 px-4 py-2">{{ $service->title_ru }}</td>
-                            <td class="border border-gray-300 px-4 py-2 max-w-[600px] overflow-x-auto whitespace-nowrap">
+                            <td class="border border-gray-300 px-4 py-2 max-w-[150px] overflow-x-auto whitespace-nowrap">
                                 {{ implode(', ', $service->categories_ru ?? []) }}
                             </td>
-                            <td class="border border-gray-300 px-4 py-2 max-w-[600px] overflow-x-auto whitespace-nowrap">
+                            <td class="border border-gray-300 px-4 py-2 max-w-[150px] overflow-x-auto whitespace-nowrap">
                                 {{ implode(', ', $service->categories_en ?? []) }}
                             </td>
-                            <td class="border border-gray-300 px-4 py-2 max-w-[600px] overflow-x-auto whitespace-nowrap">
+                            <td class="border border-gray-300 px-4 py-2 max-w-[150px] overflow-x-auto whitespace-nowrap">
                                 {{ implode(', ', $service->categories_tm ?? []) }}
                             </td>
                             <td class="border border-gray-300 px-4 py-2 text-center">
@@ -231,21 +233,21 @@
                             <div class="w-1/3">
                                 <label for="serviceTitleRu" class="block mb-1 font-semibold">Название (RU):</label>
                                 <input type="text" id="serviceTitleRu" name="title_ru"
-                                    placeholder="Введите название (RU)" class="border p-2 w-full" maxlength="40"
+                                    placeholder="Введите название (RU)" class="border p-2 w-full" maxlength="60"
                                     required>
-                                <p class="text-xs text-gray-500 mt-1">40 символов осталось</p>
+                                <p class="text-xs text-gray-500 mt-1">60 символов осталось</p>
                             </div>
                             <div class="w-1/3">
                                 <label for="serviceTitleEn" class="block mb-1 font-semibold">Название (EN):</label>
                                 <input type="text" id="serviceTitleEn" name="title_en"
-                                    placeholder="Введите название (EN)" class="border p-2 w-full" maxlength="40">
-                                <p class="text-xs text-gray-500 mt-1">40 символов осталось</p>
+                                    placeholder="Введите название (EN)" class="border p-2 w-full" maxlength="60">
+                                <p class="text-xs text-gray-500 mt-1">60 символов осталось</p>
                             </div>
                             <div class="w-1/3">
                                 <label for="serviceTitleTm" class="block mb-1 font-semibold">Название (TM):</label>
                                 <input type="text" id="serviceTitleTm" name="title_tm"
-                                    placeholder="Введите название (TM)" class="border p-2 w-full" maxlength="40">
-                                <p class="text-xs text-gray-500 mt-1">40 символов осталось</p>
+                                    placeholder="Введите название (TM)" class="border p-2 w-full" maxlength="60">
+                                <p class="text-xs text-gray-500 mt-1">60 символов осталось</p>
                             </div>
                         </div>
 
@@ -255,60 +257,60 @@
                                 <div class="w-1/3">
                                     <label class="block mb-1 font-semibold">Категория 1 (RU):</label>
                                     <input type="text" name="categories_ru[]" placeholder="Введите категорию 1 (RU)"
-                                        class="border p-2 w-full" maxlength="30">
-                                    <p class="text-xs text-gray-500 mt-1">30 символов осталось</p>
+                                        class="border p-2 w-full" maxlength="80">
+                                    <p class="text-xs text-gray-500 mt-1">80 символов осталось</p>
                                 </div>
                                 <div class="w-1/3">
                                     <label class="block mb-1 font-semibold">Категория 1 (EN):</label>
                                     <input type="text" name="categories_en[]" placeholder="Введите категорию 1 (EN)"
                                         class="border p-2 w-full" maxlength="30">
-                                    <p class="text-xs text-gray-500 mt-1">30 символов осталось</p>
+                                    <p class="text-xs text-gray-500 mt-1">80 символов осталось</p>
                                 </div>
                                 <div class="w-1/3">
                                     <label class="block mb-1 font-semibold">Категория 1 (TM):</label>
                                     <input type="text" name="categories_tm[]" placeholder="Введите категорию 1 (TM)"
-                                        class="border p-2 w-full" maxlength="30">
-                                    <p class="text-xs text-gray-500 mt-1">30 символов осталось</p>
+                                        class="border p-2 w-full" maxlength="80">
+                                    <p class="text-xs text-gray-500 mt-1">80 символов осталось</p>
                                 </div>
                             </div>
                             <div class="flex gap-4 mb-2">
                                 <div class="w-1/3">
                                     <label class="block mb-1 font-semibold">Категория 2 (RU):</label>
                                     <input type="text" name="categories_ru[]" placeholder="Введите категорию 2 (RU)"
-                                        class="border p-2 w-full" maxlength="30">
-                                    <p class="text-xs text-gray-500 mt-1">30 символов осталось</p>
+                                        class="border p-2 w-full" maxlength="80">
+                                    <p class="text-xs text-gray-500 mt-1">80 символов осталось</p>
                                 </div>
                                 <div class="w-1/3">
                                     <label class="block mb-1 font-semibold">Категория 2 (EN):</label>
                                     <input type="text" name="categories_en[]" placeholder="Введите категорию 2 (EN)"
-                                        class="border p-2 w-full" maxlength="30">
-                                    <p class="text-xs text-gray-500 mt-1">30 символов осталось</p>
+                                        class="border p-2 w-full" maxlength="80">
+                                    <p class="text-xs text-gray-500 mt-1">80 символов осталось</p>
                                 </div>
                                 <div class="w-1/3">
                                     <label class="block mb-1 font-semibold">Категория 2 (TM):</label>
                                     <input type="text" name="categories_tm[]" placeholder="Введите категорию 2 (TM)"
-                                        class="border p-2 w-full" maxlength="30">
-                                    <p class="text-xs text-gray-500 mt-1">30 символов осталось</p>
+                                        class="border p-2 w-full" maxlength="80">
+                                    <p class="text-xs text-gray-500 mt-1">80 символов осталось</p>
                                 </div>
                             </div>
                             <div class="flex gap-4">
                                 <div class="w-1/3">
                                     <label class="block mb-1 font-semibold">Категория 3 (RU):</label>
                                     <input type="text" name="categories_ru[]" placeholder="Введите категорию 3 (RU)"
-                                        class="border p-2 w-full" maxlength="30">
-                                    <p class="text-xs text-gray-500 mt-1">30 символов осталось</p>
+                                        class="border p-2 w-full" maxlength="80">
+                                    <p class="text-xs text-gray-500 mt-1">80 символов осталось</p>
                                 </div>
                                 <div class="w-1/3">
                                     <label class="block mb-1 font-semibold">Категория 3 (EN):</label>
                                     <input type="text" name="categories_en[]" placeholder="Введите категорию 3 (EN)"
-                                        class="border p-2 w-full" maxlength="30">
-                                    <p class="text-xs text-gray-500 mt-1">30 символов осталось</p>
+                                        class="border p-2 w-full" maxlength="80">
+                                    <p class="text-xs text-gray-500 mt-1">80 символов осталось</p>
                                 </div>
                                 <div class="w-1/3">
                                     <label class="block mb-1 font-semibold">Категория 3 (TM):</label>
                                     <input type="text" name="categories_tm[]" placeholder="Введите категорию 3 (TM)"
-                                        class="border p-2 w-full" maxlength="30">
-                                    <p class="text-xs text-gray-500 mt-1">30 символов осталось</p>
+                                        class="border p-2 w-full" maxlength="80">
+                                    <p class="text-xs text-gray-500 mt-1">80 символов осталось</p>
                                 </div>
                             </div>
                         </div>
@@ -356,13 +358,13 @@
                     <tr>
                         <td class="border border-gray-300 px-4 py-2 text-center">{{ $index + 1 }}</td>
                         <td class="border border-gray-300 px-4 py-2">{{ $stage->title_ru }}</td>
-                        <td class="border border-gray-300 px-4 py-2 max-w-[600px] overflow-x-auto whitespace-nowrap">
+                        <td class="border border-gray-300 px-4 py-2 max-w-[150px] overflow-x-auto whitespace-nowrap">
                             {{ implode(', ', $stage->categories_ru ?? []) }}
                         </td>
-                        <td class="border border-gray-300 px-4 py-2 max-w-[600px] overflow-x-auto whitespace-nowrap">
+                        <td class="border border-gray-300 px-4 py-2 max-w-[150px] overflow-x-auto whitespace-nowrap">
                             {{ implode(', ', $stage->categories_en ?? []) }}
                         </td>
-                        <td class="border border-gray-300 px-4 py-2 max-w-[600px] overflow-x-auto whitespace-nowrap">
+                        <td class="border border-gray-300 px-4 py-2 max-w-[150px] overflow-x-auto whitespace-nowrap">
                             {{ implode(', ', $stage->categories_tm ?? []) }}
                         </td>
                         <td class="border border-gray-300 px-4 py-2 text-center">
@@ -421,23 +423,23 @@
                             <label for="implementationStageTitleRu" class="block mb-1 font-semibold">Название
                                 (RU):</label>
                             <input type="text" id="implementationStageTitleRu" name="title_ru"
-                                placeholder="Введите название (RU)" class="border p-2 w-full" maxlength="40"
+                                placeholder="Введите название (RU)" class="border p-2 w-full" maxlength="60"
                                 required>
-                            <p class="text-xs text-gray-500 mt-1">40 символов осталось</p>
+                            <p class="text-xs text-gray-500 mt-1">60 символов осталось</p>
                         </div>
                         <div class="w-1/3">
                             <label for="implementationStageTitleEn" class="block mb-1 font-semibold">Название
                                 (EN):</label>
                             <input type="text" id="implementationStageTitleEn" name="title_en"
-                                placeholder="Введите название (EN)" class="border p-2 w-full" maxlength="40">
-                            <p class="text-xs text-gray-500 mt-1">40 символов осталось</p>
+                                placeholder="Введите название (EN)" class="border p-2 w-full" maxlength="60">
+                            <p class="text-xs text-gray-500 mt-1">60 символов осталось</p>
                         </div>
                         <div class="w-1/3">
                             <label for="implementationStageTitleTm" class="block mb-1 font-semibold">Название
                                 (TM):</label>
                             <input type="text" id="implementationStageTitleTm" name="title_tm"
-                                placeholder="Введите название (TM)" class="border p-2 w-full" maxlength="40">
-                            <p class="text-xs text-gray-500 mt-1">40 символов осталось</p>
+                                placeholder="Введите название (TM)" class="border p-2 w-full" maxlength="60">
+                            <p class="text-xs text-gray-500 mt-1">60 символов осталось</p>
                         </div>
                     </div>
 
@@ -448,20 +450,20 @@
                             <div class="w-1/3">
                                 <label class="block mb-1 font-semibold">Категория 1 (RU):</label>
                                 <input type="text" name="categories_ru[]" placeholder="Введите категорию 1 (RU)"
-                                    class="border p-2 w-full" maxlength="30">
-                                <p class="text-xs text-gray-500 mt-1">30 символов осталось</p>
+                                    class="border p-2 w-full" maxlength="80">
+                                <p class="text-xs text-gray-500 mt-1">80 символов осталось</p>
                             </div>
                             <div class="w-1/3">
                                 <label class="block mb-1 font-semibold">Категория 1 (EN):</label>
                                 <input type="text" name="categories_en[]" placeholder="Введите категорию 1 (EN)"
-                                    class="border p-2 w-full" maxlength="30">
-                                <p class="text-xs text-gray-500 mt-1">30 символов осталось</p>
+                                    class="border p-2 w-full" maxlength="80">
+                                <p class="text-xs text-gray-500 mt-1">80 символов осталось</p>
                             </div>
                             <div class="w-1/3">
                                 <label class="block mb-1 font-semibold">Категория 1 (TM):</label>
                                 <input type="text" name="categories_tm[]" placeholder="Введите категорию 1 (TM)"
-                                    class="border p-2 w-full" maxlength="30">
-                                <p class="text-xs text-gray-500 mt-1">30 символов осталось</p>
+                                    class="border p-2 w-full" maxlength="80">
+                                <p class="text-xs text-gray-500 mt-1">80 символов осталось</p>
                             </div>
                         </div>
 
@@ -470,20 +472,20 @@
                             <div class="w-1/3">
                                 <label class="block mb-1 font-semibold">Категория 2 (RU):</label>
                                 <input type="text" name="categories_ru[]" placeholder="Введите категорию 2 (RU)"
-                                    class="border p-2 w-full" maxlength="30">
-                                <p class="text-xs text-gray-500 mt-1">30 символов осталось</p>
+                                    class="border p-2 w-full" maxlength="80">
+                                <p class="text-xs text-gray-500 mt-1">80 символов осталось</p>
                             </div>
                             <div class="w-1/3">
                                 <label class="block mb-1 font-semibold">Категория 2 (EN):</label>
                                 <input type="text" name="categories_en[]" placeholder="Введите категорию 2 (EN)"
-                                    class="border p-2 w-full" maxlength="30">
-                                <p class="text-xs text-gray-500 mt-1">30 символов осталось</p>
+                                    class="border p-2 w-full" maxlength="80">
+                                <p class="text-xs text-gray-500 mt-1">80 символов осталось</p>
                             </div>
                             <div class="w-1/3">
                                 <label class="block mb-1 font-semibold">Категория 2 (TM):</label>
                                 <input type="text" name="categories_tm[]" placeholder="Введите категорию 2 (TM)"
-                                    class="border p-2 w-full" maxlength="30">
-                                <p class="text-xs text-gray-500 mt-1">30 символов осталось</p>
+                                    class="border p-2 w-full" maxlength="80">
+                                <p class="text-xs text-gray-500 mt-1">80 символов осталось</p>
                             </div>
                         </div>
 
@@ -492,20 +494,20 @@
                             <div class="w-1/3">
                                 <label class="block mb-1 font-semibold">Категория 3 (RU):</label>
                                 <input type="text" name="categories_ru[]" placeholder="Введите категорию 3 (RU)"
-                                    class="border p-2 w-full" maxlength="30">
-                                <p class="text-xs text-gray-500 mt-1">30 символов осталось</p>
+                                    class="border p-2 w-full" maxlength="80">
+                                <p class="text-xs text-gray-500 mt-1">80 символов осталось</p>
                             </div>
                             <div class="w-1/3">
                                 <label class="block mb-1 font-semibold">Категория 3 (EN):</label>
                                 <input type="text" name="categories_en[]" placeholder="Введите категорию 3 (EN)"
-                                    class="border p-2 w-full" maxlength="30">
-                                <p class="text-xs text-gray-500 mt-1">30 символов осталось</p>
+                                    class="border p-2 w-full" maxlength="80">
+                                <p class="text-xs text-gray-500 mt-1">80 символов осталось</p>
                             </div>
                             <div class="w-1/3">
                                 <label class="block mb-1 font-semibold">Категория 3 (TM):</label>
                                 <input type="text" name="categories_tm[]" placeholder="Введите категорию 3 (TM)"
-                                    class="border p-2 w-full" maxlength="30">
-                                <p class="text-xs text-gray-500 mt-1">30 символов осталось</p>
+                                    class="border p-2 w-full" maxlength="80">
+                                <p class="text-xs text-gray-500 mt-1">80 символов осталось</p>
                             </div>
                         </div>
                     </div>

@@ -54,16 +54,22 @@ Route::get('/login', [AuthController::class, 'showLoginForm'])->name('login');
 Route::post('/login', [AuthController::class, 'login']);
 Route::post('/logout', [AuthController::class, 'logout'])->name('logout');
 
-Route::get('/admin', [DashboardController::class, 'index'])->middleware('auth')->name('dashboard');
+
+
 
 // защита роутов от внешних входов
 
+Route::get('/admin', [DashboardController::class, 'index'])->middleware('auth')->name('dashboard');
+Route::post('/admin/save-partners', [DashboardController::class, 'savePartners'])->middleware('auth')->name('partners.savePartner');
+Route::delete('/admin/delete-partners/{id}', [DashboardController::class, 'deletePartner'])->middleware('auth')->name('partners.deletePartner');
+
+Route::middleware(['auth'])->group(function () {
 // домашняя страница админ панели
 Route::get('home-dashes', [HomeDashController::class, 'index'])->name('home-dash.index');
-Route::get('home-dashes/create', [HomeDashController::class, 'create'])->name('home-dash.create');
+// Route::get('home-dashes/create', [HomeDashController::class, 'create'])->name('home-dash.create');
 Route::post('home-dashes', [HomeDashController::class, 'store'])->name('home-dash.store');
-Route::get('home-dashes/{id}', [HomeDashController::class, 'show'])->name('home-dash.show');
-Route::get('home-dashes/{id}/edit', [HomeDashController::class, 'edit'])->name('home-dash.edit');
+// Route::get('home-dashes/{id}', [HomeDashController::class, 'show'])->name('home-dash.show');
+// Route::get('home-dashes/{id}/edit', [HomeDashController::class, 'edit'])->name('home-dash.edit');
 Route::put('home-dashes/{id}', [HomeDashController::class, 'update'])->name('home-dash.update');
 Route::delete('home-dashes/{id}', [HomeDashController::class, 'destroy'])->name('home-dash.destroy');
 
@@ -73,7 +79,7 @@ Route::delete('/services/{id}', [HomeDashController::class, 'destroyService'])->
 
 Route::post('/about-us', [HomeDashController::class, 'storeAboutUs'])->name('about-us.store');
 Route::put('/about-us/{id}', [HomeDashController::class, 'updateAboutUs'])->name('about-us.update');
-Route::delete('/about-us/{id}', [HomeDashController::class, 'destroyAboutUs'])->name('about-us.destroy');
+// Route::delete('/about-us/{id}', [HomeDashController::class, 'destroyAboutUs'])->name('about-us.destroy');
 
 // о нас страница админ панели
 Route::get('about-us-dashes', [AboutUsDashController::class, 'index'])->name('about-us-dash');
@@ -88,9 +94,9 @@ Route::put('/dashboard/company-descriptions', [AboutUsDashController::class, 'co
 Route::put('/company-descriptions/{id}', [AboutUsDashController::class, 'companyDescriptionsUpdate'])->name('dashboard.company-descriptions.update');
 Route::delete('/company-descriptions/{id}', [AboutUsDashController::class, 'companyDescriptionsDestroy'])->name('dashboard.company-descriptions.destroy');
 
+Route::get('/dashboard/achievements', [AboutUsDashController::class, 'index'])->name('dashboard.achievements.index');
 Route::post('/dashboard/achievements', [AboutUsDashController::class, 'achievementsStore'])->name('dashboard.achievements.store');
 Route::post('/dashboard/achievements', [AboutUsDashController::class, 'achievementsStoreOrUpdate'])->name('dashboard.achievements.store_or_update');
-Route::get('/dashboard/achievements', [AboutUsDashController::class, 'index'])->name('dashboard.achievements.index');
 
 Route::post('/dashboard/employees', [AboutUsDashController::class, 'employeesStore'])->name('dashboard.employees.store');
 Route::put('/dashboard/employees/{id}', [AboutUsDashController::class, 'employeesUpdate'])->name('dashboard.employees.update');
@@ -106,7 +112,7 @@ Route::get('/service/bitrix24', [Bitrix24DashController::class, 'index'])->name(
 Route::post('/service/bitrix24/store', [Bitrix24DashController::class, 'store'])->name('bitrix24.store');
 
 Route::post('/services/store', [Bitrix24DashController::class, 'storeService'])->name('bitrix24-cloud.store');
-Route::get('/services/{id}/edit', [Bitrix24DashController::class, 'editService'])->name('bitrix24-cloud.edit');
+// Route::get('/services/{id}/edit', [Bitrix24DashController::class, 'editService'])->name('bitrix24-cloud.edit');
 Route::put('/services/{id}/update', [Bitrix24DashController::class, 'updateService'])->name('bitrix24-cloud.update');
 Route::delete('/services/{id}/destroy', [Bitrix24DashController::class, 'destroyService'])->name('bitrix24-cloud.destroy');
 
@@ -126,7 +132,7 @@ Route::get('mobile-dash', [MobileDashController::class, 'index'])->name('mobile-
 Route::get('/service/mobile', [MobileDashController::class, 'index'])->name('mobile.index');
 Route::post('/service/mobile/store', [MobileDashController::class, 'store'])->name('mobile.store');
 
-Route::get('/mobile-services/{id}/edit', [MobileDashController::class, 'editService'])->name('mobile-development.edit');
+// Route::get('/mobile-services/{id}/edit', [MobileDashController::class, 'editService'])->name('mobile-development.edit');
 Route::post('/mobile-services/store', [MobileDashController::class, 'storeService'])->name('mobile-development.store');
 Route::put('/mobile-services/{id}/update', [MobileDashController::class, 'updateService'])->name('mobile-development.update'); 
 Route::delete('/mobile-services/{id}/destroy', [MobileDashController::class, 'destroyService'])->name('mobile-development.destroy');
@@ -142,7 +148,7 @@ Route::get('web-development-dash', [WebDashController::class, 'index'])->name('w
 Route::get('/web-development/web', [WebDashController::class, 'index'])->name('web.index');
 Route::post('/web-development/web/store', [WebDashController::class, 'store'])->name('web.store');
 
-Route::get('/web-services/{id}/edit', [WebDashController::class, 'editService'])->name('web-services.edit');
+// Route::get('/web-services/{id}/edit', [WebDashController::class, 'editService'])->name('web-services.edit');
 Route::post('/web-services/store', [WebDashController::class, 'storeService'])->name('web-services.store');
 Route::put('/web-services/{id}/update', [WebDashController::class, 'updateService'])->name('web-services.update'); 
 Route::delete('/web-services/{id}/destroy', [WebDashController::class, 'destroyService'])->name('web-services.destroy');
@@ -167,7 +173,6 @@ Route::post('/eset/store', [AntivirusesDashController::class, 'storeEset'])->nam
 Route::put('/eset/{id}/update', [AntivirusesDashController::class, 'updateEset'])->name('eset.update');
 Route::delete('/eset/{id}/destroy', [AntivirusesDashController::class, 'destroyEset'])->name('eset.destroy');
 Route::get('/eset/{id}/edit', [AntivirusesDashController::class, 'editEset'])->name('eset.edit');
-
 
 Route::post('/pro32/store', [AntivirusesDashController::class, 'storePro32'])->name('pro32.store');
 Route::put('/pro32/{id}/update', [AntivirusesDashController::class, 'updatePro32'])->name('pro32.update');
@@ -216,3 +221,4 @@ Route::prefix('dashboard')->middleware(['auth'])->group(function () {
 Route::get('/users', [UserController::class, 'index'])->name('users.index');
 Route::post('/users/store', [UserController::class, 'store'])->name('users.store');
 Route::delete('/users/{user}', [UserController::class, 'destroy'])->name('users.destroy');});
+});

@@ -28,7 +28,4 @@ class WebService extends Model
         'categories_en' => 'array',
         'categories_tm' => 'array',
     ];
-
-    public $incrementing = false; 
-    protected $keyType = 'int';
 }

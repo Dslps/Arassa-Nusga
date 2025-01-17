@@ -14,7 +14,7 @@ class HomeDashController extends Controller
     {
         $slides = HomeDash::all();
         $services = Service::all();
-        $aboutUs = AboutUsHome::getAboutUs(); // Получаем данные "О нас"
+        $aboutUs = AboutUsHome::getAboutUs(); 
 
         return view('dashboard.home', compact('slides', 'services', 'aboutUs'));
     }
@@ -169,9 +169,6 @@ public function updateService(Request $request, $id)
         return redirect()->route('home-dash.index')->with('success', 'Услуга успешно обновлена!');
     }
 
-    /**
-     * Удаление услуги.
-     */
     public function destroyService($id)
     {
         $service = Service::findOrFail($id);

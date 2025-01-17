@@ -5,17 +5,18 @@
         <div class="w-full flex">
             <!-- Левая часть с текстом и кнопкой -->
             <div
-                class="animate-left lg:w-[800px] lg:h-[660px] h-max bg-[var(--accent-color)] flex flex-col lg:flex-row lg:items-center px-[30px] lg:px-[60px] 2xl:px-[100px] w-full">
+                class="animate-left lg:w-[800px] lg:h-[660px] h-max bg-[var(--accent-color)] flex flex-col lg:flex-row lg:items-center px-0 lg:px-[60px] 2xl:px-[100px] w-full">
 
                 <div class="text-[var(--white-color)] lg:mt-0 mt-10 lg:text-start text-center">
-                    <!-- Динамический Титульный Текст -->
-                    <p class="title font-semibold">{{ $web->{'title_' . app()->getLocale()} }}</p>
+                    <div class="lg:px-0 px-[30px]">
+                        <p style="word-break: break-word; word-wrap: break-word;  white-space: normal; max-width: 100%;"
+                            class="title font-semibold">{{ $web->{'title_' . app()->getLocale()} }}</p>
+                        <p style="word-break: break-word; word-wrap: break-word;  white-space: normal; max-width: 100%;"
+                            class="base-text">{{ $web->{'categories_' . app()->getLocale()} }}</p>
+                    </div>
 
-                    <!-- Динамическое Описание -->
-                    <p class="base-text">{{ $web->{'categories_' . app()->getLocale()} }}</p>
 
-                    <!-- Кнопка Заказать Услугу -->
-                    <a href="{{ $web->service_url ?? '#' }}">
+                    <a href="{{ route('contact') }}">
                         <div
                             class="w-[230px] h-[40px] hidden lg:flex items-center border-t-2 border-b-2 justify-center lg:mt-[25px] lg:m-0 m-auto mt-[25px]">
                             <p>Заказать услугу <i class="ml-[10px] fa-solid fa-arrow-right-long"></i></p>
@@ -24,7 +25,7 @@
 
                     <!-- Изображение для мобильных устройств -->
                     @if (isset($web->photos) && count($web->photos) > 0)
-                        <div class="lg:hidden flex justify-center mt-4 py-5">
+                        <div class="lg:hidden flex justify-center pt-5">
                             <img src="{{ asset('storage/' . $web->photos[0]) }}" alt="web Image">
                         </div>
                     @endif
@@ -34,10 +35,15 @@
 
             <!-- Правая часть с изображением для десктопов -->
             <div
-                class="animate-bottom lg:flex hidden w-[1120px] px-[30px] lg:px-[60px] 2xl:px-[100px] h-[660px] justify-center items-center">
-                @if (isset($web->photos) && count($web->photos) > 0)
-                    <img class="w-full h-full" src="{{ asset('storage/' . $web->photos[0]) }}" alt="web Image">
-                @endif
+                class=" relative animate-bottom lg:flex hidden w-[1120px] px-0 lg:px-[60px] 2xl:px-[100px] h-[660px] justify-center items-center">
+                <div class="absolute w-full h-full">
+                    @if (isset($web->photos) && count($web->photos) > 0)
+                        <img class="w-full h-full object-cover" src="{{ asset('storage/' . $web->photos[0]) }}"
+                            alt="web Image">
+                    @else
+                        Нет данных
+                    @endif
+                </div>
             </div>
 
         </div>
@@ -61,38 +67,63 @@
                 <div class="animate-block flex flex-wrap w-full justify-start">
                     <div
                         class="bg-[var(--accent-color)] w-full sm:w-[50%] h-[250px] 2xl:w-[25%] text-[var(--white-color)] p-[30px] flex flex-col hover:-translate-y-1 transition-transform duration-300">
-                        <p class="base-text font-semibold">Облако</p>
+                        <p class="base-text font-semibold">Также входит:</p>
                         <ul class="small-text list-none pl-[10px] space-y-[5px] mt-5">
-                            <li class="list-marker">Цифровое рабочее пространство</li>
-                            <li class="list-marker">Управление задачами</li>
-                            <li class="list-marker">Обмен файлами и сообщениями</li>
-                            <li class="list-marker">Коммуникация</li>
-                            <li class="list-marker">Работа в группах</li>
+                            <li class="list-marker">Адаптивный дизайн</li>
+                            <li class="list-marker">Обучение: Помощь в управлении и администрировании</li>
+                            <li class="list-marker">Подключение SSL: Установка SSL-сертификата для защиты данных</li>
                         </ul>
 
                     </div>
-                    @foreach ($services as $index => $service)
+                    @foreach ($services as $index => $itom)
                         <div
                             class="animate-block p-[30px] w-full h-[250px] sm:w-[50%] 2xl:w-[25%] flex flex-col bg-white shadow hover:shadow-lg hover:-translate-y-1 transition-transform duration-300">
-
-                            <!-- Название Коробки -->
-                            <p class="base-text mb-[15px] text-[var(--comment-color)] font-semibold">
-                                {{ $service->{'title_' . app()->getLocale()} }}
+                            {{-- Титульный текст --}}
+                            <p style="word-break: break-word; word-wrap: break-word; white-space: normal; max-width: 100%;"
+                                class="base-text mb-[15px] text-[var(--comment-color)] font-semibold">
+                                {{ $itom->title_ru ?? 'Название не указано' }}
                             </p>
 
-                            <!-- Список Категорий -->
-                            <ul class="ml-[10px] text-[var(--accent-color)] small-text font-semibold">
-                                @foreach ($service->{'categories_' . app()->getLocale()} as $service)
-                                    <li class="list-marker">{{ $service }}</li>
-                                @endforeach
-                            </ul>
+                            @php
+                                $categories = $itom->categories_ru ?? [];
+                            @endphp
 
-                            <!-- Нижняя Часть Карточки с Номером и Ценой -->
+                            {{-- Категории --}}
+                            @if (!empty($categories))
+                                <ul style="word-break: break-word; word-wrap: break-word; white-space: normal; max-width: 100%;"
+                                    class="ml-[10px] text-[var(--accent-color)] small-text font-semibold">
+                                    @foreach ($categories as $category)
+                                        @if (!empty($category))
+                                            <li class="list-marker">{{ $category }}</li>
+                                        @endif
+                                    @endforeach
+                                </ul>
+                            @endif
+
                             <div class="flex items-end justify-between mt-auto">
-
-                                <!-- Номер Коробки -->
-                                <div class="number text-[var(--comment-color)] font-semibold">{{ $index + 1 }}</div>
-
+                                <div class="number text-[var(--comment-color)] font-semibold">
+                                    {{ str_pad($index + 1, 2, '0', STR_PAD_LEFT) }}
+                                </div>
+                                {{-- Цена и скидка --}}
+                                <div>
+                                    <div class="flex flex-col">
+                                        @if ($itom->discount > 0)
+                                            <div class="flex items-center">
+                                                <p class="small-text line-through font-semibold">
+                                                    {{ number_format($itom->price, 0, ',', ' ') }} тм
+                                                </p>
+                                                <div
+                                                    class="bg-[var(--price-color)] text-[var(--white-color)] flex justify-center items-center p-[3px] rounded-tl-[10px] rounded-tr-[5px] rounded-br-[10px] rounded-bl-[5px] ml-[4px]">
+                                                    <p class="small-text">-{{ $itom->discount }}%</p>
+                                                </div>
+                                            </div>
+                                        @endif
+                                        <p class="number font-semibold">
+                                            {{ number_format($itom->price - ($itom->price * $itom->discount) / 100, 0, ',', ' ') }}
+                                            тм
+                                        </p>
+                                    </div>
+                                </div>
                             </div>
                         </div>
                     @endforeach
@@ -112,35 +143,37 @@
             </div>
             <div class="flex justify-center">
                 <div class="w-full grid grid-cols-1 sm:grid-cols-2 2xl:grid-cols-4 gap-5 mt-[50px]">
-                    
+
                     @foreach ($implementationStages as $index => $stage)
-                    <div class="animate-block p-[30px] bg-[var(--white-color)]"
-                        style="animation: shadowPulse 2s ease-in-out infinite; animation-delay: {{ 0.4 * $index }}s;">
+                        <div class="animate-block p-[30px] bg-[var(--white-color)] min-h-[220px] h-max"
+                            style="animation: shadowPulse 2s ease-in-out infinite; animation-delay: {{ 0.4 * $index }}s;">
 
-                        <!-- Титульный текст на текущем языке -->
-                        <p class="number mb-[15px] text-[var(--comment-color)] font-semibold">
-                            {{ $stage->{'title_' . app()->getLocale()} }}
-                        </p>
+                            <!-- Титульный текст на текущем языке -->
+                            <p style="word-break: break-word; word-wrap: break-word;  white-space: normal; max-width: 100%;"
+                                class="number mb-[15px] text-[var(--comment-color)] font-semibold">
+                                {{ $stage->{'title_' . app()->getLocale()} }}
+                            </p>
 
-                        <!-- Условное отображение категорий на текущем языке -->
-                        @php
-                            $currentCategories = $stage->{'categories_' . app()->getLocale()} ?? [];
-                        @endphp
+                            <!-- Условное отображение категорий на текущем языке -->
+                            @php
+                                $currentCategories = $stage->{'categories_' . app()->getLocale()} ?? [];
+                            @endphp
 
-                        @if (!empty($currentCategories) && is_array($currentCategories))
-                            <ul class="ml-[10px] text-[var(--accent-color)] small-text font-semibold">
-                                @foreach ($currentCategories as $category)
-                                    <li class="list-marker">{{ $category }}</li>
-                                @endforeach
-                            </ul>
-                        @endif
+                            @if (!empty($currentCategories) && is_array($currentCategories))
+                                <ul style="word-break: break-word; word-wrap: break-word;  white-space: normal; max-width: 100%;"
+                                    class="ml-[10px] text-[var(--accent-color)] small-text font-semibold">
+                                    @foreach ($currentCategories as $category)
+                                        <li class="list-marker">{{ $category }}</li>
+                                    @endforeach
+                                </ul>
+                            @endif
 
-                        <!-- Нумерация этапа -->
-                        <p class="number font-semibold text-[var(--accent-color)] mt-[15px]">
-                            {{ str_pad($index + 1, 2, '0', STR_PAD_LEFT) }}
-                        </p>
-                    </div>
-                @endforeach
+                            <!-- Нумерация этапа -->
+                            <p class="number font-semibold text-[var(--accent-color)] mt-[15px]">
+                                {{ str_pad($index + 1, 2, '0', STR_PAD_LEFT) }}
+                            </p>
+                        </div>
+                    @endforeach
 
                 </div>
             </div>
@@ -155,11 +188,11 @@
                     <p class="title-2 font-semibold">Наши проекты</p>
                 </div>
                 <div class="flex sm:ml-auto text-[var(--accent-color)]">
-                    <div class=" flex gap-[40px] z-10 lg:mt-0 w-full lg:w-auto">
-                        <button class="mr-auto slider-button" id="prevBtn">
+                    <div class=" flex gap-[40px] z-0 lg:mt-0 w-full lg:w-auto">
+                        <button class="mr-auto slider-button prev">
                             <i class="fa-solid fa-arrow-left"></i>
                         </button>
-                        <button class="slider-button" id="nextBtn">
+                        <button class="slider-button next">
                             <i class="fa-solid fa-arrow-right"></i>
                         </button>
                     </div>
@@ -168,68 +201,39 @@
             <div class="w-full overflow-hidden flex flex-col ml-0">
                 {{-- слайдер проектов --}}
                 <div class="flex justify-start gap-[50px] mt-[50px] lg:mt-[100px]" id="slider">
-                    {{-- 1 карточка --}}
-                    <div class="w-[400px] h-max sm:w-[550px] sm:h-[500px] slide rounded-[10px]">
-                        <div class="flex flex-col">
-                            <div>
-                                <img src="{{ asset('img/home-page/unitegaming-project.png') }}" alt="">
-                            </div>
-                            <div
-                                class="flex justify-between w-full h-[100px] bg-[var(--accent-color)] text-[var(--white-color)]">
-                                <div class="p-5">
-                                    <p class="projet-size-text">Unite Gaming</p>
-                                    <p class="small-text">Приложение сетевых игр </p>
-                                </div>
-                                <a href="">
+                    <div class="carousel-project flex justify-start mt-[50px]">
+                        {{-- 1 карточка --}}
+                        @foreach ($projectstore as $projectstores)
+                            <div class="carousel-item rounded-[10px] overflow-hidden mx-[10px] lg:w-[500px] w-[400px]">
+                                <div class="flex flex-col">
+                                    @if ($projectstores->photos)
+                                        <div class="overflow-hidden w-full h-[350px]">
+                                            <img src="{{ asset('storage/' . $projectstores->photos) }}" alt="Изображение"
+                                                class="w-full h-full object-cover">
+                                        </div>
+                                    @else
+                                        Нет изображения
+                                    @endif
                                     <div
-                                        class="hover-button w-[100px] h-[100px] flex justify-center items-center bg-[var(--button-color)]">
-                                        <i class="fa-solid fa-arrow-right"></i>
+                                        class="flex justify-between h-[100px] bg-[var(--light-comment-color)] text-[var(--teamplate color)]">
+                                        <div class="p-5 lg:max-w-[400px] max-w-[300px]">
+                                            <p class="projet-size-text truncate">
+                                                {{ $projectstores->{'title_' . app()->getLocale()} }}
+                                            </p>
+                                            <p class="small-text truncate">
+                                                {{ $projectstores->{'description_' . app()->getLocale()} }}
+                                            </p>
+                                        </div>
+                                        <a href="{{ route('project.show', $projectstores->id) }}">
+                                            <div
+                                                class="hover-button w-[100px] text-[var(--white-color)] h-[100px] flex justify-center items-center bg-[var(--button-color)]">
+                                                <i class="fa-solid fa-arrow-right"></i>
+                                            </div>
+                                        </a>
                                     </div>
-                                </a>
-                            </div>
-                        </div>
-                    </div>
-                    {{-- 2 карточка --}}
-                    <div class="w-[400px] h-max sm:w-[550px] sm:h-[500px] slide">
-                        <div class="flex flex-col">
-                            <div>
-                                <img src="{{ asset('img/home-page/banner_3.png') }}" alt="">
-                            </div>
-                            <div
-                                class="hover-button flex justify-between w-full h-[100px] bg-[var(--accent-color)] text-[var(--white-color)]">
-                                <div class="p-5">
-                                    <p class="projet-size-text">Museum Arcadag</p>
-                                    <p class="small-text">Музей Ахалского велоята</p>
                                 </div>
-                                <a href="">
-                                    <div
-                                        class="w-[100px] h-[100px] flex justify-center items-center bg-[var(--button-color)]">
-                                        <i class="fa-solid fa-arrow-right"></i>
-                                    </div>
-                                </a>
                             </div>
-                        </div>
-                    </div>
-                    {{-- 3 карточка --}}
-                    <div class="w-[400px] h-max sm:w-[550px] sm:h-[500px] slide">
-                        <div class="flex flex-col">
-                            <div>
-                                <img src="{{ asset('img/home-page/banner_3.png') }}" alt="">
-                            </div>
-                            <div
-                                class="flex justify-between w-full h-[100px] bg-[var(--accent-color)] text-[var(--white-color)]">
-                                <div class="p-5">
-                                    <p class="projet-size-text">Museum Arcadag</p>
-                                    <p class="small-text">Музей Ахалского велоята</p>
-                                </div>
-                                <a href="">
-                                    <div
-                                        class="hover-button w-[100px] h-[100px] flex justify-center items-center bg-[var(--button-color)]">
-                                        <i class="fa-solid fa-arrow-right"></i>
-                                    </div>
-                                </a>
-                            </div>
-                        </div>
+                        @endforeach
                     </div>
                 </div>
             </div>

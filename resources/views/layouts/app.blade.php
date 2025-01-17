@@ -21,7 +21,7 @@
                 </div>
 
                 <a href="{{route('home')}}">
-                    <img class="w-[120px] h-[30px] sm:w-[160px] sm:h-[40px] xl:w-[180px] xl:h-[50px] 2xl:w-[200px] 2xl:h-[50px] ml-[20px] xl:ml-[20px]  2xl:ml-[40px]"
+                    <img class="w-[120px] h-[35px] sm:w-[160px] sm:h-[45px] xl:w-[180px] xl:h-[50px] 2xl:w-[200px] 2xl:h-[55px] ml-[20px] xl:ml-[20px]  2xl:ml-[40px]"
                         src="{{ asset('img/logo.png') }}" alt="">
                 </a>
 
@@ -100,18 +100,55 @@
 
         <!-- Скрытый блок, который будет разворачиваться -->
         <div id="full-header"
-            class="hidden fixed top-0 left-0 w-full h-screen bg-[var(--accent-color)] text-white p-[100px] flex gap-8">
-            <button id="close-header" class="text-white absolute top-[70px] left-[100px]">
+            class="hidden fixed top-0 left-0 w-full h-screen bg-[var(--accent-color)] text-white p-[60px] flex gap-8">
+            <button id="close-header" class="text-white absolute top-[50px] left-[35px]">
                 <i class="text-[25px] fa-solid fa-xmark"></i></button>
-            <div class="flex">
-                <div class="flex flex-col ">
-                    <p><a href="#">Главная</a></p>
-                    <p><a href="#">Услуги</a></p>
-                    <p><a href="#">О нас</a></p>
-                    <p><a href="#">Блог</a></p>
-                    <p><a href="#">Проекты</a></p>
+            <div class="flex flex-col mt-5">
+                <div class="flex flex-col space-y-5 mt-5">
+                    <p style="font-size: 24px; font-weight:600;" class=""><a href="{{route('home')}}">Главная</a></p>
+                    <p style="font-size: 20px;" class=""><a href="{{route('about-us')}}">О нас</a></p>
+                    <p style="font-size: 20px;" class=""><a href="{{route('blog')}}">Блог</a></p>
+                    <p style="font-size: 20px;" class=""><a href="{{route('project')}}">Проекты</a></p>
                 </div>
-
+                <div class="space-y-5 mt-5">
+                    <p style="font-size: 24px; font-weight:600;">Услуги</p>
+                    <p style="font-size: 20px;" class=""><a href="{{route('bitrix24')}}">Битрикс 24</a></p>
+                    <p style="font-size: 20px;" class=""><a href="{{route('mobile')}}">Мобильные приложения</a></p>
+                    <p style="font-size: 20px;" class=""><a href="{{route('web-development')}}">Разработка сайтов</a></p>
+                    <p style="font-size: 20px;" class=""><a href="{{route('antiviruses')}}">Антивирусы</a></p>
+                </div>
+                <div>
+                    <p class="mt-5" style="font-size: 24px; font-weight:600;">Связь с нами:</p>
+                    <ul class="list-none pl-[10px] space-y-2.5 mt-5">
+                        <li>
+                            <a class="bottom-link" href="{{route('contact')}}">
+                                <i class="mr-[10px] fa-regular fa-envelope"></i>
+                                info@arassanusga.com
+                            </a>
+                        </li>
+                        <li>
+                            <a class="bottom-link" href="{{route('contact')}}">
+                                <i class="mr-[10px] fa-solid fa-phone"></i>
+                                +99312754480
+                            </a>
+                            <span>/</span>
+                            <a class="bottom-link" href="{{route('contact')}}">+99361648605</a>
+                        </li>
+                        <li>
+                            <a class="bottom-link" href="{{route('contact')}}">
+                                <i class="mr-[10px] fa-solid fa-location-dot"></i>
+                                Бизнес-центр Arzuw, ул. Г. Кулиева (Объездная),Ашхабад, Туркменистан
+                            </a>
+                        </li>
+                        <li>
+                            <div class="flex gap-[10px]">
+                                <a class="bottom-link {{ Request::routeIs('') ? 'before:w-full' : '' }}" href=""><i class="fa-brands fa-instagram"></i></a>
+                                <a class="bottom-link {{ Request::routeIs('') ? 'before:w-full' : '' }}" href=""><i class="fa-brands fa-facebook-f"></i></a>
+                                <a class="bottom-link {{ Request::routeIs('') ? 'before:w-full' : '' }}" href=""><i class="fa-brands fa-linkedin-in"></i></a>
+                            </div>
+                        </li>
+                    </ul>
+                </div>
             </div>
         </div>
     </header>

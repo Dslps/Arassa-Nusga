@@ -50,7 +50,7 @@
     {{-- Блок с изображением --}}
     <div
         class="animate-left z-[-10] lg:block hidden w-full max-w-[2000px] h-max lg:mt-[-100px] mx-auto overflow-hidden relative">
-        <div class="relative w-full h-[800px] overflow-hidden">
+        <div class="relative w-full h-[600px] overflow-hidden">
             <div class="absolute flex justify-center z-[-10] w-full h-full">
                 @if (!empty($blog->photos))
                     @php
@@ -63,7 +63,7 @@
                                 $photo = trim($photo, ' "');
                             @endphp
                             <img class="object-cover h-full min-w-[2000px]" src="{{ Storage::url($photo) }}"
-                                alt="{{ __('messages.about_us_photo') }}">
+                                alt="{{ __('messages.blog_photo') }}">
                         @endforeach
                     @endif
 
@@ -74,6 +74,11 @@
 
 
     {{-- ------------------------------------------------------------------------------------------ --}}
+    <div class="flex flex-col xl:px-[100px] lg:px-[60px] px-[30px] mt-5">
+        <p class="title-2">Публикации</p>
+        <p class="base-text">Remember, even the tallest trees were once tiny seeds that grew steadily, day by day.
+        </p>
+    </div>
 
     <div class="w-full max-w-[2000px] px-10 lg:px-[60px] 2xl:px-[100px] m-auto mt-[80px] xl:mt-[80px] 2xl:mt-[130px]">
         <div class="flex justify-start flex-wrap gap-[30px]" id="itemContainer">
@@ -95,10 +100,10 @@
                             {{ $blogstores->{'description_' . app()->getLocale()} }}
                         </p>
                         <div class="flex items-end justify-between mt-10">
-                            <p class="small-text">6 июля 2022</p>
+                            <p class="small-text"> {{ $blogstores->published_date }}</p>
                             <a href="{{ route('blog.show', $blogstores->id) }}">
                                 <button
-                                    class="relative top-0 end-0 z-30 flex items-center justify-center h-full px-4 cursor-pointer group focus:outline-none">
+                                    class="relative top-0 end-0 z-0 flex items-center justify-center h-full px-4 cursor-pointer group focus:outline-none">
                                     <span class="button-service">
                                         <i class="fa-solid fa-arrow-right"></i>
                                         <span class="sr-only">Next</span>

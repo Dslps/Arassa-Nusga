@@ -101,7 +101,6 @@
                                 <!-- Название -->
                                 <p
                                     class="base-text truncate {{ $loop->first ? '' : 'mb-[15px] text-[var(--comment-color)] font-semibold group-hover:text-[var(--accent-color)]' }}">
-                                    {{-- Динамический вывод названия на текущем языке с запасными вариантами --}}
                                     {{ $service->{'title_' . $currentLang} ??
                                         (($currentLang !== 'ru' ? $service->title_ru : ($currentLang !== 'en' ? $service->title_en : $service->title_tm)) ??
                                             'Название отсутствует') }}
@@ -155,7 +154,11 @@
 
     {{-- -----------------------------------------------О НАС--------------------------------------------------------- --}}
     <div class="w-full mx-auto max-w-[2000px] m-auto flex flex-col lg:flex-row bg-[var(--template-color)]">
-        @if ($aboutUs && $aboutUs->image_path && $aboutUs->{'title_' . $currentLang} && $aboutUs->{'description_' . $currentLang})
+        @if (
+            $aboutUs &&
+                $aboutUs->image_path &&
+                $aboutUs->{'title_' . $currentLang} &&
+                $aboutUs->{'description_' . $currentLang})
             <!-- Блок с изображением -->
             <div class="image-container flex justify-center w-full 2xl:w-[800px] overflow-hidden">
                 <img src="{{ asset('storage/' . $aboutUs->image_path) }}" alt="Изображение"
@@ -234,70 +237,37 @@
                     <div class="w-full">
                         <div class="carousel-project flex justify-start mt-[50px]">
                             {{-- 1 карточка --}}
-                            <div class="carousel-itom  rounded-[10px] overflow-hidden mx-[10px] lg:w-[500px] w-[400px]">
-                                <div class="flex flex-col">
-                                    <div class="overflow-hidden">
-                                        <img src="{{ asset('img/home-page/unitegaming-project.png') }}" alt=""
-                                            class="transform transition-transform duration-300 hover:scale-110">
-                                    </div>
-                                    <div
-                                        class="flex justify-between h-[100px] bg-[var(--light-comment-color)] text-[var(--teamplate color)]">
-                                        <div class="p-5">
-                                            <p class="projet-size-text">Unite Gaming</p>
-                                            <p class="small-text">Приложение сетевых игр</p>
-                                        </div>
-                                        <a href="">
-                                            <div
-                                                class="hover-button w-[100px] text-[var(--white-color)] h-[100px] flex justify-center items-center bg-[var(--button-color)]">
-                                                <i class="fa-solid fa-arrow-right"></i>
+                            @foreach ($projectstore as $projectstores)
+                                <div class="carousel-item rounded-[10px] overflow-hidden mx-[10px] lg:w-[500px] w-[400px]">
+                                    <div class="flex flex-col">
+                                        @if ($projectstores->photos)
+                                            <div class="overflow-hidden w-full h-[350px]">
+                                                <img src="{{ asset('storage/' . $projectstores->photos) }}"
+                                                    alt="Изображение" class="w-full h-full object-cover">
                                             </div>
-                                        </a>
+                                        @else
+                                            Нет изображения
+                                        @endif
+                                        <div
+                                            class="flex justify-between h-[100px] bg-[var(--light-comment-color)] text-[var(--teamplate color)]">
+                                            <div class="p-5 lg:max-w-[400px] max-w-[300px]">
+                                                <p class="projet-size-text truncate">
+                                                    {{ $projectstores->{'title_' . app()->getLocale()} }}
+                                                </p>
+                                                <p class="small-text truncate">
+                                                    {{ $projectstores->{'description_' . app()->getLocale()} }}
+                                                </p>
+                                            </div>
+                                            <a href="{{ route('project.show', $projectstores->id) }}">
+                                                <div
+                                                    class="hover-button w-[100px] text-[var(--white-color)] h-[100px] flex justify-center items-center bg-[var(--button-color)]">
+                                                    <i class="fa-solid fa-arrow-right"></i>
+                                                </div>
+                                            </a>
+                                        </div>
                                     </div>
                                 </div>
-                            </div>
-                            <div class="carousel-itom  rounded-[10px] overflow-hidden mx-[10px] lg:w-[500px] w-[400px]">
-                                <div class="flex flex-col">
-                                    <div class="overflow-hidden">
-                                        <img src="{{ asset('img/home-page/unitegaming-project.png') }}" alt=""
-                                            class="transform transition-transform duration-300 hover:scale-110">
-                                    </div>
-                                    <div
-                                        class="flex justify-between h-[100px] bg-[var(--light-comment-color)] text-[var(--teamplate color)]">
-                                        <div class="p-5">
-                                            <p class="projet-size-text">Unite Gaming</p>
-                                            <p class="small-text">Приложение сетевых игр</p>
-                                        </div>
-                                        <a href="">
-                                            <div
-                                                class="hover-button w-[100px] text-[var(--white-color)] h-[100px] flex justify-center items-center bg-[var(--button-color)]">
-                                                <i class="fa-solid fa-arrow-right"></i>
-                                            </div>
-                                        </a>
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="carousel-itom  rounded-[10px] overflow-hidden mx-[10px] lg:w-[500px] w-[400px]">
-                                <div class="flex flex-col">
-                                    <div class="overflow-hidden">
-                                        <img src="{{ asset('img/home-page/unitegaming-project.png') }}" alt=""
-                                            class="transform transition-transform duration-300 hover:scale-110">
-                                    </div>
-                                    <div
-                                        class="flex justify-between h-[100px] bg-[var(--light-comment-color)] text-[var(--teamplate color)]">
-                                        <div class="p-5">
-                                            <p class="projet-size-text">Unite Gaming</p>
-                                            <p class="small-text">Приложение сетевых игр</p>
-                                        </div>
-                                        <a href="">
-                                            <div
-                                                class="hover-button w-[100px] text-[var(--white-color)] h-[100px] flex justify-center items-center bg-[var(--button-color)]">
-                                                <i class="fa-solid fa-arrow-right"></i>
-                                            </div>
-                                        </a>
-                                    </div>
-                                </div>
-                            </div>
-
+                            @endforeach
                         </div>
                     </div>
 

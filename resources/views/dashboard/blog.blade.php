@@ -33,6 +33,7 @@
 
                     <input type="file" id="photos" name="photos[]" accept="image/*" multiple
                         class="border-2 border-dashed border-gray-300 p-4 w-full rounded">
+                        <p class="text-xs text-gray-500 mt-1" id="categoriesEn3Count">Размер изображений не должен превышать 5 мб</p>
 
                     {{-- Контейнер для предпросмотра новых файлов --}}
                     <div id="preview-container" class="flex flex-wrap gap-2 mt-4"></div>
@@ -47,9 +48,7 @@
                             <label for="title_ru" class="block text-gray-700 font-medium mb-1">
                                 Титульный текст (RU):
                             </label>
-                            <input type="text" id="title_ru" name="title_ru"
-                                value="{{ old('title_ru', $blog->title_ru) }}"
-                                class="border-2 border-dashed border-gray-300 p-2 w-full rounded" >
+                            <input type="text" id="title_ru" name="title_ru" value="{{ old('title_ru', $blog->title_ru) }}" class="border-2 border-dashed border-gray-300 p-2 w-full rounded" maxlength="50" placeholder="Допустимое количество символов 50">
                         </div>
 
                         <!-- Английский -->
@@ -57,9 +56,7 @@
                             <label for="title_en" class="block text-gray-700 font-medium mb-1">
                                 Title (EN):
                             </label>
-                            <input type="text" id="title_en" name="title_en"
-                                value="{{ old('title_en', $blog->title_en) }}"
-                                class="border-2 border-dashed border-gray-300 p-2 w-full rounded" >
+                            <input type="text" id="title_en" name="title_en" value="{{ old('title_en', $blog->title_en) }}" class="border-2 border-dashed border-gray-300 p-2 w-full rounded" maxlength="50" placeholder="Допустимое количество символов 50">
                         </div>
 
                         <!-- Туркменский -->
@@ -67,9 +64,7 @@
                             <label for="title_tm" class="block text-gray-700 font-medium mb-1">
                                 Title (TM):
                             </label>
-                            <input type="text" id="title_tm" name="title_tm"
-                                value="{{ old('title_tm', $blog->title_tm) }}"
-                                class="border-2 border-dashed border-gray-300 p-2 w-full rounded" >
+                            <input type="text" id="title_tm" name="title_tm" value="{{ old('title_tm', $blog->title_tm) }}" class="border-2 border-dashed border-gray-300 p-2 w-full rounded" maxlength="50" placeholder="Допустимое количество символов 50">
                         </div>
                     </div>
                 </div>
@@ -83,8 +78,7 @@
                             <label for="description_ru" class="block text-gray-700 font-medium mb-1">
                                 Описание (RU):
                             </label>
-                            <textarea id="description_ru" name="description_ru" rows="4"
-                                class="border-2 border-dashed border-gray-300 p-2 w-full rounded">
+                            <textarea id="description_ru" name="description_ru" class="border-2 border-dashed border-gray-300 p-2 w-full rounded" maxlength="200" placeholder="Допустимое количество символов 200">
                         {{ old('description_ru', $blog->description_ru) }}
                     </textarea>
                         </div>
@@ -94,8 +88,7 @@
                             <label for="description_en" class="block text-gray-700 font-medium mb-1">
                                 Description (EN):
                             </label>
-                            <textarea id="description_en" name="description_en" rows="4"
-                                class="border-2 border-dashed border-gray-300 p-2 w-full rounded">{{ old('description_en', $blog->description_en) }}</textarea>
+                            <textarea id="description_en" name="description_en" class="border-2 border-dashed border-gray-300 p-2 w-full rounded" maxlength="200" placeholder="Допустимое количество символов 200">{{ old('description_en', $blog->description_en) }}</textarea>
                         </div>
 
                         <!-- Туркменский -->
@@ -103,8 +96,7 @@
                             <label for="description_tm" class="block text-gray-700 font-medium mb-1">
                                 Description (TM):
                             </label>
-                            <textarea id="description_tm" name="description_tm" rows="4"
-                                class="border-2 border-dashed border-gray-300 p-2 w-full rounded">{{ old('description_tm', $blog->description_tm) }}</textarea>
+                            <textarea id="description_tm" name="description_tm" class="border-2 border-dashed border-gray-300 p-2 w-full rounded" maxlength="200" placeholder="Допустимое количество символов 200">{{ old('description_tm', $blog->description_tm) }}</textarea>
                         </div>
                     </div>
                 </div>
@@ -119,7 +111,7 @@
                                 Доп. информация (RU):
                             </label>
                             <textarea id="additional_ru" name="additional_ru" 
-                                class="border-2 border-dashed border-gray-300 p-2 w-full rounded">
+                                class="border-2 border-dashed border-gray-300 p-2 w-full rounded" maxlength="200" placeholder="Допустимое количество символов 200">
                         {{ old('additional_ru', $blog->additional_ru) }}
                     </textarea>
                         </div>
@@ -130,7 +122,7 @@
                                 Additional info (EN):
                             </label>
                             <textarea id="additional_en" name="additional_en" 
-                                class="border-2 border-dashed border-gray-300 p-2 w-full rounded">
+                                class="border-2 border-dashed border-gray-300 p-2 w-full rounded" maxlength="200" placeholder="Допустимое количество символов 200">
                         {{ old('additional_en', $blog->additional_en) }}
                     </textarea>
                         </div>
@@ -141,7 +133,7 @@
                                 Additional info (TM):
                             </label>
                             <textarea id="additional_tm" name="additional_tm" 
-                                class="border-2 border-dashed border-gray-300 p-2 w-full rounded">
+                                class="border-2 border-dashed border-gray-300 p-2 w-full rounded" maxlength="200" placeholder="Допустимое количество символов 200">
                         {{ old('additional_tm', $blog->additional_tm) }}
                     </textarea>
                         </div>
@@ -289,6 +281,7 @@
                             <div class="col-span-3">
                                 <label for="image" class="block font-semibold">Изображение</label>
                                 <input type="file" name="image" id="image" class="border p-2 w-full">
+                                <p class="text-xs text-gray-500 mt-1" id="categoriesEn3Count">Размер изображений не должен превышать 5 мб</p>
                             </div>
                         </div>
                         <div class="flex justify-end mt-4">
@@ -364,6 +357,7 @@
                             <div class="col-span-3">
                                 <label for="edit_image" class="block font-semibold">Изображение</label>
                                 <input type="file" name="image" id="edit_image" class="border p-2 w-full">
+                                <p class="text-xs text-gray-500 mt-1" id="categoriesEn3Count">Размер изображений не должен превышать 5 мб</p>
                             </div>
                         </div>
                         <div class="flex justify-end mt-4">
@@ -387,35 +381,52 @@
     <script>
         function openAddModal() {
             document.getElementById('addModal').classList.remove('hidden');
+            updateCharacterCounts();
         }
-
+    
         function closeAddModal() {
             document.getElementById('addModal').classList.add('hidden');
         }
-
+    
         function openEditModal(principle) {
-            document.getElementById('editModal').classList.remove('hidden');
-
+            const modal = document.getElementById('editModal');
+            modal.classList.remove('hidden');
+    
             const editForm = document.getElementById('editForm');
             editForm.action = `{{ route('dashboard.blog.update', ':id') }}`.replace(':id', principle.id);
-
             document.getElementById('edit_title_ru').value = principle.title_ru || '';
             document.getElementById('edit_title_en').value = principle.title_en || '';
             document.getElementById('edit_title_tm').value = principle.title_tm || '';
-
             document.getElementById('edit_description_ru').value = principle.description_ru || '';
             document.getElementById('edit_description_en').value = principle.description_en || '';
             document.getElementById('edit_description_tm').value = principle.description_tm || '';
-
             document.getElementById('edit_additional_ru').value = principle.additional_ru || '';
             document.getElementById('edit_additional_en').value = principle.additional_en || '';
             document.getElementById('edit_additional_tm').value = principle.additional_tm || '';
             document.getElementById('edit_published_date').value = principle.published_date || '';
-
+    
+            // Обновление счетчиков символов после заполнения формы
+            updateCharacterCounts();
         }
-
+    
         function closeEditModal() {
             document.getElementById('editModal').classList.add('hidden');
+        }
+    
+        function updateCharacterCounts() {
+            document.querySelectorAll('input[maxlength], textarea[maxlength]').forEach(input => {
+                const counter = input.nextElementSibling;
+                if (counter && counter.tagName.toLowerCase() === 'p') {
+                    updateCharacterCount(input, counter);
+                    input.addEventListener('input', () => updateCharacterCount(input, counter));
+                }
+            });
+        }
+    
+        function updateCharacterCount(input, counter) {
+            const maxLength = parseInt(input.getAttribute('maxlength'), 10);
+            const remaining = maxLength - input.value.length;
+            counter.textContent = `${remaining} символов осталось`;
         }
     </script>
     

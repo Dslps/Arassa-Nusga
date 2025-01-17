@@ -16,10 +16,6 @@ class AboutUsHome extends Model
         'image_path',
     ];
 
-    /**
-     * Метод для получения данных "О нас".
-     * Возвращает первую запись или создаёт новую с дефолтными значениями.
-     */
     public static function getAboutUs()
     {
         return self::first() ?? new self([

@@ -63,7 +63,7 @@ class ProjectDashController extends Controller
             'title_tm' => 'nullable|string|max:30',
             'description_tm' => 'nullable|string|max:200',
             'additional_tm' => 'required|string|max:200',
-            'image' => 'nullable|image|mimes:jpeg,png,jpg,gif|max:5000',
+            'image' => 'nullable|image|mimes:jpeg,png,jpg,gif|max:8000',
         ]);
 
         // Сохранение изображения
@@ -90,7 +90,7 @@ class ProjectDashController extends Controller
             'title_tm' => 'nullable|string|max:50',
             'description_tm' => 'nullable|string|max:200',
             'additional_tm' => 'nullable|string',
-            'image' => 'nullable|image|mimes:jpeg,png,jpg,gif|max:5000',
+            'image' => 'nullable|image|mimes:jpeg,png,jpg,gif|max:8000',
             
         ]);
 

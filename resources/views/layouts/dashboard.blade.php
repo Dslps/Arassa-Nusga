@@ -6,7 +6,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <title>Dashboard</title>
-    @vite(['resources/css/app.css', 'resources/js/jquery.min.js','resources/js/app.js'])
+    @vite(['resources/css/app.css','resources/js/app.js'])
     <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
 </head>
 
@@ -73,21 +73,6 @@
                                 </p>
                             </div>
                             <ul class="py-1" role="none">
-                                <li>
-                                    <a href="#"
-                                        class="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 dark:text-gray-300 dark:hover:bg-gray-600 dark:hover:text-white"
-                                        role="menuitem">Dashboard</a>
-                                </li>
-                                <li>
-                                    <a href="#"
-                                        class="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 dark:text-gray-300 dark:hover:bg-gray-600 dark:hover:text-white"
-                                        role="menuitem">Settings</a>
-                                </li>
-                                <li>
-                                    <a href="#"
-                                        class="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 dark:text-gray-300 dark:hover:bg-gray-600 dark:hover:text-white"
-                                        role="menuitem">Earnings</a>
-                                </li>
                                 <li>
                                     <form class="px-4 py-2" action="{{ route('logout') }}" method="POST">
                                         @csrf

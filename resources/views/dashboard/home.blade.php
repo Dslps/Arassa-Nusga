@@ -126,8 +126,8 @@
                         <!-- Поле Изображение -->
                         <div class="mb-4">
                             <label for="image" class="block mb-1 font-semibold">Изображение:</label>
-                            <input type="file" id="image" name="image" accept="image/*"
-                                class="border p-2 w-full" required>
+                            <input type="file" id="image" name="image" accept="image/*" class="border p-2 w-full" required>
+                            <p id="error-message" class="text-red-500 text-xs mt-1 hidden">Размер изображений превышает 5 мб.</p>
                         </div>
 
                         <div class="flex justify-end">
@@ -355,12 +355,14 @@
 
                 <div class="mb-6">
                     <label for="image-prev" class="block text-gray-700 font-medium mb-2">Загрузить изображение</label>
-                    <input type="file" id="image-prev" name="image" accept="image/*"
+                    <input type="file" id="image" name="image" accept="image/*"
                         class="border-2 border-dashed border-gray-300 p-4 w-full rounded focus:outline-none focus:border-blue-500 focus:ring-2 focus:ring-blue-500">
+                        <p class="text-xs text-gray-500 mt-1" id="categoriesEn3Count">Размер изображений не должен превышать 5 мб</p>
                     @if (isset($aboutUs->image_path))
                         <img src="{{ asset('storage/' . $aboutUs->image_path) }}" alt="Загруженное изображение"
                             class="mt-2 w-32">
                     @endif
+                    
                 </div>
 
                 <div class="mb-6">
@@ -451,8 +453,25 @@
     </div>
 
 
+    {{-- ограничение выбора изображения --}}
+    <script>
+        document.getElementById('image').addEventListener('change', function(event) {
+            const file = event.target.files[0];
+            const maxSizeInBytes = 5 * 1024 * 1024; // 5 MB
+            const errorMessageElement = document.getElementById('error-message');
 
+            if (file && file.size > maxSizeInBytes) {
+                // Сбросить выбранный файл
+                event.target.value = '';
 
+                // Показать сообщение об ошибке
+                errorMessageElement.classList.remove('hidden');
+            } else {
+                // Скрыть сообщение об ошибке
+                errorMessageElement.classList.add('hidden');
+            }
+        });
+    </script>
     {{-- Модульное окно на блок с редактирование слайдера --}}
     <script>
         document.addEventListener('DOMContentLoaded', () => {

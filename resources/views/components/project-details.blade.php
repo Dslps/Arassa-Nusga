@@ -11,10 +11,10 @@
         @endif
         <div class="mt-5 px-[30px] lg:px-[60px] 2xl:px-[100px]">
             <div class="small-text text-start lg:text-center">
-                {{ $projectstore->{'title_' . app()->getLocale()} }}
+                {{ $projectstore->{'description_' . app()->getLocale()} }}
             </div>
             <div class="title text-start lg:text-center">
-                {{ $projectstore->{'description_' . app()->getLocale()} }}
+                {{ $projectstore->{'title_' . app()->getLocale()} }}
             </div>
             <div class="base-text text-start break-words whitespace-pre-line">
                 {{ $projectstore->{'additional_' . app()->getLocale()} }}

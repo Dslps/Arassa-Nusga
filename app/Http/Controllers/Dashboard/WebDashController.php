@@ -70,66 +70,78 @@ class WebDashController extends Controller
     {
         // Валидация данных
         $validatedData = $request->validate([
-            'title_ru' => 'required|string|max:40',
-            'title_en' => 'nullable|string|max:40',
-            'title_tm' => 'nullable|string|max:40',
+            'title_ru' => 'required|string|max:60',
+            'title_en' => 'nullable|string|max:60',
+            'title_tm' => 'nullable|string|max:60',
             'categories_ru' => 'nullable|array',
             'categories_en' => 'nullable|array',
             'categories_tm' => 'nullable|array',
+            'discount' => 'nullable|integer|min:0|max:100',
+            'price' => 'nullable|numeric|min:0',
         ]);
 
-        // Дополнительные проверки
-        foreach (['title_ru', 'title_en', 'title_tm'] as $field) {
-            if (is_array($validatedData[$field] ?? null)) {
-                $validatedData[$field] = json_encode($validatedData[$field]);
-            }
-        }
-
         if ($request->has('id') && $request->input('id')) {
-            $service = WebService::findOrFail($request->input('id'));
-            $service->update($validatedData);
-            $message = 'Услуга успешно обновлена!';
+
+            $services = WebService::findOrFail($request->input('id'));
+            $services->update($validatedData);
+            $message = 'Услуга успешно обновлен!';
         } else {
+            // Получение минимально доступного ID
+            $existingIds = WebService::pluck('id')->toArray();
+            sort($existingIds);
+
+            $newId = 1; // Начинаем с ID 1
+            foreach ($existingIds as $id) {
+                if ($id != $newId) {
+                    break; // Найден пропущенный ID
+                }
+                $newId++;
+            }
+
+            // Установка нового ID
+            $validatedData['id'] = $newId;
+
+            // Создание новой коробки
             WebService::create($validatedData);
-            $message = 'Услуга успешно добавлена!';
+            $message = 'Касперский успешно добавлен!';
         }
 
         return redirect()->route('web.index')->with('success', $message);
     }
 
+    public function editService($id)
+    {
+        $services = WebService::findOrFail($id);
+
+        return response()->json($services);
+    }
+
     public function updateService(Request $request, $id)
     {
         // Валидация данных
-        $validated = $request->validate([
-            'title_ru' => 'required|string|max:40',
-            'title_en' => 'nullable|string|max:40',
-            'title_tm' => 'nullable|string|max:40',
-            'categories_ru' => 'array',
-            'categories_en' => 'array',
-            'categories_tm' => 'array',
+        $validatedData = $request->validate([
+            'title_ru' => 'required|string|max:60',
+            'title_en' => 'nullable|string|max:60',
+            'title_tm' => 'nullable|string|max:60',
+            'categories_ru' => 'nullable|array',
+            'categories_en' => 'nullable|array',
+            'categories_tm' => 'nullable|array',
+            'discount' => 'integer|min:0|max:100',
+            'price' => 'required|numeric|min:0',
         ]);
 
-        // Дополнительные проверки
-        foreach (['title_ru', 'title_en', 'title_tm'] as $field) {
-            if (is_array($validated[$field] ?? null)) {
-                $validated[$field] = json_encode($validated[$field]);
-            }
-        }
+        $services = WebService::findOrFail($id);
+        $services->update($validatedData);
 
-        // Поиск записи
-        $service = WebService::findOrFail($id);
-
-        // Обновление данных
-        $service->update($validated);
-
-        return redirect()->route('web.index')->with('success', 'Услуга обновлена успешно.');
+        return redirect()->back()->with('success', 'Данные сервиса успешно сохранены!');
     }
+
     public function destroyService($id)
     {
-        $service = WebService::findOrFail($id);
-        $service->delete();
-    
-        return redirect()->back()->with('success', 'Услуга успешно удалена!');
+        $services = WebService::findOrFail($id);
+        $services->delete();
+
+        return redirect()->back()->with('success', 'Данные сервиса успешно удалены!');
     }
 
     // ----------------------------------------------------------------

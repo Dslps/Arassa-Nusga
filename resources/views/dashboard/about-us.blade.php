@@ -8,6 +8,15 @@
                     {{ session('success') }}
                 </div>
             @endif
+            @if ($errors->any())
+            <div class="bg-red-500 text-white p-4 rounded mb-4">
+                <ul>
+                    @foreach ($errors->all() as $error)
+                        <li>{{ $error }}</li>
+                    @endforeach
+                </ul>
+            </div>
+            @endif
 
             <form action="{{ route('aboutus.store') }}" method="POST" enctype="multipart/form-data">
                 @csrf
@@ -29,10 +38,9 @@
                     <label for="photos" class="block text-gray-700 font-medium mb-2">
                         Загрузить фотографии
                     </label>
-
                     <input type="file" id="photos" name="photos[]" accept="image/*" multiple
                         class="border-2 border-dashed border-gray-300 p-4 w-full rounded">
-
+                        <p class="text-xs text-gray-500 mt-1" id="categoriesEn3Count">Размер изображений не должен превышать 5 мб</p>
                     {{-- Контейнер для предпросмотра новых файлов --}}
                     <div id="preview-container" class="flex flex-wrap gap-2 mt-4"></div>
                 </div>
@@ -158,15 +166,6 @@
         <div class="p-4 border-2 border-gray-200 border-dashed rounded-lg dark:border-gray-700">
             <p class="text-lg font-semibold mb-4">Принципы работы:</p>
 
-            <!-- Сообщение об успехе -->
-            @if (session('success'))
-                <div class="bg-green-500 text-white p-4 rounded mb-4">
-                    {{ session('success') }}
-                </div>
-            @endif
-
-            
-
             <!-- Таблица -->
             <table class="table-auto w-full border-collapse border border-gray-300">
                 <thead>
@@ -267,6 +266,7 @@
                             <div class="col-span-3">
                                 <label for="image" class="block font-semibold">Изображение</label>
                                 <input type="file" name="image" id="image" class="border p-2 w-full">
+                                <p class="text-xs text-gray-500 mt-1" id="categoriesEn3Count">Размер изображений не должен превышать 5 мб</p>
                             </div>
                         </div>
                         <div class="flex justify-end mt-4">
@@ -320,6 +320,7 @@
                             <div class="col-span-3">
                                 <label for="edit_image" class="block font-semibold">Изображение</label>
                                 <input type="file" name="image" id="edit_image" class="border p-2 w-full">
+                                <p class="text-xs text-gray-500 mt-1" id="categoriesEn3Count">Размер изображений не должен превышать 5 мб</p>
                             </div>
                         </div>
                         <div class="flex justify-end mt-4">
@@ -350,6 +351,7 @@
                     </label>
                     <input type="file" id="photos" name="photos[]" accept="image/*" multiple
                         class="border-2 border-dashed border-gray-300 p-4 w-full rounded">
+                        <p class="text-xs text-gray-500 mt-1" id="categoriesEn3Count">Размер изображений не должен превышать 5 мб</p>
                     @if (!empty($companyDescription->photos))
                         <div class="flex flex-wrap gap-2 mt-4">
                             @foreach (explode(',', $companyDescription->photos) as $photo)
@@ -436,12 +438,6 @@
 
             <div class="p-4">
                 <div class="p-4 border-2 border-gray-200 border-dashed rounded-lg dark:border-gray-700 mt-5">
-
-                    @if (session('success'))
-                        <div class="bg-green-100 text-green-800 p-2 mb-4 rounded">
-                            {{ session('success') }}
-                        </div>
-                    @endif
 
                     <!-- Форма -->
                     <form action="{{ route('dashboard.achievements.store_or_update') }}" method="POST"
@@ -564,18 +560,6 @@
         <div class="p-4 border-2 border-gray-200 border-dashed rounded-lg dark:border-gray-700">
             <p class="text-lg font-semibold mb-4">Руководство:</p>
 
-
-            <!-- Сообщение об ошибках -->
-            @if ($errors->any())
-                <div class="bg-red-500 text-white p-4 rounded mb-4">
-                    <ul>
-                        @foreach ($errors->all() as $error)
-                            <li>{{ $error }}</li>
-                        @endforeach
-                    </ul>
-                </div>
-            @endif
-
             <!-- Таблица -->
             <table class="table-auto w-full border-collapse border border-gray-300">
                 <thead>
@@ -672,6 +656,7 @@
                             <div class="col-span-3">
                                 <label for="photo" class="block font-semibold">Фото</label>
                                 <input type="file" id="photo" name="photo" class="border p-2 w-full" required maxlength="200" placeholder="Допустимое количество символов 200">
+                                <p class="text-xs text-gray-500 mt-1" id="categoriesEn3Count">Размер изображений не должен превышать 5 мб</p>
                             </div>
                         </div>
                         <div class="flex justify-end mt-4">
@@ -724,6 +709,7 @@
                             <div class="col-span-3">
                                 <label for="edit_photo" class="block font-semibold">Фото</label>
                                 <input type="file" id="edit_photo" name="photo" class="border p-2 w-full" required maxlength="200" placeholder="Допустимое количество символов 200">
+                                <p class="text-xs text-gray-500 mt-1" id="categoriesEn3Count">Размер изображений не должен превышать 5 мб</p>
                             </div>
                         </div>
                         <div class="flex justify-end mt-4">
@@ -756,7 +742,7 @@
 
                             <input type="file" id="photos" name="photos[]" accept="image/*" multiple
                                 class="border-2 border-dashed border-gray-300 p-4 w-full rounded">
-
+                                <p class="text-xs text-gray-500 mt-1" id="categoriesEn3Count">Размер изображений не должен превышать 5 мб</p>
                             <!-- Контейнер для предпросмотра новых файлов -->
                             <div id="preview-container" class="flex flex-wrap gap-2 mt-4"></div>
                             <button type="submit"
@@ -770,7 +756,7 @@
             <div class="p-4">
                 <div class="p-4 border-2 border-gray-200 border-dashed rounded-lg dark:border-gray-700">
                     <h2 class="base-text mb-4">Ваши сертификаты:</h2>
-                    <div class="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5 gap-4">
+                    <div class="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-10 gap-4">
                         @foreach ($certificates as $certificate)
                             <div class="relative" id="certificate-{{ $certificate->id }}">
                                 <div class="flex flex-col justify-center items-center">

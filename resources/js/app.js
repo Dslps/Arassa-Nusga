@@ -100,10 +100,29 @@ $(document).ready(function () {
         prevArrow: $('.partners-prev'), 
         nextArrow: $('.partners-next'), 
         responsive: [
+           
+            {
+                breakpoint: 1600,
+                settings: {
+                    slidesToShow: 4
+                }
+            },
+            {
+                breakpoint: 1400,
+                settings: {
+                    slidesToShow: 4
+                }
+            },
             {
                 breakpoint: 1200,
                 settings: {
-                    slidesToShow: 4
+                    slidesToShow: 3
+                }
+            },
+            {
+                breakpoint: 1024,
+                settings: {
+                    slidesToShow: 3
                 }
             },
             {
@@ -352,9 +371,7 @@ closeButton.addEventListener('click', () => {
     console.log('Header closed');
 });
 // ---------------------------------------------------------------------
-// Кнопка показа дополнительных проектов
-    
-
+// 
 
 
 

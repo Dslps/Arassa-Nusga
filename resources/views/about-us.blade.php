@@ -92,7 +92,7 @@
                 <div class="flex flex-col p-4">
                     <!-- Изображение -->
                     @if($principle->photos)
-                    <img class="lg:w-[80px] w-[50px] lg:h-[80px] h-[50px] object-cover lg:mx-0 mx-auto" src="{{ asset('storage/' . $principle->photos) }}" alt="{{ $principle->{'title_' . app()->getLocale()} }}">
+                    <img class="lg:w-[80px] w-[50px] lg:h-[80px] h-[50px] object-contain lg:mx-0 mx-auto" src="{{ asset('storage/' . $principle->photos) }}" alt="{{ $principle->{'title_' . app()->getLocale()} }}">
                     @endif
     
                     <!-- Заголовок -->
@@ -220,11 +220,11 @@
     {{-- ----------------------Сертификаты-------------------------- --}}
     <div class="w-full max-w-[2000px] mx-auto px-0 lg:px-[60px] 2xl:px-[100px] mt-[50px] lg:mt-[90px]">
         <div class="flex sm:flex-row flex-col justify-between">
-            <div class="flex items-center">
-                <span class="title-2 text-[var(--accent-color)] mr-[15px]">//</span>
-                <p class="title-2 font-semibold sm:text-start text-center">Наши сертификаты</p>
+            <div class="flex items-center p-[30px]">
+                <span class="title-2 text-[var(--accent-color)] mr-[15px] hidden lg:block">//</span>
+                <p class="title-2 font-semibold xl:text-start lg:m-0 m-auto">Наши сертификаты</p>
             </div>
-            <div class="flex gap-[50px] sm:mt-0 mt-5 mx-auto sm:mx-0">
+            <div class="flex items-center gap-[50px] sm:mt-0 mx-auto sm:mx-0 md:pr-[30px]">
                 <button type="button" class="carousel-prev-certificates slider-button group">
                     <span>
                         <i class="fa-solid fa-arrow-left"></i>

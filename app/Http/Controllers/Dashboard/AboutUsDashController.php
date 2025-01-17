@@ -56,6 +56,8 @@ class AboutUsDashController extends Controller
         return redirect()->back()->with('success', 'Данные успешно обновлены!');
     }
 
+    // ------------------------------------------------------------
+
     public function principlesStore(Request $request)
     {
         $validated = $request->validate([

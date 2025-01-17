@@ -35,7 +35,7 @@ class Bitrix24DashController extends Controller
             'description_en' => 'required|string',
             'description_tm' => 'required|string',
 
-            'photos.*' => 'nullable|image|mimes:jpeg,png,jpg,gif,svg|max:2048',
+            'photos.*' => 'nullable|image|mimes:jpeg,png,jpg,gif,svg|max:5000',
         ]);
 
         $bitrix24 = Bitrix24::first() ?? new Bitrix24();
@@ -83,9 +83,9 @@ class Bitrix24DashController extends Controller
 {
     // Валидация данных
     $validatedData = $request->validate([
-        'title_ru' => 'required|string|max:40',
-        'title_en' => 'nullable|string|max:40',
-        'title_tm' => 'nullable|string|max:40',
+        'title_ru' => 'required|string|max:60',
+        'title_en' => 'nullable|string|max:60',
+        'title_tm' => 'nullable|string|max:60',
         'categories_ru' => 'nullable|array',
         'categories_en' => 'nullable|array',
         'categories_tm' => 'nullable|array',
@@ -103,10 +103,10 @@ class Bitrix24DashController extends Controller
         $existingIds = Bitrix24Cloud::pluck('id')->toArray();
         sort($existingIds);
 
-        $newId = 1; // Начинаем с ID 1
+        $newId = 1; 
         foreach ($existingIds as $id) {
             if ($id != $newId) {
-                break; // Найден пропущенный ID
+                break; 
             }
             $newId++;
         }
@@ -128,9 +128,9 @@ class Bitrix24DashController extends Controller
     \Log::info('Request data:', $request->all());
 
     $validatedData = $request->validate([
-        'title_ru' => 'required|string|max:40',
-        'title_en' => 'nullable|string|max:40',
-        'title_tm' => 'nullable|string|max:40',
+        'title_ru' => 'required|string|max:60',
+        'title_en' => 'nullable|string|max:60',
+        'title_tm' => 'nullable|string|max:60',
         'categories_ru' => 'nullable|array',
         'categories_en' => 'nullable|array',
         'categories_tm' => 'nullable|array',
@@ -144,10 +144,6 @@ class Bitrix24DashController extends Controller
     return redirect()->back()->with('success', 'Данные успешно сохранены!');
 }
 
-
-    /**
-     * Удаление записи.
-     */
     public function destroyService($id)
     {
         $service = Bitrix24Cloud::findOrFail($id);
@@ -160,9 +156,9 @@ class Bitrix24DashController extends Controller
     {
         // Валидация данных
         $validatedData = $request->validate([
-            'title_ru' => 'required|string|max:40',
-            'title_en' => 'nullable|string|max:40',
-            'title_tm' => 'nullable|string|max:40',
+            'title_ru' => 'required|string|max:60',
+            'title_en' => 'nullable|string|max:60',
+            'title_tm' => 'nullable|string|max:60',
             'categories_ru' => 'nullable|array',
             'categories_en' => 'nullable|array',
             'categories_tm' => 'nullable|array',
@@ -171,27 +167,23 @@ class Bitrix24DashController extends Controller
         ]);
 
         if ($request->has('id') && $request->input('id')) {
-            // Обновление существующей коробки
             $box = Bitrix24Boxes::findOrFail($request->input('id'));
             $box->update($validatedData);
             $message = 'Коробка успешно обновлена!';
         } else {
-            // Получение минимально доступного ID
             $existingIds = Bitrix24Boxes::pluck('id')->toArray();
             sort($existingIds);
 
-            $newId = 1; // Начинаем с ID 1
+            $newId = 1;
             foreach ($existingIds as $id) {
                 if ($id != $newId) {
-                    break; // Найден пропущенный ID
+                    break; 
                 }
                 $newId++;
             }
 
-            // Установка нового ID
             $validatedData['id'] = $newId;
 
-            // Создание новой коробки
             Bitrix24Boxes::create($validatedData);
             $message = 'Коробка успешно добавлена!';
         }
@@ -208,11 +200,10 @@ class Bitrix24DashController extends Controller
 
     public function updateBox(Request $request, $id)
     {
-        // Валидация данных
         $validatedData = $request->validate([
-            'title_ru' => 'required|string|max:40',
-            'title_en' => 'nullable|string|max:40',
-            'title_tm' => 'nullable|string|max:40',
+            'title_ru' => 'required|string|max:60',
+            'title_en' => 'nullable|string|max:60',
+            'title_tm' => 'nullable|string|max:60',
             'categories_ru' => 'nullable|array',
             'categories_en' => 'nullable|array',
             'categories_tm' => 'nullable|array',
@@ -239,9 +230,9 @@ class Bitrix24DashController extends Controller
     public function storeImplementationStage(Request $request)
     {
         $validatedData = $request->validate([
-            'title_ru' => 'required|string|max:40',
-            'title_en' => 'nullable|string|max:40',
-            'title_tm' => 'nullable|string|max:40',
+            'title_ru' => 'required|string|max:60',
+            'title_en' => 'nullable|string|max:60',
+            'title_tm' => 'nullable|string|max:60',
             'categories_ru' => 'nullable|array',
             'categories_en' => 'nullable|array',
             'categories_tm' => 'nullable|array',
@@ -271,9 +262,9 @@ class Bitrix24DashController extends Controller
     {
         // Валидация данных
         $validatedData = $request->validate([
-            'title_ru' => 'required|string|max:40',
-            'title_en' => 'nullable|string|max:40',
-            'title_tm' => 'nullable|string|max:40',
+            'title_ru' => 'required|string|max:60',
+            'title_en' => 'nullable|string|max:60',
+            'title_tm' => 'nullable|string|max:60',
             'categories_ru' => 'nullable|array',
             'categories_en' => 'nullable|array',
             'categories_tm' => 'nullable|array',

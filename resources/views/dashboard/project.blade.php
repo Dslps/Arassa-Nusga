@@ -13,7 +13,7 @@
         <form action="{{ route('project.store') }}" method="POST" enctype="multipart/form-data">
             @csrf
 
-            <p class="base-text mb-10">Блог</p>
+            <p class="base-text mb-10">Проекты</p>
             <p class="base-text mb-10">Вступительный текст</p>
 
             {{-- Блок для уже сохранённых изображений из БД --}}
@@ -30,10 +30,8 @@
                 <label for="photos" class="block text-gray-700 font-medium mb-2">
                     Загрузить фотографии
                 </label>
-
-
                 <input type="file" id="photos" name="photos[]" accept="image/*" multiple class="border-2 border-dashed border-gray-300 p-4 w-full rounded">
-
+                <p class="text-xs text-gray-500 mt-1" id="categoriesEn3Count">Размер изображений не должен превышать 5 мб</p>
                 {{-- Контейнер для предпросмотра новых файлов --}}
                 <div id="preview-container" class="flex flex-wrap gap-2 mt-4"></div>
             </div>
@@ -161,15 +159,6 @@
     <div class="p-4 border-2 border-gray-100 border-dashed rounded-lg dark:border-gray-700">
         <p class="text-lg font-semibold mb-4">Добавление постов</p>
 
-        <!-- Сообщение об успехе -->
-        @if (session('success'))
-            <div class="bg-green-500 text-white p-4 rounded mb-4">
-                {{ session('success') }}
-            </div>
-        @endif
-
-
-
         <!-- Таблица -->
         <table class="table-auto w-full border-collapse border border-gray-300">
             <thead>
@@ -232,7 +221,7 @@
         <!-- Модальное окно для добавления -->
         <div id="addModal" class="fixed inset-0 bg-black bg-opacity-50 flex justify-center items-center hidden">
             <div class="bg-white p-8 rounded shadow-lg w-3/4 max-w-4xl">
-                <h2 class="text-xl mb-4">Добавить принцип</h2>
+                <h2 class="text-xl mb-4">Добавить пост</h2>
                 <form action="{{ route('dashboard.project.store') }}" method="POST" enctype="multipart/form-data">
                     @csrf
                     <div class="grid grid-cols-3 gap-4">
@@ -282,7 +271,7 @@
                         <div class="col-span-3">
                             <label for="image" class="block font-semibold">Изображение</label>
                             <input type="file" name="image" id="image" class="border p-2 w-full">
-                            <p class="text-xs text-gray-500 mt-1">Размер не должен превышать 5 мегабайт</p>
+                            <p class="text-xs text-gray-500 mt-1">Размер не должен превышать 8 мегабайт</p>
                         </div>
                     </div>
                     <div class="flex justify-end mt-4">
@@ -302,7 +291,7 @@
         <!-- Модальное окно для редактирования -->
         <div id="editModal" class="fixed inset-0 bg-black bg-opacity-50 flex justify-center items-center hidden">
             <div class="bg-white p-8 rounded shadow-lg w-3/4 max-w-4xl">
-                <h2 class="text-xl mb-4">Редактировать принцип</h2>
+                <h2 class="text-xl mb-4">Редактировать пост</h2>
                 <form id="editForm" action="#" method="POST" enctype="multipart/form-data">
                     @csrf
                     @method('PUT')
@@ -379,6 +368,7 @@
     // Открыть модалку для добавления
     function openAddModal() {
         document.getElementById('addModal').classList.remove('hidden');
+        updateCharacterCounts();
     }
 
     // Закрыть модалку для добавления
@@ -388,30 +378,49 @@
 
     // Открыть модалку для редактирования
     function openEditModal(principle) {
-        document.getElementById('editModal').classList.remove('hidden');
+        const modal = document.getElementById('editModal');
+        modal.classList.remove('hidden');
 
         const editForm = document.getElementById('editForm');
         // Формируем action
         editForm.action = `{{ route('dashboard.project.update', ':id') }}`.replace(':id', principle.id);
-
         // Заполняем поля
         document.getElementById('edit_title_ru').value = principle.title_ru || '';
         document.getElementById('edit_title_en').value = principle.title_en || '';
         document.getElementById('edit_title_tm').value = principle.title_tm || '';
-
         document.getElementById('edit_description_ru').value = principle.description_ru || '';
         document.getElementById('edit_description_en').value = principle.description_en || '';
         document.getElementById('edit_description_tm').value = principle.description_tm || '';
-
         // Новые поля additional
         document.getElementById('edit_additional_ru').value = principle.additional_ru || '';
         document.getElementById('edit_additional_en').value = principle.additional_en || '';
         document.getElementById('edit_additional_tm').value = principle.additional_tm || '';
+
+        // Обновление счетчиков символов после заполнения формы
+        updateCharacterCounts();
     }
 
     // Закрыть модалку для редактирования
     function closeEditModal() {
         document.getElementById('editModal').classList.add('hidden');
+    }
+
+    // Обновление счетчиков символов для всех полей с maxlength
+    function updateCharacterCounts() {
+        document.querySelectorAll('input[maxlength], textarea[maxlength]').forEach(input => {
+            const counter = input.nextElementSibling;
+            if (counter && counter.tagName.toLowerCase() === 'p') {
+                updateCharacterCount(input, counter);
+                input.addEventListener('input', () => updateCharacterCount(input, counter));
+            }
+        });
+    }
+
+    // Обновление счетчика символов для конкретного поля
+    function updateCharacterCount(input, counter) {
+        const maxLength = parseInt(input.getAttribute('maxlength'), 10);
+        const remaining = maxLength - input.value.length;
+        counter.textContent = `${remaining} символов осталось`;
     }
 </script>
 
