@@ -10,6 +10,7 @@ use App\Http\Controllers\Dashboard\ContactDash;
 use App\Http\Controllers\Dashboard\WebDash;
 use App\Http\Controllers\Dashboard\WebDevelopmentDash;
 use App\Http\Controllers\HomeController;
+use App\Http\Controllers\LanguageController;
 use App\Http\Controllers\MobileController;
 use App\Http\Controllers\ProjectController;
 use App\Http\Controllers\UserController;
@@ -27,20 +28,16 @@ use App\Http\Controllers\Dashboard\BlogDashController;
 use App\Http\Controllers\Dashboard\WebDashController;
 use Illuminate\Support\Facades\Session;
 use Illuminate\Support\Facades\Log;
+use App\Http\Middleware\SetLocale;
 
 Route::get('/settings', function () {return view('settings');})->name('settings');
-Route::get('lang/{locale}', function ($locale) {
-    $locales = config('app.locales');
-    if (in_array($locale, $locales)) {
-        Session::put('locale', $locale);
-        Log::info('Locale set to: ' . $locale);
-    } else {
-        Log::info('Invalid locale: ' . $locale);
-    }
-    return redirect()->back();
-})->name('lang.switch');
+Route::middleware([SetLocale::class])->group(function () {
+    Route::get('/', ([HomeController::class, 'index']))->name('home');
+    Route::get('language/{locale}', [LanguageController::class, 'switchLanguage'])->name('language.switch');
+});
 
-Route::get('/', ([HomeController::class, 'index']))->name('home');
+
+
 Route::get('/about-us', ([AboutUsController::class, 'index']))->name('about-us');
 Route::get('/project', ([ProjectController::class, 'index']))->name('project');
 Route::get('/blog', ([BlogController::class, 'index']))->name('blog');

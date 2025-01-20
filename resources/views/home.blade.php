@@ -95,8 +95,8 @@
                         <a href="{{ route('contact') }}">
                             <div
                                 class="animate-block p-[30px] w-full sm:w-[50%] lg:w-[50%] 2xl:w-[25%] flex flex-col 
-            {{ $loop->first ? 'bg-[var(--accent-color)] text-[var(--white-color)]' : 'bg-white border-b border-r border-gray-200' }}
-            group hover:shadow-lg hover:-translate-y-1 transition-transform duration-300">
+                             {{ $loop->first ? 'bg-[var(--accent-color)] text-[var(--white-color)]' : 'bg-white border-b border-r border-gray-200' }}
+                             group hover:shadow-lg hover:-translate-y-1 transition-transform duration-300">
 
                                 <!-- Название -->
                                 <p
