@@ -15,7 +15,7 @@
                     <a href="{{route('contact')}}">
                         <div
                             class="w-[230px] h-[40px] hidden lg:flex items-center border-t-2 border-b-2 justify-center lg:mt-[25px] lg:m-0 m-auto mt-[25px]">
-                            <p>Заказать услугу <i class="ml-[10px] fa-solid fa-arrow-right-long"></i></p>
+                            <p>{{ __('messages.order a service') }}<i class="ml-[10px] fa-solid fa-arrow-right-long"></i></p>
                         </div>
                     </a>
                     <!-- Изображение для мобильных устройств -->
@@ -46,11 +46,8 @@
             <div class="flex items-start p-[30px] lg:p-0  text-center lg:text-start">
                 <span class="title-2 text-[var(--accent-color)] mr-[15px] hidden lg:block">//</span>
                 <div class="flex flex-col">
-                    <p class="title-2 font-semibold">Что входит в услугу</p>
-                    <p class="max-w-[860px] mt-2 lg:mt-0">The quiet forest was alive with the sounds of nature. Birds
-                        chirped melodiously,
-                        and a gentle breeze rustled the leaves, carrying the earthy scent of pine and moss. Sunlight
-                        streamed through the</p>
+                    <p class="title-2 font-semibold">{{ __('messages.all_services') }}</p>
+                    <p class="max-w-[860px] mt-2 lg:mt-0">{{ __('messages.all_mobile_comment') }}</p>
                 </div>
             </div>
 
@@ -59,9 +56,9 @@
                 <div class="animate-block flex flex-wrap w-full justify-start">
                     <div
                         class="bg-[var(--accent-color)] w-full sm:w-[50%] h-[250px] 2xl:w-[25%] text-[var(--white-color)] p-[30px] flex flex-col hover:-translate-y-1 transition-transform duration-300">
-                        <p class="base-text font-semibold">Наши возможности по разработке мобильных приложений</p>
+                        <p class="base-text font-semibold">{{ __('messages.mobile_title') }}</p>
                         <ul class="small-text list-none pl-[10px] space-y-[5px] mt-5">
-                            <li class="list-marker">Мы предлагаем широкий спектр мобильных решений, которые могут удовлетворить потребности различных бизнес-сегментов</li>
+                            <li class="list-marker">{{ __('messages.mobile_comment') }}</li>
                         </ul>
 
                     </div>
@@ -93,7 +90,7 @@
             <div class="flex justify-center lg:justify-start">
                 <span class="title-2 text-[var(--accent-color)] mr-[20px] hidden lg:block">//</span>
                 <div class="max-w-[860px] ">
-                    <p class="title-2 font-semibold">Этапы разработки</p>
+                    <p class="title-2 font-semibold">{{ __('messages.implementation') }}</p>
                 </div>
             </div>
             <div class="flex justify-center">

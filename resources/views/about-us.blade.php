@@ -85,7 +85,7 @@
     <div class="w-full px-0 lg:px-[60px] 2xl:px-[100px] m-auto mt-[80px] xl:mt-[80px] 2xl:mt-[80px] ">
         <div class="max-w-[2000px] m-auto">
             <div>
-                <p class="title-2 pl-0 lg:pl-4 lg:text-start text-center mb-[60px]">Принципы нашей работы</p>
+                <p class="title-2 pl-0 lg:pl-4 lg:text-start text-center mb-[60px]">{{ __('messages.principles') }}</p>
             </div>
             <div class="grid lg:text-start text-center grid-cols-1 sm:grid-cols-2 lg:grid-cols-4">
                 @forelse ($principles as $principle)
@@ -187,10 +187,10 @@
     {{-- ---------------------------------НАШЕ РУКОВОДСТВО---------------------------------------------- --}}
     <div class="w-full mx-auto max-w-[2000px] mt-[115px] pb-[90px] px-5 lg:px-[100px]">
         <div>
-            <p class="title-2 text-center lg:text-start">Наше руководство</p>
+            <p class="title-2 text-center lg:text-start">{{ __('messages.management') }}</p>
             <div class="flex mt-[10px] lg:mt-[40px] lg:justify-start justify-center items-center">
                 <span class="mr-[10px] text-[36px] font-semibold text-[var(--accent-color)] hidden lg:block">//</span>
-                <p class="base-text">Персонал - гордость нашего бизнеса</p>
+                <p class="base-text">{{ __('messages.management_comment') }}</p>
             </div>
         </div>
     
@@ -222,18 +222,24 @@
         <div class="flex sm:flex-row flex-col justify-between">
             <div class="flex items-center p-[30px]">
                 <span class="title-2 text-[var(--accent-color)] mr-[15px] hidden lg:block">//</span>
-                <p class="title-2 font-semibold xl:text-start lg:m-0 m-auto">Наши сертификаты</p>
+                <p class="title-2 font-semibold xl:text-start lg:m-0 m-auto">{{ __('messages.our_certificates') }}</p>
             </div>
             <div class="flex items-center gap-[50px] sm:mt-0 mx-auto sm:mx-0 md:pr-[30px]">
                 <button type="button" class="carousel-prev-certificates slider-button group">
                     <span>
-                        <i class="fa-solid fa-arrow-left"></i>
+                        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512" width="15" height="15" fill="black">
+                            <!--!Font Awesome Free 6.7.2 by @fontawesome-->
+                            <path d="M9.4 233.4c-12.5 12.5-12.5 32.8 0 45.3l160 160c12.5 12.5 32.8 12.5 45.3 0s12.5-32.8 0-45.3L109.2 288 416 288c17.7 0 32-14.3 32-32s-14.3-32-32-32l-306.7 0L214.6 118.6c12.5-12.5 12.5-32.8 0-45.3s-32.8-12.5-45.3 0l-160 160z"/>
+                        </svg>  
                         <span class="sr-only">Previous</span>
                     </span>
                 </button>
                 <button type="button" class="carousel-next-certificates slider-button group">
                     <span>
-                        <i class="fa-solid fa-arrow-right"></i>
+                        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512" width="15" height="15" fill="black">
+                            <!--!Font Awesome Free 6.7.2 by @fontawesome-->
+                            <path d="M438.6 278.6c12.5-12.5 12.5-32.8 0-45.3l-160-160c-12.5-12.5-32.8-12.5-45.3 0s-12.5 32.8 0 45.3L338.8 224 32 224c-17.7 0-32 14.3-32 32s14.3 32 32 32l306.7 0L233.4 393.4c-12.5 12.5-12.5 32.8 0 45.3s32.8 12.5 45.3 0l160-160z"/>
+                        </svg> 
                         <span class="sr-only">Next</span>
                     </span>
                 </button>

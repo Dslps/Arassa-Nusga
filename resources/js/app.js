@@ -157,6 +157,21 @@ document.addEventListener("DOMContentLoaded", function () {
         }
     });
 });
+// появление хедера в начале прогрузки страницы
+document.addEventListener("DOMContentLoaded", function () {
+    gsap.registerPlugin(ScrollTrigger);
+    gsap.from(".top-box", {
+        y: "-100%",            
+        opacity: 0,            
+        duration: 1.2,       
+        ease: "power2.out",   
+        scrollTrigger: {
+            trigger: ".top-box", 
+            start: "top 100%",  
+            toggleActions: "play none none none", 
+        }
+    });
+});
 // ---------------------------------------------------------------------
 // нижний блок управления слайдером на домашней странице
 document.addEventListener("DOMContentLoaded", function () {

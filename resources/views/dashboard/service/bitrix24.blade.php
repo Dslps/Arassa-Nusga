@@ -391,15 +391,15 @@
                             <td class="border border-gray-300 px-4 py-2 text-center">{{ $box->discount }}</td>
                             <td class="border border-gray-300 px-4 py-2 text-center">{{ $box->price }}</td>
                             <td class="border border-gray-300 px-4 py-2 text-center">
-                                <button class="new-service-edit-button text-orange-500" data-id="{{ $service->id }}"
-                                    data-title_ru="{{ addslashes($service->title_ru) }}"
-                                    data-title_en="{{ addslashes($service->title_en) }}"
-                                    data-title_tm="{{ addslashes($service->title_tm) }}"
-                                    data-categories_ru="{{ json_encode($service->categories_ru ?? []) }}"
-                                    data-categories_en="{{ json_encode($service->categories_en ?? []) }}"
-                                    data-categories_tm="{{ json_encode($service->categories_tm ?? []) }}"
-                                    data-discount="{{ $service->discount !== null ? $service->discount : 'null' }}"
-                                    data-price="{{ $service->price !== null ? $service->price : 'null' }}">
+                                <button class="new-service-edit-button text-orange-500" data-id="{{ $box->id }}"
+                                    data-title_ru="{{ addslashes($box->title_ru) }}"
+                                    data-title_en="{{ addslashes($box->title_en) }}"
+                                    data-title_tm="{{ addslashes($box->title_tm) }}"
+                                    data-categories_ru="{{ json_encode($box->categories_ru ?? []) }}"
+                                    data-categories_en="{{ json_encode($box->categories_en ?? []) }}"
+                                    data-categories_tm="{{ json_encode($box->categories_tm ?? []) }}"
+                                    data-discount="{{ $box->discount !== null ? $box->discount : 'null' }}"
+                                    data-price="{{ $box->price !== null ? $box->price : 'null' }}">
                                     <i class="text-[20px] fa-solid fa-pencil"></i>
                                 </button>
                             </td>

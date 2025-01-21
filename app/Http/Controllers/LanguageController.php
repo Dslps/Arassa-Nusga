@@ -13,11 +13,6 @@ class LanguageController extends Controller
     if (in_array($locale, ['en', 'ru', 'tm'])) {
         // Сохраняем локаль в сессии
         Session::put('locale', $locale);
-
-
-        // Логируем результат
-        \Log::info('Locale saved to session: ' . session('locale'));
-        \Log::info('Locale set in controller: ' . App::getLocale());
     }
 
     return redirect()->back();

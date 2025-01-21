@@ -75,8 +75,9 @@
 
     {{-- ------------------------------------------------------------------------------------------ --}}
     <div class="flex flex-col xl:px-[100px] lg:px-[60px] px-[30px] mt-5">
-        <p class="title-2">Публикации</p>
-        <p class="base-text">Remember, even the tallest trees were once tiny seeds that grew steadily, day by day.
+        <p class="title-2">{{ __('messages.publications') }}</p>
+        <p class="base-text">
+            {{ __('messages.publications_comment') }}
         </p>
     </div>
 
@@ -120,9 +121,9 @@
 
         <!-- Кнопка для отображения следующих 4 элементов -->
         <div class="text-center mt-6">
-            <button id="loadMoreBtn"
-                class="px-4 py-2 bg-[var(--accent-color)] text-white rounded-md focus:outline-none">Показать
-                больше</button>
+            <button id="loadMoreBtn" class="px-4 py-2 bg-[var(--accent-color)] text-white rounded-md focus:outline-none">
+                {{ __('messages.button_show') }}
+            </button>
         </div>
     </div>
 

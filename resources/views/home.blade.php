@@ -36,7 +36,8 @@
                                 <a href="{{ route('contact') }}">
                                     <div
                                         class="w-[230px] h-[40px] flex items-center border-t-2 border-b-2 justify-center lg:mt-[25px] lg:m-0 m-auto mt-[25px]">
-                                        <p>Заказать услугу <i class="lg:ml-[10px] ml-0 fa-solid fa-arrow-right-long"></i>
+                                        <p>{{ __('messages.our_services') }} <i
+                                                class="lg:ml-[10px] ml-0 fa-solid fa-arrow-right-long"></i>
                                         </p>
                                     </div>
                                 </a>
@@ -55,10 +56,20 @@
                 class="carousel-controller lg:justify-end px-[30px] lg:px-[60px] 2xl:px-[100px] lg:w-[800px] bg-[var(--accent-color)] flex items-center justify-between w-full lg:h-[15vh] h-[140px]">
                 <div class="items-center flex gap-[45px] lg:p-0 lg:w-auto w-full justify-between">
                     <button class="carousel-prev w-[50px] h-[50px] border-2 rounded-full">
-                        <i class="fa-solid fa-arrow-left"></i>
+                        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512" width="15" height="15"
+                            fill="white">
+                            <!--!Font Awesome Free 6.7.2 by @fontawesome-->
+                            <path
+                                d="M9.4 233.4c-12.5 12.5-12.5 32.8 0 45.3l160 160c12.5 12.5 32.8 12.5 45.3 0s12.5-32.8 0-45.3L109.2 288 416 288c17.7 0 32-14.3 32-32s-14.3-32-32-32l-306.7 0L214.6 118.6c12.5-12.5 12.5-32.8 0-45.3s-32.8-12.5-45.3 0l-160 160z" />
+                        </svg>
                     </button>
                     <button class="carousel-next w-[50px] h-[50px] border-2 rounded-full">
-                        <i class="fa-solid fa-arrow-right"></i>
+                        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512" width="15" height="15"
+                            fill="white">
+                            <!--!Font Awesome Free 6.7.2 by @fontawesome-->
+                            <path
+                                d="M438.6 278.6c12.5-12.5 12.5-32.8 0-45.3l-160-160c-12.5-12.5-32.8-12.5-45.3 0s-12.5 32.8 0 45.3L338.8 224 32 224c-17.7 0-32 14.3-32 32s14.3 32 32 32l306.7 0L233.4 393.4c-12.5 12.5-12.5 32.8 0 45.3s32.8 12.5 45.3 0l160-160z" />
+                        </svg>
                     </button>
                 </div>
             </div>
@@ -77,7 +88,7 @@
         <div class="max-w-[2000px] m-auto">
             <div class="flex items-center p-[30px] lg:p-0">
                 <span class="title-2 text-[var(--accent-color)] mr-[15px]">//</span>
-                <p class="title-2 font-semibold text-center lg:text-start">Наши услуги</p>
+                <p class="title-2 font-semibold text-center lg:text-start">{{ __('messages.all_services') }}</p>
             </div>
 
             @php
@@ -134,9 +145,14 @@
                                     </div>
                                     <a href="{{ route('contact') }}">
                                         <div
-                                            class="button-service 
-                        {{ $loop->first ? '' : 'group-hover:shadow-md group-hover:shadow-[var(--accent-color)] transition-shadow duration-300' }}">
-                                            <i class="fa-solid fa-arrow-right"></i>
+                                            class="button-service  {{ $loop->first ? '' : 'group-hover:shadow-md group-hover:shadow-[var(--accent-color)] transition-shadow duration-300' }}">
+                                            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512" width="15"
+                                                height="15" fill="grow">
+                                                <!--!Font Awesome Free 6.7.2 by @fontawesome-->
+                                                <path
+                                                    d="M438.6 278.6c12.5-12.5 12.5-32.8 0-45.3l-160-160c-12.5-12.5-32.8-12.5-45.3 0s-12.5 32.8 0 45.3L338.8 224 32 224c-17.7 0-32 14.3-32 32s14.3 32 32 32l306.7 0L233.4 393.4c-12.5 12.5-12.5 32.8 0 45.3s32.8 12.5 45.3 0l160-160z" />
+                                            </svg>
+
                                         </div>
                                     </a>
                                 </div>
@@ -153,68 +169,65 @@
     </div>
 
     {{-- -----------------------------------------------О НАС--------------------------------------------------------- --}}
-    <div class="w-full mx-auto max-w-[2000px] m-auto flex flex-col lg:flex-row bg-[var(--template-color)]">
-        @if (
-            $aboutUs &&
-                $aboutUs->image_path &&
-                $aboutUs->{'title_' . $currentLang} &&
-                $aboutUs->{'description_' . $currentLang})
-            <!-- Блок с изображением -->
-            <div class="image-container flex justify-center w-full 2xl:w-[800px] overflow-hidden">
-                <img src="{{ asset('storage/' . $aboutUs->image_path) }}" alt="Изображение"
-                    class="animate-image w-full lg:w-auto h-auto object-cover">
-            </div>
-            <!-- Блок с текстом -->
-            <div
-                class="text-container w-full lg:w-[1120px] py-16 px-[30px] lg:px-[60px] xl:px-[100px] text-[var(--white-color)]">
-                <div class="max-w-[870px]">
-                    <p class="title-2 mb-[40px] font-semibold animate-text"
-                        style="max-width: 100%; word-wrap: break-word; word-break: break-word; white-space: normal;">
-                        {{ $aboutUs->{'title_' . $currentLang} ??
-                            (($currentLang !== 'ru' ? $aboutUs->title_ru : ($currentLang !== 'en' ? $aboutUs->title_en : $aboutUs->title_tm)) ??
-                                'Название отсутствует') }}
-                    </p>
-                    <ul class="lg:ml-[10px] ml-0 base-text space-y-[15px]"
-                        style="word-wrap: break-word; word-break: break-word; overflow-wrap: break-word;">
-                        @foreach (explode("\n", $aboutUs->{'description_' . $currentLang} ?? '') as $line)
-                            @if (trim($line) !== '')
-                                <li class="list-marker animate-text">{{ $line }}</li>
-                            @endif
-                        @endforeach
-                    </ul>
+    <div class="w-full bg-[var(--template-color)]">
+        <div class="w-full mx-auto max-w-[2000px] m-auto flex flex-col lg:flex-row bg-[var(--template-color)]">
+            @if (
+                $aboutUs &&
+                    $aboutUs->image_path &&
+                    $aboutUs->{'title_' . $currentLang} &&
+                    $aboutUs->{'description_' . $currentLang})
+                <!-- Блок с изображением -->
+                <div class="image-container flex justify-center w-full 2xl:w-[800px] overflow-hidden">
+                    <img src="{{ asset('storage/' . $aboutUs->image_path) }}" alt="Изображение"
+                        class="animate-image w-full lg:w-auto h-auto object-cover">
                 </div>
-            </div>
-        @else
-            <div class="text-center text-white w-full p-5">
-                Нет данных
-            </div>
-        @endif
+                <!-- Блок с текстом -->
+                <div
+                    class="text-container w-full lg:w-[1120px] py-16 px-[30px] lg:px-[60px] xl:px-[100px] text-[var(--white-color)]">
+                    <div class="max-w-[870px]">
+                        <p class="title-2 mb-[40px] font-semibold animate-text"
+                            style="max-width: 100%; word-wrap: break-word; word-break: break-word; white-space: normal;">
+                            {{ $aboutUs->{'title_' . $currentLang} ??
+                                (($currentLang !== 'ru' ? $aboutUs->title_ru : ($currentLang !== 'en' ? $aboutUs->title_en : $aboutUs->title_tm)) ??
+                                    'Название отсутствует') }}
+                        </p>
+                        <ul class="lg:ml-[10px] ml-0 base-text space-y-[15px]"
+                            style="word-wrap: break-word; word-break: break-word; overflow-wrap: break-word;">
+                            @foreach (explode("\n", $aboutUs->{'description_' . $currentLang} ?? '') as $line)
+                                @if (trim($line) !== '')
+                                    <li class="list-marker animate-text">{{ $line }}</li>
+                                @endif
+                            @endforeach
+                        </ul>
+                    </div>
+                </div>
+            @else
+                <div class="text-center text-white w-full p-5">
+                    Нет данных
+                </div>
+            @endif
+        </div>
     </div>
-
     {{-- ------------------------------НАШИ ПРОЕКТЫ-------------------------------------- --}}
     <div class="w-full max-w-[2000px] mx-auto px-[30px] lg:px-[60px] 2xl:px-[100px] mt-[50px] lg:mt-[90px]">
         <div class="flex flex-col lg:flex-row ">
             <div class="animate-left lg:w-[650px] w-full">
                 <div class=" flex items-center">
                     <span class="title-2 text-[var(--accent-color)] mr-[15px] hidden lg:block">//</span>
-                    <p class="title-2 font-semibold">Наши проекты</p>
+                    <p class="title-2 font-semibold">{{ __('messages.our_projects') }}</p>
                 </div>
                 <div class="lg:mt-[50px] mt-[20px]">
                     <ul class="space-y-[15px] text-[var(--accent-color)] font-bold">
-                        <li class="list-marker">Лендинг страницы</li>
-                        <li class="list-marker">Сайты каталог</li>
-                        <li class="list-marker">Многостраничные сайты</li>
+                        <li class="list-marker">{{ __('messages.landing') }}</li>
+                        <li class="list-marker">{{ __('messages.catalog') }}</li>
+                        <li class="list-marker">{{ __('messages.many_page') }}</li>
                     </ul>
                     <ul class="lg:mt-[50px] mt-[20px] space-y-[20px]">
                         <li>
-                            Наши проекты включают разработку и поддержку веб-приложений с использованием современных
-                            технологий, таких как PHP (Laravel), JavaScript (Node.js, React, jQuery), а также мобильных
-                            приложений на Flutter.
+                            {{ __('messages.description_1') }}
                         </li>
                         <li>
-                            Основное внимание уделяется созданию удобного пользовательского интерфейса, оптимизации базы
-                            данных, улучшению клиентского опыта и интеграции BI-отчетности через инструменты вроде Power BI,
-                            Google Looker Studio и MS Excel.
+                            {{ __('messages.description_2') }}
                         </li>
                     </ul>
                 </div>
@@ -225,10 +238,20 @@
                     <div class="lg:flex hidden justify-end text-[var(--accent-color)]">
                         <div class="flex gap-[40px] w-full lg:w-auto">
                             <button class="slider-button prev">
-                                <i class="fa-solid fa-arrow-left"></i>
+                                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512" width="15" height="15"
+                                    fill="black">
+                                    <!--!Font Awesome Free 6.7.2 by @fontawesome-->
+                                    <path
+                                        d="M9.4 233.4c-12.5 12.5-12.5 32.8 0 45.3l160 160c12.5 12.5 32.8 12.5 45.3 0s12.5-32.8 0-45.3L109.2 288 416 288c17.7 0 32-14.3 32-32s-14.3-32-32-32l-306.7 0L214.6 118.6c12.5-12.5 12.5-32.8 0-45.3s-32.8-12.5-45.3 0l-160 160z" />
+                                </svg>
                             </button>
                             <button class="slider-button next">
-                                <i class="fa-solid fa-arrow-right"></i>
+                                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512" width="15"
+                                    height="15" fill="black">
+                                    <!--!Font Awesome Free 6.7.2 by @fontawesome-->
+                                    <path
+                                        d="M438.6 278.6c12.5-12.5 12.5-32.8 0-45.3l-160-160c-12.5-12.5-32.8-12.5-45.3 0s-12.5 32.8 0 45.3L338.8 224 32 224c-17.7 0-32 14.3-32 32s14.3 32 32 32l306.7 0L233.4 393.4c-12.5 12.5-12.5 32.8 0 45.3s32.8 12.5 45.3 0l160-160z" />
+                                </svg>
                             </button>
                         </div>
                     </div>

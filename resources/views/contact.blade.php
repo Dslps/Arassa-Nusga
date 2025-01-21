@@ -5,15 +5,15 @@
     <div class=" w-full flex">
         <div class="animate-left lg:w-[800px] lg:h-[600px] h-max lg:py-0 py-5 bg-[var(--accent-color)]  flex flex-col lg:flex-row lg:items-center px-10 2xl:px-[100px] lg:px-[60px] w-full">
             <div class=" lg:hidden block text-[var(--white-color)] mb-10">
-                <p class="title mb-5">Свяжитесь с нами:</p>
-                <p>Ашхабад</p>
-                <p>Бизнес-центр Arzuw, ул. Г. Кулиева (Объездная),Ашхабад, Туркменистан</p>
-                <p>Тел: +99312754480 / +99361648605</p>
-                <p>info@arassanusga.com</p>
+                <p class="title mb-5">{{ __('messages.contact_title') }}</p>
+                <p>{{ __('messages.city') }}</p>
+                <p>{{ __('messages.location_contact') }}</p>
+                <p>{{ __('messages.phone') }}</p>
+                <p>{{ __('messages.gmail') }}</p>
             </div>
             <form class="w-full" action="{{ route('contact.submit') }}" method="POST">
                 @csrf <!-- Защита от CSRF -->
-                <p class="title-2 text-white mb-5 lg:block hidden">Свяжитесь с нами:</p>
+                <p class="title-2 text-white mb-5 lg:block hidden">{{ __('messages.contact_title') }}</p>
                 
                 <div class="relative z-0 w-full mb-5 group">
                     <input type="text" name="username" id="username"
@@ -64,10 +64,10 @@
         </div>
         <div class="animate-bottom lg:flex w-[1120px] h-[560px] px-[50px] 2xl:px-[100px] lg:px-[60px] justify-center items-center hidden">
             <div>
-                <p>Ашхабад</p>
-                <p>Бизнес-центр Arzuw, ул. Г. Кулиева (Объездная),Ашхабад, Туркменистан</p>
-                <p>Тел: +99312754480 / +99361648605</p>
-                <p>info@arassanusga.com</p>
+                <p>{{ __('messages.city') }}</p>
+                <p>{{ __('messages.location_contact') }}</p>
+                <p>{{ __('messages.phone') }}</p>
+                <p>{{ __('messages.gmail') }}</p>
             </div>
         </div>
     </div>

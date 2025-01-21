@@ -75,8 +75,9 @@
         <div class="flex">
             <span class="title-2 mr-[10px] text-[var(--accent-color)]">//</span>
             <div class="flex flex-col">
-                <p class="title-2">Примеры наших работ</p>
-                <p class="base-text">Remember, even the tallest trees were once tiny seeds that grew steadily, day by day.
+                <p class="title-2">{{ __('messages.examples') }}</p>
+                <p class="base-text">
+                    {{ __('messages.examples_comment') }}
                 </p>
             </div>
         </div>
@@ -114,7 +115,7 @@
         </div>
         <div class="flex justify-center mt-5">
             <button id="loadMoreButton" class="bg-[var(--accent-color)] small-text text-white p-5 rounded-[5px]">
-                Показать ещё
+                {{ __('messages.button_show') }}
             </button>
         </div>
     </div>

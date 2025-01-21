@@ -19,7 +19,7 @@
                     <a href="{{ route('contact') }}">
                         <div
                             class="w-[230px] h-[40px] hidden lg:flex items-center border-t-2 border-b-2 justify-center lg:mt-[25px] lg:m-0 m-auto mt-[25px]">
-                            <p>Заказать услугу <i class="ml-[10px] fa-solid fa-arrow-right-long"></i></p>
+                            <p>{{ __('messages.order a service') }} <i class="ml-[10px] fa-solid fa-arrow-right-long"></i></p>
                         </div>
                     </a>
 
@@ -54,11 +54,8 @@
             <div class="flex items-start p-[30px] lg:p-0 text-center lg:text-start">
                 <span class="title-2 text-[var(--accent-color)] mr-[15px] hidden lg:block">//</span>
                 <div class="flex flex-col">
-                    <p class="title-2 font-semibold">Что входит в услугу</p>
-                    <p class="max-w-[860px] mt-2 lg:mt-0">The quiet forest was alive with the sounds of nature. Birds
-                        chirped melodiously,
-                        and a gentle breeze rustled the leaves, carrying the earthy scent of pine and moss. Sunlight
-                        streamed through the</p>
+                    <p class="title-2 font-semibold">{{ __('messages.all_services') }}</p>
+                    <p class="max-w-[860px] mt-2 lg:mt-0">{{ __('messages.all_web_comment') }}</p>
                 </div>
             </div>
 
@@ -67,66 +64,67 @@
                 <div class="animate-block flex flex-wrap w-full justify-start">
                     <div
                         class="bg-[var(--accent-color)] w-full sm:w-[50%] h-[250px] 2xl:w-[25%] text-[var(--white-color)] p-[30px] flex flex-col hover:-translate-y-1 transition-transform duration-300">
-                        <p class="base-text font-semibold">Также входит:</p>
+                        <p class="base-text font-semibold">{{ __('messages.web_service_title') }}</p>
                         <ul class="small-text list-none pl-[10px] space-y-[5px] mt-5">
-                            <li class="list-marker">Адаптивный дизайн</li>
-                            <li class="list-marker">Обучение: Помощь в управлении и администрировании</li>
-                            <li class="list-marker">Подключение SSL: Установка SSL-сертификата для защиты данных</li>
+                            <li class="list-marker">{{ __('messages.web_service_comment-1') }}</li>
+                            <li class="list-marker">{{ __('messages.web_service_comment-2') }}</li>
+                            <li class="list-marker">{{ __('messages.web_service_comment-3') }}</li>
                         </ul>
 
                     </div>
                     @foreach ($services as $index => $itom)
-                        <div
-                            class="animate-block p-[30px] w-full h-[250px] sm:w-[50%] 2xl:w-[25%] flex flex-col bg-white shadow hover:shadow-lg hover:-translate-y-1 transition-transform duration-300">
-                            {{-- Титульный текст --}}
-                            <p style="word-break: break-word; word-wrap: break-word; white-space: normal; max-width: 100%;"
-                                class="base-text mb-[15px] text-[var(--comment-color)] font-semibold">
-                                {{ $itom->title_ru ?? 'Название не указано' }}
-                            </p>
-
-                            @php
-                                $categories = $itom->categories_ru ?? [];
-                            @endphp
-
-                            {{-- Категории --}}
-                            @if (!empty($categories))
-                                <ul style="word-break: break-word; word-wrap: break-word; white-space: normal; max-width: 100%;"
-                                    class="ml-[10px] text-[var(--accent-color)] small-text font-semibold">
-                                    @foreach ($categories as $category)
-                                        @if (!empty($category))
-                                            <li class="list-marker">{{ $category }}</li>
-                                        @endif
-                                    @endforeach
-                                </ul>
-                            @endif
-
-                            <div class="flex items-end justify-between mt-auto">
-                                <div class="number text-[var(--comment-color)] font-semibold">
-                                    {{ str_pad($index + 1, 2, '0', STR_PAD_LEFT) }}
-                                </div>
-                                {{-- Цена и скидка --}}
-                                <div>
-                                    <div class="flex flex-col">
-                                        @if ($itom->discount > 0)
-                                            <div class="flex items-center">
-                                                <p class="small-text line-through font-semibold">
-                                                    {{ number_format($itom->price, 0, ',', ' ') }} тм
-                                                </p>
-                                                <div
-                                                    class="bg-[var(--price-color)] text-[var(--white-color)] flex justify-center items-center p-[3px] rounded-tl-[10px] rounded-tr-[5px] rounded-br-[10px] rounded-bl-[5px] ml-[4px]">
-                                                    <p class="small-text">-{{ $itom->discount }}%</p>
-                                                </div>
+                    <div
+                        class="animate-block p-[30px] w-full h-[250px] sm:w-[50%] 2xl:w-[25%] flex flex-col bg-white shadow hover:shadow-lg hover:-translate-y-1 transition-transform duration-300">
+                        
+                        {{-- Титульный текст на текущем языке --}}
+                        <p style="word-break: break-word; word-wrap: break-word; white-space: normal; max-width: 100%;"
+                            class="base-text mb-[15px] text-[var(--comment-color)] font-semibold">
+                            {{ $itom->{'title_' . app()->getLocale()} ?? 'Название не указано' }}
+                        </p>
+                
+                        @php
+                            $categories = $itom->{'categories_' . app()->getLocale()} ?? [];
+                        @endphp
+                
+                        {{-- Категории --}}
+                        @if (!empty($categories))
+                            <ul style="word-break: break-word; word-wrap: break-word; white-space: normal; max-width: 100%;"
+                                class="ml-[10px] text-[var(--accent-color)] small-text font-semibold">
+                                @foreach ($categories as $category)
+                                    @if (!empty($category))
+                                        <li class="list-marker">{{ $category }}</li>
+                                    @endif
+                                @endforeach
+                            </ul>
+                        @endif
+                
+                        <div class="flex items-end justify-between mt-auto">
+                            <div class="number text-[var(--comment-color)] font-semibold">
+                                {{ str_pad($index + 1, 2, '0', STR_PAD_LEFT) }}
+                            </div>
+                            {{-- Цена и скидка --}}
+                            <div>
+                                <div class="flex flex-col">
+                                    @if ($itom->discount > 0)
+                                        <div class="flex items-center">
+                                            <p class="small-text line-through font-semibold">
+                                                {{ number_format($itom->price, 0, ',', ' ') }} тм
+                                            </p>
+                                            <div
+                                                class="bg-[var(--price-color)] text-[var(--white-color)] flex justify-center items-center p-[3px] rounded-tl-[10px] rounded-tr-[5px] rounded-br-[10px] rounded-bl-[5px] ml-[4px]">
+                                                <p class="small-text">-{{ $itom->discount }}%</p>
                                             </div>
-                                        @endif
-                                        <p class="number font-semibold">
-                                            {{ number_format($itom->price - ($itom->price * $itom->discount) / 100, 0, ',', ' ') }}
-                                            тм
-                                        </p>
-                                    </div>
+                                        </div>
+                                    @endif
+                                    <p class="number font-semibold">
+                                        {{ number_format($itom->price - ($itom->price * $itom->discount) / 100, 0, ',', ' ') }} тм
+                                    </p>
                                 </div>
                             </div>
                         </div>
-                    @endforeach
+                    </div>
+                @endforeach
+                
 
                 </div>
             </div>
@@ -138,7 +136,7 @@
             <div class="flex justify-center lg:justify-start">
                 <span class="title-2 text-[var(--accent-color)] mr-[20px] hidden lg:block">//</span>
                 <div class="max-w-[860px] ">
-                    <p class="title-2 font-semibold">Этапы реализаций</p>
+                    <p class="title-2 font-semibold">{{ __('messages.implementation') }}</p>
                 </div>
             </div>
             <div class="flex justify-center">
@@ -185,15 +183,21 @@
             <div class="w-full flex flex-col sm:flex-row">
                 <div class="flex items-center justify-center lg:justify-start">
                     <span class="title-2 text-[var(--accent-color)] mr-[15px] hidden lg:blog">//</span>
-                    <p class="title-2 font-semibold">Наши проекты</p>
+                    <p class="title-2 font-semibold">{{ __('messages.our_projects') }}</p>
                 </div>
                 <div class="flex sm:ml-auto text-[var(--accent-color)]">
                     <div class=" flex gap-[40px] z-0 lg:mt-0 w-full lg:w-auto">
                         <button class="mr-auto slider-button prev">
-                            <i class="fa-solid fa-arrow-left"></i>
+                            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512" width="15" height="15" fill="black">
+                                <!--!Font Awesome Free 6.7.2 by @fontawesome-->
+                                <path d="M9.4 233.4c-12.5 12.5-12.5 32.8 0 45.3l160 160c12.5 12.5 32.8 12.5 45.3 0s12.5-32.8 0-45.3L109.2 288 416 288c17.7 0 32-14.3 32-32s-14.3-32-32-32l-306.7 0L214.6 118.6c12.5-12.5 12.5-32.8 0-45.3s-32.8-12.5-45.3 0l-160 160z"/>
+                            </svg>  
                         </button>
                         <button class="slider-button next">
-                            <i class="fa-solid fa-arrow-right"></i>
+                            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512" width="15" height="15" fill="black">
+                                <!--!Font Awesome Free 6.7.2 by @fontawesome-->
+                                <path d="M438.6 278.6c12.5-12.5 12.5-32.8 0-45.3l-160-160c-12.5-12.5-32.8-12.5-45.3 0s-12.5 32.8 0 45.3L338.8 224 32 224c-17.7 0-32 14.3-32 32s14.3 32 32 32l306.7 0L233.4 393.4c-12.5 12.5-12.5 32.8 0 45.3s32.8 12.5 45.3 0l160-160z"/>
+                            </svg> 
                         </button>
                     </div>
                 </div>
@@ -227,7 +231,10 @@
                                         <a href="{{ route('project.show', $projectstores->id) }}">
                                             <div
                                                 class="hover-button w-[100px] text-[var(--white-color)] h-[100px] flex justify-center items-center bg-[var(--button-color)]">
-                                                <i class="fa-solid fa-arrow-right"></i>
+                                                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512" width="15" height="15" fill="black">
+                                                    <!--!Font Awesome Free 6.7.2 by @fontawesome-->
+                                                    <path d="M438.6 278.6c12.5-12.5 12.5-32.8 0-45.3l-160-160c-12.5-12.5-32.8-12.5-45.3 0s-12.5 32.8 0 45.3L338.8 224 32 224c-17.7 0-32 14.3-32 32s14.3 32 32 32l306.7 0L233.4 393.4c-12.5 12.5-12.5 32.8 0 45.3s32.8 12.5 45.3 0l160-160z"/>
+                                                </svg> 
                                             </div>
                                         </a>
                                     </div>

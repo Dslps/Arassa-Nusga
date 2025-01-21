@@ -263,7 +263,7 @@
                                 <div class="w-1/3">
                                     <label class="block mb-1 font-semibold">Категория 1 (TM):</label>
                                     <input type="text" name="categories_tm[]" placeholder="Введите категорию 1 (TM)"
-                                        class="border p-2 w-full" maxlength="50">
+                                        class="border p-2 w-full" maxlength="80">
                                     <p class="text-xs text-gray-500 mt-1">80 символов осталось</p>
                                 </div>
                             </div>
@@ -487,7 +487,7 @@
                                     <label class="block mb-1 font-semibold">Категория 2 (EN):</label>
                                     <input type="text" name="categories_en[]" placeholder="Введите категорию 2 (EN)"
                                         class="border p-2 w-full" maxlength="100">
-                                    <p class="text-xs text-gray-500 mt-1">30 символов осталось</p>
+                                    <p class="text-xs text-gray-500 mt-1">100 символов осталось</p>
                                 </div>
                                 <div class="w-1/3">
                                     <label class="block mb-1 font-semibold">Категория 2 (TM):</label>

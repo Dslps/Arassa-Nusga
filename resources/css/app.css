@@ -2,6 +2,15 @@
 @tailwind components;
 @tailwind utilities;
 @import "flowbite";
+@import '@fortawesome/fontawesome-free/css/all.min.css';
+
+
+@font-face {
+    font-family: 'Onest';
+    src: url('../fonts/Onest-VariableFont_wght.ttf') format('truetype');
+    font-weight: 100 900;
+    font-style: normal;
+}
 
 
 :root{
@@ -17,11 +26,8 @@
 html {
     scroll-behavior: smooth;
 }
-header {
-    position: fixed;
-    z-index: auto; 
-    will-change: transform; 
-}
+
+
 
 .title{
     font-size: 55px;

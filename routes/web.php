@@ -33,18 +33,20 @@ use App\Http\Middleware\SetLocale;
 Route::get('/settings', function () {return view('settings');})->name('settings');
 Route::middleware([SetLocale::class])->group(function () {
     Route::get('/', ([HomeController::class, 'index']))->name('home');
+    Route::get('/about-us', ([AboutUsController::class, 'index']))->name('about-us');
+    Route::get('/project', ([ProjectController::class, 'index']))->name('project');
+    Route::get('/blog', ([BlogController::class, 'index']))->name('blog');
+    Route::get('/bitrix24', ([Bitrix24Controller::class, 'index']))->name('bitrix24');
+    Route::get('/mobile', ([MobileController::class, 'index']))->name('mobile');
+    Route::get('/web-development', ([WebDevelopmentController::class, 'index']))->name('web-development');
+    Route::get('/antiviruses', ([AntivirusesController::class, 'index']))->name('antiviruses');
+    Route::get('/contact', ([ContactController::class, 'index']))->name('contact');
     Route::get('language/{locale}', [LanguageController::class, 'switchLanguage'])->name('language.switch');
 });
 
 
 
-Route::get('/about-us', ([AboutUsController::class, 'index']))->name('about-us');
-Route::get('/project', ([ProjectController::class, 'index']))->name('project');
-Route::get('/blog', ([BlogController::class, 'index']))->name('blog');
-Route::get('/bitrix24', ([Bitrix24Controller::class, 'index']))->name('bitrix24');
-Route::get('/mobile', ([MobileController::class, 'index']))->name('mobile');
-Route::get('/web-development', ([WebDevelopmentController::class, 'index']))->name('web-development');
-Route::get('/antiviruses', ([AntivirusesController::class, 'index']))->name('antiviruses');
+
 
 // роуты логина
 Route::get('/login', [AuthController::class, 'showLoginForm'])->name('login');
@@ -202,7 +204,6 @@ Route::get('/project-show/{id}', [ProjectDashController::class, 'projectShow'])-
 
 // контакты
 Route::get('contact-dash', [ContactDashController::class, 'index'])->name('contact-dash');
-Route::get('/contact', ([ContactController::class, 'index']))->name('contact');
 Route::post('/contact', [ContactController::class, 'submit'])->name('contact.submit');
 
 Route::prefix('dashboard')->middleware(['auth'])->group(function () {
