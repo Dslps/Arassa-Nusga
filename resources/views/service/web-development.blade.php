@@ -49,7 +49,7 @@
         </div>
     </div>
     {{-- ------------------------------------------------------------------------- --}}
-    <div class="w-full px-0 lg:px-[60px] 2xl:px-[100px] m-auto mt-[80px] xl:mt-[80px] 2xl:mt-[130px] ">
+    <div class="w-full px-0 lg:px-[60px] 2xl:px-[100px] m-auto pt-[80px] xl:pt-[80px] 2xl:pt-[130px] pb-[60px] bg-[var(--support-color)]">
         <div class="max-w-[2000px] m-auto">
             <div class="flex items-start p-[30px] lg:p-0 text-center lg:text-start">
                 <span class="title-2 text-[var(--accent-color)] mr-[15px] hidden lg:block">//</span>
@@ -99,7 +99,7 @@
                         @endif
                 
                         <div class="flex items-end justify-between mt-auto">
-                            <div class="number text-[var(--comment-color)] font-semibold">
+                            <div class="number text-[#75757558] font-semibold">
                                 {{ str_pad($index + 1, 2, '0', STR_PAD_LEFT) }}
                             </div>
                             {{-- Цена и скидка --}}
@@ -131,7 +131,7 @@
         </div>
     </div>
     {{-- -------------------------------------Этапы разработки--------------------------------------- --}}
-    <div class="w-full px-0 sm:px-[30px] lg:px-[60px] 2xl:px-[100px] m-auto mt-[80px] xl:mt-[80px] 2xl:mt-[130px] ">
+    <div class="w-full px-0 sm:px-[30px] lg:px-[60px] 2xl:px-[100px] m-auto mt-[50px] ">
         <div class="max-w-[2000px] m-auto">
             <div class="flex justify-center lg:justify-start">
                 <span class="title-2 text-[var(--accent-color)] mr-[20px] hidden lg:block">//</span>
@@ -188,15 +188,13 @@
                 <div class="flex sm:ml-auto text-[var(--accent-color)]">
                     <div class=" flex gap-[40px] z-0 lg:mt-0 w-full lg:w-auto">
                         <button class="mr-auto slider-button prev">
-                            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512" width="15" height="15" fill="black">
-                                <!--!Font Awesome Free 6.7.2 by @fontawesome-->
-                                <path d="M9.4 233.4c-12.5 12.5-12.5 32.8 0 45.3l160 160c12.5 12.5 32.8 12.5 45.3 0s12.5-32.8 0-45.3L109.2 288 416 288c17.7 0 32-14.3 32-32s-14.3-32-32-32l-306.7 0L214.6 118.6c12.5-12.5 12.5-32.8 0-45.3s-32.8-12.5-45.3 0l-160 160z"/>
-                            </svg>  
+                            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512" width="15" height="15" fill="#2f3d7c">
+                                <path d="M9.4 233.4c-12.5 12.5-12.5 32.8 0 45.3l128 128c12.5 12.5 32.8 12.5 45.3 0s12.5-32.8 0-45.3L109.3 288 480 288c17.7 0 32-14.3 32-32s-14.3-32-32-32l-370.7 0 73.4-73.4c12.5-12.5 12.5-32.8 0-45.3s-32.8-12.5-45.3 0l-128 128z"/>
+                            </svg> 
                         </button>
                         <button class="slider-button next">
-                            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512" width="15" height="15" fill="black">
-                                <!--!Font Awesome Free 6.7.2 by @fontawesome-->
-                                <path d="M438.6 278.6c12.5-12.5 12.5-32.8 0-45.3l-160-160c-12.5-12.5-32.8-12.5-45.3 0s-12.5 32.8 0 45.3L338.8 224 32 224c-17.7 0-32 14.3-32 32s14.3 32 32 32l306.7 0L233.4 393.4c-12.5 12.5-12.5 32.8 0 45.3s32.8 12.5 45.3 0l160-160z"/>
+                            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512" width="15" height="15" fill="#2f3d7c">
+                                <path d="M502.6 278.6c12.5-12.5 12.5-32.8 0-45.3l-128-128c-12.5-12.5-32.8-12.5-45.3 0s-12.5 32.8 0 45.3L402.7 224 32 224c-17.7 0-32 14.3-32 32s14.3 32 32 32l370.7 0-73.4 73.4c-12.5 12.5-12.5 32.8 0 45.3s32.8 12.5 45.3 0l128-128z"/>
                             </svg> 
                         </button>
                     </div>
@@ -208,7 +206,7 @@
                     <div class="carousel-project flex justify-start mt-[50px]">
                         {{-- 1 карточка --}}
                         @foreach ($projectstore as $projectstores)
-                            <div class="carousel-item rounded-[10px] overflow-hidden mx-[10px] lg:w-[500px] w-[400px]">
+                            <div class="carousel-item overflow-hidden mx-[10px] lg:w-[500px] w-[400px]">
                                 <div class="flex flex-col">
                                     @if ($projectstores->photos)
                                         <div class="overflow-hidden w-full h-[350px]">
@@ -230,8 +228,8 @@
                                         </div>
                                         <a href="{{ route('project.show', $projectstores->id) }}">
                                             <div
-                                                class="hover-button w-[100px] text-[var(--white-color)] h-[100px] flex justify-center items-center bg-[var(--button-color)]">
-                                                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512" width="15" height="15" fill="black">
+                                                class="hover-button w-[100px] text-[var(--white-color)] h-[100px] flex justify-center items-center bg-[#D7D7D7]">
+                                                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512" width="15" height="15" fill="#2f3d7c">
                                                     <!--!Font Awesome Free 6.7.2 by @fontawesome-->
                                                     <path d="M438.6 278.6c12.5-12.5 12.5-32.8 0-45.3l-160-160c-12.5-12.5-32.8-12.5-45.3 0s-12.5 32.8 0 45.3L338.8 224 32 224c-17.7 0-32 14.3-32 32s14.3 32 32 32l306.7 0L233.4 393.4c-12.5 12.5-12.5 32.8 0 45.3s32.8 12.5 45.3 0l160-160z"/>
                                                 </svg> 
@@ -248,4 +246,6 @@
         </div>
 
     </div>
+
+    <div class="w-full h-[200px]"></div>
 @endsection

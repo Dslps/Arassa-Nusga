@@ -41,7 +41,7 @@
         </div>
     </div>
     {{-- ----------------------------------------------------------- --}}
-    <div class="w-full px-0 lg:px-[60px] 2xl:px-[100px] m-auto mt-[80px] xl:mt-[80px] 2xl:mt-[130px] ">
+    <div class="w-full px-0 lg:px-[60px] 2xl:px-[100px] m-auto pt-[80px] xl:pt-[80px] 2xl:pt-[130px] pb-[80px] bg-[var(--support-color)]">
         <div class="max-w-[2000px] m-auto">
             <div class="flex items-start p-[30px] lg:p-0  text-center lg:text-start">
                 <span class="title-2 text-[var(--accent-color)] mr-[15px] hidden lg:block">//</span>
@@ -75,7 +75,7 @@
                             </ul>
 
                             <div class="flex items-end justify-between mt-auto">
-                                <div class="number text-[var(--comment-color)] font-semibold">{{ $index + 1 }}</div>
+                                <div class="number text-[#75757558] font-semibold">{{ $index + 1 }}</div>
                             </div>
                         </div>
                     @endforeach
@@ -85,7 +85,7 @@
         </div>
     </div>
     {{-- ----------------------------------Этапы разработки----------------------------------- --}}
-    <div class="w-full px-[30px] lg:px-[60px] 2xl:px-[100px] m-auto mt-[80px] xl:mt-[80px] 2xl:mt-[130px] ">
+    <div class="w-full px-[30px] lg:px-[60px] 2xl:px-[100px] m-auto mt-[50px] ">
         <div class="max-w-[2000px] m-auto">
             <div class="flex justify-center lg:justify-start">
                 <span class="title-2 text-[var(--accent-color)] mr-[20px] hidden lg:block">//</span>
@@ -128,4 +128,6 @@
             </div>
         </div>
     </div>
+
+    <div class="w-full h-[200px]"></div>
 @endsection

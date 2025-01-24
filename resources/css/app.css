@@ -2,8 +2,6 @@
 @tailwind components;
 @tailwind utilities;
 @import "flowbite";
-@import '@fortawesome/fontawesome-free/css/all.min.css';
-
 
 @font-face {
     font-family: 'Onest';
@@ -26,9 +24,6 @@
 html {
     scroll-behavior: smooth;
 }
-
-
-
 .title{
     font-size: 55px;
     font-weight: 600;
@@ -45,7 +40,7 @@ html {
     line-height: 22px;
 }
 .base-text{
-    font-size: 18px;
+    font-size: 15px;
     font-weight: 600;
 }
 .small-text{
@@ -54,7 +49,7 @@ html {
 /* элементы создающие эффект шторы */
 .overlay-wrapper {
     position: relative;
-    background-color: var(--white-color);
+    background-color: var(--support-color);
     overflow: hidden;
 }
 .overlay1, .overlay2, .overlay3 {
@@ -154,19 +149,9 @@ body {
     position: relative;
 }
 .carousel-prev, .carousel-next {
-    color: white;
     display: flex;
     align-items: center;
     justify-content: center;
-    transition: background-color 0.3s ease;
-}
-
-.carousel-prev:focus, .carousel-next:focus {
-    outline: none;
-}
-
-.carousel-prev:hover, .carousel-next:hover {
-    background-color: rgba(0, 0, 0, 0.7);  
 }
 @keyframes shadowPulse {
     0%, 100% {
@@ -194,23 +179,52 @@ body {
     @apply relative lg:pl-[5px] pl-[0px] before:content-['-'] before:absolute before:left-[-10px] before:top-0
   }
   .button-service{
-    @apply w-[55px] h-[55px] bg-[var(--white-color)] rounded-full flex justify-center items-center text-[var(--accent-color)];
+    @apply w-[55px] h-[55px] bg-[var(--white-color)] hover:bg-[var(--button-color)] transition duration-300 rounded-full flex justify-center items-center shadow-[0_5px_10px_rgba(0,0,0,0.1)] group-hover:shadow-[0_5px_10px_rgba(0,0,0,0.3)];
   }
+  .button-service:hover svg {
+    fill: white; /* При наведении на кнопку SVG меняет цвет на белый */
+}
   .hover-button{
-    @apply hover:bg-[#242d50] duration-300;
+    @apply hover:bg-[var(--button-color)] duration-300;
   }
+  .hover-button:hover svg{
+    fill: white;
+  }
+  .contact-submit {
+    @apply transition duration-200 text-white py-3 px-5 mt-5 border-b-[2px] small-text flex items-center relative;
+}
+
+.contact-submit::after {
+    content: '';
+    position: absolute;
+    left: 0;
+    right: 0;
+    bottom: -2px;
+    height: 2px;
+    background: rgba(255, 255, 255, 0.8);
+    box-shadow: 0 4px 10px rgba(255, 255, 255, 0.8); 
+    transition: all 0.2s ease-in-out;
+    z-index: -1; 
+}
+.contact-submit:hover::after {
+    box-shadow: 0 10px 15px rgba(255, 255, 255, 1); 
+}
+
+
   /* -------------------------------------------------------- */
 .slider-button{
-    @apply relative top-0 end-0 flex items-center justify-center w-[50px] h-[50px] rounded-full hover:shadow-[0_5px_10px_var(--accent-color)] px-4 cursor-pointer  focus:outline-none duration-300;
+    @apply relative top-0 end-0 flex items-center justify-center w-[50px] h-[50px] rounded-full shadow-[0_5px_10px_rgba(0,0,0,0.1)] hover:bg-[var(--button-color)] transition-colors duration-300 hover:shadow-[0_5px_10px_rgba(0,0,0,0.3)] px-4 cursor-pointer focus:outline-none;
 }
-  
+.slider-button:hover svg{
+    fill: white;
+}
 /* ---------------------------------- */
   @media (max-width: 1400px){
     .title{
         font-size: 50px;
     }
     .title-2{
-        font-size: 40px;
+        font-size: 36px;
     }
     .number{
         font-size: 22px;

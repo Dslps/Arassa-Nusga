@@ -99,7 +99,7 @@ return [
     'pro32_comment' => 'PRO32 — IT expert since 2005, previously exclusive representative of ESET in the CIS. Provides modern technologies for business and home.',
     // ----------------------------------------------------------------------
     // contact
-    'contact_title' => 'Ashgabat',
+    'contact_title' => 'Write to us',
     'city' => 'Arzuw Business Center, G. Kulieva St. (Bypass), Ashgabat, Turkmenistan',
     'location_contact' => 'Phon: +99312754480 / +99361648605',
     'phone' => 'Our mobile app development capabilities',

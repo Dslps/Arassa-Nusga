@@ -47,7 +47,7 @@
         </div>
     </div>
     {{-- -------------------------------------------------- --}}
-    <div class="w-full px-0 lg:px-[60px] 2xl:px-[100px] m-auto mt-[80px] xl:mt-[80px] 2xl:mt-[130px] ">
+    <div class="w-full px-0 lg:px-[60px] 2xl:px-[100px] m-auto pt-[80px] xl:pt-[80px] 2xl:pt-[130px] bg-[var(--support-color)]">
         <div class="max-w-[2000px] m-auto">
             <div class="flex items-start p-[30px] lg:p-0 text-center lg:text-start">
                 <span class="title-2 text-[var(--accent-color)] mr-[15px] hidden lg:block">//</span>
@@ -96,7 +96,7 @@
                         @endif
                 
                         <div class="flex items-end justify-between mt-auto">
-                            <div class="number text-[var(--comment-color)] font-semibold">
+                            <div class="number text-[#75757558] font-semibold">
                                 {{ str_pad($index + 1, 2, '0', STR_PAD_LEFT) }}
                             </div>
                             {{-- Цена и скидка --}}
@@ -165,7 +165,7 @@
                             <!-- Нижняя Часть Карточки с Номером и Ценой -->
                             <div class="flex items-end justify-between mt-auto">
                                 <!-- Номер Коробки -->
-                                <div class="number text-[var(--comment-color)] font-semibold">{{ $index + 1 }}</div>
+                                <div class="number text-[#75757558] font-semibold">{{ $index + 1 }}</div>
                                 <!-- Ценообразование -->
                                 <div>
                                     <div class="flex flex-col">
@@ -237,7 +237,7 @@
                             <!-- Нижняя Часть Карточки с Номером и Ценой -->
                             <div class="flex items-end justify-between mt-auto">
                                 <!-- Номер Коробки -->
-                                <div class="number text-[var(--comment-color)] font-semibold">{{ $index + 1 }}</div>
+                                <div class="number text-[#75757558] font-semibold">{{ $index + 1 }}</div>
                                 <!-- Ценообразование -->
                                 <div>
                                     <div class="flex flex-col">
@@ -272,4 +272,5 @@
         </div>
     </div>
     {{-- ---------------------------------------------------------------------------------------------------- --}}
+    <div class="w-full h-[200px] bg-[var(--support-color)]"></div>
 @endsection

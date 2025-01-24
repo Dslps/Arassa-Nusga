@@ -87,9 +87,9 @@
             <div>
                 <p class="title-2 pl-0 lg:pl-4 lg:text-start text-center mb-[60px]">{{ __('messages.principles') }}</p>
             </div>
-            <div class="grid lg:text-start text-center grid-cols-1 sm:grid-cols-2 lg:grid-cols-4">
+            <div class="grid gap-[30px] lg:text-start text-center grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 2xl:grid-cols-4">
                 @forelse ($principles as $principle)
-                <div class="flex flex-col p-4">
+                <div class="flex flex-col bg-[var(--support-color)] p-[30px]">
                     <!-- Изображение -->
                     @if($principle->photos)
                     <img class="lg:w-[80px] w-[50px] lg:h-[80px] h-[50px] object-contain lg:mx-0 mx-auto" src="{{ asset('storage/' . $principle->photos) }}" alt="{{ $principle->{'title_' . app()->getLocale()} }}">
@@ -116,7 +116,7 @@
     
     
     {{-- ------------------------------------------О нас-------------------------------------------- --}}
-    <div class="w-full mx-auto max-w-[2000px] m-auto flex flex-col lg:flex-row mt-[115px]">
+    <div class="w-full mx-auto max-w-[2000px] m-auto flex flex-col lg:flex-row mt-[30px] py-0 xl:py-[100px] bg-[var(--support-color)]">
         <div class="xl:flex hidden justify-center w-full lg:w-[850px] object-cover overflow-hidden relative">
             @if (!empty($companyDescriptions->first()->photos)) 
                 <img src="{{ asset('storage/' . explode(',', $companyDescriptions->first()->photos)[0]) }}" 
@@ -126,9 +126,11 @@
         </div>
         
 
-        <div class="relarive xl:w-max w-full relative lg:ml-auto">
-            <div
-                class=" w-full xl:w-[400px] h-max xl:h-[450px] bg-[var(--accent-color)] text-[var(--white-color)] p-10 relative xl:absolute xl:left-[-400px] left-0 3xl:bottom-[30px] bottom-0 z-0">
+        <div class="relarive xl:w-max w-full relative lg:ml-auto xl:pl-[100px]">
+            <div class="hidden xl:block xl:absolute left-[70px] top-[25px]">
+                <span class="text-[84px] text-[var(--accent-color)]">//</span>
+            </div>
+            <div class=" w-full xl:w-[400px] h-max xl:h-[450px] bg-[var(--accent-color)] text-[var(--white-color)] p-10 relative xl:absolute xl:left-[-400px] left-0 3xl:bottom-[30px] bottom-0 z-0">
                 <div class="w-full h-full flex flex-col">
                     <div class="mb-auto">
                         <!-- Верхний текст -->
@@ -168,9 +170,9 @@
             <div class="w-full xl:max-w-[800px]  mr-0 lg:mr-[100px] text-[var(--template-color)] p-10">
                 @foreach ($companyDescriptions as $description)
 
-                    <p class="title-2 max-w-[430px] mb-[40px] font-semibold break-words">{{ $description->{'title_' . app()->getLocale()} }}</p>
+                    <p class="title-2 max-w-[430px] leading-[50px] mb-[40px] font-semibold break-words">{{ $description->{'title_' . app()->getLocale()} }}</p>
             
-                    <ul class="ml-[10px] base-text space-y-[15px]">
+                    <ul class="ml-[10px] text-[var(--comment-color)] base-text space-y-[15px]">
                         @foreach (preg_split('/\r\n|\r|\n/', $description->{'description_' . app()->getLocale()}) as $item)
                             @if (trim($item)) <!-- Игнорируем пустые строки -->
                                 <li class="list-marker break-words">{{ $item }}</li>
@@ -218,27 +220,25 @@
     {{-- --------------------НАШИ ПАРТНЕРЫ------------------ --}}
     @include('include.partners')
     {{-- ----------------------Сертификаты-------------------------- --}}
-    <div class="w-full max-w-[2000px] mx-auto px-0 lg:px-[60px] 2xl:px-[100px] mt-[50px] lg:mt-[90px]">
+    <div class="w-full max-w-[2000px] mx-auto px-0 lg:px-[60px] 2xl:px-[100px] pb-[200px] mt-[50px] lg:mt-[90px] bg-[var(--support-color)]">
         <div class="flex sm:flex-row flex-col justify-between">
             <div class="flex items-center p-[30px]">
                 <span class="title-2 text-[var(--accent-color)] mr-[15px] hidden lg:block">//</span>
                 <p class="title-2 font-semibold xl:text-start lg:m-0 m-auto">{{ __('messages.our_certificates') }}</p>
             </div>
             <div class="flex items-center gap-[50px] sm:mt-0 mx-auto sm:mx-0 md:pr-[30px]">
-                <button type="button" class="carousel-prev-certificates slider-button group">
+                <button type="button" class="carousel-prev-certificates slider-button group bg-white">
                     <span>
-                        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512" width="15" height="15" fill="black">
-                            <!--!Font Awesome Free 6.7.2 by @fontawesome-->
-                            <path d="M9.4 233.4c-12.5 12.5-12.5 32.8 0 45.3l160 160c12.5 12.5 32.8 12.5 45.3 0s12.5-32.8 0-45.3L109.2 288 416 288c17.7 0 32-14.3 32-32s-14.3-32-32-32l-306.7 0L214.6 118.6c12.5-12.5 12.5-32.8 0-45.3s-32.8-12.5-45.3 0l-160 160z"/>
-                        </svg>  
+                        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512" width="13" height="13" fill="#2f3d7c">
+                            <path d="M9.4 233.4c-12.5 12.5-12.5 32.8 0 45.3l128 128c12.5 12.5 32.8 12.5 45.3 0s12.5-32.8 0-45.3L109.3 288 480 288c17.7 0 32-14.3 32-32s-14.3-32-32-32l-370.7 0 73.4-73.4c12.5-12.5 12.5-32.8 0-45.3s-32.8-12.5-45.3 0l-128 128z"/>
+                        </svg>
                         <span class="sr-only">Previous</span>
                     </span>
                 </button>
-                <button type="button" class="carousel-next-certificates slider-button group">
+                <button type="button" class="carousel-next-certificates slider-button group bg-white">
                     <span>
-                        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512" width="15" height="15" fill="black">
-                            <!--!Font Awesome Free 6.7.2 by @fontawesome-->
-                            <path d="M438.6 278.6c12.5-12.5 12.5-32.8 0-45.3l-160-160c-12.5-12.5-32.8-12.5-45.3 0s-12.5 32.8 0 45.3L338.8 224 32 224c-17.7 0-32 14.3-32 32s14.3 32 32 32l306.7 0L233.4 393.4c-12.5 12.5-12.5 32.8 0 45.3s32.8 12.5 45.3 0l160-160z"/>
+                        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512" width="13" height="13" fill="#2f3d7c">
+                            <path d="M502.6 278.6c12.5-12.5 12.5-32.8 0-45.3l-128-128c-12.5-12.5-32.8-12.5-45.3 0s-12.5 32.8 0 45.3L402.7 224 32 224c-17.7 0-32 14.3-32 32s14.3 32 32 32l370.7 0-73.4 73.4c-12.5 12.5-12.5 32.8 0 45.3s32.8 12.5 45.3 0l128-128z"/>
                         </svg> 
                         <span class="sr-only">Next</span>
                     </span>

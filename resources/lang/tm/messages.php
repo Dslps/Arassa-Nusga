@@ -96,7 +96,7 @@ return [
     'pro32_comment' => 'PRO32 - 2005-nji ýyldan bäri IT hünärmeni, ozal GDA-da ESET-iň aýratyn wekili. Iş we öý üçin häzirki zaman tehnologiýalary bilen üpjün edýär.',
     // ----------------------------------------------------------------------
     // contact
-    'contact_title' => 'Aşgabat',
+    'contact_title' => 'Bize ýazyň',
     'city' => 'Iş merkezi Arzuw, köç. G. Kuliýewa (Aýlanyp geçmek), Aşgabat, Türkmenistan',
     'location_contact' => 'Tel: +99312754480 / +99361648605',
     'phone' => 'Our mobile app development capabilities',

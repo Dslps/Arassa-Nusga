@@ -42,27 +42,20 @@ Route::middleware([SetLocale::class])->group(function () {
     Route::get('/antiviruses', ([AntivirusesController::class, 'index']))->name('antiviruses');
     Route::get('/contact', ([ContactController::class, 'index']))->name('contact');
     Route::get('language/{locale}', [LanguageController::class, 'switchLanguage'])->name('language.switch');
+    Route::get('/project-show/{id}', [ProjectDashController::class, 'projectShow'])->name('project.show');
 });
-
-
-
-
 
 // роуты логина
 Route::get('/login', [AuthController::class, 'showLoginForm'])->name('login');
 Route::post('/login', [AuthController::class, 'login']);
 Route::post('/logout', [AuthController::class, 'logout'])->name('logout');
 
-
-
-
 // защита роутов от внешних входов
+Route::middleware(['auth'])->group(function () {
 
 Route::get('/admin', [DashboardController::class, 'index'])->middleware('auth')->name('dashboard');
 Route::post('/admin/save-partners', [DashboardController::class, 'savePartners'])->middleware('auth')->name('partners.savePartner');
 Route::delete('/admin/delete-partners/{id}', [DashboardController::class, 'deletePartner'])->middleware('auth')->name('partners.deletePartner');
-
-Route::middleware(['auth'])->group(function () {
 // домашняя страница админ панели
 Route::get('home-dashes', [HomeDashController::class, 'index'])->name('home-dash.index');
 // Route::get('home-dashes/create', [HomeDashController::class, 'create'])->name('home-dash.create');
@@ -198,7 +191,7 @@ Route::post('/project/project', [ProjectDashController::class, 'store'])->name('
 Route::post('/project-store', [ProjectDashController::class, 'projectStore'])->name('dashboard.project.store');
 Route::put('/project-store/{id}', [ProjectDashController::class, 'projectUpdate'])->name('dashboard.project.update');
 Route::delete('/progect-store/{id}', [ProjectDashController::class, 'projectDestroy'])->name('dashboard.project.destroy');
-Route::get('/project-show/{id}', [ProjectDashController::class, 'projectShow'])->name('project.show');
+
 
 
 

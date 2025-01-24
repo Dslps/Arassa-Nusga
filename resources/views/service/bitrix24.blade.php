@@ -51,7 +51,7 @@
         </div>
     </div>
     {{-- ------------------------------------спискок предлагаемых услуг с ценой------------------------------------------- --}}
-    <div class="w-full px-0 lg:px-[60px] 2xl:px-[100px] m-auto mt-[80px] xl:mt-[80px] 2xl:mt-[130px] ">
+    <div class="w-full px-0 lg:px-[60px] 2xl:px-[100px] m-auto pt-[80px] xl:pt-[80px] 2xl:pt-[130px] bg-[var(--support-color)]">
         <div class="max-w-[2000px] m-auto">
             <div class="flex">
                 <span class="title-2 text-[var(--accent-color)] mr-[20px] lg:block hidden">//</span>
@@ -99,7 +99,7 @@
 
                             <div class="flex items-end justify-between mt-auto">
                                 {{-- Номер --}}
-                                <div class="number text-[var(--comment-color)] font-semibold">
+                                <div class="number text-[#75757558] font-semibold">
                                     {{ str_pad($index + 1, 2, '0', STR_PAD_LEFT) }}
                                 </div>
 
@@ -135,9 +135,9 @@
         </div>
     </div>
     {{-- ------------------------------------------Битрикс коробка--------------------------------------------- --}}
-    <div class="w-full px-0 lg:px-[60px] 2xl:px-[100px] m-auto mt-[80px] xl:mt-[80px] 2xl:mt-[130px] ">
+    <div class="w-full px-0 lg:px-[60px] 2xl:px-[100px] m-auto pt-[80px] pb-[60px] xl:pt-[60px] bg-[var(--support-color)]">
         <div class="max-w-[2000px] m-auto">
-            <div class="flex flex-col lg:flex-row mt-[50px] lg:mt-[60px] 2xl:mt-[100px]">
+            <div class="flex flex-col lg:flex-row">
                 {{--  1 карточка --}}
                 <div class="animate-block flex flex-wrap w-full justify-start">
                     <div
@@ -173,7 +173,7 @@
                             <!-- Нижняя Часть Карточки с Номером и Ценой -->
                             <div class="flex items-end justify-between mt-auto">
                                 <!-- Номер Коробки -->
-                                <div class="number text-[var(--comment-color)] font-semibold">{{ $index + 1 }}</div>
+                                <div class="number text-[#75757558] font-semibold">{{ $index + 1 }}</div>
                                 <!-- Ценообразование -->
                                 <div>
                                     <div class="flex flex-col">
@@ -208,7 +208,7 @@
         </div>
     </div>
     {{-- ----------------------------------------------------------Этапы реализаций------------------------------------------------------- --}}
-    <div class="w-full px-0 lg:px-[60px] 2xl:px-[100px] m-auto mt-[80px] xl:mt-[80px] 2xl:mt-[130px] ">
+    <div class="w-full px-0 lg:px-[60px] 2xl:px-[100px] m-auto mt-[50px]">
         <div class="max-w-[2000px] m-auto">
             <div class="flex justify-center lg:justify-start">
                 <span class="title-2 text-[var(--accent-color)] mr-[20px] hidden lg:block">//</span>
@@ -239,7 +239,7 @@
                                 </ul>
                             @endif
                             <!-- Нумерация этапа -->
-                            <p class="number font-semibold text-[var(--accent-color)] mt-auto">
+                            <p class="number font-semibold text-[#75757558] mt-auto">
                                 {{ str_pad($index + 1, 2, '0', STR_PAD_LEFT) }}
                             </p>
                         </div>
@@ -250,4 +250,6 @@
 
         </div>
     </div>
+
+    <div class="w-full h-[200px]"></div>
 @endsection
